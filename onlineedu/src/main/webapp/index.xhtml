@@ -1,23 +1,15 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <p:carousel numVisible="1" effect="easeInStrong" headerText="Variants" responsive="true" circular="true">
-            <p:tab title="Plain xml">
-                <p>Hello from Facelets/JSF!</p>
-            </p:tab>
-            <p:tab title="CDI">
-                <p>Hello from #{demoBackingBean.greetings}</p>
-            </p:tab>
-            <p:tab title="CDI+EJB">
-                <p>Hello from <h:outputText value="#{demoBackingBean.greetingsFromService}" /></p>
-            </p:tab>
-        </p:carousel>
-    </h:body>
-</html>
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+    <ui:define name="title">
+        New page title here
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Obsahova stranka</h1>
+        <p>Blah blah</p>
+    </ui:define>
+</ui:composition>

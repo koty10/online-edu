@@ -1,2 +1,4 @@
 /onlineedu/target/
 /onlineedu/nb-configuration.xml
+/onlineedu/.idea/
+*.iml
