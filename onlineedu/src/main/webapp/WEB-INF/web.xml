@@ -13,6 +13,24 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    <!-- https://docs.oracle.com/javaee/7/tutorial/security-webtier002.htm -->
+    <security-constraint>
+        <display-name>Secured pages</display-name>
+        <web-resource-collection>
+            <web-resource-name>secured</web-resource-name>
+            <url-pattern>/secured/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <!-- TODO bude to chtit pridat asi i admina a odebrat parenta -->
+            <role-name>teacher</role-name>
+            <role-name>parent</role-name>
+
+        </auth-constraint>
+        <!--    Enforce HTTPS
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>-->
+    </security-constraint>
     <session-config>
         <session-timeout>
             30
@@ -21,4 +39,32 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <!--        Default works with file realm-->
+        <!--<realm-name>file</realm-name>-->
+        <!--        DBRealm works-->
+        <!--<realm-name>dbRealm</realm-name>-->
+        <realm-name>onlineEduRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/login.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>student</description>
+        <role-name>student</role-name>
+    </security-role>
+    <security-role>
+        <description>parent</description>
+        <role-name>parent</role-name>
+    </security-role>
+    <security-role>
+        <description>teacher</description>
+        <role-name>teacher</role-name>
+    </security-role>
+    <security-role>
+        <description>administrators</description>
+        <role-name>admin</role-name>
+    </security-role>
 </web-app>

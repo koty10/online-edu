@@ -3,5 +3,30 @@
     <!-- Define Persistence Unit -->
     <persistence-unit name="my_persistence_unit" transaction-type="JTA">
         <jta-data-source>jdbc/onlineedu</jta-data-source>
+        <class>cz.cvut.kotyna.onlineedu.model.AttemptModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.ChatModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.ClassroomModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.FamilyModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.MaterialModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.MessageModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.ParentModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.ScheduledTeachingModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.StudentModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.SubjectModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.SummaryModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.TaskModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.TeacherModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.TeachingModel</class>
+        <class>cz.cvut.kotyna.onlineedu.model.UserAccountModel</class>
+        <properties>
+            <property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
+            <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="openjpa.ConnectionURL" value="jdbc:postgresql://localhost:5432/onlineedu"/>
+            <property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
+            <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
+        </properties>
     </persistence-unit>
 </persistence>

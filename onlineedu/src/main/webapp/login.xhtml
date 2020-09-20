@@ -1,0 +1,19 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Login Application in JSF 2</title>
+    </h:head>
+    <h:body>
+        <h3>Login Application in JSF 2</h3>
+        <b>#{userLogin.message}</b> <br/><br/>
+        <h:messages />
+        <form id="loginForm" method="post" action="j_security_check">
+            <h:outputLabel value="User Name:" />
+            <input type="text" name="j_username" autofocus="autofocus"/> <br />
+            <h:outputLabel value="Password:" />
+            <input type="password" name="j_password" /><br/>
+            <input type="submit" value="Login" />
+        </form>
+    </h:body>
+</html> 

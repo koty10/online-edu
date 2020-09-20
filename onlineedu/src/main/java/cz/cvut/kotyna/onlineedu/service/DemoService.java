@@ -9,10 +9,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author Petr Aubrecht <petr.aubrecht@ententee.com>
- */
 @Stateless
 public class DemoService {
 

@@ -10,6 +10,16 @@
 
     <ui:define name="content">
         <h1>Obsahova stranka</h1>
-        <p>Blah blah</p>
+        <p>Go to some <a href="secured/secretpage.xhtml">Secret Page</a>.</p>
+
+        <h:form id="index-form">
+            <p>Logged in as '<h:outputText value="#{userLogin.username}" />'.
+                <h:commandLink id="logoutbtn" value="Logout" rendered="#{userLogin.loggedIn}" action="#{userLogin.logout}">
+                    <!--                    <f:ajax execute="@form" render="@form" />-->
+                </h:commandLink>
+                <h:commandLink value="Login" rendered="#{not userLogin.loggedIn}" action="login" />
+            </p>
+        </h:form>
+
     </ui:define>
 </ui:composition>
