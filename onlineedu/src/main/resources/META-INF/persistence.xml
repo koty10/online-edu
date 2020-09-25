@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-    <!-- Define Persistence Unit -->
-    <persistence-unit name="my_persistence_unit" transaction-type="JTA">
-        <jta-data-source>jdbc/onlineedu</jta-data-source>
-        <class>cz.cvut.kotyna.onlineedu.model.AttemptModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.ChatModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.ClassroomModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.FamilyModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.MaterialModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.MessageModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.ParentModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.ScheduledTeachingModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.StudentModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.SubjectModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.SummaryModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.TaskModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.TeacherModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.TeachingModel</class>
-        <class>cz.cvut.kotyna.onlineedu.model.UserAccountModel</class>
-        <properties>
-            <property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
-            <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="openjpa.ConnectionURL" value="jdbc:postgresql://localhost:5432/onlineedu"/>
-            <property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
-            <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
-            <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
-        </properties>
-    </persistence-unit>
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="my_persistence_unit" transaction-type="JTA">
+    <jta-data-source>jdbc/onlineedu</jta-data-source>
+    <class>cz.cvut.kotyna.onlineedu.entity.Parent</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Classroom</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Subject</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.UserAccount</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Family</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Teaching</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Teacher</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Attempt</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Material</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Summary</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Student</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.ScheduledTeaching</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Chat</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Message</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.Task</class>
+    <properties>
+      <property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
+      <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
+      <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+      <property name="openjpa.ConnectionURL" value="jdbc:postgresql://localhost:5432/onlineedu"/>
+      <property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
+      <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
+      <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
+    </properties>
+  </persistence-unit>
 </persistence>
