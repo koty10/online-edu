@@ -11,7 +11,7 @@ alter table classroom
 
 create table teacher
 (
-    id   serial      not null
+    id         serial       not null
         constraint teacher_pk
             primary key,
     email      varchar(255) not null,
@@ -22,8 +22,8 @@ create table teacher
     street     varchar,
     zip        varchar,
     phone      varchar(64)  not null,
-    classroom_id        integer
-            constraint teacher_fk
+    classroom  integer
+        constraint teacher_fk
             references classroom
             on update cascade on delete set null
 );
@@ -33,7 +33,7 @@ alter table teacher
 
 create table student
 (
-    id   serial      not null
+    id         serial       not null
         constraint student_pk
             primary key,
     email      varchar(255) not null,
@@ -44,10 +44,10 @@ create table student
     street     varchar,
     zip        varchar,
     chat_alert varchar,
-    classroom_id        integer not null
-    	constraint student_fk
-	references classroom
-        on update cascade on delete set null
+    classroom  integer      not null
+        constraint student_fk
+            references classroom
+            on update cascade on delete set null
 );
 
 alter table student
@@ -55,7 +55,7 @@ alter table student
 
 create table parent
 (
-    id   serial      not null
+    id         serial       not null
         constraint parent_pk
             primary key,
     email      varchar(255) not null,
@@ -73,14 +73,17 @@ alter table parent
 
 create table family
 (
-    student_id        integer not null
+    student integer not null
         constraint family_fk_1
             references student
             on update cascade on delete cascade,
-    parent_id        integer not null
+    parent  integer not null
         constraint family_fk
             references parent
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+    id      serial  not null
+        constraint family_pk
+            primary key
 );
 
 alter table family
@@ -88,21 +91,23 @@ alter table family
 
 create table user_account
 (
-    id         serial       not null
+    id       serial       not null
         constraint user_account_pk
             primary key,
-    role       varchar(64)  not null,
-    username   varchar(255) not null,
-    password   varchar      not null,
-    student_id integer
+    role     varchar(64)  not null,
+    username varchar(255) not null
+        constraint user_account_un
+            unique,
+    password varchar      not null,
+    student  integer
         constraint user_account_fk
             references student
             on update cascade on delete cascade,
-    parent_id  integer
+    parent   integer
         constraint user_account_fk_1
             references parent
             on update cascade on delete cascade,
-    teacher_id integer
+    teacher  integer
         constraint user_account_fk_2
             references teacher
             on update cascade on delete cascade
@@ -113,10 +118,10 @@ alter table user_account
 
 create table subject
 (
-    id serial not null
+    id   serial not null
         constraint subject_pk
             primary key,
-    name   varchar(255)
+    name varchar(255)
 );
 
 alter table subject
@@ -124,21 +129,21 @@ alter table subject
 
 create table teaching
 (
-    id serial not null
+    id        serial  not null
         constraint teaching_pk
             primary key,
-    teacher_id integer not null
+    teacher   integer not null
         constraint teaching_fk
             references teacher
             on update cascade on delete cascade,
-    classroom_id        integer not null
-    	constraint teaching_fk_2
-	references classroom
-        on update cascade on delete cascade,
-    subject_id        integer not null
-    	constraint teaching_fk_3
-	references subject
-        on update cascade on delete restrict
+    classroom integer not null
+        constraint teaching_fk_2
+            references classroom
+            on update cascade on delete cascade,
+    subject   integer not null
+        constraint teaching_fk_3
+            references subject
+            on update cascade on delete restrict
 );
 
 alter table teaching
@@ -146,16 +151,16 @@ alter table teaching
 
 create table chat
 (
-    id serial not null
+    id       serial not null
         constraint chat_pk
             primary key,
-    student_id integer
+    student  integer
         constraint chat_fk
             references student
             on update cascade on delete cascade,
-    teaching_id        integer
-    	constraint chat_fk_2
-	    references teaching
+    teaching integer
+        constraint chat_fk_2
+            references teaching
             on update cascade on delete cascade
 );
 
@@ -164,20 +169,20 @@ alter table chat
 
 create table message
 (
-    id   serial        not null
+    id           serial        not null
         constraint message_pk
             primary key,
-    chat_id		integer not null
+    chat         integer       not null
         constraint message_chat_fk
             references chat
             on update cascade on delete cascade,
-    user_account_id	integer not null
+    user_account integer       not null
         constraint message_fk
             references user_account
             on update cascade on delete cascade,
-    role varchar(64)   not null,
-    text varchar(1028) not null,
-    time timestamp     not null
+    role         varchar(64)   not null,
+    text         varchar(1028) not null,
+    time         timestamp     not null
 );
 
 alter table message
@@ -185,17 +190,17 @@ alter table message
 
 create table material
 (
-    id   serial       not null
+    id       serial       not null
         constraint material_pk
             primary key,
-    teaching_id		integer not null
+    teaching integer      not null
         constraint material_fk
             references teaching
             on update cascade on delete cascade,
-    name varchar(128) not null,
-    url  varchar(256),
-    blob bytea,
-    type varchar(64)  not null
+    name     varchar(128) not null,
+    url      varchar(256),
+    blob     bytea,
+    type     varchar(64)  not null
 );
 
 alter table material
@@ -203,19 +208,21 @@ alter table material
 
 create table summary
 (
-    id          serial not null
+    id          serial  not null
         constraint summary_pk
             primary key,
-    teaching_id		integer not null
+    teaching    integer not null
         constraint summary_fk
             references teaching
             on update cascade on delete cascade,
-    student_id	integer not null
+    student     integer not null
         constraint summary_fk_1
             references student
             on update cascade on delete cascade,
     final_grade varchar(64),
-    feedback    varchar(1024)
+    feedback    varchar(1024),
+    constraint summary_un
+        unique (teaching, student)
 );
 
 alter table summary
@@ -223,15 +230,15 @@ alter table summary
 
 create table scheduled_teaching
 (
-    id     serial    not null
+    id       serial    not null
         constraint scheduled_teaching_pk
             primary key,
-    teaching_id		integer not null
+    teaching integer   not null
         constraint scheduled_teaching_fk
             references teaching
             on update cascade on delete cascade,
-    "from" timestamp not null,
-    "to"   timestamp not null
+    "from"   timestamp not null,
+    "to"     timestamp not null
 );
 
 alter table scheduled_teaching
@@ -239,18 +246,18 @@ alter table scheduled_teaching
 
 create table task
 (
-    id     serial not null
+    id       serial  not null
         constraint task_pk
             primary key,
-    teaching_id		integer not null
+    teaching integer not null
         constraint task_fk
             references teaching
             on update cascade on delete cascade,
-    text   varchar,
-    "from" timestamp,
-    "to"   timestamp,
-    date   timestamp,
-    type   varchar(64)
+    text     varchar,
+    "from"   timestamp,
+    "to"     timestamp,
+    date     timestamp,
+    type     varchar(64)
 );
 
 alter table task
@@ -258,14 +265,14 @@ alter table task
 
 create table attempt
 (
-    id       serial not null
+    id       serial  not null
         constraint attempt_pk
             primary key,
-    student_id	integer not null
+    student  integer not null
         constraint attempt_fk
             references student
             on update cascade on delete cascade,
-    task_id	integer not null
+    task     integer not null
         constraint attempt_fk_1
             references task
             on update cascade on delete cascade,

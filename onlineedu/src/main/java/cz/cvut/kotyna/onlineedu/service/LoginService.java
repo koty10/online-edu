@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -50,5 +51,23 @@ public class LoginService {
         catch(NoResultException e) {
             return null;
         }
+    }
+
+
+
+    //FIXME smazat
+    public List<String> getPasswordsHashed() {
+        List<String> strings = new ArrayList<>();
+        for (UserAccount userAccount : em.createNamedQuery(UserAccount.FIND_ALL, UserAccount.class).getResultList()) {
+            try {
+                userAccount.setPassword(AuthService.encodeSHA256(userAccount.getUsername(), ""));
+                em.persist(userAccount);
+                strings.add("SHA256 for '" + userAccount.getUsername() + "' = '" + AuthService.encodeSHA256(userAccount.getUsername(), "") + "'");
+            }
+            catch (Exception e) {
+                return new ArrayList<>();
+            }
+        }
+        return strings;
     }
 }

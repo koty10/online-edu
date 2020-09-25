@@ -58,4 +58,9 @@ public class DemoBackingBean {
             return new ArrayList<>();
         }
     }
+
+    //FIXME smazat - jen pro testovani
+    public List<String> getPasswordsHashed() {
+        return loginService.getPasswordsHashed();
+    }
 }

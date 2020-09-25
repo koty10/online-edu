@@ -222,5 +222,18 @@
         </p:dataTable>
 
 
+
+
+
+        <h2>Seznam uživatelů</h2>
+        <p:dataTable var="pass" value="#{demoBackingBean.passwordsHashed}">
+            <p:column headerText="username">
+                <h:outputText value="#{pass}" />
+            </p:column>
+
+        </p:dataTable>
+
+
+
     </ui:define>
 </ui:composition>
