@@ -1,23 +1,22 @@
 package cz.cvut.kotyna.onlineedu.jsf;
 
-import cz.cvut.kotyna.onlineedu.entity.Parent;
-import cz.cvut.kotyna.onlineedu.entity.Student;
-import cz.cvut.kotyna.onlineedu.entity.Teacher;
-import cz.cvut.kotyna.onlineedu.entity.UserAccount;
+import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 
 import javax.ejb.AfterCompletion;
 import javax.ejb.EJB;
+import javax.ejb.EJBs;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-@Named(value = "demoBackingBean")
+@Named(value = "studentBackingBean")
 @RequestScoped
-public class DemoBackingBean {
+public class StudentBackingBean {
 
     @EJB
     private UserService userService;
@@ -25,10 +24,12 @@ public class DemoBackingBean {
     @EJB
     private LoginService loginService;
 
+    private Student loggedInStudent = getLoggedInStudent();
+
     /**
-     * Creates a new instance of DemoBackingBean
+     * Creates a new instance of StudentBackingBean
      */
-    public DemoBackingBean() {
+    public StudentBackingBean() {
     }
 
     public List<UserAccount> getAllUsers() {
@@ -48,7 +49,7 @@ public class DemoBackingBean {
     }
 
     public Student getLoggedInStudent() {
-        return loginService.getLoggedInStudent();
+        return loginService != null ? loginService.getLoggedInStudent() : null;
     }
 
     public List<Student> getClassmates() {
@@ -57,6 +58,10 @@ public class DemoBackingBean {
         } catch (NullPointerException e) {
             return new ArrayList<>();
         }
+    }
+
+    public Collection<Teaching> getTeachings() {
+        return userService.getTeachings(loggedInStudent);
     }
 
     //FIXME smazat - jen pro testovani

@@ -43,7 +43,7 @@ public class UserLogin {
         if (getLoggedIn()) {
             return FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
         } else {
-            return "Not logged in";
+            return "Nepřihlášen";
         }
     }
 }

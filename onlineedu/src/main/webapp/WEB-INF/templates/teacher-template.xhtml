@@ -13,7 +13,7 @@
 <h:body>
     <header>
         <div class="column-narrow">
-            <h:link outcome="/index">
+            <h:link outcome="/home">
                 <h:graphicImage name="images/logo.jpg" alt="logo" />
             </h:link>
         </div>
@@ -23,7 +23,13 @@
             <li><a href="#Anglictina">Anglictina</a></li>
         </ul>
         <div class="column-narrow">
-            <a href="#about">Profil</a>
+            <h:form id="index-form">
+                <p>
+                    <h:outputText value="#{studentBackingBean.getLoggedInStudent().firstname} #{studentBackingBean.getLoggedInStudent().surname}" />
+                    <h:commandLink id="logoutbtn" value="Odhlásit" rendered="#{userLogin.loggedIn}" action="#{userLogin.logout}" />
+                    <h:commandLink value="Přihlásit" rendered="#{not userLogin.loggedIn}" action="login" />
+                </p>
+            </h:form>
         </div>
     </header>
     <section class="row">

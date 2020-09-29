@@ -13,31 +13,55 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-    <!-- https://docs.oracle.com/javaee/7/tutorial/security-webtier002.htm -->
+    <!-- Security Constraints -->
     <security-constraint>
-        <display-name>Secured pages</display-name>
+        <display-name>Teacher pages</display-name>
         <web-resource-collection>
-            <web-resource-name>secured</web-resource-name>
-            <url-pattern>/secured/*</url-pattern>
+            <web-resource-name>teacher</web-resource-name>
+            <url-pattern>/teacher/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <!-- TODO bude to chtit pridat asi i admina a odebrat parenta -->
             <role-name>teacher</role-name>
-            <role-name>parent</role-name>
-
         </auth-constraint>
-        <!--    Enforce HTTPS
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>-->
     </security-constraint>
+    <security-constraint>
+        <display-name>Student pages</display-name>
+        <web-resource-collection>
+            <web-resource-name>student</web-resource-name>
+            <url-pattern>/student/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>student</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Parent pages</display-name>
+        <web-resource-collection>
+            <web-resource-name>parent</web-resource-name>
+            <url-pattern>/parent/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>parent</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Admin pages</display-name>
+        <web-resource-collection>
+            <web-resource-name>admin</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>home.xhtml</welcome-file>
     </welcome-file-list>
     <login-config>
         <auth-method>FORM</auth-method>

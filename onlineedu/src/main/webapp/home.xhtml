@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template.xhtml"
+<ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -11,18 +11,9 @@
 
     <ui:define name="content">
         <h1>Obsahova stranka</h1>
-        <p>Go to some <a href="secured/secretpage.xhtml">Secret Page</a>.</p>
-
-        <h:form id="index-form">
-            <p>Logged in as '<h:outputText value="#{userLogin.username}" />'
-                <h:commandLink id="logoutbtn" value="Logout" rendered="#{userLogin.loggedIn}" action="#{userLogin.logout}" />
-                <h:commandLink value="Login" rendered="#{not userLogin.loggedIn}" action="login" />
-            </p>
-            <p>jmeno: #{demoBackingBean.getLoggedInStudent().firstname}</p>
-        </h:form>
 
         <h2>Seznam spolužáků</h2>
-        <p:dataTable var="classmate" value="#{demoBackingBean.classmates}">
+        <p:dataTable var="classmate" value="#{studentBackingBean.classmates}">
             <p:column headerText="Id">
                 <h:outputText value="#{classmate.id}" />
             </p:column>
@@ -65,7 +56,7 @@
         </p:dataTable>
 
         <h2>Seznam uživatelů</h2>
-        <p:dataTable var="user" value="#{demoBackingBean.allUsers}">
+        <p:dataTable var="user" value="#{studentBackingBean.allUsers}">
             <p:column headerText="Id">
                 <h:outputText value="#{user.id}" />
             </p:column>
@@ -96,7 +87,7 @@
         </p:dataTable>
 
         <h2>Seznam studentů</h2>
-        <p:dataTable var="student" value="#{demoBackingBean.allStudents}">
+        <p:dataTable var="student" value="#{studentBackingBean.allStudents}">
             <p:column headerText="Id">
                 <h:outputText value="#{student.id}" />
             </p:column>
@@ -139,7 +130,7 @@
         </p:dataTable>
 
         <h2>Seznam rodičů</h2>
-        <p:dataTable var="parent" value="#{demoBackingBean.allParents}">
+        <p:dataTable var="parent" value="#{studentBackingBean.allParents}">
             <p:column headerText="Id">
                 <h:outputText value="#{parent.id}" />
             </p:column>
@@ -179,7 +170,7 @@
         </p:dataTable>
 
         <h2>Seznam učitelů</h2>
-        <p:dataTable var="teacher" value="#{demoBackingBean.allTeachers}">
+        <p:dataTable var="teacher" value="#{studentBackingBean.allTeachers}">
             <p:column headerText="Id">
                 <h:outputText value="#{teacher.id}" />
             </p:column>
@@ -226,7 +217,7 @@
 
 
         <h2>Seznam uživatelů</h2>
-        <p:dataTable var="pass" value="#{demoBackingBean.passwordsHashed}">
+        <p:dataTable var="pass" value="#{studentBackingBean.passwordsHashed}">
             <p:column headerText="username">
                 <h:outputText value="#{pass}" />
             </p:column>

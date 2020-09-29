@@ -5,14 +5,12 @@
  */
 package cz.cvut.kotyna.onlineedu.service;
 
-import cz.cvut.kotyna.onlineedu.entity.Parent;
-import cz.cvut.kotyna.onlineedu.entity.Student;
-import cz.cvut.kotyna.onlineedu.entity.Teacher;
-import cz.cvut.kotyna.onlineedu.entity.UserAccount;
+import cz.cvut.kotyna.onlineedu.entity.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collection;
 import java.util.List;
 
 @Stateless
@@ -40,5 +38,9 @@ public class UserService {
 
     public List<Student> getClassmates(int classroomId) {
         return em.createNamedQuery(Student.FIND_CLASSMATES, Student.class).setParameter("classroomId", classroomId).getResultList();
+    }
+
+    public Collection<Teaching> getTeachings(Student student) {
+        return student.getClassroom().getTeachingCollection();
     }
 }
