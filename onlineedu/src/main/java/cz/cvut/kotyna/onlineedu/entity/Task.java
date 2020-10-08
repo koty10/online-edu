@@ -38,8 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t"),
     @NamedQuery(name = "Task.findById", query = "SELECT t FROM Task t WHERE t.id = :id"),
     @NamedQuery(name = "Task.findByText", query = "SELECT t FROM Task t WHERE t.text = :text"),
-    @NamedQuery(name = "Task.findByFrom", query = "SELECT t FROM Task t WHERE t.from = :from"),
-    @NamedQuery(name = "Task.findByTo", query = "SELECT t FROM Task t WHERE t.to = :to"),
+    @NamedQuery(name = "Task.findByTimeFrom", query = "SELECT t FROM Task t WHERE t.timeFrom = :timeFrom"),
+    @NamedQuery(name = "Task.findByTimeTo", query = "SELECT t FROM Task t WHERE t.timeTo = :timeTo"),
     @NamedQuery(name = "Task.findByDate", query = "SELECT t FROM Task t WHERE t.date = :date"),
     @NamedQuery(name = "Task.findByType", query = "SELECT t FROM Task t WHERE t.type = :type")})
 public class Task implements Serializable {
@@ -53,12 +53,12 @@ public class Task implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "text")
     private String text;
-    @Column(name = "from")
+    @Column(name = "time_from")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date from;
-    @Column(name = "to")
+    private Date timeFrom;
+    @Column(name = "time_to")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date to;
+    private Date timeTo;
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
@@ -94,20 +94,20 @@ public class Task implements Serializable {
         this.text = text;
     }
 
-    public Date getFrom() {
-        return from;
+    public Date getTimeFrom() {
+        return timeFrom;
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setTimeFrom(Date timeFrom) {
+        this.timeFrom = timeFrom;
     }
 
-    public Date getTo() {
-        return to;
+    public Date getTimeTo() {
+        return timeTo;
     }
 
-    public void setTo(Date to) {
-        this.to = to;
+    public void setTimeTo(Date timeTo) {
+        this.timeTo = timeTo;
     }
 
     public Date getDate() {
@@ -167,5 +167,5 @@ public class Task implements Serializable {
     public String toString() {
         return "cz.cvut.kotyna.onlineedu.entity.Task[ id=" + id + " ]";
     }
-    
+
 }

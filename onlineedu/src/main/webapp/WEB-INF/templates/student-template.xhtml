@@ -9,6 +9,7 @@
 <h:head>
     <title><ui:insert name="title">Default title</ui:insert></title>
     <h:outputStylesheet name="styles/styles.css" />
+
 </h:head>
 <h:body>
     <header>
@@ -27,22 +28,44 @@
             </ui:repeat>
         </ul>
         <div class="column-narrow">
-            <h:form id="index-form">
-                <p>
-                    <h:outputText value="#{studentBackingBean.getLoggedInStudent().firstname} #{studentBackingBean.getLoggedInStudent().surname}" />
-                    <h:commandLink id="logoutbtn" value="Odhlásit" rendered="#{userLogin.loggedIn}" action="#{userLogin.logout}" />
-                    <h:commandLink value="Přihlásit" rendered="#{not userLogin.loggedIn}" action="login" />
-                </p>
+
+            <h:form>
+                <p:menuButton value="#{studentBackingBean.getLoggedInStudent().firstname} #{studentBackingBean.getLoggedInStudent().surname}">
+                    <p:menuitem value="todo1" update="messages" icon="pi pi-save"/>
+                    <p:menuitem value="todo2" update="messages" icon="pi pi-refresh"/>
+                    <p:menuitem value="todo3" ajax="false" icon="pi pi-times"/>
+                    <p:separator />
+                    <p:menuitem id="logoutbtn" value="Odhlásit" rendered="#{userLogin.loggedIn}" action="#{userLogin.logout}" ajax="false" icon="pi pi-home"/>
+                    <p:menuitem value="Přihlásit" rendered="#{not userLogin.loggedIn}" action="login" ajax="false" icon="pi pi-home"/>
+                </p:menuButton>
+                <p:growl id="messages" showDetail="true"/>
             </h:form>
+
         </div>
     </header>
     <section class="row">
-        <aside class="big">Hlavni stranka</aside>
+        <aside class="big">
+            <ul>
+                <li>
+                    <h:link outcome="home" value="Home" styleClass="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
+                        <f:param name="teaching" value="#{param['teaching']}" />
+                    </h:link>
+                </li>
+                <li>
+                    <h:link outcome="tasks" value="Úkoly" styleClass="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
+                        <f:param name="teaching" value="#{param['teaching']}" />
+                    </h:link>
+                </li>
+            </ul>
+
+
+        </aside>
         <main class="big"><ui:insert name="content">Default content</ui:insert></main>
         <aside class="big">Novinky</aside>
     </section>
     <footer>
         <p>Footer</p>
     </footer>
+
 </h:body>
 </html>

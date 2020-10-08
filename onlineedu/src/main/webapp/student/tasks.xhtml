@@ -6,73 +6,20 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
-        New page title here
+        Úkoly
     </ui:define>
 
     <ui:define name="content">
-        <h1>Obsahova stranka</h1>
 
-        <h2>Seznam spolužáků</h2>
-        <p:dataTable var="classmate" value="#{studentBackingBean.classmates}">
+        <h2>Úkoly</h2>
+        <p:dataTable var="task" value="#{teachingBean.tasks}">
             <p:column headerText="Id">
-                <h:outputText value="#{classmate.id}" />
+                <h:outputText value="#{task.id}" />
             </p:column>
 
-            <p:column headerText="Jméno">
-                <h:outputText value="#{classmate.firstname}" />
+            <p:column headerText="Popisek">
+                <h:outputText value="#{task.text}" />
             </p:column>
-
-            <p:column headerText="Příjmení">
-                <h:outputText value="#{classmate.surname}" />
-            </p:column>
-
-            <p:column headerText="Email">
-                <h:outputText value="#{classmate.email}" />
-            </p:column>
-
-            <p:column headerText="Věk">
-                <h:outputText value="#{classmate.age}" />
-            </p:column>
-
-            <p:column headerText="Chat alert">
-                <h:outputText value="#{classmate.chatAlert}" />
-            </p:column>
-
-            <p:column headerText="Registrován">
-                <h:outputText value="#{classmate.registered}" />
-            </p:column>
-
-            <p:column headerText="Ulice">
-                <h:outputText value="#{classmate.street}" />
-            </p:column>
-
-            <p:column headerText="PSČ">
-                <h:outputText value="#{classmate.zip}" />
-            </p:column>
-
-            <p:column headerText="Classroom_id">
-                <h:outputText value="#{classmate.classroom.id}" />
-            </p:column>
-        </p:dataTable>
-
-        <h2>Výuka</h2>
-        <p:dataTable var="teaching" value="#{studentBackingBean.loggedInStudent.classroom.teachingCollection}">
-            <p:column headerText="Id">
-                <h:outputText value="#{teaching.id}" />
-            </p:column>
-
-            <p:column headerText="Třída">
-                <h:outputText value="#{teaching.classroom.name}" />
-            </p:column>
-
-            <p:column headerText="Učitel">
-                <h:outputText value="#{teaching.teacher.firstname} #{teaching.teacher.surname}" />
-            </p:column>
-
-            <p:column headerText="Předmět">
-                <h:outputText value="#{teaching.subject.name}" />
-            </p:column>
-
         </p:dataTable>
 
 

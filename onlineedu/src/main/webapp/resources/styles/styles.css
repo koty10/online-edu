@@ -9,12 +9,14 @@ body {
 
 /* Style the header */
 header {
-    background-color: #ddd;
+    background-color: #333;
     text-align: center;
-    font-size: 1.5em;
     max-width: 100%;
     display: flex;
-    flex-wrap: wrap;
+}
+
+a img {
+    display: block;
 }
 
 .column-narrow {
@@ -25,7 +27,7 @@ header {
     width: 100%;
 }
 
-ul {
+header ul {
     list-style-type: none;
     flex-basis: 70%;
     margin: 0;
@@ -34,6 +36,19 @@ ul {
     background-color: #333;
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+
+aside ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 li {
