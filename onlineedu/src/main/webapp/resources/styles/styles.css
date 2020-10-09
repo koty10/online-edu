@@ -21,6 +21,12 @@ a img {
 
 .column-narrow {
     flex-basis: 15%;
+    background-color: #222127;
+}
+
+#login-form p a {
+    color: white;
+    text-decoration: none;
 }
 
 .column-narrow img {
@@ -71,6 +77,14 @@ li a:hover:not(.active) {
 .active {
     background-color: #4CAF50;
 }
+
+
+.flex-column {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+}
+
 
 /* Left and right column */
 

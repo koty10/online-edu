@@ -9,6 +9,7 @@ import cz.cvut.kotyna.onlineedu.entity.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
 import java.util.List;
@@ -43,4 +44,18 @@ public class UserService {
     public Collection<Teaching> getTeachings(Student student) {
         return student.getClassroom().getTeachingCollection();
     }
+
+    public Student getStudentByUsername(String username) {
+        try {
+            if (username != null) {
+                return em.createNamedQuery(Student.FIND_LOGGED_IN_STUDENT, Student.class).setParameter("username", username).getSingleResult();
+            } else {
+                return null;
+            }
+        }
+        catch(NoResultException e) {
+            return null;
+        }
+    }
+
 }

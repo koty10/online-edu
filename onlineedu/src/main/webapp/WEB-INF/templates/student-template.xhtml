@@ -21,13 +21,13 @@
         <ul>
             <ui:repeat value="#{studentBackingBean.loggedInStudent.classroom.teachingCollection}" var="teaching">
                 <li>
-                    <h:link value="#{teaching.subject.name}" styleClass="#{param['teaching'].toString().equals(teaching.id.toString()) ? 'active' : ''}">
+                    <h:link value="#{teaching.subject.name}" styleClass="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
                         <f:param name="teaching" value="#{teaching.id}" />
                     </h:link>
                 </li>
             </ui:repeat>
         </ul>
-        <div class="column-narrow">
+        <div class="column-narrow flex-column">
 
             <h:form>
                 <p:menuButton value="#{studentBackingBean.getLoggedInStudent().firstname} #{studentBackingBean.getLoggedInStudent().surname}">
@@ -48,12 +48,12 @@
             <ul>
                 <li>
                     <h:link outcome="home" value="Home" styleClass="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
-                        <f:param name="teaching" value="#{param['teaching']}" />
+                        <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
                     </h:link>
                 </li>
                 <li>
                     <h:link outcome="tasks" value="Úkoly" styleClass="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
-                        <f:param name="teaching" value="#{param['teaching']}" />
+                        <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
                     </h:link>
                 </li>
             </ul>

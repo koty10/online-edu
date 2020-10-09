@@ -4,15 +4,17 @@ import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.AfterCompletion;
 import javax.ejb.EJB;
 import javax.ejb.EJBs;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Named(value = "studentBackingBean")
 @RequestScoped
@@ -30,6 +32,26 @@ public class StudentBackingBean {
      * Creates a new instance of StudentBackingBean
      */
     public StudentBackingBean() {
+    }
+
+    //@PostConstruct
+    private void init() {
+        Student loggedInStudent = loginService.getLoggedInStudent();
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String teachingId = params.get("teaching");
+
+        if (!loggedInStudent.getClassroom().getTeachingCollection().stream().map(x -> x.getId().toString()).collect(Collectors.toList()).contains(teachingId)) {
+            try {
+                HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                String uri = request.getRequestURI().toString();
+                if (!uri.equals("/onlineedu/student/wrong.xhtml"))
+                {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/onlineedu/student/wrong");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public List<UserAccount> getAllUsers() {

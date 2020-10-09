@@ -10,9 +10,11 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Named(value = "urlHelperBean")
 @RequestScoped
@@ -34,5 +36,35 @@ public class UrlHelperBean {
         String uri = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
         String[] pathParts = uri.split("/");
         return pathParts[pathParts.length - 1].equals(pathLastPart) || pathParts[pathParts.length - 1].equals(pathLastPart + ".xhtml");
+    }
+
+    public boolean isCurrentTeaching(String teaching) {
+        Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        if (!map.containsKey("teaching")) return false;
+        String value = map.get("teaching");
+        return value.equals(teaching);
+    }
+
+    public String getCurrentOrDefaultTeachingId() {
+        Student loggedInStudent =  loginService.getLoggedInStudent();
+        Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        if (!map.containsKey("teaching")) {
+            Collection<Teaching> teachings = loggedInStudent.getClassroom().getTeachingCollection();
+            if (!teachings.isEmpty()) {
+                return teachings.stream().findFirst().get().getId().toString();
+            }
+            else {
+                try {
+                    // TODO !!!!! přidat stránku none.xhtml
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("student/none.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else {
+            return map.get("teaching");
+        }
+        return "";
     }
 }

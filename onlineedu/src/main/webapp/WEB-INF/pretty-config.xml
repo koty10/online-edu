@@ -1,0 +1,53 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+    <url-mapping id="home1">
+        <pattern value="/" />
+        <view-id value="/home.xhtml" />
+    </url-mapping>
+
+    <url-mapping id="home2">
+        <pattern value="/home" />
+        <view-id value="/home.xhtml" />
+    </url-mapping>
+
+    <!-- Maps "/user/#{username}" to the URL "/user/view.xhtml?username=value" -->
+    <url-mapping id="student-home">
+        <pattern value="/student/" />
+        <view-id value="/student/home.xhtml" />
+    </url-mapping>
+
+    <!-- Maps "/user/#{username}" to the URL "/user/view.xhtml?username=value" -->
+    <url-mapping id="student-home2">
+        <pattern value="/student/home" />
+        <view-id value="/student/home.xhtml" />
+    </url-mapping>
+
+
+    <url-mapping id="student-wrong">
+        <pattern value="/student/wrong" />
+        <view-id value="/student/wrong.xhtml" />
+    </url-mapping>
+
+    <url-mapping id="student-none">
+        <pattern value="/student/none" />
+        <view-id value="/student/none.xhtml" />
+    </url-mapping>
+
+
+
+
+    <url-mapping id="student-home-teaching">
+        <pattern value="/student/home/#{teaching}" />
+        <view-id value="/student/home.xhtml" />
+    </url-mapping>
+
+    <url-mapping id="student-tasks-teaching">
+        <pattern value="/student/tasks/#{teaching}" />
+        <view-id value="/student/tasks.xhtml" />
+    </url-mapping>
+
+
+</pretty-config>

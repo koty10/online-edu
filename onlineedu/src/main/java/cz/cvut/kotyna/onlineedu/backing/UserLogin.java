@@ -5,6 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +25,11 @@ public class UserLogin {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 //        String newId = FacesContext.getCurrentInstance().getExternalContext().getSessionId(true);
 //        Principal newPrincipal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/onlineedu/");
+        } catch (IOException ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
         return null;
     }
 
