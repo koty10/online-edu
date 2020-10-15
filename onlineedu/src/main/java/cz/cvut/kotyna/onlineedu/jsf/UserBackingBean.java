@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Named(value = "studentBackingBean")
+@Named(value = "userBackingBean")
 @RequestScoped
 public class UserBackingBean {
 

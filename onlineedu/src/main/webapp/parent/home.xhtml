@@ -13,7 +13,7 @@
         <h1>Obsahova stranka</h1>
 
         <h2>Seznam spolužáků</h2>
-        <p:dataTable var="classmate" value="#{studentBackingBean.classmates}">
+        <p:dataTable var="classmate" value="#{userBackingBean.classmates}">
             <p:column headerText="Id">
                 <h:outputText value="#{classmate.id}" />
             </p:column>
@@ -56,7 +56,7 @@
         </p:dataTable>
 
         <h2>Výuka</h2>
-        <p:dataTable var="teaching" value="#{studentBackingBean.loggedInUser.classroom.teachingCollection}">
+        <p:dataTable var="teaching" value="#{userBackingBean.loggedInUser.classroom.teachingCollection}">
             <p:column headerText="Id">
                 <h:outputText value="#{teaching.id}" />
             </p:column>

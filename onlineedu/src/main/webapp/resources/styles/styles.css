@@ -57,12 +57,21 @@ aside ul {
     flex-wrap: wrap;
 }
 
-li {
-    flex-grow: 1
+a {
+    text-decoration: none;
+    color: #eeeeee;
 }
 
-header li a {
+li {
+    flex-grow: 1;
+    text-align: center;
+}
+
+header li {
     border:1px solid #bbb;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
 li a {
@@ -73,7 +82,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li:hover:not(.active) {
     background-color: #111;
 }
 

@@ -1,71 +1,37 @@
-<!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        template="/WEB-INF/templates/template.xhtml">
 
-<h:head>
-    <title><ui:insert name="title">Default title</ui:insert></title>
-    <h:outputStylesheet name="styles/styles.css" />
-
-</h:head>
-<h:body>
-    <header>
-        <div class="column-narrow">
-            <h:link outcome="/home">
-                <h:graphicImage name="images/logo.jpg" alt="logo" />
-            </h:link>
-        </div>
+    <ui:define name="top-nav">
         <ul>
-            <ui:repeat value="#{studentBackingBean.loggedInUser.student.classroom.teachingCollection}" var="teaching">
-                <li>
-                    <h:link value="#{teaching.subject.name}" styleClass="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
+            <ui:repeat value="#{userBackingBean.loggedInUser.student.classroom.teachingCollection}" var="teaching">
+                <li class="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
+                    <h:link value="#{teaching.subject.name}">
                         <f:param name="teaching" value="#{teaching.id}" />
                     </h:link>
                 </li>
             </ui:repeat>
         </ul>
-        <div class="column-narrow flex-column">
+    </ui:define>
 
-            <h:form>
-                <p:menuButton value="#{studentBackingBean.loggedInUser.firstname} #{studentBackingBean.loggedInUser.surname}">
-                    <p:menuitem value="todo1" update="messages" icon="pi pi-save"/>
-                    <p:menuitem value="todo2" update="messages" icon="pi pi-refresh"/>
-                    <p:menuitem value="todo3" ajax="false" icon="pi pi-times"/>
-                    <p:separator />
-                    <p:menuitem id="logoutbtn" value="Odhlásit" rendered="#{userLogin.loggedIn}" action="#{userLogin.logout}" ajax="false" icon="pi pi-home"/>
-                    <p:menuitem value="Přihlásit" rendered="#{not userLogin.loggedIn}" action="login" ajax="false" icon="pi pi-home"/>
-                </p:menuButton>
-                <p:growl id="messages" showDetail="true"/>
-            </h:form>
-
-        </div>
-    </header>
-    <section class="row">
-        <aside class="big">
-            <ul>
-                <li>
-                    <h:link outcome="home" value="Home" styleClass="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
-                        <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
-                    </h:link>
-                </li>
-                <li>
-                    <h:link outcome="tasks" value="Úkoly" styleClass="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
-                        <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
-                    </h:link>
-                </li>
-            </ul>
+    <ui:define name="left-nav">
+        <ul>
+            <li class="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
+                <h:link outcome="home" value="Home">
+                    <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
+                </h:link>
+            </li>
+            <li class="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
+                <h:link outcome="tasks" value="Úkoly">
+                    <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
+                </h:link>
+            </li>
+        </ul>
+    </ui:define>
 
 
-        </aside>
-        <main class="big"><ui:insert name="content">Default content</ui:insert></main>
-        <aside class="big">Novinky</aside>
-    </section>
-    <footer>
-        <p>Footer</p>
-    </footer>
-
-</h:body>
-</html>
+</ui:composition>
