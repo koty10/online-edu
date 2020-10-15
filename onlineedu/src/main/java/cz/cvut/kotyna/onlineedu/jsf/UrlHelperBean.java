@@ -46,7 +46,7 @@ public class UrlHelperBean {
     }
 
     public String getCurrentOrDefaultTeachingId() {
-        Student loggedInStudent =  loginService.getLoggedInStudent();
+        Student loggedInStudent =  loginService.getLoggedInUser().getStudent();
         Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         if (!map.containsKey("teaching")) {
             Collection<Teaching> teachings = loggedInStudent.getClassroom().getTeachingCollection();

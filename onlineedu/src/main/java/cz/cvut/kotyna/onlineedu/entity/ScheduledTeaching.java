@@ -33,8 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ScheduledTeaching.findAll", query = "SELECT s FROM ScheduledTeaching s"),
     @NamedQuery(name = "ScheduledTeaching.findById", query = "SELECT s FROM ScheduledTeaching s WHERE s.id = :id"),
-    @NamedQuery(name = "ScheduledTeaching.findByFrom", query = "SELECT s FROM ScheduledTeaching s WHERE s.from = :from"),
-    @NamedQuery(name = "ScheduledTeaching.findByTo", query = "SELECT s FROM ScheduledTeaching s WHERE s.to = :to")})
+    @NamedQuery(name = "ScheduledTeaching.findByTimeFrom", query = "SELECT s FROM ScheduledTeaching s WHERE s.timeFrom = :timeFrom"),
+    @NamedQuery(name = "ScheduledTeaching.findByTimeTo", query = "SELECT s FROM ScheduledTeaching s WHERE s.timeTo = :timeTo")})
 public class ScheduledTeaching implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,14 +45,14 @@ public class ScheduledTeaching implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "from")
+    @Column(name = "time_from")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date from;
+    private Date timeFrom;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "to")
+    @Column(name = "time_to")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date to;
+    private Date timeTo;
     @JoinColumn(name = "teaching", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Teaching teaching;
@@ -64,10 +64,10 @@ public class ScheduledTeaching implements Serializable {
         this.id = id;
     }
 
-    public ScheduledTeaching(Integer id, Date from, Date to) {
+    public ScheduledTeaching(Integer id, Date timeFrom, Date timeTo) {
         this.id = id;
-        this.from = from;
-        this.to = to;
+        this.timeFrom = timeFrom;
+        this.timeTo = timeTo;
     }
 
     public Integer getId() {
@@ -78,20 +78,20 @@ public class ScheduledTeaching implements Serializable {
         this.id = id;
     }
 
-    public Date getFrom() {
-        return from;
+    public Date getTimeFrom() {
+        return timeFrom;
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setTimeFrom(Date timeFrom) {
+        this.timeFrom = timeFrom;
     }
 
-    public Date getTo() {
-        return to;
+    public Date getTimeTo() {
+        return timeTo;
     }
 
-    public void setTo(Date to) {
-        this.to = to;
+    public void setTimeTo(Date timeTo) {
+        this.timeTo = timeTo;
     }
 
     public Teaching getTeaching() {

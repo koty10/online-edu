@@ -28,133 +28,133 @@ VALUES('4.B');
 /*Student*/
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('Ivana', 'Coufalová', 'ivana.coufalova@example.com', 0, '', '', '', 1);
+(chat_alert, classroom)
+VALUES('', 1);
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('Dana', 'Kadlecová', 'dana.kadlecova@example.com', 0, '', '', '', 1);
+(chat_alert, classroom)
+VALUES('', 1);
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('Michala', 'Jandová', 'michala.jandova@example.com', 0, '', '', '', 1);
+(chat_alert, classroom)
+VALUES('', 1);
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('Josef', 'Mašek', 'josef.masek@example.com', 0, '', '', '', 1);
+(chat_alert, classroom)
+VALUES('', 1);
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('Richard', 'Burda', 'richard.burda@example.com', 0, '', '', '', 1);
+(chat_alert, classroom)
+VALUES('', 1);
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('Jakub', 'Novotný', 'jakub.novotny@example.com', 0, '', '', '', 1);
+(chat_alert, classroom)
+VALUES('', 1);
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('Filip', 'Nejedlý', 'filip.nejedly@example.com', 0, '', '', '', 2);
+(chat_alert, classroom)
+VALUES('', 2);
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('Petr', 'Dvořák', 'petr.dvorak@example.com', 0, '', '', '', 2);
+(chat_alert, classroom)
+VALUES('', 2);
 
 INSERT INTO public.student
-(firstname, surname, email, age, street, zip, chat_alert, classroom)
-VALUES('David', 'Souček', 'david.soucek@example.com', 0, '', '', '', 3);
+(chat_alert, classroom)
+VALUES('', 3);
 
 
 /*User*/
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'ivana.coufalova', 'ivana.coufalova', 1);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'ivana.coufalova', 'ivana.coufalova', 'Ivana', 'Coufalová', 'ivana.coufalova@example.com', 0, '', '', 1);
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'dana.kadlecova', 'dana.kadlecova', 2);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'dana.kadlecova', 'dana.kadlecova', 'Dana', 'Kadlecová', 'dana.kadlecova@example.com', 0, '', '', 2);
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'michala.jandova', 'michala.jandova', 3);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'michala.jandova', 'michala.jandova', 'Michala', 'Jandová', 'michala.jandova@example.com', 0, '', '', 3);
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'josef.masek', 'josef.masek', 4);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'josef.masek', 'josef.masek', 'Josef', 'Mašek', 'josef.masek@example.com', 0, '', '', 4);
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'richard.burda', 'richard.burda', 5);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'richard.burda', 'richard.burda', 'Richard', 'Burda', 'richard.burda@example.com', 0, '', '', 5);
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'jakub.novotny', 'jakub.novotny', 6);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'jakub.novotny', 'jakub.novotny', 'Jakub', 'Novotný', 'jakub.novotny@example.com', 0, '', '', 6);
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'filip.nejedly', 'filip.nejedly', 7);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'filip.nejedly', 'filip.nejedly', 'Filip', 'Nejedlý', 'filip.nejedly@example.com', 0, '', '', 7);
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'petr.dvorak', 'petr.dvorak', 8);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'petr.dvorak', 'petr.dvorak', 'Petr', 'Dvořák', 'petr.dvorak@example.com', 0, '', '', 8);
 
 INSERT INTO public.user_account
-("role", username, "password", student)
-VALUES('student', 'david.soucek', 'david.soucek', 9);
+("role", username, "password", firstname, surname, email, age, street, zip, student)
+VALUES('student', 'david.soucek', 'david.soucek', 'David', 'Souček', 'david.soucek@example.com', 0, '', '', 9);
 
 
 /*Teacher*/
 
 INSERT INTO public.teacher
-(email, firstname, surname, age, street, zip, phone, classroom)
-VALUES('jana.novakova@example.com', 'Jana', 'Nováková', 40, 'Dolnohradská 50', ' 255 55', '111 222 333', 1);
+(classroom)
+VALUES(1);
 
 INSERT INTO public.teacher
-(email, firstname, surname, age, street, zip, phone, classroom)
-VALUES('jana.kopecka@example.com', 'Jana', 'Kopecká', 42, 'Vysoká 41', ' 255 55', '111 222 444', 2);
+(classroom)
+VALUES(2);
 
 INSERT INTO public.teacher
-(email, firstname, surname, age, street, zip, phone, classroom)
-VALUES('lucie.petraskova@example.com', 'Lucie', 'Petrásková', 60, 'Šedivá 10', ' 255 05', '555 555 555', 3);
+(classroom)
+VALUES(3);
 
 INSERT INTO public.teacher
-(email, firstname, surname, age, street, zip, phone, classroom)
-VALUES('marie.vavrova@example.com', 'Marie', 'Vávrová', 28, 'Dolnomoravská 50', ' 255 55', '111 222 555', 4);
+(classroom)
+VALUES(4);
 
 INSERT INTO public.teacher
-(email, firstname, surname, age, street, zip, phone, classroom)
-VALUES('patricie.petrova@example.com', 'Patrície Petrová', 'Nováková', 46, 'Mordá 50', ' 255 55', '111 222 666', 5);
+(classroom)
+VALUES(5);
 
 INSERT INTO public.teacher
-(email, firstname, surname, age, street, zip, phone, classroom)
-VALUES('magdalena.otrubova@example.com', 'Magdaléna', 'Otrubová', 48, 'Žlutá 50', ' 255 55', '111 222 777', 6);
+(classroom)
+VALUES(6);
 
 
 /*User*/
 
 INSERT INTO public.user_account
-("role", username, "password", teacher)
-VALUES('teacher', 'jana.novakova', 'jana.novakova', 1);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, teacher)
+VALUES('teacher', 'jana.novakova', 'jana.novakova', 'jana.novakova@example.com', 'Jana', 'Nováková', 40, 'Dolnohradská 50', ' 255 55', '111 222 333', 1);
 
 INSERT INTO public.user_account
-("role", username, "password", teacher)
-VALUES('teacher', 'jana.kopecka', 'jana.kopecka', 2);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, teacher)
+VALUES('teacher', 'jana.kopecka', 'jana.kopecka', 'jana.kopecka@example.com', 'Jana', 'Kopecká', 42, 'Vysoká 41', ' 255 55', '111 222 444', 2);
 
 INSERT INTO public.user_account
-("role", username, "password", teacher)
-VALUES('teacher', 'lucie.petraskova', 'lucie.petraskova', 3);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, teacher)
+VALUES('teacher', 'lucie.petraskova', 'lucie.petraskova', 'lucie.petraskova@example.com', 'Lucie', 'Petrásková', 60, 'Šedivá 10', ' 255 05', '555 555 555', 3);
 
 INSERT INTO public.user_account
-("role", username, "password", teacher)
-VALUES('teacher', 'marie.vavrova', 'marie.vavrova', 4);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, teacher)
+VALUES('teacher', 'marie.vavrova', 'marie.vavrova', 'marie.vavrova@example.com', 'Marie', 'Vávrová', 28, 'Dolnomoravská 50', ' 255 55', '111 222 555', 4);
 
 INSERT INTO public.user_account
-("role", username, "password", teacher)
-VALUES('teacher', 'patricie.petrova', 'patricie.petrova', 5);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, teacher)
+VALUES('teacher', 'patricie.petrova', 'patricie.petrova', 'patricie.petrova@example.com', 'Patrície Petrová', 'Nováková', 46, 'Mordá 50', ' 255 55', '111 222 666', 5);
 
 INSERT INTO public.user_account
-("role", username, "password", teacher)
-VALUES('teacher', 'magdalena.otrubova', 'magdalena.otrubova', 6);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, teacher)
+VALUES('teacher', 'magdalena.otrubova', 'magdalena.otrubova', 'magdalena.otrubova@example.com', 'Magdaléna', 'Otrubová', 48, 'Žlutá 50', ' 255 55', '111 222 777', 6);
 
 
 /*Subject*/
@@ -291,88 +291,59 @@ VALUES(1, 5, '2', 'Docela dobré');
 
 /*Parent*/
 
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('lubomir.coufal@example.com', 'Lubomír', 'Coufal', 50, 'Spálená 20', '111 02', '123456789');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('radka.coufalova@example.com', 'Radka', 'Coufalová', 50, '', '', '123456789');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('radka.kadlecova@example.com', 'Radka', 'Kadlecová', 40, '', '', '111 111 111');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('bohumila.jandova@example.com', 'Bohumila', 'Jandová', 0, '', '', '');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('lukas.masek@example.com', 'Lukáš', 'Mašek', 0, '', '', '222 222 222');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('evzen.burda@example.com', 'Evžen', 'Burda', 0, 'Úzká 12', '158 03', '333 333 333');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('lucie.novotna@example.com', 'Lucie', 'Novotná', 0, '', '', '');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('alexandr.nejedly@example.com', 'Alexandr', 'Nejedlý', 0, '', '', '');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('martina.dvorakova@example.com', 'Martina', 'Dvořáková', 0, '', '', '');
-
-INSERT INTO public.parent
-(email, firstname, surname, age, street, zip, phone)
-VALUES('roman.soucek@example.com', 'Roman', 'Souček', 0, '', '', '444 444 444');
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
+INSERT INTO public.parent values(default);
 
 
 /*User*/
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'lubomir.coufal', 'lubomir.coufal', 1);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'lubomir.coufal', 'lubomir.coufal', 'lubomir.coufal@example.com', 'Lubomír', 'Coufal', 50, 'Spálená 20', '111 02', '123456789', 1);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'radka.coufalova', 'radka.coufalova', 2);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'radka.coufalova', 'radka.coufalova', 'radka.coufalova@example.com', 'Radka', 'Coufalová', 50, '', '', '123456789', 2);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'radka.kadlecova', 'radka.kadlecova', 3);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'radka.kadlecova', 'radka.kadlecova', 'radka.kadlecova@example.com', 'Radka', 'Kadlecová', 40, '', '', '111 111 111', 3);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'bohumila.jandova', 'bohumila.jandova', 4);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'bohumila.jandova', 'bohumila.jandova', 'bohumila.jandova@example.com', 'Bohumila', 'Jandová', 0, '', '', '', 4);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'lukas.masek', 'lukas.masek', 5);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'lukas.masek', 'lukas.masek', 'lukas.masek@example.com', 'Lukáš', 'Mašek', 0, '', '', '222 222 222', 5);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'evzen.burda', 'evzen.burda', 6);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'evzen.burda', 'evzen.burda', 'evzen.burda@example.com', 'Evžen', 'Burda', 0, 'Úzká 12', '158 03', '333 333 333', 6);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'lucie.novotna', 'lucie.novotna', 7);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'lucie.novotna', 'lucie.novotna', 'lucie.novotna@example.com', 'Lucie', 'Novotná', 0, '', '', '', 7);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'alexandr.nejedly', 'alexandr.nejedly', 8);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'alexandr.nejedly', 'alexandr.nejedly', 'alexandr.nejedly@example.com', 'Alexandr', 'Nejedlý', 0, '', '', '', 8);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'martina.dvorakova', 'martina.dvorakova', 9);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'martina.dvorakova', 'martina.dvorakova', 'martina.dvorakova@example.com', 'Martina', 'Dvořáková', 0, '', '', '', 9);
 
 INSERT INTO public.user_account
-("role", username, "password", parent)
-VALUES('parent', 'roman.soucek', 'roman.soucek', 10);
+("role", username, "password", email, firstname, surname, age, street, zip, phone, parent)
+VALUES('parent', 'roman.soucek', 'roman.soucek', 'roman.soucek@example.com', 'Roman', 'Souček', 0, '', '', '444 444 444', 10);
 
 
 

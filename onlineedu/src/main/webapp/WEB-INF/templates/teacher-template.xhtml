@@ -25,7 +25,7 @@
         <div class="column-narrow">
             <h:form id="index-form">
                 <p>
-                    <h:outputText value="#{studentBackingBean.getLoggedInStudent().firstname} #{studentBackingBean.getLoggedInStudent().surname}" />
+                    <h:outputText value="#{studentBackingBean.loggedInUser().firstname} #{studentBackingBean.loggedInUser().surname}" />
                     <h:commandLink id="logoutbtn" value="Odhlásit" rendered="#{userLogin.loggedIn}" action="#{userLogin.logout}" />
                     <h:commandLink value="Přihlásit" rendered="#{not userLogin.loggedIn}" action="login" />
                 </p>

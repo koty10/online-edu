@@ -56,7 +56,7 @@
         </p:dataTable>
 
         <h2>Výuka</h2>
-        <p:dataTable var="teaching" value="#{studentBackingBean.loggedInStudent.classroom.teachingCollection}">
+        <p:dataTable var="teaching" value="#{studentBackingBean.loggedInUser.classroom.teachingCollection}">
             <p:column headerText="Id">
                 <h:outputText value="#{teaching.id}" />
             </p:column>

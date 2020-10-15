@@ -7,19 +7,8 @@ package cz.cvut.kotyna.onlineedu.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.Date;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,6 +27,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "UserAccount.findByRole", query = "SELECT u FROM UserAccount u WHERE u.role = :role"),
     @NamedQuery(name = "UserAccount.findByUsername", query = "SELECT u FROM UserAccount u WHERE u.username = :username"),
     @NamedQuery(name = "UserAccount.findByPassword", query = "SELECT u FROM UserAccount u WHERE u.password = :password"),
+    @NamedQuery(name = "UserAccount.findByEmail", query = "SELECT u FROM UserAccount u WHERE u.email = :email"),
+    @NamedQuery(name = "UserAccount.findByFirstname", query = "SELECT u FROM UserAccount u WHERE u.firstname = :firstname"),
+    @NamedQuery(name = "UserAccount.findBySurname", query = "SELECT u FROM UserAccount u WHERE u.surname = :surname"),
+    @NamedQuery(name = "UserAccount.findByAge", query = "SELECT u FROM UserAccount u WHERE u.age = :age"),
+    @NamedQuery(name = "UserAccount.findByRegistered", query = "SELECT u FROM UserAccount u WHERE u.registered = :registered"),
+    @NamedQuery(name = "UserAccount.findByStreet", query = "SELECT u FROM UserAccount u WHERE u.street = :street"),
+    @NamedQuery(name = "UserAccount.findByZip", query = "SELECT u FROM UserAccount u WHERE u.zip = :zip"),
+    @NamedQuery(name = "UserAccount.findByPhone", query = "SELECT u FROM UserAccount u WHERE u.phone = :phone"),
     @NamedQuery(name = UserAccount.FIND_USER_ACCOUNT_BY_USERNAME, query = "select userAccount from UserAccount userAccount where userAccount.username = :username")})
 public class UserAccount implements Serializable {
 
@@ -65,16 +62,47 @@ public class UserAccount implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "password")
     private String password;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "firstname")
+    private String firstname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "surname")
+    private String surname;
+    @Column(name = "age")
+    private Integer age;
+    @Column(name = "registered")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date registered;
+    @Size(max = 2147483647)
+    @Column(name = "street")
+    private String street;
+    @Size(max = 2147483647)
+    @Column(name = "zip")
+    private String zip;
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Size(max = 64)
+    @Column(name = "phone")
+    private String phone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userAccount")
     private Collection<Message> messageCollection;
     @JoinColumn(name = "parent", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Parent parent;
     @JoinColumn(name = "student", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Student student;
     @JoinColumn(name = "teacher", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Teacher teacher;
 
     public UserAccount() {
@@ -84,11 +112,14 @@ public class UserAccount implements Serializable {
         this.id = id;
     }
 
-    public UserAccount(Integer id, String role, String username, String password) {
+    public UserAccount(Integer id, String role, String username, String password, String email, String firstname, String surname) {
         this.id = id;
         this.role = role;
         this.username = username;
         this.password = password;
+        this.email = email;
+        this.firstname = firstname;
+        this.surname = surname;
     }
 
     public Integer getId() {
@@ -121,6 +152,70 @@ public class UserAccount implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Date getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(Date registered) {
+        this.registered = registered;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @XmlTransient

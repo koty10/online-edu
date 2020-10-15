@@ -4,10 +4,7 @@ import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.AfterCompletion;
 import javax.ejb.EJB;
-import javax.ejb.EJBs;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -18,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Named(value = "studentBackingBean")
 @RequestScoped
-public class StudentBackingBean {
+public class UserBackingBean {
 
     @EJB
     private UserService userService;
@@ -26,17 +23,15 @@ public class StudentBackingBean {
     @EJB
     private LoginService loginService;
 
-    private Student loggedInStudent = getLoggedInStudent();
-
     /**
-     * Creates a new instance of StudentBackingBean
+     * Creates a new instance of UserBackingBean
      */
-    public StudentBackingBean() {
+    public UserBackingBean() {
     }
 
     //@PostConstruct
     private void init() {
-        Student loggedInStudent = loginService.getLoggedInStudent();
+        Student loggedInStudent = loginService.getLoggedInUser().getStudent();
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String teachingId = params.get("teaching");
 
@@ -70,20 +65,20 @@ public class StudentBackingBean {
         return userService.getAllTeachers();
     }
 
-    public Student getLoggedInStudent() {
-        return loginService != null ? loginService.getLoggedInStudent() : null;
+    public UserAccount getLoggedInUser() {
+        return loginService != null ? loginService.getLoggedInUser() : null;
     }
 
     public List<Student> getClassmates() {
         try {
-            return userService.getClassmates(loginService.getLoggedInStudent().getClassroom().getId());
+            return userService.getClassmates(loginService.getLoggedInUser().getStudent().getClassroom().getId());
         } catch (NullPointerException e) {
             return new ArrayList<>();
         }
     }
 
     public Collection<Teaching> getTeachings() {
-        return userService.getTeachings(loggedInStudent);
+        return userService.getTeachings(loginService.getLoggedInUser().getStudent());
     }
 
     //FIXME smazat - jen pro testovani

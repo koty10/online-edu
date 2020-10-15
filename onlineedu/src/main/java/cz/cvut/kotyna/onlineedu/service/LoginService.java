@@ -39,22 +39,6 @@ public class LoginService {
         }
     }
 
-    public Student getLoggedInStudent() {
-        try {
-            Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-            if (principal != null) {
-                return em.createNamedQuery(Student.FIND_LOGGED_IN_STUDENT, Student.class).setParameter("username", principal.getName()).getSingleResult();
-            } else {
-                return null;
-            }
-        }
-        catch(NoResultException e) {
-            return null;
-        }
-    }
-
-
-
     //FIXME smazat
     public List<String> getPasswordsHashed() {
         List<String> strings = new ArrayList<>();

@@ -14,14 +14,6 @@ create table teacher
     id         serial       not null
         constraint teacher_pk
             primary key,
-    email      varchar(255) not null,
-    firstname  varchar(255) not null,
-    surname    varchar(255) not null,
-    age        integer,
-    registered timestamp,
-    street     varchar,
-    zip        varchar,
-    phone      varchar(64)  not null,
     classroom  integer
         constraint teacher_fk
             references classroom
@@ -36,13 +28,6 @@ create table student
     id         serial       not null
         constraint student_pk
             primary key,
-    email      varchar(255) not null,
-    firstname  varchar(255) not null,
-    surname    varchar(255) not null,
-    age        integer,
-    registered timestamp,
-    street     varchar,
-    zip        varchar,
     chat_alert varchar,
     classroom  integer      not null
         constraint student_fk
@@ -57,15 +42,7 @@ create table parent
 (
     id         serial       not null
         constraint parent_pk
-            primary key,
-    email      varchar(255) not null,
-    firstname  varchar(255) not null,
-    surname    varchar(255) not null,
-    age        integer,
-    registered timestamp,
-    street     varchar,
-    zip        varchar,
-    phone      varchar(64)  not null
+            primary key
 );
 
 alter table parent
@@ -98,7 +75,15 @@ create table user_account
     username varchar(255) not null
         constraint user_account_un
             unique,
-    password varchar      not null,
+    password   varchar      not null,
+    email      varchar(255) not null,
+    firstname  varchar(255) not null,
+    surname    varchar(255) not null,
+    age        integer,
+    registered timestamp,
+    street     varchar,
+    zip        varchar,
+    phone      varchar(64),
     student  integer
         constraint user_account_fk
             references student
@@ -237,8 +222,8 @@ create table scheduled_teaching
         constraint scheduled_teaching_fk
             references teaching
             on update cascade on delete cascade,
-    "from"   timestamp not null,
-    "to"     timestamp not null
+    "time_from"   timestamp not null,
+    "time_to"     timestamp not null
 );
 
 alter table scheduled_teaching
@@ -254,8 +239,8 @@ create table task
             references teaching
             on update cascade on delete cascade,
     text     varchar,
-    "from"   timestamp,
-    "to"     timestamp,
+    "time_from"   timestamp,
+    "time_to"     timestamp,
     date     timestamp,
     type     varchar(64)
 );

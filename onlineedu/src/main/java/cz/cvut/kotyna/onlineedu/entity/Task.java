@@ -167,5 +167,5 @@ public class Task implements Serializable {
     public String toString() {
         return "cz.cvut.kotyna.onlineedu.entity.Task[ id=" + id + " ]";
     }
-
+    
 }

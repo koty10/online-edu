@@ -19,7 +19,7 @@
             </h:link>
         </div>
         <ul>
-            <ui:repeat value="#{studentBackingBean.loggedInStudent.classroom.teachingCollection}" var="teaching">
+            <ui:repeat value="#{studentBackingBean.loggedInUser.student.classroom.teachingCollection}" var="teaching">
                 <li>
                     <h:link value="#{teaching.subject.name}" styleClass="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
                         <f:param name="teaching" value="#{teaching.id}" />
@@ -30,7 +30,7 @@
         <div class="column-narrow flex-column">
 
             <h:form>
-                <p:menuButton value="#{studentBackingBean.getLoggedInStudent().firstname} #{studentBackingBean.getLoggedInStudent().surname}">
+                <p:menuButton value="#{studentBackingBean.loggedInUser.firstname} #{studentBackingBean.loggedInUser.surname}">
                     <p:menuitem value="todo1" update="messages" icon="pi pi-save"/>
                     <p:menuitem value="todo2" update="messages" icon="pi pi-refresh"/>
                     <p:menuitem value="todo3" ajax="false" icon="pi pi-times"/>
