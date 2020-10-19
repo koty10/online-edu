@@ -53,6 +53,9 @@ public class Task implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "text")
     private String text;
+    @Size(max = 64)
+    @Column(name = "name")
+    private String name;
     @Column(name = "time_from")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeFrom;
@@ -92,6 +95,14 @@ public class Task implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getTimeFrom() {

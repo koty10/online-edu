@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebFilter(urlPatterns = "/student/*", dispatcherTypes = { DispatcherType.FORWARD })
+//@WebFilter(urlPatterns = "/student/*", dispatcherTypes = { DispatcherType.FORWARD })
 public class StudentFilter implements Filter {
 
     @EJB

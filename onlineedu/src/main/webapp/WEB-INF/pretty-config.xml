@@ -44,10 +44,6 @@
         <view-id value="/student/home.xhtml" />
     </url-mapping>
 
-    <url-mapping id="student-tasks-teaching">
-        <pattern value="/student/tasks/#{teaching}" />
-        <view-id value="/student/tasks.xhtml" />
-    </url-mapping>
 
 
 </pretty-config>

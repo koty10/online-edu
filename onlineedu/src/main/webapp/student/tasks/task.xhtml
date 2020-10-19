@@ -6,24 +6,42 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
-        Úkoly
+        Úkol
     </ui:define>
 
     <ui:define name="content">
 
-        <h2>Úkoly</h2>
-        <p:dataTable var="task" value="#{teachingBean.tasks}">
+        <h2>Úkol #{taskBean.task.name}</h2>
+
+        <p>
+            #{taskBean.task.text}
+        </p>
+
+
+        <p>Nový pokus</p>
+        <h:form>
+            <p:commandButton value="Nový pokus" action="#{attemptBean.createAttempt('pokus1')}" />
+        </h:form>
+
+
+
+        <h3>
+            Pokusy
+        </h3>
+
+        <p:dataTable var="attempt" value="#{taskBean.attemptsReverseSorted}">
             <p:column headerText="Id">
-                <h:outputText value="#{task.id}" />
+                <h:outputText value="#{attempt.id}" />
             </p:column>
 
             <p:column headerText="Popisek">
-                <h:link outcome="tasks/task" value="#{task.text}" >
-                    <f:param name="task" value="#{task.id}" />
+                <h:link outcome="/student/attempts/attempt" value="#{attempt.time}" >
+                    <f:param name="attempt" value="#{attempt.id}" />
                     <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
                 </h:link>
             </p:column>
         </p:dataTable>
+
 
 
     </ui:define>

@@ -239,6 +239,7 @@ create table task
             references teaching
             on update cascade on delete cascade,
     text     varchar,
+    name     varchar(64),
     "time_from"   timestamp,
     "time_to"     timestamp,
     date     timestamp,
@@ -263,7 +264,9 @@ create table attempt
             on update cascade on delete cascade,
     grade    varchar(64),
     score    varchar(64),
-    feedback varchar(1024)
+    feedback varchar(1024),
+    text     varchar(4096),
+    time     timestamp not null default CURRENT_DATE
 );
 
 alter table attempt
