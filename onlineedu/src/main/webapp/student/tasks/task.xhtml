@@ -33,7 +33,11 @@
 
 
         <p>Nový pokus</p>
-        <h:link value="Nový pokus" action="#{attemptBean.createAttempt('pokus1')}" id="createTask" />
+        <h:form>
+            <h:commandButton value="novy" action="#{attemptBean.createAttempt('new', param.get('taskId'))}" id="createnew">
+
+            </h:commandButton>
+        </h:form>
 
 
 

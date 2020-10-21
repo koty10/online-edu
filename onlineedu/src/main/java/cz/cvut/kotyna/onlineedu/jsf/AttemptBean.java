@@ -13,7 +13,6 @@ import javax.inject.Named;
 
 @Named(value = "attemptBean")
 @RequestScoped
-@ManagedBean
 public class AttemptBean {
 
     @EJB
@@ -74,9 +73,9 @@ public class AttemptBean {
         }
     }
 
-    public void createAttempt(String text) {
-        Task t = taskService.findTask(taskId);
-        attemptService.createAttempt(text, loginService.getLoggedInUser().getStudent(), taskService.findTask(taskId));
+    public void createAttempt(String text, Integer id) {
+        Task t = taskService.findTask(id);
+        attemptService.createAttempt(text, loginService.getLoggedInUser().getStudent(), t);
     }
 
     public Integer getAttemptId() {
