@@ -1,11 +1,14 @@
 package cz.cvut.kotyna.onlineedu.backing;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIViewParameter;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewMetadata;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

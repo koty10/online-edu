@@ -11,7 +11,7 @@
             <ui:repeat value="#{userBackingBean.loggedInUser.student.classroom.teachingCollection}" var="teaching">
                 <li class="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
                     <h:link value="#{teaching.subject.name}" outcome="/student/home">
-                        <f:param name="teaching" value="#{teaching.id}" />
+                        <f:param name="teachingId" value="#{teaching.id}" />
                     </h:link>
                 </li>
             </ui:repeat>
@@ -20,15 +20,13 @@
 
     <ui:define name="left-nav">
         <ul>
+            <h:messages style="color: red"/>
+
             <li class="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
-                <h:link outcome="/student/home" value="Home">
-                    <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
-                </h:link>
+                <h:link outcome="/student/home" value="Home" includeViewParams="true"/>
             </li>
             <li class="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
-                <h:link outcome="/student/tasks" value="Úkoly">
-                    <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
-                </h:link>
+                <h:link outcome="/student/tasks" value="Úkoly" includeViewParams="true" />
             </li>
         </ul>
     </ui:define>

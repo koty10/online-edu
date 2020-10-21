@@ -6,19 +6,22 @@ import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.TaskService;
 import cz.cvut.kotyna.onlineedu.service.TeachingService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
+import org.omnifaces.cdi.ViewScoped;
 
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Named(value = "taskBean")
-@RequestScoped
-public class TaskBean {
+@ViewScoped
+public class TaskBean implements Serializable {
 
     @EJB
     private UserService userService;
@@ -32,23 +35,49 @@ public class TaskBean {
     @EJB
     private TaskService taskService;
 
-    private String taskId;
+    private Integer taskId;
+    private Task task;
 
     /**
      * Creates a new instance of TeachingBean
      */
     public TaskBean() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        taskId = params.get("task");
+    }
+
+    public void init() {
+        if (taskId == null) {
+            String message = "Bad request. Please use a link from within the system.";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+            return;
+        }
+
+        task = taskService.findTask(taskId);
+
+        if (taskService == null) {
+            String message = "Bad request. Unknown task.";
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+        }
     }
 
     public Task getTask() {
-        return taskService.getTaskById(taskId);
+        return task;
     }
 
     public List<Attempt> getAttemptsReverseSorted() {
-        Task task = taskService.getTaskById(taskId);
+        if (taskId == null) {
+            return new ArrayList<>();
+        }
+        Task task = taskService.findTask(taskId);
         List<Attempt> attempts = task.getAttemptCollection().stream().sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
         return attempts;
+    }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 }

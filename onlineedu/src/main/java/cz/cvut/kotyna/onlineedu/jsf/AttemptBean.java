@@ -4,16 +4,16 @@ import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.service.*;
 
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Named(value = "attemptBean")
 @RequestScoped
+@ManagedBean
 public class AttemptBean {
 
     @EJB
@@ -31,23 +31,76 @@ public class AttemptBean {
     @EJB
     private AttemptService attemptService;
 
-    private String attemptId;
+    private Integer attemptId;
+    private Integer taskId;
+    private Attempt attempt;
+    private Task task;
 
     /**
      * Creates a new instance of TeachingBean
      */
     public AttemptBean() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        attemptId = params.get("attempt");
     }
 
-    public Attempt getAttempt() {
-        return attemptService.getAttemptById(attemptId);
+    public void init() {
+        // set task
+        if (taskId == null) {
+            String message = "Bad request. Please use a link from within the system.";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+            return;
+        }
+
+        task = taskService.findTask(taskId);
+
+        if (task == null) {
+            String message = "Bad request. Unknown task.";
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+        }
+
+        //set attempt
+        if (attemptId == null) {
+            String message = "Bad request. Please use a link from within the system.";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+            return;
+        }
+
+        attempt = attemptService.findAttempt(attemptId);
+
+        if (attempt == null) {
+            String message = "Bad request. Unknown attempt.";
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+        }
     }
 
     public void createAttempt(String text) {
-        String taskId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("task");
-        attemptService.createAttempt(text, loginService.getLoggedInUser().getStudent(), taskService.getTaskById(taskId));
+        Task t = taskService.findTask(taskId);
+        attemptService.createAttempt(text, loginService.getLoggedInUser().getStudent(), taskService.findTask(taskId));
+    }
+
+    public Integer getAttemptId() {
+        return attemptId;
+    }
+
+    public void setAttemptId(Integer attemptId) {
+        this.attemptId = attemptId;
+    }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public Attempt getAttempt() {
+        return attempt;
     }
 
 }

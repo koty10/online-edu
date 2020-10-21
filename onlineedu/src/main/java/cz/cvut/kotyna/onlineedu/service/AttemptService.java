@@ -22,10 +22,8 @@ public class AttemptService {
     @PersistenceContext
     EntityManager em;
 
-    public Attempt getAttemptById(String attemptId) {
-        int e = Integer.parseInt(attemptId);
-        Attempt attempt = em.createNamedQuery("Attempt.findById", Attempt.class).setParameter("id", (e)).getSingleResult();
-        return attempt;
+    public Attempt findAttempt(Integer attemptId) {
+        return em.find(Attempt.class, attemptId);
     }
 
     //TODO nevim proč ale nerefreshuje to

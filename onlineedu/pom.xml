@@ -64,6 +64,13 @@
             <version>3.4.4.Final</version>
         </dependency>
 
+        <!-- OmniFaces -->
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>3.8</version>
+        </dependency>
+
     </dependencies>
     
 

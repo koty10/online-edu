@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,9 +23,15 @@ public class TeachingService {
     @PersistenceContext
     EntityManager em;
 
-    public Collection<Task> getTasks(String teachingId) {
-        int e = Integer.parseInt(teachingId);
-        Teaching teaching = em.createNamedQuery("Teaching.findById", Teaching.class).setParameter("id", (e)).getSingleResult();
-        return teaching.getTaskCollection();
+    public Collection<Task> getTasks(Integer e) {
+        List<Teaching> teachings = em.createNamedQuery("Teaching.findById", Teaching.class).setParameter("id", (e)).getResultList();
+        if (teachings.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return teachings.get(0).getTaskCollection();
+    }
+
+    public Teaching findTeaching(Integer id) {
+        return em.find(Teaching.class, id);
     }
 }

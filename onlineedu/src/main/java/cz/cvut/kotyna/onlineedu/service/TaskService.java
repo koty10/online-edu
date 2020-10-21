@@ -20,9 +20,9 @@ public class TaskService {
     @PersistenceContext
     EntityManager em;
 
-    public Task getTaskById(String taskId) {
-        int e = Integer.parseInt(taskId);
-        Task task = em.createNamedQuery("Task.findById", Task.class).setParameter("id", (e)).getSingleResult();
-        return task;
+    public Task findTask(Integer taskId) {
+        em.getEntityManagerFactory().getCache().evictAll();
+        return em.find(Task.class, taskId);
     }
+
 }

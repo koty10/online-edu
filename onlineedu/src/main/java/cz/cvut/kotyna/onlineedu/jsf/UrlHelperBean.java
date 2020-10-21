@@ -40,8 +40,8 @@ public class UrlHelperBean {
 
     public boolean isCurrentTeaching(String teaching) {
         Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        if (!map.containsKey("teaching")) return false;
-        String value = map.get("teaching");
+        if (!map.containsKey("teachingId")) return false;
+        String value = map.get("teachingId");
         return value.equals(teaching);
     }
 

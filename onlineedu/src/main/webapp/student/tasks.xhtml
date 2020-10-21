@@ -5,6 +5,14 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="teachingId" value="#{teachingBean.teachingId}" required="true" requiredMessage="No teaching specified.">
+                <f:validateLongRange minimum="1"/>
+            </f:viewParam>
+        </f:metadata>
+    </ui:define>
+
     <ui:define name="title">
         Úkoly
     </ui:define>
@@ -19,8 +27,8 @@
 
             <p:column headerText="Popisek">
                 <h:link outcome="tasks/task" value="#{task.text}" >
-                    <f:param name="task" value="#{task.id}" />
-                    <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
+                    <f:param name="taskId" value="#{task.id}" />
+                    <f:param name="teachingId" value="#{teachingBean.teachingId}" />
                 </h:link>
             </p:column>
         </p:dataTable>

@@ -3,7 +3,21 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No task specified." default="#{teachingBean.defaultStudentTeaching.id}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="taskId" value="#{taskBean.taskId}" requiredMessage="No task specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{taskBean.init}"/>
+        </f:metadata>
+    </ui:define>
 
     <ui:define name="title">
         Úkol
@@ -19,9 +33,7 @@
 
 
         <p>Nový pokus</p>
-        <h:form>
-            <p:commandButton value="Nový pokus" action="#{attemptBean.createAttempt('pokus1')}" />
-        </h:form>
+        <h:link value="Nový pokus" action="#{attemptBean.createAttempt('pokus1')}" id="createTask" />
 
 
 
@@ -29,7 +41,7 @@
             Pokusy
         </h3>
 
-        <p:dataTable var="attempt" value="#{taskBean.attemptsReverseSorted}">
+        <p:dataTable var="attempt" value="#{taskBean.attemptsReverseSorted}" >
             <p:column headerText="Id">
                 <h:outputText value="#{attempt.id}" />
             </p:column>
