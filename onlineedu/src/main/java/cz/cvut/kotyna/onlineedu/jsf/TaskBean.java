@@ -38,6 +38,10 @@ public class TaskBean implements Serializable {
     private Integer taskId;
     private Task task;
 
+    // attempt text content
+    private String text;
+    private String result;
+
     /**
      * Creates a new instance of TeachingBean
      */
@@ -60,9 +64,9 @@ public class TaskBean implements Serializable {
         }
     }
 
-    public void createAttempt(String text) {
+    public void createAttempt() {
         attemptService.createAttempt(text, loginService.getLoggedInUser().getStudent(), task);
-
+        result = "Pokus úspěšně odeslán!";
     }
     public Task getTask() {
         return task;
@@ -83,5 +87,21 @@ public class TaskBean implements Serializable {
 
     public void setTaskId(Integer taskId) {
         this.taskId = taskId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

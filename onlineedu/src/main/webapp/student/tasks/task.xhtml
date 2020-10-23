@@ -32,12 +32,14 @@
         </p>
 
 
-        <p>Nový pokus</p>
         <h:form>
+            <h3 style="margin-top:0">Nový pokus</h3>
+            <p:textEditor widgetVar="editor1" value="#{taskBean.text}" height="300" style="margin-bottom:10px" secure="false"/>
 
+            <p:commandButton value="Odeslat" action="#{taskBean.createAttempt}" ajax="false" />
+            <p:commandButton value="Smazat" type="button" onclick="PF('editor1').clear();" />
 
-
-            <h:commandButton value="novy" action="#{taskBean.createAttempt('new')}" id="createnew" />
+            <p>#{taskBean.result}</p>
         </h:form>
 
 
