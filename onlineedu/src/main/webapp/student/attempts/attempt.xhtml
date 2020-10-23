@@ -9,10 +9,18 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No attempt specified." default="#{teachingBean.defaultStudentTeaching.id}">
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No teaching specified." default="#{teachingBean.defaultStudentTeaching.id}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
+            <o:viewParam name="taskId" value="#{taskBean.taskId}" requiredMessage="No task specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="attemptId" value="#{attemptBean.attemptId}" requiredMessage="No attempt specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{taskBean.init}"/>
             <f:viewAction action="#{attemptBean.init}"/>
+
         </f:metadata>
     </ui:define>
 

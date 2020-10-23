@@ -31,9 +31,9 @@ public class AttemptBean {
     private AttemptService attemptService;
 
     private Integer attemptId;
-    private Integer taskId;
+    //private Integer taskId;
     private Attempt attempt;
-    private Task task;
+    //private Task task;
 
     /**
      * Creates a new instance of TeachingBean
@@ -43,6 +43,7 @@ public class AttemptBean {
 
     public void init() {
         // set task
+        /*
         if (taskId == null) {
             String message = "Bad request. Please use a link from within the system.";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
@@ -56,6 +57,7 @@ public class AttemptBean {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
+        */
 
         //set attempt
         if (attemptId == null) {
@@ -86,6 +88,7 @@ public class AttemptBean {
         this.attemptId = attemptId;
     }
 
+    /*
     public Integer getTaskId() {
         return taskId;
     }
@@ -97,6 +100,7 @@ public class AttemptBean {
     public Task getTask() {
         return task;
     }
+     */
 
     public Attempt getAttempt() {
         return attempt;

@@ -34,9 +34,12 @@
 
         <p>Nový pokus</p>
         <h:form>
-            <h:commandButton value="novy" action="#{attemptBean.createAttempt('new', param.get('taskId'))}" id="createnew">
 
-            </h:commandButton>
+
+
+
+
+            <h:commandButton value="novy" action="#{attemptBean.createAttempt('new', param.get('taskId'))}" id="createnew" />
         </h:form>
 
 
@@ -51,9 +54,8 @@
             </p:column>
 
             <p:column headerText="Popisek">
-                <h:link outcome="/student/attempts/attempt" value="#{attempt.time}" >
-                    <f:param name="attempt" value="#{attempt.id}" />
-                    <f:param name="teaching" value="#{urlHelperBean.currentOrDefaultTeachingId}" />
+                <h:link outcome="/student/attempts/attempt" value="#{attempt.time}" includeViewParams="true" >
+                    <f:param name="attemptId" value="#{attempt.id}" />
                 </h:link>
             </p:column>
         </p:dataTable>
