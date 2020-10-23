@@ -2,10 +2,7 @@ package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Task;
-import cz.cvut.kotyna.onlineedu.service.LoginService;
-import cz.cvut.kotyna.onlineedu.service.TaskService;
-import cz.cvut.kotyna.onlineedu.service.TeachingService;
-import cz.cvut.kotyna.onlineedu.service.UserService;
+import cz.cvut.kotyna.onlineedu.service.*;
 
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
@@ -35,6 +32,9 @@ public class TaskBean implements Serializable {
     @EJB
     private TaskService taskService;
 
+    @EJB
+    private AttemptService attemptService;
+
     private Integer taskId;
     private Task task;
 
@@ -60,6 +60,10 @@ public class TaskBean implements Serializable {
         }
     }
 
+    public void createAttempt(String text) {
+        attemptService.createAttempt(text, loginService.getLoggedInUser().getStudent(), task);
+
+    }
     public Task getTask() {
         return task;
     }

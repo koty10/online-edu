@@ -75,10 +75,7 @@ public class AttemptBean {
         }
     }
 
-    public void createAttempt(String text, Integer id) {
-        Task t = taskService.findTask(id);
-        attemptService.createAttempt(text, loginService.getLoggedInUser().getStudent(), t);
-    }
+
 
     public Integer getAttemptId() {
         return attemptId;
