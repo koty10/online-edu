@@ -32,9 +32,9 @@
 
         <h2>Pokus úkolu #{attemptBean.attempt.task.name} (todo:done/undone)</h2>
 
-        <p>
-            #{attemptBean.attempt.text}
-        </p>
+        <h:form>
+            <p:textEditor widgetVar="editor1" value="#{attemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false"/>
+        </h:form>
 
         <p>
             pokus vytvořen: #{attemptBean.attempt.time}
