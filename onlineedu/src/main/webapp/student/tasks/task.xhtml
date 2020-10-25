@@ -27,9 +27,9 @@
 
         <h2>Úkol #{taskBean.task.name}</h2>
 
-        <p>
-            #{taskBean.task.text}
-        </p>
+        <h:form>
+            <p:textEditor widgetVar="editor1" value="#{taskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+        </h:form>
 
         <h:form>
             <h3 style="margin-top:0">Nový pokus</h3>

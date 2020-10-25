@@ -243,7 +243,8 @@ create table task
     "time_from"   timestamp,
     "time_to"     timestamp,
     date     timestamp,
-    type     varchar(64)
+    type     varchar(64),
+    state    varchar(64) not null default 'new'
 );
 
 alter table task

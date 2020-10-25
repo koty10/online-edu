@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Task.findByTimeFrom", query = "SELECT t FROM Task t WHERE t.timeFrom = :timeFrom"),
     @NamedQuery(name = "Task.findByTimeTo", query = "SELECT t FROM Task t WHERE t.timeTo = :timeTo"),
     @NamedQuery(name = "Task.findByDate", query = "SELECT t FROM Task t WHERE t.date = :date"),
-    @NamedQuery(name = "Task.findByType", query = "SELECT t FROM Task t WHERE t.type = :type")})
+    @NamedQuery(name = "Task.findByType", query = "SELECT t FROM Task t WHERE t.type = :type"),
+    @NamedQuery(name = "Task.findByState", query = "SELECT t FROM Task t WHERE t.state = :state")})
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,6 +58,9 @@ public class Task implements Serializable {
     @Size(max = 64)
     @Column(name = "name")
     private String name;
+    @Size(max = 64)
+    @Column(name = "state")
+    private String state;
     @Column(name = "time_from")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeFrom;
@@ -104,6 +108,14 @@ public class Task implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public Date getTimeFrom() {

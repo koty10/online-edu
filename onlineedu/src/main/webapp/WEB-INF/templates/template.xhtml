@@ -16,56 +16,59 @@
 <h:body>
     <f:view>
 
-        <header>
-            <div class="column-narrow">
-                <h:link outcome="/home">
-                    <h:graphicImage name="images/logo.jpg" alt="logo" />
-                </h:link>
-            </div>
-            <ui:insert name="top-nav">
-                <ul>
-                    <ui:fragment rendered="#{userLogin.loggedIn}">
-                        <li>
-                            <h:link rendered="#{userBackingBean.loggedInUser.role.equals('student')}" outcome="student/home" value="Třída">
-                                <f:param name="teachingId" value="#{teachingBean.defaultStudentTeaching.id}" />
-                            </h:link>
-                            <h:link rendered="#{userBackingBean.loggedInUser.role.equals('teacher')}" outcome="teacher/home" value="Třída"></h:link>
-                            <h:link rendered="#{userBackingBean.loggedInUser.role.equals('parent')}" outcome="parent/home" value="Třída"></h:link>
-                            <h:link rendered="#{userBackingBean.loggedInUser.role.equals('admin')}" outcome="admin/home" value="Admin page"></h:link>
-                        </li>
-                    </ui:fragment>
-                </ul>
-            </ui:insert>
-            <div class="column-narrow flex-column">
-                <h:form id="login-form">
-                    <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
-                        <p:menuitem value="todo1" update="messages" icon="pi pi-save"/>
-                        <p:menuitem value="todo2" update="messages" icon="pi pi-refresh"/>
-                        <p:menuitem value="todo3" ajax="false" icon="pi pi-times"/>
-                        <p:separator />
-                        <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-home"/>
-                    </p:menuButton>
-                    <h:commandLink value="Přihlásit" rendered="#{not userLogin.loggedIn}" action="login"/>
-                    <p:growl id="messages" showDetail="true"/>
-                </h:form>
-            </div>
-        </header>
-        <section class="row">
-            <aside class="big">
-                <ui:insert name="left-nav">
+        <div id="page-wrapper">
+            <header>
+                <div class="column-narrow">
+                    <h:link outcome="/home">
+                        <h:graphicImage name="images/logo.jpg" alt="logo" />
+                    </h:link>
+                </div>
+                <ui:insert name="top-nav">
                     <ul>
-                        <li class="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
-                            <h:link outcome="home" value="Home" />
-                        </li>
+                        <ui:fragment rendered="#{userLogin.loggedIn}">
+                            <li>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('student')}" outcome="student/home" value="Třída">
+                                    <f:param name="teachingId" value="#{teachingBean.defaultStudentTeaching.id}" />
+                                </h:link>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('teacher')}" outcome="teacher/home" value="Třída"></h:link>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('parent')}" outcome="parent/home" value="Třída"></h:link>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('admin')}" outcome="admin/home" value="Admin page"></h:link>
+                            </li>
+                        </ui:fragment>
                     </ul>
                 </ui:insert>
-            </aside>
-            <main class="big"><ui:insert name="content">Default content</ui:insert></main>
-            <aside class="big">Novinky</aside>
-        </section>
-        <footer>
-            <p>Footer</p>
-        </footer>
+                <div class="column-narrow flex-column">
+                    <h:form id="login-form">
+                        <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
+                            <p:menuitem value="todo1" update="messages" icon="pi pi-save"/>
+                            <p:menuitem value="todo2" update="messages" icon="pi pi-refresh"/>
+                            <p:menuitem value="todo3" ajax="false" icon="pi pi-times"/>
+                            <p:separator />
+                            <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-home"/>
+                        </p:menuButton>
+                        <h:commandLink value="Přihlásit" rendered="#{not userLogin.loggedIn}" action="login"/>
+                        <p:growl id="messages" showDetail="true"/>
+                    </h:form>
+                </div>
+            </header>
+            <section class="row">
+                <aside class="big">
+                    <ui:insert name="left-nav">
+                        <ul>
+                            <li class="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
+                                <h:link outcome="home" value="Home" />
+                            </li>
+                        </ul>
+                    </ui:insert>
+                </aside>
+                <main class="big"><ui:insert name="content">Default content</ui:insert></main>
+                <aside class="big">Novinky</aside>
+            </section>
+            <footer>
+                <p>Footer</p>
+            </footer>
+        </div>
+
     </f:view>
 </h:body>
 </html>
