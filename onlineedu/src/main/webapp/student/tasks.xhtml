@@ -31,6 +31,9 @@
                     <f:param name="teachingId" value="#{teachingBean.teachingId}" />
                 </h:link>
             </p:column>
+            <p:column headerText="Stav">
+                <h:outputText value="#{task.stateCzechFormated}" />
+            </p:column>
         </p:dataTable>
 
 

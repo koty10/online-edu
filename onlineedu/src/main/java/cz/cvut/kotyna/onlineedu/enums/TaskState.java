@@ -3,34 +3,27 @@ package cz.cvut.kotyna.onlineedu.enums;
 public enum TaskState {
     NEW {
         public String toString() {
-            return "New";
-        }
-        public String getCzechToString() {
-            return "Nový";
+            return "new";
         }
     },
     SUBMITTED {
         public String toString() {
-            return "Submitted";
-        }
-        public String getCzechToString() {
-            return "Odevzdáno";
+            return "submitted";
         }
     },
     ACCEPTED {
         public String toString() {
-            return "Accepted";
-        }
-        public String getCzechToString() {
-            return "Schváleno";
+            return "accepted";
         }
     },
     RETURNED {
         public String toString() {
-            return "Returned";
+            return "returned";
         }
-        public String getCzechToString() {
-            return "Vráceno";
+    },
+    RESUBMITTED {
+        public String toString() {
+            return "resubmitted";
         }
     }
 }

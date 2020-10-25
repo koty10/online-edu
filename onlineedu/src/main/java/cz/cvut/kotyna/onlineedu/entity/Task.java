@@ -5,6 +5,8 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import cz.cvut.kotyna.onlineedu.enums.TaskState;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -112,6 +114,16 @@ public class Task implements Serializable {
 
     public String getState() {
         return state;
+    }
+
+    public String getStateCzechFormated() {
+        switch (state) {
+            case "new" : return "Nový";
+            case "submitted" : return "Odevzdáno";
+            case "accepted" : return "Schváleno";
+            case "returned" : return "Vráceno";
+            default: return "Unknown";
+        }
     }
 
     public void setState(String state) {

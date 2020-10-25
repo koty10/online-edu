@@ -8,6 +8,7 @@ package cz.cvut.kotyna.onlineedu.service;
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
+import cz.cvut.kotyna.onlineedu.enums.TaskState;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,7 +33,13 @@ public class AttemptService {
         attempt.setStudent(student);
         attempt.setTask(task);
         attempt.setText(text);
+        if (task.getState().equals(TaskState.NEW.toString())) {
+            task.setState(TaskState.SUBMITTED.toString());
+        }
+        else if (task.getState().equals(TaskState.RETURNED.toString())) {
+            task.setState(TaskState.RESUBMITTED.toString());
+        }
+        em.merge(task);
         em.persist(attempt);
-
     }
 }

@@ -35,17 +35,17 @@
             <h3 style="margin-top:0">Nový pokus</h3>
             <p:textEditor widgetVar="editor1" value="#{taskBean.text}" height="300" style="margin-bottom:10px" secure="false"/>
 
-            <p:commandButton value="Odeslat" action="#{taskBean.createAttempt}" ajax="false" />
+            <p:commandButton value="Odeslat" action="#{taskBean.createAttempt()}" update="attempts result" />
             <p:commandButton value="Smazat" type="button" onclick="PF('editor1').clear();" />
 
-            <p>#{taskBean.result}</p>
+            <p><h:outputText id="result">#{taskBean.result}</h:outputText></p>
         </h:form>
 
         <h3>
             Pokusy
         </h3>
 
-        <p:dataTable var="attempt" value="#{taskBean.attemptsReverseSorted}" >
+        <p:dataTable id="attempts" var="attempt" value="#{taskBean.attemptsReverseSorted}" >
             <p:column headerText="Id">
                 <h:outputText value="#{attempt.id}" />
             </p:column>
