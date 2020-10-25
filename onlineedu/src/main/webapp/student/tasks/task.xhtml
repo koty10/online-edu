@@ -51,7 +51,7 @@
             </p:column>
 
             <p:column headerText="Popisek">
-                <h:link outcome="/student/attempts/attempt" value="#{of:formatDate(attempt.time, 'dd.MM.yyyy HH:mm')}" includeViewParams="true" >
+                <h:link outcome="/student/attempts/attempt" value="#{attempt.timeFormated}" includeViewParams="true" >
                     <f:param name="attemptId" value="#{attempt.id}" />
                 </h:link>
             </p:column>

@@ -6,6 +6,7 @@
 package cz.cvut.kotyna.onlineedu.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -109,6 +110,11 @@ public class Task implements Serializable {
         return timeFrom;
     }
 
+    public String getTimeFromFormated() {
+        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        return nf.format(timeFrom);
+    }
+
     public void setTimeFrom(Date timeFrom) {
         this.timeFrom = timeFrom;
     }
@@ -117,12 +123,22 @@ public class Task implements Serializable {
         return timeTo;
     }
 
+    public String getTimeToFormated() {
+        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        return nf.format(timeTo);
+    }
+
     public void setTimeTo(Date timeTo) {
         this.timeTo = timeTo;
     }
 
     public Date getDate() {
         return date;
+    }
+
+    public String getDateFormated() {
+        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        return nf.format(date);
     }
 
     public void setDate(Date date) {

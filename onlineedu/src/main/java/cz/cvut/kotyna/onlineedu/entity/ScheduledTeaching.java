@@ -6,6 +6,7 @@
 package cz.cvut.kotyna.onlineedu.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -82,12 +83,22 @@ public class ScheduledTeaching implements Serializable {
         return timeFrom;
     }
 
+    public String getTimeFromFormated() {
+        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        return nf.format(timeFrom);
+    }
+
     public void setTimeFrom(Date timeFrom) {
         this.timeFrom = timeFrom;
     }
 
     public Date getTimeTo() {
         return timeTo;
+    }
+
+    public String getTimeToFormated() {
+        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        return nf.format(timeTo);
     }
 
     public void setTimeTo(Date timeTo) {

@@ -6,6 +6,7 @@
 package cz.cvut.kotyna.onlineedu.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -107,6 +108,11 @@ public class Attempt implements Serializable {
 
     public Date getTime() {
         return time;
+    }
+
+    public String getTimeFormated() {
+        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        return nf.format(time);
     }
 
     public void setTime(Date time) {
