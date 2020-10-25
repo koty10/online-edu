@@ -26,7 +26,6 @@ public class AttemptService {
         return em.find(Attempt.class, attemptId);
     }
 
-    //TODO nevim proč ale nerefreshuje to
     public void createAttempt(String text, Student student, Task task) {
         Attempt attempt = new Attempt();
         attempt.setTime(new Date());
