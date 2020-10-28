@@ -122,6 +122,7 @@ public class Task implements Serializable {
             case "submitted" : return "Odevzdáno";
             case "accepted" : return "Schváleno";
             case "returned" : return "Vráceno";
+            case "failed" : return "Nesplněno";
             default: return "Unknown";
         }
     }

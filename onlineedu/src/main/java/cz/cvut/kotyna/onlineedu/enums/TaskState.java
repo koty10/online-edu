@@ -25,5 +25,10 @@ public enum TaskState {
         public String toString() {
             return "resubmitted";
         }
+    },
+    FAILED {
+        public String toString() {
+            return "failed";
+        }
     }
 }

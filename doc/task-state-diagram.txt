@@ -1,0 +1,23 @@
+@startuml
+[*] --> New
+
+New --> Submitted : first attempt
+
+Submitted --> Returned : returned to fix
+
+Returned --> Resubmitted : further attempts
+
+Resubmitted --> Accepted : accepted by teacher
+
+Resubmitted --> Returned : returned to fix again
+
+Submitted -> Accepted : accepted by teacher
+
+New --> Failed : After deadline or no more attempts
+
+Returned --> Failed : After deadline or no more attempts
+
+Failed --> [*]
+
+Accepted --> [*]
+@enduml
