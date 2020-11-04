@@ -25,14 +25,18 @@
                 <h:outputText value="#{task.id}" />
             </p:column>
 
-            <p:column headerText="Popisek">
-                <h:link outcome="tasks/task" value="#{task.text}" >
+            <p:column headerText="Název">
+                <h:link outcome="tasks/task" value="#{task.name}" >
+                    <i class="fa fa-fw fa-link"></i>
                     <f:param name="taskId" value="#{task.id}" />
                     <f:param name="teachingId" value="#{teachingBean.teachingId}" />
                 </h:link>
             </p:column>
             <p:column headerText="Stav">
                 <h:outputText value="#{task.stateCzechFormated}" />
+            </p:column>
+            <p:column headerText="Deadline">
+                <h:outputText value="#{task.timeToFormated}" />
             </p:column>
         </p:dataTable>
 

@@ -62,11 +62,6 @@ aside ul {
     flex-wrap: wrap;
 }
 
-a {
-    text-decoration: none;
-    color: #eeeeee;
-}
-
 li {
     flex-grow: 1;
     text-align: center;

@@ -71,6 +71,13 @@
             <version>3.8</version>
         </dependency>
 
+        <!-- Font Awesome -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>5.12.0</version>
+        </dependency>
+
     </dependencies>
     
 
