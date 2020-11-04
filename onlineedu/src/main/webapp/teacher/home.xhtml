@@ -1,9 +1,23 @@
-<ui:composition template="/WEB-INF/templates/template.xhtml"
+<ui:composition template="/WEB-INF/templates/teacher-template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{userBackingBean.setClassroom}"/>
+        </f:metadata>
+    </ui:define>
 
     <ui:define name="title">
         New page title here
@@ -19,19 +33,19 @@
             </p:column>
 
             <p:column headerText="Jméno">
-                <h:outputText value="#{classmate.firstname}" />
+                <h:outputText value="#{classmate.userAccount.firstname}" />
             </p:column>
 
             <p:column headerText="Příjmení">
-                <h:outputText value="#{classmate.surname}" />
+                <h:outputText value="#{classmate.userAccount.surname}" />
             </p:column>
 
             <p:column headerText="Email">
-                <h:outputText value="#{classmate.email}" />
+                <h:outputText value="#{classmate.userAccount.email}" />
             </p:column>
 
             <p:column headerText="Věk">
-                <h:outputText value="#{classmate.age}" />
+                <h:outputText value="#{classmate.userAccount.age}" />
             </p:column>
 
             <p:column headerText="Chat alert">
@@ -39,15 +53,15 @@
             </p:column>
 
             <p:column headerText="Registrován">
-                <h:outputText value="#{classmate.registered}" />
+                <h:outputText value="#{classmate.userAccount.registered}" />
             </p:column>
 
             <p:column headerText="Ulice">
-                <h:outputText value="#{classmate.street}" />
+                <h:outputText value="#{classmate.userAccount.street}" />
             </p:column>
 
             <p:column headerText="PSČ">
-                <h:outputText value="#{classmate.zip}" />
+                <h:outputText value="#{classmate.userAccount.zip}" />
             </p:column>
 
             <p:column headerText="Classroom_id">
@@ -56,7 +70,7 @@
         </p:dataTable>
 
         <h2>Výuka</h2>
-        <p:dataTable var="teaching" value="#{userBackingBean.loggedInUser.classroom.teachingCollection}">
+        <p:dataTable var="teaching" value="#{userBackingBean.loggedInUser.teacher.classroom.teachingCollection}">
             <p:column headerText="Id">
                 <h:outputText value="#{teaching.id}" />
             </p:column>
@@ -66,7 +80,7 @@
             </p:column>
 
             <p:column headerText="Učitel">
-                <h:outputText value="#{teaching.teacher.firstname} #{teaching.teacher.surname}" />
+                <h:outputText value="#{teaching.teacher.userAccount.firstname} #{teaching.teacher.userAccount.surname}" />
             </p:column>
 
             <p:column headerText="Předmět">

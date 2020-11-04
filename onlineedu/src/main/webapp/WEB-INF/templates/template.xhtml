@@ -30,12 +30,12 @@
                     <ul>
                         <ui:fragment rendered="#{userLogin.loggedIn}">
                             <li>
-                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('student')}" outcome="student/home" value="Třída">
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('student')}" outcome="/student/home" value="Třída">
                                     <f:param name="teachingId" value="#{teachingBean.defaultStudentTeaching.id}" />
                                 </h:link>
-                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('teacher')}" outcome="teacher/home" value="Třída"></h:link>
-                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('parent')}" outcome="parent/home" value="Třída"></h:link>
-                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('admin')}" outcome="admin/home" value="Admin page"></h:link>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('teacher')}" outcome="/teacher/home" value="Třída"></h:link>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('parent')}" outcome="/parent/home" value="Třída"></h:link>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('admin')}" outcome="/admin/home" value="Admin page"></h:link>
                             </li>
                         </ui:fragment>
                     </ul>

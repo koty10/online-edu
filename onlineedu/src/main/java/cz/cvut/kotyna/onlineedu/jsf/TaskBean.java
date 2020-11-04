@@ -57,7 +57,7 @@ public class TaskBean implements Serializable {
 
         task = taskService.findTask(taskId);
 
-        if (taskService == null) {
+        if (task == null) {
             String message = "Bad request. Unknown task.";
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));

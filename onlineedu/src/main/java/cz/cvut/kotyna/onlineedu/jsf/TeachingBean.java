@@ -86,4 +86,8 @@ public class TeachingBean {
         Collection<Teaching> teachings = userService.getTeachings(loggedInStudent);
         return teachings.stream().findFirst().get();
     }
+
+    public List<Teaching> getTeachersTeachings() {
+        return loginService.getLoggedInUser().getTeacher().getClassroom().getTeachingCollection().stream().filter(x -> x.getTeacher().getUserAccount().getId().equals(loginService.getLoggedInUser().getId())).collect(Collectors.toList());
+    }
 }

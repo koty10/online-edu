@@ -38,11 +38,18 @@ public class UrlHelperBean {
         return pathParts[pathParts.length - 1].equals(pathLastPart) || pathParts[pathParts.length - 1].equals(pathLastPart + ".xhtml");
     }
 
-    public boolean isCurrentTeaching(String teaching) {
+    public boolean isCurrentTeaching(String teachingId) {
         Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         if (!map.containsKey("teachingId")) return false;
         String value = map.get("teachingId");
-        return value.equals(teaching);
+        return value.equals(teachingId);
+    }
+
+    public boolean isCurrentClassroom(String classroomId) {
+        Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        if (!map.containsKey("classroomId")) return false;
+        String value = map.get("classroomId");
+        return value.equals(classroomId);
     }
 
     public String getCurrentOrDefaultTeachingId() {

@@ -1,0 +1,61 @@
+<ui:composition template="/WEB-INF/templates/teacher-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No task specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="taskId" value="#{taskBean.taskId}" requiredMessage="No task specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{taskBean.init}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="title">
+        Úkol
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h2>Úkol #{taskBean.task.name}</h2>
+
+        <h:form>
+            <p:textEditor widgetVar="editor1" value="#{taskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+        </h:form>
+
+        <h:form>
+            <h3 style="margin-top:0">Nový pokus</h3>
+            <p:textEditor widgetVar="editor1" value="#{taskBean.text}" height="300" style="margin-bottom:10px" secure="false"/>
+
+            <p:commandButton value="Odeslat" action="#{taskBean.createAttempt()}" update="attempts result" />
+            <p:commandButton value="Smazat" type="button" onclick="PF('editor1').clear();" />
+
+            <p><h:outputText id="result">#{taskBean.result}</h:outputText></p>
+        </h:form>
+
+        <h3>
+            Pokusy
+        </h3>
+
+        <p:dataTable id="attempts" var="attempt" value="#{taskBean.attemptsReverseSorted}" >
+            <p:column headerText="Id">
+                <h:outputText value="#{attempt.id}" />
+            </p:column>
+
+            <p:column headerText="Popisek">
+                <h:link outcome="/teacher/attempts/attempt" value="#{attempt.timeFormated}" includeViewParams="true" >
+                    <f:param name="attemptId" value="#{attempt.id}" />
+                </h:link>
+            </p:column>
+        </p:dataTable>
+
+    </ui:define>
+</ui:composition>

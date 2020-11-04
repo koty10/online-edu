@@ -1,0 +1,45 @@
+<ui:composition template="/WEB-INF/templates/teacher-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No teaching specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="taskId" value="#{taskBean.taskId}" requiredMessage="No task specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="attemptId" value="#{attemptBean.attemptId}" requiredMessage="No attempt specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{taskBean.init}"/>
+            <f:viewAction action="#{attemptBean.init}"/>
+            <f:viewAction action="#{teachingBean.init}"/>
+
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="title">
+        Úkol
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h2>Pokus úkolu: #{attemptBean.attempt.task.name} (todo:done/undone)</h2>
+
+        <h:form>
+            <p:textEditor widgetVar="editor1" value="#{attemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+        </h:form>
+
+        <p>
+            <h:outputText value="Pokus vytvořen: #{attemptBean.attempt.timeFormated}" />
+        </p>
+
+    </ui:define>
+</ui:composition>

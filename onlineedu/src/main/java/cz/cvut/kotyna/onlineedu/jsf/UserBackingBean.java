@@ -1,11 +1,13 @@
 package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
+import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -23,10 +25,32 @@ public class UserBackingBean {
     @EJB
     private LoginService loginService;
 
+    @EJB
+    private ClassroomService classroomService;
+
+    private Integer classroomId;
+    private Classroom classroom;
+
     /**
      * Creates a new instance of UserBackingBean
      */
     public UserBackingBean() {
+    }
+
+    public void setClassroom() {
+        if (classroomId == null) {
+            String message = "Bad request. Please use a link from within the system.";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+            return;
+        }
+
+        classroom = classroomService.findClassroom(classroomId);
+
+        if (classroom == null) {
+            String message = "Bad request. Unknown classroom.";
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+        }
     }
 
     //@PostConstruct
@@ -79,6 +103,22 @@ public class UserBackingBean {
 
     public Collection<Teaching> getTeachings() {
         return userService.getTeachings(loginService.getLoggedInUser().getStudent());
+    }
+
+    public List<Classroom> getClassroomsTeachedByCurrentTeacher() {
+        return loginService.getLoggedInUser().getTeacher().getTeachingCollection().stream().map(x -> x.getClassroom()).distinct().collect(Collectors.toList());
+    }
+
+    public Integer getClassroomId() {
+        return classroomId;
+    }
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroomId(Integer classroomId) {
+        this.classroomId = classroomId;
     }
 
     //FIXME smazat - jen pro testovani
