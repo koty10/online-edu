@@ -7,7 +7,7 @@
         template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="top-nav">
-        <ul>
+        <ul class="top-nav-list">
             <ui:repeat value="#{userBackingBean.loggedInUser.student.classroom.teachingCollection}" var="teaching">
                 <li class="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
                     <h:link value="#{teaching.subject.name}" outcome="/student/home">

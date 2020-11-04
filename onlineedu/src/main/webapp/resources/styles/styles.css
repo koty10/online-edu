@@ -38,18 +38,41 @@ a img {
     width: 100%;
 }
 
-header ul {
+.top-nav-list {
     list-style-type: none;
     flex-basis: 70%;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
+.top-nav-list-row {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+}
+
+.top-nav-list-wrapper {
+    background-color: #333;
+    display: flex;
+    flex-basis: 70%;
+    margin: 0;
+    padding: 0;
+}
+
+.top-nav-list-column {
+    display: flex;
+    flex-flow: column;
+    flex-basis: 100%;
+}
 
 aside ul {
     list-style-type: none;

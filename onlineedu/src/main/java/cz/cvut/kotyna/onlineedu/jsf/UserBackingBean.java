@@ -105,8 +105,18 @@ public class UserBackingBean {
         return userService.getTeachings(loginService.getLoggedInUser().getStudent());
     }
 
+    // Used in the top nav for teacher
     public List<Classroom> getClassroomsTeachedByCurrentTeacher() {
         return loginService.getLoggedInUser().getTeacher().getTeachingCollection().stream().map(x -> x.getClassroom()).distinct().collect(Collectors.toList());
+    }
+
+    // Used in the top nav for teacher
+    public List<Teaching> getTeachersTeachingsInCurrentClassroom() {
+        return loginService.getLoggedInUser().getTeacher().getClassroom().getTeachingCollection().stream().filter(t -> t.getTeacher().getUserAccount().getId().equals(loginService.getLoggedInUser().getId())).filter(t -> t.getClassroom().getId().equals(classroomId)).collect(Collectors.toList());
+    }
+
+    public Classroom getDefaultTeacherClassroom() {
+        return loginService.getLoggedInUser().getTeacher().getClassroom();
     }
 
     public Integer getClassroomId() {

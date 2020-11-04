@@ -2,6 +2,7 @@ package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
+import cz.cvut.kotyna.onlineedu.entity.Teacher;
 import cz.cvut.kotyna.onlineedu.entity.Teaching;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.TeachingService;
@@ -87,7 +88,8 @@ public class TeachingBean {
         return teachings.stream().findFirst().get();
     }
 
-    public List<Teaching> getTeachersTeachings() {
-        return loginService.getLoggedInUser().getTeacher().getClassroom().getTeachingCollection().stream().filter(x -> x.getTeacher().getUserAccount().getId().equals(loginService.getLoggedInUser().getId())).collect(Collectors.toList());
+    public Teaching getDefaultTeacherTeaching(Integer classroomId) {
+        Teacher loggedInTeacher = loginService.getLoggedInUser().getTeacher();
+        return loggedInTeacher.getTeachingCollection().stream().filter(t -> t.getClassroom().getId().equals(classroomId)).findFirst().get();
     }
 }
