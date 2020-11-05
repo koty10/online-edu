@@ -243,8 +243,7 @@ create table task
     "time_from"   timestamp,
     "time_to"     timestamp,
     date     timestamp,
-    type     varchar(64),
-    state    varchar(64) not null default 'new'
+    type     varchar(64)
 );
 
 alter table task
@@ -267,7 +266,8 @@ create table attempt
     score    varchar(64),
     feedback varchar(1024),
     text     varchar(4096),
-    time     timestamp not null default CURRENT_DATE
+    time     timestamp not null default CURRENT_DATE,
+    state    varchar(64) not null
 );
 
 alter table attempt

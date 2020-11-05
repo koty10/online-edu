@@ -45,7 +45,7 @@
             Pokusy
         </h3>
 
-        <p:dataTable id="attempts" var="attempt" value="#{taskBean.attemptsReverseSorted}" >
+        <p:dataTable id="attempts" var="attempt" value="#{taskBean.loggedInStudentsAttemptsReverseSorted}" >
             <p:column headerText="Id">
                 <h:outputText value="#{attempt.id}" />
             </p:column>

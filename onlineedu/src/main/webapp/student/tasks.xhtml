@@ -33,7 +33,7 @@
                 </h:link>
             </p:column>
             <p:column headerText="Stav">
-                <h:outputText value="#{task.stateCzechFormated}" />
+                <h:outputText value="#{taskBean.getLoggedInStudentsTaskState(task.id)}" />
             </p:column>
             <p:column headerText="Deadline">
                 <h:outputText value="#{task.timeToFormated}" />

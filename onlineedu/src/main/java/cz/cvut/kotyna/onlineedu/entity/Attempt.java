@@ -26,7 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Attempt.findById", query = "SELECT a FROM Attempt a WHERE a.id = :id"),
     @NamedQuery(name = "Attempt.findByGrade", query = "SELECT a FROM Attempt a WHERE a.grade = :grade"),
     @NamedQuery(name = "Attempt.findByScore", query = "SELECT a FROM Attempt a WHERE a.score = :score"),
-    @NamedQuery(name = "Attempt.findByFeedback", query = "SELECT a FROM Attempt a WHERE a.feedback = :feedback")})
+    @NamedQuery(name = "Attempt.findByFeedback", query = "SELECT a FROM Attempt a WHERE a.feedback = :feedback"),
+    @NamedQuery(name = "Attempt.findByState", query = "SELECT a FROM Attempt a WHERE a.state = :state")})
 public class Attempt implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,6 +59,9 @@ public class Attempt implements Serializable {
     @JoinColumn(name = "task", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Task task;
+    @Size(max = 64)
+    @Column(name = "state")
+    private String state;
 
     public Attempt() {
     }
@@ -133,6 +137,25 @@ public class Attempt implements Serializable {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getStateCzechFormated() {
+        switch (state) {
+            case "new" : return "Nový";
+            case "submitted" : return "Odevzdáno";
+            case "accepted" : return "Schváleno";
+            case "returned" : return "Vráceno";
+            case "failed" : return "Nesplněno";
+            default: return "Unknown";
+        }
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Override

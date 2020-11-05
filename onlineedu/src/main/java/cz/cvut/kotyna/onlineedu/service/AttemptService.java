@@ -33,12 +33,14 @@ public class AttemptService {
         attempt.setStudent(student);
         attempt.setTask(task);
         attempt.setText(text);
+        /*
         if (task.getState().equals(TaskState.NEW.toString())) {
             task.setState(TaskState.SUBMITTED.toString());
         }
         else if (task.getState().equals(TaskState.RETURNED.toString())) {
             task.setState(TaskState.RESUBMITTED.toString());
         }
+         */
         em.merge(task);
         em.persist(attempt);
     }

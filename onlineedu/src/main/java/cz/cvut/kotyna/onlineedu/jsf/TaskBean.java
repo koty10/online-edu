@@ -1,6 +1,7 @@
 package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
+import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.service.*;
 
@@ -13,6 +14,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,13 +74,28 @@ public class TaskBean implements Serializable {
         return task;
     }
 
-    public List<Attempt> getAttemptsReverseSorted() {
+    public List<Attempt> getLoggedInStudentsAttemptsReverseSorted() {
         if (taskId == null) {
             return new ArrayList<>();
         }
+        Student student = loginService.getLoggedInUser().getStudent();
         Task task = taskService.findTask(taskId);
-        List<Attempt> attempts = task.getAttemptCollection().stream().sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
+        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getId().equals(student.getId())).sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
         return attempts;
+    }
+
+    public String getTaskState(String studentUsername, Integer taskId) {
+        Student student = userService.getStudentByUsername(studentUsername);
+        Task task = taskService.findTask(taskId);
+        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getUsername().equals(studentUsername)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
+        return attempts.get(attempts.size() - 1).getStateCzechFormated();
+    }
+
+    public String getLoggedInStudentsTaskState(Integer taskId) {
+        Student student = loginService.getLoggedInUser().getStudent();
+        Task task = taskService.findTask(taskId);
+        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getId().equals(student.getId())).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
+        return attempts.get(attempts.size() - 1).getStateCzechFormated();
     }
 
     public Integer getTaskId() {
