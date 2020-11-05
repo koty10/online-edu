@@ -39,7 +39,7 @@ public class UserBackingBean {
 
     public void setClassroom() {
         if (classroomId == null) {
-            String message = "Bad request. Please use a link from within the system.";
+            String message = "Bad request (classroomId = null). Please use a link from within the system.";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
             return;
         }

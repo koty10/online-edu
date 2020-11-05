@@ -32,10 +32,9 @@
             </p:column>
 
             <p:column headerText="Název">
-                <h:link outcome="tasks/task" value="#{task.name}" >
+                <h:link outcome="/teacher/tasks/task" value="#{task.name}" includeViewParams="true">
                     <i class="fa fa-fw fa-link"></i>
                     <f:param name="taskId" value="#{task.id}" />
-                    <f:param name="teachingId" value="#{teachingBean.teachingId}" />
                 </h:link>
             </p:column>
             <p:column headerText="Deadline">

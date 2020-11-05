@@ -6,6 +6,7 @@ import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.service.*;
 
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -44,6 +45,9 @@ public class TaskBean implements Serializable {
     private String text;
     private String result;
 
+    // selected student in the teacher's task table
+    private Student selectedStudent;
+
     /**
      * Creates a new instance of TeachingBean
      */
@@ -52,7 +56,7 @@ public class TaskBean implements Serializable {
 
     public void init() {
         if (taskId == null) {
-            String message = "Bad request. Please use a link from within the system.";
+            String message = "Bad request (taskId = null). Please use a link from within the system.";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
             return;
         }
@@ -64,6 +68,23 @@ public class TaskBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
+    }
+
+    public Student getSelectedStudent() {
+        return selectedStudent;
+    }
+
+    public void setSelectedStudent(Student selectedStudent) {
+        this.selectedStudent = selectedStudent;
+    }
+
+    public List<Attempt> getSelectedStudentsAttemptsReverseSorted() {
+        if (taskId == null || selectedStudent == null) {
+            return new ArrayList<>();
+        }
+        Task task = taskService.findTask(taskId);
+        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getId().equals(selectedStudent.getId())).sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
+        return attempts;
     }
 
     public void createAttempt() {
@@ -95,6 +116,7 @@ public class TaskBean implements Serializable {
         Student student = loginService.getLoggedInUser().getStudent();
         Task task = taskService.findTask(taskId);
         List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getId().equals(student.getId())).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
+        if (attempts.isEmpty()) return "Nový";
         return attempts.get(attempts.size() - 1).getStateCzechFormated();
     }
 

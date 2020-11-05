@@ -15,6 +15,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 public class AttemptService {
@@ -33,6 +35,13 @@ public class AttemptService {
         attempt.setStudent(student);
         attempt.setTask(task);
         attempt.setText(text);
+        List<Attempt> studentsAttempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().equals(student)).collect(Collectors.toList());
+        if (studentsAttempts.isEmpty()) {
+            attempt.setState(TaskState.SUBMITTED.toString());
+        }
+        else {
+            attempt.setState(TaskState.RESUBMITTED.toString());
+        }
         /*
         if (task.getState().equals(TaskState.NEW.toString())) {
             task.setState(TaskState.SUBMITTED.toString());
@@ -41,7 +50,7 @@ public class AttemptService {
             task.setState(TaskState.RESUBMITTED.toString());
         }
          */
-        em.merge(task);
+        //em.merge(task);
         em.persist(attempt);
     }
 }

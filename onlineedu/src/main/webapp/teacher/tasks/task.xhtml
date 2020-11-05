@@ -9,12 +9,16 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No task specified.">
+            <o:viewParam name="taskId" value="#{taskBean.taskId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="taskId" value="#{taskBean.taskId}" requiredMessage="No task specified.">
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
+            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{userBackingBean.setClassroom}"/>
             <f:viewAction action="#{taskBean.init}"/>
         </f:metadata>
     </ui:define>
@@ -26,6 +30,38 @@
     <ui:define name="content">
 
         <h2>Úkol #{taskBean.task.name}</h2>
+        <h:form id="students-form">
+            <p:dataTable id="students" var="student" value="#{userBackingBean.classroom.studentCollection}" >
+                <p:column headerText="Id">
+                    <h:outputText value="#{student.id}" />
+                </p:column>
+
+                <p:column headerText="Popisek">
+                    <h:outputText value="#{student.userAccount.username}" />
+                </p:column>
+
+                <p:column>
+                    <p:commandButton value="Detail" action="#{taskBean.setSelectedStudent(student)}"
+                                     update=":attempts-dialog" oncomplete="PF('attempts-dialog').show()"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+
+
+
+        <p:dialog id="attempts-dialog" widgetVar="attempts-dialog">
+            <h:form id="attempts-form">
+                <p:button value="Zavřít" onclick="PF('attempts-dialog').hide(); return false" />
+                <p:dataTable id="attempts" var="attempt" value="#{taskBean.selectedStudentsAttemptsReverseSorted}">
+                    <h:link outcome="/teacher/attempts/attempt" value="#{taskBean.selectedStudent.userAccount.id}" includeViewParams="true" >
+                        <f:param name="attemptId" value="#{attempt.id}" />
+                    </h:link>
+                </p:dataTable>
+
+            </h:form>
+        </p:dialog>
+
 
     </ui:define>
 </ui:composition>
