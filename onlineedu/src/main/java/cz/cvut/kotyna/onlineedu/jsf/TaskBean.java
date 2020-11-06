@@ -83,7 +83,10 @@ public class TaskBean implements Serializable {
             return new ArrayList<>();
         }
         Task task = taskService.findTask(taskId);
-        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getId().equals(selectedStudent.getId())).sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
+        List<Attempt> attempts = task.getAttemptCollection().stream()
+                .filter(a -> a.getStudent().getId().equals(selectedStudent.getId()))
+                .sorted((x, y) -> y.getTime().compareTo(x.getTime()))
+                .collect(Collectors.toList());
         return attempts;
     }
 
