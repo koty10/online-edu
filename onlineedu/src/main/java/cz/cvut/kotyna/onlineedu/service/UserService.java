@@ -58,4 +58,8 @@ public class UserService {
         }
     }
 
+    public UserAccount findUserAccount(Integer userAccountId) {
+        return em.find(UserAccount.class, userAccountId);
+    }
+
 }

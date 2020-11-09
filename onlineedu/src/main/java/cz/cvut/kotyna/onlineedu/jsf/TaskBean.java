@@ -45,9 +45,6 @@ public class TaskBean implements Serializable {
     private String text;
     private String result;
 
-    // selected student in the teacher's task table
-    private Student selectedStudent;
-
     /**
      * Creates a new instance of TeachingBean
      */
@@ -70,21 +67,13 @@ public class TaskBean implements Serializable {
         }
     }
 
-    public Student getSelectedStudent() {
-        return selectedStudent;
-    }
-
-    public void setSelectedStudent(Student selectedStudent) {
-        this.selectedStudent = selectedStudent;
-    }
-
-    public List<Attempt> getSelectedStudentsAttemptsReverseSorted() {
-        if (taskId == null || selectedStudent == null) {
+    public List<Attempt> getStudentsAttemptsReverseSorted(Integer studentId) {
+        if (taskId == null || studentId == null) {
             return new ArrayList<>();
         }
         Task task = taskService.findTask(taskId);
         List<Attempt> attempts = task.getAttemptCollection().stream()
-                .filter(a -> a.getStudent().getId().equals(selectedStudent.getId()))
+                .filter(a -> a.getStudent().getId().equals(studentId))
                 .sorted((x, y) -> y.getTime().compareTo(x.getTime()))
                 .collect(Collectors.toList());
         return attempts;
@@ -108,19 +97,16 @@ public class TaskBean implements Serializable {
         return attempts;
     }
 
-    public String getTaskState(String studentUsername, Integer taskId) {
-        Student student = userService.getStudentByUsername(studentUsername);
+    public String getStudentsTaskState(Integer userAccountId, Integer taskId) {
+        Student student = userService.findUserAccount(userAccountId).getStudent();
         Task task = taskService.findTask(taskId);
-        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getUsername().equals(studentUsername)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
+        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
+        if (attempts.isEmpty()) return "Nový";
         return attempts.get(attempts.size() - 1).getStateCzechFormated();
     }
 
     public String getLoggedInStudentsTaskState(Integer taskId) {
-        Student student = loginService.getLoggedInUser().getStudent();
-        Task task = taskService.findTask(taskId);
-        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getId().equals(student.getId())).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
-        if (attempts.isEmpty()) return "Nový";
-        return attempts.get(attempts.size() - 1).getStateCzechFormated();
+        return getStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
     }
 
     public Integer getTaskId() {
