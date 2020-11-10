@@ -9,6 +9,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -51,6 +53,7 @@ public class UserBackingBean {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
+
     }
 
     //@PostConstruct
@@ -72,6 +75,8 @@ public class UserBackingBean {
             }
         }
     }
+
+
 
     public List<UserAccount> getAllUsers() {
         return userService.getAllUsers();

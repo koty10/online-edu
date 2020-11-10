@@ -1,6 +1,7 @@
 package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
+import cz.cvut.kotyna.onlineedu.entity.Classroom;
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.service.*;
@@ -11,7 +12,10 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,12 +42,17 @@ public class TaskBean implements Serializable {
     @EJB
     private AttemptService attemptService;
 
+    @Inject
+    private UserBackingBean userBackingBean;
+
     private Integer taskId;
     private Task task;
 
     // attempt text content
     private String text;
     private String result;
+
+    private DataModel<Student> studentsDataModel;
 
     /**
      * Creates a new instance of TeachingBean
@@ -65,15 +74,20 @@ public class TaskBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
+
+        studentsDataModel = new ArrayDataModel<>(userBackingBean.getClassroom().getStudentCollection().toArray(new Student[0]));
+
     }
 
-    public List<Attempt> getStudentsAttemptsReverseSorted(Integer studentId) {
-        if (taskId == null || studentId == null) {
+    public List<Attempt> getStudentsAttemptsReverseSorted() {
+        Student selectedStudent = studentsDataModel.getRowData();
+
+        if (taskId == null || selectedStudent == null) {
             return new ArrayList<>();
         }
         Task task = taskService.findTask(taskId);
         List<Attempt> attempts = task.getAttemptCollection().stream()
-                .filter(a -> a.getStudent().getId().equals(studentId))
+                .filter(a -> a.getStudent().getId().equals(selectedStudent.getId()))
                 .sorted((x, y) -> y.getTime().compareTo(x.getTime()))
                 .collect(Collectors.toList());
         return attempts;
@@ -131,5 +145,13 @@ public class TaskBean implements Serializable {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public DataModel<Student> getStudentsDataModel() {
+        return studentsDataModel;
+    }
+
+    public void setStudentsDataModel(DataModel<Student> studentsDataModel) {
+        this.studentsDataModel = studentsDataModel;
     }
 }

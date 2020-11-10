@@ -31,26 +31,37 @@
 
         <h2>Úkol #{taskBean.task.name}</h2>
         <h:form id="students-form">
-            <p:dataTable id="students" var="student" value="#{userBackingBean.classroom.studentCollection}" >
-                <p:column headerText="Id">
-                    <h:outputText value="#{student.id}" />
-                </p:column>
 
-                <p:column headerText="Popisek">
-                    <h:outputText value="#{student.userAccount.username}" />
-                </p:column>
 
+
+            <p:dataTable id="students" var="student" value="#{taskBean.studentsDataModel}" >
+
+
+
+
+
+                <p:column style="width:24px">
+                    <p:rowToggler />
+                </p:column>
+                <p:column headerText="Student">
+                    <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
+                </p:column>
                 <p:column headerText="Stav">
                     <h:outputText value="#{taskBean.getStudentsTaskState(student.userAccount.id, taskBean.taskId)}" />
                 </p:column>
 
-                <p:column headerText="Pokusy">
-                    <ui:repeat value="#{taskBean.getStudentsAttemptsReverseSorted(student.id)}" var="attempt">
-                        <h:outputText value="#{attempt.getTimeFormated()} | "></h:outputText>
-                        <h:outputText value="#{attempt.getStateCzechFormated()}"></h:outputText>
-                    </ui:repeat>
-                </p:column>
+                <p:rowExpansion >
+                    <p:dataTable value="#{taskBean.getStudentsAttemptsReverseSorted()}" var="attempt">
 
+                        <p:column>
+                            <h:outputText value="#{attempt.getTimeFormated()}" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attempt.getStateCzechFormated()}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </p:rowExpansion>
             </p:dataTable>
         </h:form>
 
