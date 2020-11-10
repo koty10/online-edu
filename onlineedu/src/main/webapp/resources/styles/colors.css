@@ -1,0 +1,18 @@
+.color-for-new {
+    background-color: #cdfff7;
+}
+.color-for-submitted {
+    background-color: yellow;
+}
+.color-for-resubmitted {
+    background-color: orange;
+}
+.color-for-returned {
+    background-color: darkorange;
+}
+.color-for-failed {
+    background-color: darkred;
+}
+.color-for-accepted {
+    background-color: greenyellow;
+}

@@ -106,9 +106,19 @@ public class TaskBean implements Serializable {
             return new ArrayList<>();
         }
         Student student = loginService.getLoggedInUser().getStudent();
-        Task task = taskService.findTask(taskId);
-        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getId().equals(student.getId())).sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
+        List<Attempt> attempts = getAttempts(student.getUserAccount().getId(), taskId);
         return attempts;
+    }
+
+    private List<Attempt> getAttempts(Integer userAccountId, Integer taskId) {
+        Task task = taskService.findTask(taskId);
+        return task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
+    }
+
+    public String getRawStudentsTaskState(Integer userAccountId, Integer taskId) {
+        List<Attempt> attempts = getAttempts(userAccountId, taskId);
+        if (attempts.isEmpty()) return "new";
+        return attempts.get(attempts.size() - 1).getState();
     }
 
     public String getStudentsTaskState(Integer userAccountId, Integer taskId) {

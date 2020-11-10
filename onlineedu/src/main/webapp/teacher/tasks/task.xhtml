@@ -40,14 +40,14 @@
 
 
 
-                <p:column style="width:24px">
+                <p:column style="width:2em">
                     <p:rowToggler />
                 </p:column>
                 <p:column headerText="Student">
                     <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
                 </p:column>
                 <p:column headerText="Stav">
-                    <h:outputText value="#{taskBean.getStudentsTaskState(student.userAccount.id, taskBean.taskId)}" />
+                    <h:outputText value="#{taskBean.getStudentsTaskState(student.userAccount.id, taskBean.taskId)}" styleClass="color-for-#{taskBean.getRawStudentsTaskState(student.userAccount.id, taskBean.taskId)}"/>
                 </p:column>
 
                 <p:rowExpansion >

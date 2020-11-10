@@ -149,6 +149,12 @@ aside {
     min-height: 85vh;
 }
 
+.ui-datatable {
+    box-sizing: content-box;
+}
+
+
+
 /* Clear floats after the columns */
 /*.row:after {*/
 /*    content: "";*/
