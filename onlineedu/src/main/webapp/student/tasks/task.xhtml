@@ -36,7 +36,6 @@
             <p:textEditor widgetVar="editor1" value="#{taskBean.text}" height="300" style="margin-bottom:10px" secure="false"/>
 
             <p:commandButton value="Odeslat" action="#{taskBean.createAttempt()}" update="attempts result" />
-            <p:commandButton value="Smazat" type="button" onclick="PF('editor1').clear();" />
 
             <p><h:outputText id="result">#{taskBean.result}</h:outputText></p>
         </h:form>
