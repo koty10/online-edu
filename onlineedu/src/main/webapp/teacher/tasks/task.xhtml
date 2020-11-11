@@ -32,26 +32,22 @@
         <h2>Úkol #{taskBean.task.name}</h2>
         <h:form id="students-form">
 
-
-
             <p:dataTable id="students" var="student" value="#{taskBean.studentsDataModel}" >
-
-
-
-
 
                 <p:column style="width:2em">
                     <p:rowToggler />
                 </p:column>
-                <p:column headerText="Student">
-                    <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
-                </p:column>
-                <p:column headerText="Stav">
-                    <h:outputText value="#{taskBean.getStudentsTaskState(student.userAccount.id, taskBean.taskId)}" styleClass="color-for-#{taskBean.getRawStudentsTaskState(student.userAccount.id, taskBean.taskId)}"/>
+
+                <p:column headerText="Student" sortBy="#{student.userAccount.surname}">
+                    <h:outputText value="#{student.userAccount.surname} #{student.userAccount.firstname}" />
                 </p:column>
 
-                <p:rowExpansion >
-                    <p:dataTable value="#{taskBean.getStudentsAttemptsReverseSorted()}" var="attempt">
+                <p:column headerText="Stav" sortBy="#{taskBean.getSelectedStudentsTaskState()}">
+                    <h:outputText value="#{taskBean.getSelectedStudentsTaskState()}" styleClass="color-for-#{taskBean.getRawStudentsTaskState(student.userAccount.id, taskBean.taskId)}"/>
+                </p:column>
+
+                <p:rowExpansion>
+                    <p:dataTable id="attempts" value="#{taskBean.getStudentsAttemptsReverseSorted()}" var="attempt">
 
                         <p:column>
                             <h:outputText value="#{attempt.getTimeFormated()}" />

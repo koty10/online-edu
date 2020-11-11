@@ -53,6 +53,7 @@
         </dependency>
 
         <!-- PrettyFaces -->
+        <!--
         <dependency>
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-servlet</artifactId>
@@ -63,6 +64,7 @@
             <artifactId>rewrite-config-prettyfaces</artifactId>
             <version>3.4.4.Final</version>
         </dependency>
+        -->
 
         <!-- OmniFaces -->
         <dependency>
