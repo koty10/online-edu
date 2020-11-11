@@ -4,6 +4,7 @@ import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Classroom;
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
+import cz.cvut.kotyna.onlineedu.model.Students;
 import cz.cvut.kotyna.onlineedu.service.*;
 
 import javax.ejb.EJB;
@@ -50,7 +51,7 @@ public class TaskBean implements Serializable {
     private String text;
     private String result;
 
-    private ListDataModel<Student> studentsDataModel;
+    private ListDataModel<Students> studentsDataModel;
 
     /**
      * Creates a new instance of TeachingBean
@@ -73,13 +74,17 @@ public class TaskBean implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
 
-        studentsDataModel = new ListDataModel<>(new ArrayList<>(userBackingBean.getClassroom().getStudentCollection()));
+        List<Students> tmp = new ArrayList<>();
+        for (Student s : userBackingBean.getClassroom().getStudentCollection()) {
+            tmp.add(new Students(s, getStudentsTaskState(s.getUserAccount().getId(), taskId)));
+        }
+        studentsDataModel = new ListDataModel<>(tmp);
 
     }
 
 
     public List<Attempt> getStudentsAttemptsReverseSorted() {
-        Student selectedStudent = studentsDataModel.getRowData();
+        Student selectedStudent = studentsDataModel.getRowData().getStudent();
 
         if (taskId == null || selectedStudent == null) {
             return new ArrayList<>();
@@ -133,7 +138,7 @@ public class TaskBean implements Serializable {
         // FIXME sem to nepatří
         //studentsDataModel = new ArrayDataModel<>(userBackingBean.getClassroom().getStudentCollection().toArray(new Student[0]));
 
-        Student selectedStudent = studentsDataModel.getRowData();
+        Student selectedStudent = studentsDataModel.getRowData().getStudent();
         List<Attempt> attempts = getAttempts(selectedStudent.getUserAccount().getId(), taskId);
         if (attempts.isEmpty()) return "Nový";
         return attempts.get(attempts.size() - 1).getStateCzechFormated();
@@ -171,11 +176,11 @@ public class TaskBean implements Serializable {
         this.result = result;
     }
 
-    public DataModel<Student> getStudentsDataModel() {
+    public ListDataModel<Students> getStudentsDataModel() {
         return studentsDataModel;
     }
 
-    public void setStudentsDataModel(ListDataModel<Student> studentsDataModel) {
+    public void setStudentsDataModel(ListDataModel<Students> studentsDataModel) {
         this.studentsDataModel = studentsDataModel;
     }
 }

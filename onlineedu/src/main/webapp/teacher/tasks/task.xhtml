@@ -38,12 +38,12 @@
                     <p:rowToggler />
                 </p:column>
 
-                <p:column headerText="Student" sortBy="#{student.userAccount.surname}">
-                    <h:outputText value="#{student.userAccount.surname} #{student.userAccount.firstname}" />
+                <p:column headerText="Student" sortBy="#{student.student.userAccount.surname}">
+                    <h:outputText value="#{student.student.userAccount.surname} #{student.student.userAccount.firstname}" />
                 </p:column>
 
-                <p:column headerText="Stav" sortBy="#{taskBean.getSelectedStudentsTaskState()}">
-                    <h:outputText value="#{taskBean.getSelectedStudentsTaskState()}" styleClass="color-for-#{taskBean.getRawStudentsTaskState(student.userAccount.id, taskBean.taskId)}"/>
+                <p:column headerText="Stav" sortBy="#{student.stateOfTheTask}">
+                    <h:outputText value="#{student.stateOfTheTask}" styleClass="color-for-#{taskBean.getRawStudentsTaskState(student.student.userAccount.id, taskBean.taskId)}"/>
                 </p:column>
 
                 <p:rowExpansion>
