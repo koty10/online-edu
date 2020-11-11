@@ -7,6 +7,7 @@ import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.model.Students;
 import cz.cvut.kotyna.onlineedu.service.*;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -74,12 +75,15 @@ public class TaskBean implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
 
+    }
+
+    // loads ListDataModel for dataTable on teachers task page
+    public void loadListDataModel() {
         List<Students> tmp = new ArrayList<>();
         for (Student s : userBackingBean.getClassroom().getStudentCollection()) {
             tmp.add(new Students(s, getStudentsTaskState(s.getUserAccount().getId(), taskId)));
         }
         studentsDataModel = new ListDataModel<>(tmp);
-
     }
 
 
