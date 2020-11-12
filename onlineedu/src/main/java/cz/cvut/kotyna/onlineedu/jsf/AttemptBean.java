@@ -111,4 +111,10 @@ public class AttemptBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    public void returnAttempt() {
+        attemptService.returnAttempt(attempt);
+        FacesMessage msg = new FacesMessage("Vráceno");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
 }

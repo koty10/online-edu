@@ -44,8 +44,8 @@
                     <h:outputText value="#{student.student.userAccount.surname} #{student.student.userAccount.firstname}" />
                 </p:column>
 
-                <p:column headerText="Stav" sortBy="#{student.stateOfTheTask}">
-                    <h:outputText value="#{student.stateOfTheTask}" styleClass="color-for-#{taskBean.getRawStudentsTaskState(student.student.userAccount.id, taskBean.taskId)}"/>
+                <p:column headerText="Stav" sortBy="#{student.taskState}">
+                    <h:outputText value="#{student.taskState}" styleClass="color-for-#{student.rawTaskState}"/>
                 </p:column>
 
                 <p:rowExpansion>

@@ -10,10 +10,12 @@ import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.enums.TaskState;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +26,9 @@ public class AttemptService {
     // connection to the database
     @PersistenceContext
     EntityManager em;
+
+    @EJB
+    TaskService taskService;
 
     public Attempt findAttempt(Integer attemptId) {
         return em.find(Attempt.class, attemptId);
@@ -57,5 +62,15 @@ public class AttemptService {
     public void acceptAttempt(Attempt attempt) {
         attempt.setState(TaskState.ACCEPTED.toString());
         em.merge(attempt);
+    }
+
+    public void returnAttempt(Attempt attempt) {
+        attempt.setState(TaskState.RETURNED.toString());
+        em.merge(attempt);
+    }
+
+    public List<Attempt> getAttempts(Integer userAccountId, Integer taskId) {
+        Task task = taskService.findTask(taskId);
+        return task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
     }
 }

@@ -1,18 +1,14 @@
 package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
-import cz.cvut.kotyna.onlineedu.entity.Classroom;
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
-import cz.cvut.kotyna.onlineedu.model.Students;
+import cz.cvut.kotyna.onlineedu.model.listDataModel.StudentWithTaskState;
 import cz.cvut.kotyna.onlineedu.service.*;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -52,7 +48,7 @@ public class TaskBean implements Serializable {
     private String text;
     private String result;
 
-    private ListDataModel<Students> studentsDataModel;
+    private ListDataModel<StudentWithTaskState> studentsDataModel;
 
     /**
      * Creates a new instance of TeachingBean
@@ -79,13 +75,15 @@ public class TaskBean implements Serializable {
 
     // loads ListDataModel for dataTable on teachers task page
     public void loadListDataModel() {
-        List<Students> tmp = new ArrayList<>();
+        List<StudentWithTaskState> tmp = new ArrayList<>();
         for (Student s : userBackingBean.getClassroom().getStudentCollection()) {
-            tmp.add(new Students(s, getStudentsTaskState(s.getUserAccount().getId(), taskId)));
+            tmp.add(new StudentWithTaskState(
+                    s,
+                    taskService.getStudentsTaskState(s.getUserAccount().getId(), taskId),
+                    taskService.getRawStudentsTaskState(s.getUserAccount().getId(), taskId)));
         }
         studentsDataModel = new ListDataModel<>(tmp);
     }
-
 
     public List<Attempt> getStudentsAttemptsReverseSorted() {
         Student selectedStudent = studentsDataModel.getRowData().getStudent();
@@ -114,42 +112,13 @@ public class TaskBean implements Serializable {
             return new ArrayList<>();
         }
         Student student = loginService.getLoggedInUser().getStudent();
-        List<Attempt> attempts = getAttempts(student.getUserAccount().getId(), taskId);
-        return attempts;
+        return attemptService.getAttempts(student.getUserAccount().getId(), taskId);
     }
 
-    private List<Attempt> getAttempts(Integer userAccountId, Integer taskId) {
-        Task task = taskService.findTask(taskId);
-        return task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
-    }
 
-    public String getRawStudentsTaskState(Integer userAccountId, Integer taskId) {
-        List<Attempt> attempts = getAttempts(userAccountId, taskId);
-        if (attempts.isEmpty()) return "new";
-        return attempts.get(attempts.size() - 1).getState();
-    }
-
-    // TODO move to getLoggedInStudentsTaskState
-    public String getStudentsTaskState(Integer userAccountId, Integer taskId) {
-        Student student = userService.findUserAccount(userAccountId).getStudent();
-        Task task = taskService.findTask(taskId);
-        List<Attempt> attempts = task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
-        if (attempts.isEmpty()) return "Nový";
-        return attempts.get(attempts.size() - 1).getStateCzechFormated();
-    }
-
-    public String getSelectedStudentsTaskState() {
-        // FIXME sem to nepatří
-        //studentsDataModel = new ArrayDataModel<>(userBackingBean.getClassroom().getStudentCollection().toArray(new Student[0]));
-
-        Student selectedStudent = studentsDataModel.getRowData().getStudent();
-        List<Attempt> attempts = getAttempts(selectedStudent.getUserAccount().getId(), taskId);
-        if (attempts.isEmpty()) return "Nový";
-        return attempts.get(attempts.size() - 1).getStateCzechFormated();
-    }
 
     public String getLoggedInStudentsTaskState(Integer taskId) {
-        return getStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
+        return taskService.getStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
     }
 
 
@@ -180,11 +149,11 @@ public class TaskBean implements Serializable {
         this.result = result;
     }
 
-    public ListDataModel<Students> getStudentsDataModel() {
+    public ListDataModel<StudentWithTaskState> getStudentsDataModel() {
         return studentsDataModel;
     }
 
-    public void setStudentsDataModel(ListDataModel<Students> studentsDataModel) {
+    public void setStudentsDataModel(ListDataModel<StudentWithTaskState> studentsDataModel) {
         this.studentsDataModel = studentsDataModel;
     }
 }
