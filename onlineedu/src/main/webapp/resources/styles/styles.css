@@ -110,7 +110,7 @@ li:hover:not(.active) {
 }
 
 .active {
-    background-color: #4CAF50;
+    background-color: #71b2c9;
 }
 
 
@@ -128,20 +128,20 @@ li:hover:not(.active) {
     display: flex;
     flex-wrap: nowrap;
     border-top: 2px solid #333333;
-    border-bottom: 2px solid #333333;
+    border-bottom: 2px solid #b1b1b1;
 }
 
 main {
     flex-basis: 70%;
     padding: 1em;
-    border-left: 2px solid #333333;
-    border-right: 2px solid #333333;
+    border-left: 2px solid #b1b1b1;
+    border-right: 2px solid #b1b1b1;
 }
 
 aside {
     flex-basis: 15%;
     padding: 1em;
-    background-color: #cdfff7;
+    background-color: #fff8e6;
 }
 
 .big {
@@ -166,7 +166,7 @@ aside {
 footer {
     width: 100%;
     text-align: center;
-    background-color: #ddd;
+    background-color: #fff8e6;
     padding: 10px;
 }
 

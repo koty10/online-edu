@@ -20,74 +20,32 @@
     </ui:define>
 
     <ui:define name="title">
-        New page title here
+        Hlavní stránka
     </ui:define>
 
     <ui:define name="content">
-        <h1>Obsahova stranka</h1>
+        <h1>Hlavní stránka</h1>
 
-        <h2>Seznam spolužáků</h2>
+        <h2>Poslední odevzdané pokusy</h2>
         <p:dataTable var="classmate" value="#{userBackingBean.classmates}">
-            <p:column headerText="Id">
+            <p:column headerText="Datum">
                 <h:outputText value="#{classmate.id}" />
             </p:column>
 
-            <p:column headerText="Jméno">
+            <p:column headerText="Úkol">
                 <h:outputText value="#{classmate.userAccount.firstname}" />
             </p:column>
 
-            <p:column headerText="Příjmení">
+            <p:column headerText="Student">
                 <h:outputText value="#{classmate.userAccount.surname}" />
             </p:column>
 
-            <p:column headerText="Email">
+            <p:column headerText="Stav">
                 <h:outputText value="#{classmate.userAccount.email}" />
             </p:column>
 
-            <p:column headerText="Věk">
-                <h:outputText value="#{classmate.userAccount.age}" />
-            </p:column>
-
-            <p:column headerText="Chat alert">
-                <h:outputText value="#{classmate.chatAlert}" />
-            </p:column>
-
-            <p:column headerText="Registrován">
-                <h:outputText value="#{classmate.userAccount.registered}" />
-            </p:column>
-
-            <p:column headerText="Ulice">
-                <h:outputText value="#{classmate.userAccount.street}" />
-            </p:column>
-
-            <p:column headerText="PSČ">
-                <h:outputText value="#{classmate.userAccount.zip}" />
-            </p:column>
-
-            <p:column headerText="Classroom_id">
-                <h:outputText value="#{classmate.classroom.id}" />
-            </p:column>
         </p:dataTable>
 
-        <h2>Výuka</h2>
-        <p:dataTable var="teaching" value="#{userBackingBean.loggedInUser.teacher.classroom.teachingCollection}">
-            <p:column headerText="Id">
-                <h:outputText value="#{teaching.id}" />
-            </p:column>
-
-            <p:column headerText="Třída">
-                <h:outputText value="#{teaching.classroom.name}" />
-            </p:column>
-
-            <p:column headerText="Učitel">
-                <h:outputText value="#{teaching.teacher.userAccount.firstname} #{teaching.teacher.userAccount.surname}" />
-            </p:column>
-
-            <p:column headerText="Předmět">
-                <h:outputText value="#{teaching.subject.name}" />
-            </p:column>
-
-        </p:dataTable>
 
 
     </ui:define>
