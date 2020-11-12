@@ -18,9 +18,13 @@
             <o:viewParam name="attemptId" value="#{attemptBean.attemptId}" requiredMessage="No attempt specified.">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
+            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}" requiredMessage="No classroom specified.">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
             <f:viewAction action="#{taskBean.init}"/>
             <f:viewAction action="#{attemptBean.init}"/>
             <f:viewAction action="#{teachingBean.init}"/>
+            <f:viewAction action="#{userBackingBean.setClassroom}"/>
 
         </f:metadata>
     </ui:define>
@@ -31,10 +35,13 @@
 
     <ui:define name="content">
 
-        <h2>Pokus úkolu: #{attemptBean.attempt.task.name} (todo:done/undone)</h2>
+        <h2>Pokus úkolu: #{attemptBean.attempt.task.name} <h:outputText id="state-label" value="(#{attemptBean.attempt.stateCzechFormated})"/></h2>
 
-        <h:form>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
             <p:textEditor widgetVar="editor1" value="#{attemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+            <p:commandButton value="Schválit - TODO" action="#{attemptBean.acceptAttempt}" update=":form:msgs state-label"/>
+
         </h:form>
 
         <p>

@@ -15,18 +15,20 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewMetadata;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.beans.Visibility;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Named(value = "teachingBean")
-@RequestScoped
-public class TeachingBean {
+@ViewScoped
+public class TeachingBean implements Serializable {
 
     @EJB
     private UserService userService;

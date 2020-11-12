@@ -53,4 +53,9 @@ public class AttemptService {
         //em.merge(task);
         em.persist(attempt);
     }
+
+    public void acceptAttempt(Attempt attempt) {
+        attempt.setState(TaskState.ACCEPTED.toString());
+        em.merge(attempt);
+    }
 }

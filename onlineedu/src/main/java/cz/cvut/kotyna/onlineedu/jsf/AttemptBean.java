@@ -9,11 +9,13 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 
 @Named(value = "attemptBean")
-@RequestScoped
-public class AttemptBean {
+@ViewScoped
+public class AttemptBean implements Serializable {
 
     @EJB
     private UserService userService;
@@ -101,6 +103,12 @@ public class AttemptBean {
 
     public Attempt getAttempt() {
         return attempt;
+    }
+
+    public void acceptAttempt() {
+        attemptService.acceptAttempt(attempt);
+        FacesMessage msg = new FacesMessage("Schváleno");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 }

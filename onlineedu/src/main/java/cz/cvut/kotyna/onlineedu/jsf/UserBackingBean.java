@@ -11,15 +11,17 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Named(value = "userBackingBean")
-@RequestScoped
-public class UserBackingBean {
+@ViewScoped
+public class UserBackingBean implements Serializable {
 
     @EJB
     private UserService userService;
