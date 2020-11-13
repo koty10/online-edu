@@ -16,6 +16,7 @@
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
             <f:viewAction action="#{userBackingBean.setClassroom}"/>
+            <f:viewAction action="#{attemptBean.loadLastAttemptsListDataModel}"/>
         </f:metadata>
     </ui:define>
 
@@ -27,21 +28,21 @@
         <h1>Hlavní stránka</h1>
 
         <h2>Poslední odevzdané pokusy</h2>
-        <p:dataTable var="classmate" value="#{userBackingBean.classmates}">
+        <p:dataTable var="attempt" value="#{attemptBean.lastAttemptsListDataModel}">
             <p:column headerText="Datum">
-                <h:outputText value="#{classmate.id}" />
+                <h:outputText value="#{attempt.time}" />
             </p:column>
 
             <p:column headerText="Úkol">
-                <h:outputText value="#{classmate.userAccount.firstname}" />
+                <h:outputText value="#{attempt.task.name}" />
             </p:column>
 
             <p:column headerText="Student">
-                <h:outputText value="#{classmate.userAccount.surname}" />
+                <h:outputText value="#{attempt.student.userAccount.surname}" />
             </p:column>
 
             <p:column headerText="Stav">
-                <h:outputText value="#{classmate.userAccount.email}" />
+                <h:outputText value="#{attempt.state}" />
             </p:column>
 
         </p:dataTable>

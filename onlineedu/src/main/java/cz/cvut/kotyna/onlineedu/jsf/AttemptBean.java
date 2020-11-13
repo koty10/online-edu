@@ -1,7 +1,11 @@
 package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
+import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
+import cz.cvut.kotyna.onlineedu.entity.Teaching;
+import cz.cvut.kotyna.onlineedu.model.listDataModel.AttemptWithTask;
+import cz.cvut.kotyna.onlineedu.model.listDataModel.StudentWithTaskState;
 import cz.cvut.kotyna.onlineedu.service.*;
 
 import javax.annotation.ManagedBean;
@@ -9,9 +13,14 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Named(value = "attemptBean")
 @ViewScoped
@@ -29,6 +38,9 @@ public class AttemptBean implements Serializable {
     @EJB
     private TaskService taskService;
 
+    @Inject
+    private UserBackingBean userBackingBean;
+
     @EJB
     private AttemptService attemptService;
 
@@ -36,6 +48,8 @@ public class AttemptBean implements Serializable {
     //private Integer taskId;
     private Attempt attempt;
     //private Task task;
+
+    ListDataModel<Attempt> lastAttemptsListDataModel;
 
     /**
      * Creates a new instance of TeachingBean
@@ -117,4 +131,20 @@ public class AttemptBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    // loads ListDataModel for dataTable on teachers task page
+    public void loadLastAttemptsListDataModel() {
+        List<Attempt> tmp = new ArrayList<>();
+        for (Teaching t : userBackingBean.getClassroom().getTeachingCollection()) {
+            for (Task t2 : t.getTaskCollection()) {
+                tmp.addAll(t2.getAttemptCollection());
+            }
+        }
+        tmp = tmp.stream().sorted((x, y) -> y.getTime().compareTo(x.getTime())).limit(10).collect(Collectors.toList());
+
+        lastAttemptsListDataModel = new ListDataModel<>(tmp);
+    }
+
+    public ListDataModel<Attempt> getLastAttemptsListDataModel() {
+        return lastAttemptsListDataModel;
+    }
 }
