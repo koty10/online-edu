@@ -34,7 +34,14 @@
         <h2>Pokus úkolu: #{attemptBean.attempt.task.name} (todo:done/undone)</h2>
 
         <h:form>
-            <p:textEditor widgetVar="editor1" value="#{attemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+            <p:textEditor widgetVar="editor-attempt" value="#{attemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+        </h:form>
+
+        <h2>
+            Zpětná vazba
+        </h2>
+        <h:form>
+            <p:textEditor widgetVar="editor-feedback" value="#{attemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
         </h:form>
 
         <p>
