@@ -16,3 +16,28 @@
 .color-for-accepted {
     background-color: greenyellow;
 }
+.color-for-excused {
+    background-color: darkgrey;
+}
+
+.text-color-for-new {
+    color: #cdfff7;
+}
+.text-color-for-submitted {
+    color: yellow;
+}
+.text-color-for-resubmitted {
+    color: orange;
+}
+.text-color-for-returned {
+    color: darkorange;
+}
+.text-color-for-failed {
+    color: darkred;
+}
+.text-color-for-accepted {
+    color: greenyellow;
+}
+.text-color-for-excused {
+    color: darkgrey;
+}

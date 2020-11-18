@@ -147,10 +147,11 @@ public class Attempt implements Serializable {
         switch (state) {
             case "new" : return "Nový";
             case "submitted" : return "Odevzdáno";
-            case "resubmitted" : return "Odevzdáno znovu";
+            case "resubmitted" : return "Znovu odevzdáno";
             case "accepted" : return "Schváleno";
             case "returned" : return "Vráceno";
             case "failed" : return "Nesplněno";
+            case "excused" : return "Omluveno";
             default: return "Unknown";
         }
     }

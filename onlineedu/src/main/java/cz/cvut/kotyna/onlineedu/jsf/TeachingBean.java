@@ -4,9 +4,7 @@ import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.entity.Teacher;
 import cz.cvut.kotyna.onlineedu.entity.Teaching;
-import cz.cvut.kotyna.onlineedu.service.LoginService;
-import cz.cvut.kotyna.onlineedu.service.TeachingService;
-import cz.cvut.kotyna.onlineedu.service.UserService;
+import cz.cvut.kotyna.onlineedu.service.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -24,6 +22,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Named(value = "teachingBean")
@@ -32,6 +31,12 @@ public class TeachingBean implements Serializable {
 
     @EJB
     private UserService userService;
+
+    @EJB
+    private TaskService taskService;
+
+    @EJB
+    private ClassroomService classroomService;
 
     @EJB
     private LoginService loginService;
@@ -82,6 +87,37 @@ public class TeachingBean implements Serializable {
 
     public Collection<Task> getTasks() {
         return teachingService.getTasks(teachingId);
+    }
+
+    public Integer getNumberOfStudentsInState(String state, Integer taskId) {
+        Collection<Student> students = teaching.getClassroom().getStudentCollection();
+        return (int) students.stream()
+                .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), taskId))
+                .filter(taskState -> taskState.equals(state))
+                .count();
+    }
+
+    public Integer getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(Integer teachingId) {
+        Teaching teaching = teachingService.findTeaching(teachingId);
+        Collection<Student> students = teaching.getClassroom().getStudentCollection();
+        Collection<Task> tasks = teaching.getTaskCollection();
+        int count = 0;
+
+        for (Task task : tasks) {
+            count += (int) students.stream()
+                    .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), task.getId()))
+                    .filter(taskState -> taskState.equals("submitted") || taskState.equals("resubmitted"))
+                    .count();
+        }
+        return  count;
+    }
+
+    public Integer getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsClassroom(Integer classroomId) {
+        int count = 0;
+        for (Teaching teaching : classroomService.findClassroom(classroomId).getTeachingCollection()) {
+            count += getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(teaching.getId());
+        }
+        return  count;
     }
 
     public Teaching getDefaultStudentTeaching() {

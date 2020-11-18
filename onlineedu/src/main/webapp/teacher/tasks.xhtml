@@ -16,6 +16,7 @@
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
             <f:viewAction action="#{userBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teachingBean.init}"/>
         </f:metadata>
     </ui:define>
 
@@ -27,9 +28,6 @@
 
         <h2>Úkoly</h2>
         <p:dataTable var="task" value="#{teachingBean.tasks}">
-            <p:column headerText="Id">
-                <h:outputText value="#{task.id}" />
-            </p:column>
 
             <p:column headerText="Název">
                 <h:link outcome="/teacher/tasks/task" value="#{task.name}" includeViewParams="true">
@@ -37,6 +35,29 @@
                     <f:param name="taskId" value="#{task.id}" />
                 </h:link>
             </p:column>
+
+            <p:column headerText="Nový">
+                <h:outputText value="#{teachingBean.getNumberOfStudentsInState('new', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('new', task.id) > 0 ?'color-for-new' : ''}"/>
+            </p:column>
+            <p:column headerText="Schváleno">
+                <h:outputText value="#{teachingBean.getNumberOfStudentsInState('accepted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('accepted', task.id) > 0 ?'color-for-accepted' : ''}"/>
+            </p:column>
+            <p:column headerText="Omluven">
+                <h:outputText value="#{teachingBean.getNumberOfStudentsInState('excused', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('excused', task.id) > 0 ?'color-for-excused' : ''}"/>
+            </p:column>
+            <p:column headerText="Vráceno">
+                <h:outputText value="#{teachingBean.getNumberOfStudentsInState('returned', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('returned', task.id) > 0 ?'color-for-returned' : ''}"/>
+            </p:column>
+            <p:column headerText="Odevzdáno">
+                <h:outputText value="#{teachingBean.getNumberOfStudentsInState('submitted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('submitted', task.id) > 0 ?'color-for-submitted' : ''}"/>
+            </p:column>
+            <p:column headerText="Znovu odevzdáno">
+                <h:outputText value="#{teachingBean.getNumberOfStudentsInState('resubmitted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('resubmitted', task.id) > 0 ?'color-for-resubmitted' : ''}"/>
+            </p:column>
+            <p:column headerText="Nesplněno">
+                <h:outputText value="#{teachingBean.getNumberOfStudentsInState('failed', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('failed', task.id) > 0 ?'color-for-failed' : ''}"/>
+            </p:column>
+
             <p:column headerText="Deadline">
                 <h:outputText value="#{task.timeToFormated}" />
             </p:column>

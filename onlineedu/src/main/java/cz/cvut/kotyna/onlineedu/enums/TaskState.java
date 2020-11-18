@@ -30,5 +30,10 @@ public enum TaskState {
         public String toString() {
             return "failed";
         }
+    },
+    EXCUSED {
+        public String toString() {
+            return "excused";
+        }
     }
 }
