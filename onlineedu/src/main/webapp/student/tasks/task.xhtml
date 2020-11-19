@@ -31,11 +31,12 @@
             <p:textEditor widgetVar="editor1" value="#{taskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
         </h:form>
 
-        <h:form>
+        <h:form id="form-attempt">
             <h3 style="margin-top:0">Nový pokus</h3>
-            <p:textEditor widgetVar="editor1" value="#{taskBean.text}" height="300" style="margin-bottom:10px" secure="false"/>
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+            <p:textEditor widgetVar="editor-attempt" value="#{taskBean.attemptText}" height="300" style="margin-bottom:10px" secure="false"/>
 
-            <p:commandButton value="Odeslat" action="#{taskBean.createAttempt()}" update="attempts result" />
+            <p:commandButton value="Odeslat" action="#{taskBean.createAttempt()}" update="attempts result :form-attempt:msgs" />
 
             <p><h:outputText id="result">#{taskBean.result}</h:outputText></p>
         </h:form>

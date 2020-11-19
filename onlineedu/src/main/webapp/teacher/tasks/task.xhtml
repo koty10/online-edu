@@ -69,5 +69,12 @@
             </p:dataTable>
         </h:form>
 
+        <h2>Upravit zadání úkolu</h2>
+        <h:form id="form-task-text">
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+            <p:textEditor widgetVar="editor-task" value="#{taskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" />
+            <p:commandButton value="Uložit" action="#{taskBean.updateTaskText}" update=":form-task-text:msgs" />
+        </h:form>
+
     </ui:define>
 </ui:composition>

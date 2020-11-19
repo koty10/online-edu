@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +44,7 @@ public class TaskBean implements Serializable {
     private Task task;
 
     // attempt text content
-    private String text;
+    private String attemptText;
     private String result;
 
     private ListDataModel<StudentWithTaskState> studentsDataModel;
@@ -100,7 +99,7 @@ public class TaskBean implements Serializable {
     }
 
     public void createAttempt() {
-        attemptService.createAttempt(text, loginService.getLoggedInUser().getStudent(), task);
+        attemptService.createAttempt(attemptText, loginService.getLoggedInUser().getStudent(), task);
         result = "Pokus úspěšně odeslán!";
     }
     public Task getTask() {
@@ -115,10 +114,14 @@ public class TaskBean implements Serializable {
         return attemptService.getAttempts(student.getUserAccount().getId(), taskId);
     }
 
-
-
     public String getLoggedInStudentsTaskState(Integer taskId) {
         return taskService.getStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
+    }
+
+    public void updateTaskText() {
+        taskService.updateTask(task);
+        FacesMessage msg = new FacesMessage("Uloženo");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 
@@ -133,12 +136,12 @@ public class TaskBean implements Serializable {
         this.taskId = taskId;
     }
 
-    public String getText() {
-        return text;
+    public String getAttemptText() {
+        return attemptText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setAttemptText(String attemptText) {
+        this.attemptText = attemptText;
     }
 
     public String getResult() {

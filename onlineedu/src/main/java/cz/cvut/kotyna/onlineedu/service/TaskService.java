@@ -35,6 +35,10 @@ public class TaskService {
         return em.find(Task.class, taskId);
     }
 
+    public void updateTask(Task task) {
+        em.merge(task);
+    }
+
     public String getStudentsTaskState(Integer userAccountId, Integer taskId) {
         List<Attempt> attempts = attemptService.getAttempts(userAccountId, taskId);
         if (attempts.isEmpty()) return "Nový";
