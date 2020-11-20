@@ -12,7 +12,7 @@
                 <ul class="top-nav-list-row">
                     <ui:repeat value="#{userBackingBean.classroomsTeachedByCurrentTeacher}" var="classroom">
                         <li class="#{urlHelperBean.isCurrentClassroom(classroom.id.toString()) ? 'active' : ''}">
-                            <h:link outcome="/teacher/home" includeViewParams="true">
+                            <h:link includeViewParams="true">
                                 <h:outputText value="#{classroom.name}" />
                                 <h:outputText value=" (#{teachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsClassroom(classroom.id)})" />
                                 <f:param name="classroomId" value="#{classroom.id}" />
@@ -24,7 +24,7 @@
                 <ul class="top-nav-list-row">
                     <ui:repeat value="#{userBackingBean.teachersTeachingsInCurrentClassroom}" var="teaching">
                         <li class="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
-                            <h:link outcome="/teacher/home" includeViewParams="true">
+                            <h:link includeViewParams="true">
                                 <h:outputText value="#{teaching.subject.name}" />
                                 <h:outputText value=" (#{teachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(teaching.id)})" />
                                 <f:param name="teachingId" value="#{teaching.id}" />
