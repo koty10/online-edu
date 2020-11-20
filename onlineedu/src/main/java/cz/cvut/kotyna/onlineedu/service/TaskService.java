@@ -9,13 +9,16 @@ import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.entity.Teaching;
+import cz.cvut.kotyna.onlineedu.enums.TaskState;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 public class TaskService {
@@ -51,5 +54,21 @@ public class TaskService {
         if (attempts.isEmpty()) return "new";
         if (attempts.stream().map(Attempt::getState).anyMatch(x -> x.equals("accepted"))) return "accepted";
         return attempts.get(attempts.size() - 1).getState();
+    }
+
+    public void createTask(Task task) {
+        //Task task = new Task();
+        task.setDate(new Date());
+
+        /*
+        task.setName(name);
+        task.setTeaching(teaching);
+        task.setText(text);
+        task.setTimeFrom(timeFrom);
+        task.setTimeTo(timeTo);
+        task.setType(type);
+        */
+
+        em.persist(task);
     }
 }

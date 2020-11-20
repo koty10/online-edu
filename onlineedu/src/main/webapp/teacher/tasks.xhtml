@@ -17,6 +17,9 @@
             </o:viewParam>
             <f:viewAction action="#{userBackingBean.setClassroom}"/>
             <f:viewAction action="#{teachingBean.init}"/>
+            <f:viewAction action="#{taskBean.initNewTask}"/>
+            <f:viewAction action="#{taskBean.loadTasks}"/>
+
         </f:metadata>
     </ui:define>
 
@@ -27,45 +30,87 @@
     <ui:define name="content">
 
         <h2>Úkoly</h2>
-        <p:dataTable var="task" value="#{teachingBean.tasks}">
+        <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{taskBean.tasksDataModel}">
 
-            <p:column headerText="Název">
+            <f:facet name="header">
+                <h:form>
+                    <p:commandButton id="toggler" type="button" value="Vybrat sloupce" style="float:right" icon="pi pi-align-justify" />
+                    <p:columnToggler datasource="data-table-tasks" trigger="toggler" />
+                </h:form>
+            </f:facet>
+
+            <p:column headerText="Název" sortBy="#{task.name}">
                 <h:link outcome="/teacher/tasks/task" value="#{task.name}" includeViewParams="true">
-                    <i class="fa fa-fw fa-link"></i>
+                    <i class="fa fa-fw fa-link" />
                     <f:param name="taskId" value="#{task.id}" />
                 </h:link>
             </p:column>
+            <p:column headerText="Vytvořeno" sortBy="#{task.dateFormatted}" visible="false">
+                <h:outputText value="#{task.dateFormatted}" />
+            </p:column>
 
-            <p:column headerText="Nový">
+            <p:column headerText="Nový" sortBy="#{teachingBean.getNumberOfStudentsInState('new', task.id)}">
                 <h:outputText value="#{teachingBean.getNumberOfStudentsInState('new', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('new', task.id) > 0 ?'color-for-new' : ''}"/>
             </p:column>
-            <p:column headerText="Schváleno">
+            <p:column headerText="Schváleno" sortBy="#{teachingBean.getNumberOfStudentsInState('accepted', task.id)}">
                 <h:outputText value="#{teachingBean.getNumberOfStudentsInState('accepted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('accepted', task.id) > 0 ?'color-for-accepted' : ''}"/>
             </p:column>
-            <p:column headerText="Omluven">
+            <p:column headerText="Omluven" sortBy="#{teachingBean.getNumberOfStudentsInState('excused', task.id)}" visible="false">
                 <h:outputText value="#{teachingBean.getNumberOfStudentsInState('excused', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('excused', task.id) > 0 ?'color-for-excused' : ''}"/>
             </p:column>
-            <p:column headerText="Vráceno">
+            <p:column headerText="Vráceno" sortBy="#{teachingBean.getNumberOfStudentsInState('returned', task.id)}">
                 <h:outputText value="#{teachingBean.getNumberOfStudentsInState('returned', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('returned', task.id) > 0 ?'color-for-returned' : ''}"/>
             </p:column>
-            <p:column headerText="Odevzdáno">
+            <p:column headerText="Odevzdáno" sortBy="#{teachingBean.getNumberOfStudentsInState('submitted', task.id)}">
                 <h:outputText value="#{teachingBean.getNumberOfStudentsInState('submitted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('submitted', task.id) > 0 ?'color-for-submitted' : ''}"/>
             </p:column>
-            <p:column headerText="Znovu odevzdáno">
+            <p:column headerText="Znovu odevzdáno" sortBy="#{teachingBean.getNumberOfStudentsInState('resubmited', task.id)}">
                 <h:outputText value="#{teachingBean.getNumberOfStudentsInState('resubmitted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('resubmitted', task.id) > 0 ?'color-for-resubmitted' : ''}"/>
             </p:column>
-            <p:column headerText="Nesplněno">
+            <p:column headerText="Nesplněno" sortBy="#{teachingBean.getNumberOfStudentsInState('failed', task.id)}">
                 <h:outputText value="#{teachingBean.getNumberOfStudentsInState('failed', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('failed', task.id) > 0 ?'color-for-failed' : ''}"/>
             </p:column>
 
-            <p:column headerText="Deadline">
-                <h:outputText value="#{task.timeToFormated}" />
+            <p:column headerText="Začátek" sortBy="#{task.timeFromFormatted}" visible="false">
+                <h:outputText value="#{task.timeFromFormatted}" />
+            </p:column>
+            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}">
+                <h:outputText value="#{task.timeToFormatted}" />
             </p:column>
         </p:dataTable>
 
-        <h2>
-            Vytvořit úkol
-        </h2>
+        <h:outputScript library="js" name="date-picker-locale.js" />
+
+        <h:form id="form-new-task">
+            <h3>Vytvořit úkol</h3>
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+            <div class="p-field p-grid">
+                <p:outputLabel for="new-task-name" styleClass="p-col-fixed" style="width:150px" value="Jméno úkolu" />
+                <div class="p-col">
+                    <p:inputText id="new-task-name" value="#{taskBean.task.name}" required="true" requiredMessage="Název je povinné pole"/>
+                </div>
+            </div>
+
+            <div class="p-field p-grid">
+                <p:outputLabel for="new-task-time-from" styleClass="p-col-fixed" style="width:150px" value="Začátek" />
+                <div class="p-col">
+                    <p:datePicker id="new-task-time-from" value="#{taskBean.task.timeFrom}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Začátek je povinné pole"/>
+                </div>
+            </div>
+
+            <div class="p-field p-grid">
+                <p:outputLabel for="new-task-time-to" styleClass="p-col-fixed" style="width:150px" value="Deadline" />
+                <div class="p-col">
+                    <p:datePicker id="new-task-time-to" value="#{taskBean.task.timeTo}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Deadline je povinné pole"/>
+                </div>
+            </div>
+
+
+            <p:textEditor id="new-task-editor" placeholder="Prázdné zadání..." widgetVar="new-task-editor" value="#{taskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Text zadání je povinné pole"/>
+
+            <p:commandButton value="Vytvořit" action="#{taskBean.createTask}" update=":data-table-tasks :form-new-task :form-new-task:msgs" />
+        </h:form>
 
 
     </ui:define>

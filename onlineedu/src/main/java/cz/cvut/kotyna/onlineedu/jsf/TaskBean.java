@@ -40,6 +40,9 @@ public class TaskBean implements Serializable {
     @Inject
     private UserBackingBean userBackingBean;
 
+    @Inject
+    private TeachingBean teachingBean;
+
     private Integer taskId;
     private Task task;
 
@@ -48,6 +51,9 @@ public class TaskBean implements Serializable {
     private String result;
 
     private ListDataModel<StudentWithTaskState> studentsDataModel;
+
+    private ListDataModel<Task> tasksDataModel;
+    private List<Task> tasks;
 
     /**
      * Creates a new instance of TeachingBean
@@ -73,7 +79,7 @@ public class TaskBean implements Serializable {
     }
 
     // loads ListDataModel for dataTable on teachers task page
-    public void loadListDataModel() {
+    public void loadStudentsListDataModel() {
         List<StudentWithTaskState> tmp = new ArrayList<>();
         for (Student s : userBackingBean.getClassroom().getStudentCollection()) {
             tmp.add(new StudentWithTaskState(
@@ -82,6 +88,15 @@ public class TaskBean implements Serializable {
                     taskService.getRawStudentsTaskState(s.getUserAccount().getId(), taskId)));
         }
         studentsDataModel = new ListDataModel<>(tmp);
+    }
+
+    public void loadTasks() {
+        tasks = new ArrayList<>(teachingService.getTasks(teachingBean.getTeachingId()));
+    }
+
+    // initialize new Task (used by form to set it's properties and persist it)
+    public void initNewTask() {
+        task = new Task();
     }
 
     public List<Attempt> getStudentsAttemptsReverseSorted() {
@@ -124,9 +139,36 @@ public class TaskBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    public void createTask() {
+        task.setTeaching(teachingBean.getTeaching());
+        taskService.createTask(task);
+        FacesMessage msg = new FacesMessage("Úkol vytvořen");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        // to update table data
+        tasks.add(task);
+        tasksDataModel.setWrappedData(tasks);
+        // to clear the form
+        task = new Task();
+
+    }
 
 
 
+
+
+
+
+    public ListDataModel<Task> getTasksDataModel() {
+        if (tasksDataModel == null) {
+            tasksDataModel = new ListDataModel<>(tasks);
+        }
+        return tasksDataModel;
+    }
+
+    public void setTasksDataModel(ListDataModel<Task> tasksDataModel) {
+        this.tasksDataModel = tasksDataModel;
+    }
 
     public Integer getTaskId() {
         return taskId;

@@ -23,12 +23,13 @@ public class TeachingService {
     @PersistenceContext
     EntityManager em;
 
-    public Collection<Task> getTasks(Integer e) {
-        List<Teaching> teachings = em.createNamedQuery("Teaching.findById", Teaching.class).setParameter("id", (e)).getResultList();
-        if (teachings.isEmpty()) {
+    public Collection<Task> getTasks(Integer teachingId) {
+        em.getEntityManagerFactory().getCache().evictAll();
+        Teaching teaching = em.find(Teaching.class, teachingId);
+        if (teaching == null) {
             return new ArrayList<>();
         }
-        return teachings.get(0).getTaskCollection();
+        return teaching.getTaskCollection();
     }
 
     public Teaching findTeaching(Integer id) {

@@ -153,6 +153,9 @@ aside {
     box-sizing: content-box;
 }
 
+.ui-datatable-header {
+    min-height: 50px;
+}
 
 
 /* Clear floats after the columns */

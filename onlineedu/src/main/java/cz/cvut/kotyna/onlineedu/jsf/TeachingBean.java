@@ -85,10 +85,6 @@ public class TeachingBean implements Serializable {
         return teaching;
     }
 
-    public Collection<Task> getTasks() {
-        return teachingService.getTasks(teachingId);
-    }
-
     public Integer getNumberOfStudentsInState(String state, Integer taskId) {
         Collection<Student> students = teaching.getClassroom().getStudentCollection();
         return (int) students.stream()

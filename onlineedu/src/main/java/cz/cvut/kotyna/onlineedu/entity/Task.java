@@ -112,7 +112,7 @@ public class Task implements Serializable {
         return timeFrom;
     }
 
-    public String getTimeFromFormated() {
+    public String getTimeFromFormatted() {
         SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         if (timeFrom != null) {
             return nf.format(timeFrom);
@@ -130,7 +130,7 @@ public class Task implements Serializable {
         return timeTo;
     }
 
-    public String getTimeToFormated() {
+    public String getTimeToFormatted() {
         SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         if (timeTo != null) {
             return nf.format(timeTo);
@@ -148,9 +148,14 @@ public class Task implements Serializable {
         return date;
     }
 
-    public String getDateFormated() {
+    public String getDateFormatted() {
         SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-        return nf.format(date);
+        if (date != null) {
+            return nf.format(date);
+        }
+        else {
+            return "";
+        }
     }
 
     public void setDate(Date date) {
