@@ -10,6 +10,8 @@
             <f:viewParam name="teachingId" value="#{teachingBean.teachingId}" required="true" requiredMessage="No teaching specified.">
                 <f:validateLongRange minimum="1"/>
             </f:viewParam>
+            <f:viewAction action="#{taskBean.loadTasks}"/>
+
         </f:metadata>
     </ui:define>
 
@@ -20,14 +22,11 @@
     <ui:define name="content">
 
         <h2>Úkoly</h2>
-        <p:dataTable var="task" value="#{teachingBean.tasks}">
-            <p:column headerText="Id">
-                <h:outputText value="#{task.id}" />
-            </p:column>
+        <p:dataTable var="task" value="#{taskBean.tasksDataModel}">
 
             <p:column headerText="Název">
                 <h:link outcome="tasks/task" value="#{task.name}" >
-                    <i class="fa fa-fw fa-link"></i>
+                    <h:outputText rendered="#{task.name.equals('') ? 'true' : 'false'}" value="Úkol bez názvu" />
                     <f:param name="taskId" value="#{task.id}" />
                     <f:param name="teachingId" value="#{teachingBean.teachingId}" />
                 </h:link>
@@ -36,8 +35,9 @@
                 <h:outputText value="#{taskBean.getLoggedInStudentsTaskState(task.id)}" />
             </p:column>
             <p:column headerText="Deadline">
-                <h:outputText value="#{task.timeToFormated}" />
+                <h:outputText value="#{task.timeToFormatted}" />
             </p:column>
+
         </p:dataTable>
 
 
