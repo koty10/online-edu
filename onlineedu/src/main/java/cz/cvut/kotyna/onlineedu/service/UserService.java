@@ -11,7 +11,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -62,4 +65,30 @@ public class UserService {
         return em.find(UserAccount.class, userAccountId);
     }
 
+    public void createStudent(Student student) {
+        em.persist(student);
+    }
+
+    public UserAccount generateUserAccount(UserAccount userAccount) {
+        userAccount.setRole("student");
+        userAccount.setRegistered(new Date());
+
+        String usernameBase = userAccount.getFirstname() + "." + userAccount.getSurname();
+        String username = userAccount.getFirstname() + "." + userAccount.getSurname();
+        int counter = 1;
+        while(!em.createNamedQuery(UserAccount.FIND_USER_ACCOUNT_BY_USERNAME, UserAccount.class).setParameter("username", username).getResultList().isEmpty()) {
+            username = usernameBase + counter++;
+        }
+
+        userAccount.setUsername(username);
+
+        try {
+            userAccount.setPassword(AuthService.encodeSHA256(userAccount.getUsername(), ""));
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return userAccount;
+        //em.persist(userAccount);
+    }
 }

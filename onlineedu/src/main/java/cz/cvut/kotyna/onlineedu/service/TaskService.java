@@ -34,7 +34,7 @@ public class TaskService {
     AttemptService attemptService;
 
     public Task findTask(Integer taskId) {
-        em.getEntityManagerFactory().getCache().evictAll();
+        em.getEntityManagerFactory().getCache().evictAll(); //nedelat
         return em.find(Task.class, taskId);
     }
 

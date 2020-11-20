@@ -5,6 +5,7 @@ import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -34,6 +35,8 @@ public class UserBackingBean implements Serializable {
 
     private Integer classroomId;
     private Classroom classroom;
+
+    private UserAccount userAccount;
 
     /**
      * Creates a new instance of UserBackingBean
@@ -78,7 +81,28 @@ public class UserBackingBean implements Serializable {
         }
     }
 
+    // used to create a new user account
+    @PostConstruct
+    public void initUserAccount() {
+        userAccount = new UserAccount();
+    }
 
+    public void createStudent() {
+        userService.generateUserAccount(userAccount);
+        Student student = new Student();
+        student.setUserAccount(userAccount);
+        student.setClassroom(classroom);
+        userService.createStudent(student);
+    }
+
+
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
 
     public List<UserAccount> getAllUsers() {
         return userService.getAllUsers();

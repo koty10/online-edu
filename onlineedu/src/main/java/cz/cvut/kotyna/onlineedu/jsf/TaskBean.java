@@ -146,7 +146,8 @@ public class TaskBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
         // to update table data
-        tasks.add(task);
+        //tasks.add(task);
+        loadTasks();
         tasksDataModel.setWrappedData(tasks);
         // to clear the form
         task = new Task();

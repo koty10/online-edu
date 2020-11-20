@@ -1,0 +1,95 @@
+<ui:composition template="/WEB-INF/templates/teacher-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{userBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teachingBean.init}"/>
+            <f:viewAction action="#{taskBean.initNewTask}"/>
+            <f:viewAction action="#{taskBean.loadTasks}"/>
+
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="title">
+        Seznam žáků
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h2>Seznam žáků</h2>
+        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{teachingBean.teaching.classroom.studentCollection}">
+
+            <p:column headerText="Jméno">
+                <h:outputText value="#{student.userAccount.firstname}" />
+            </p:column>
+
+            <p:column headerText="Příjmení">
+                <h:outputText value="#{student.userAccount.surname}" />
+            </p:column>
+
+            <p:column headerText="Email">
+                <h:outputText value="#{student.userAccount.email}" />
+            </p:column>
+
+            <p:column headerText="Věk">
+                <h:outputText value="#{student.userAccount.age}" />
+            </p:column>
+
+            <p:column headerText="Registrován">
+                <h:outputText value="#{student.userAccount.registered}" />
+            </p:column>
+
+            <p:column headerText="Ulice">
+                <h:outputText value="#{student.userAccount.street}" />
+            </p:column>
+
+            <p:column headerText="PSČ">
+                <h:outputText value="#{student.userAccount.zip}" />
+            </p:column>
+
+        </p:dataTable>
+
+        <h:outputScript library="js" name="date-picker-locale.js" />
+
+        <h:form id="form-new-student">
+            <h3>Přidat žáka</h3>
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+            <div class="p-field p-grid">
+                <p:outputLabel for="new-task-firstname" styleClass="p-col-fixed" style="width:150px" value="Jméno" />
+                <div class="p-col">
+                    <p:inputText id="new-task-firstname" value="#{userBackingBean.userAccount.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
+                </div>
+            </div>
+            <div class="p-field p-grid">
+                <p:outputLabel for="new-task-surname" styleClass="p-col-fixed" style="width:150px" value="Příjmení" />
+                <div class="p-col">
+                    <p:inputText id="new-task-surname" value="#{userBackingBean.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
+                </div>
+            </div>
+            <div class="p-field p-grid">
+                <p:outputLabel for="new-task-phone" styleClass="p-col-fixed" style="width:150px" value="Telefon" />
+                <div class="p-col">
+                    <p:inputText id="new-task-phone" value="#{userBackingBean.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
+                </div>
+            </div>
+
+            <p:commandButton value="Vytvořit" action="#{userBackingBean.createStudent}" update=":data-table-students :form-new-student :form-new-student:msgs" />
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

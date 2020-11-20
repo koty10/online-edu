@@ -47,6 +47,10 @@
             <li class="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
                 <h:link outcome="/teacher/tasks" value="Úkoly" includeViewParams="true" />
             </li>
+            <li class="#{urlHelperBean.isCurrentPage('students') ? 'active' : ''}">
+                <h:link outcome="/teacher/students" value="Seznam žáků" includeViewParams="true" />
+            </li>
+
         </ul>
     </ui:define>
 
