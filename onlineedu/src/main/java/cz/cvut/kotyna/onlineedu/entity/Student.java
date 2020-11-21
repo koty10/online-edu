@@ -20,11 +20,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "student")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = Student.FIND_ALL, query = "SELECT s FROM Student s"),
-    @NamedQuery(name = "Student.findById", query = "SELECT s FROM Student s WHERE s.id = :id"),
-    @NamedQuery(name = "Student.findByChatAlert", query = "SELECT s FROM Student s WHERE s.chatAlert = :chatAlert"),
-    @NamedQuery(name = Student.FIND_LOGGED_IN_STUDENT, query = "select student from Student student join UserAccount user on student.id = user.student.id where user.username = :username"),
-    @NamedQuery(name = Student.FIND_CLASSMATES, query = "select student from Student student where student.classroom.id = :classroomId")})
+        @NamedQuery(name = Student.FIND_ALL, query = "SELECT s FROM Student s"),
+        @NamedQuery(name = "Student.findById", query = "SELECT s FROM Student s WHERE s.id = :id"),
+        @NamedQuery(name = "Student.findByChatAlert", query = "SELECT s FROM Student s WHERE s.chatAlert = :chatAlert"),
+        @NamedQuery(name = Student.FIND_LOGGED_IN_STUDENT, query = "select student from Student student join UserAccount user on student.id = user.student.id where user.username = :username"),
+        @NamedQuery(name = Student.FIND_CLASSMATES, query = "select student from Student student where student.classroom.id = :classroomId")})
 public class Student implements Serializable {
 
     public static final String FIND_ALL = "Student.findAll";
@@ -49,7 +49,8 @@ public class Student implements Serializable {
     private Collection<Attempt> attemptCollection;
     @OneToMany(mappedBy = "student")
     private Collection<Chat> chatCollection;
-    @OneToOne(mappedBy = "student")
+    @JoinColumn(name = "user_account", referencedColumnName = "id")
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     private UserAccount userAccount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Collection<Family> familyCollection;
@@ -153,5 +154,5 @@ public class Student implements Serializable {
     public String toString() {
         return "cz.cvut.kotyna.onlineedu.entity.Student[ id=" + id + " ]";
     }
-    
+
 }

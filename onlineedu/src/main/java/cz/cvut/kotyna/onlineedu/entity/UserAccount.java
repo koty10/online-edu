@@ -22,20 +22,20 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "user_account")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = UserAccount.FIND_ALL, query = "SELECT u FROM UserAccount u"),
-    @NamedQuery(name = "UserAccount.findById", query = "SELECT u FROM UserAccount u WHERE u.id = :id"),
-    @NamedQuery(name = "UserAccount.findByRole", query = "SELECT u FROM UserAccount u WHERE u.role = :role"),
-    @NamedQuery(name = "UserAccount.findByUsername", query = "SELECT u FROM UserAccount u WHERE u.username = :username"),
-    @NamedQuery(name = "UserAccount.findByPassword", query = "SELECT u FROM UserAccount u WHERE u.password = :password"),
-    @NamedQuery(name = "UserAccount.findByEmail", query = "SELECT u FROM UserAccount u WHERE u.email = :email"),
-    @NamedQuery(name = "UserAccount.findByFirstname", query = "SELECT u FROM UserAccount u WHERE u.firstname = :firstname"),
-    @NamedQuery(name = "UserAccount.findBySurname", query = "SELECT u FROM UserAccount u WHERE u.surname = :surname"),
-    @NamedQuery(name = "UserAccount.findByAge", query = "SELECT u FROM UserAccount u WHERE u.age = :age"),
-    @NamedQuery(name = "UserAccount.findByRegistered", query = "SELECT u FROM UserAccount u WHERE u.registered = :registered"),
-    @NamedQuery(name = "UserAccount.findByStreet", query = "SELECT u FROM UserAccount u WHERE u.street = :street"),
-    @NamedQuery(name = "UserAccount.findByZip", query = "SELECT u FROM UserAccount u WHERE u.zip = :zip"),
-    @NamedQuery(name = "UserAccount.findByPhone", query = "SELECT u FROM UserAccount u WHERE u.phone = :phone"),
-    @NamedQuery(name = UserAccount.FIND_USER_ACCOUNT_BY_USERNAME, query = "select userAccount from UserAccount userAccount where userAccount.username = :username")})
+        @NamedQuery(name = UserAccount.FIND_ALL, query = "SELECT u FROM UserAccount u"),
+        @NamedQuery(name = "UserAccount.findById", query = "SELECT u FROM UserAccount u WHERE u.id = :id"),
+        @NamedQuery(name = "UserAccount.findByRole", query = "SELECT u FROM UserAccount u WHERE u.role = :role"),
+        @NamedQuery(name = "UserAccount.findByUsername", query = "SELECT u FROM UserAccount u WHERE u.username = :username"),
+        @NamedQuery(name = "UserAccount.findByPassword", query = "SELECT u FROM UserAccount u WHERE u.password = :password"),
+        @NamedQuery(name = "UserAccount.findByEmail", query = "SELECT u FROM UserAccount u WHERE u.email = :email"),
+        @NamedQuery(name = "UserAccount.findByFirstname", query = "SELECT u FROM UserAccount u WHERE u.firstname = :firstname"),
+        @NamedQuery(name = "UserAccount.findBySurname", query = "SELECT u FROM UserAccount u WHERE u.surname = :surname"),
+        @NamedQuery(name = "UserAccount.findByAge", query = "SELECT u FROM UserAccount u WHERE u.age = :age"),
+        @NamedQuery(name = "UserAccount.findByRegistered", query = "SELECT u FROM UserAccount u WHERE u.registered = :registered"),
+        @NamedQuery(name = "UserAccount.findByStreet", query = "SELECT u FROM UserAccount u WHERE u.street = :street"),
+        @NamedQuery(name = "UserAccount.findByZip", query = "SELECT u FROM UserAccount u WHERE u.zip = :zip"),
+        @NamedQuery(name = "UserAccount.findByPhone", query = "SELECT u FROM UserAccount u WHERE u.phone = :phone"),
+        @NamedQuery(name = UserAccount.FIND_USER_ACCOUNT_BY_USERNAME, query = "select userAccount from UserAccount userAccount where userAccount.username = :username")})
 public class UserAccount implements Serializable {
 
     public static final String FIND_ALL = "UserAccount.findAll";
@@ -95,14 +95,11 @@ public class UserAccount implements Serializable {
     private String phone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userAccount")
     private Collection<Message> messageCollection;
-    @JoinColumn(name = "parent", referencedColumnName = "id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userAccount")
     private Parent parent;
-    @JoinColumn(name = "student", referencedColumnName = "id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userAccount")
     private Student student;
-    @JoinColumn(name = "teacher", referencedColumnName = "id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userAccount")
     private Teacher teacher;
 
     public UserAccount() {
@@ -275,5 +272,5 @@ public class UserAccount implements Serializable {
     public String toString() {
         return "cz.cvut.kotyna.onlineedu.entity.UserAccount[ id=" + id + " ]";
     }
-    
+
 }

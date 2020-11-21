@@ -9,6 +9,29 @@ create table classroom
 alter table classroom
     owner to onlineedu;
 
+create table user_account
+(
+    id       serial       not null
+        constraint user_account_pk
+            primary key,
+    role     varchar(64)  not null,
+    username varchar(255) not null
+        constraint user_account_un
+            unique,
+    password   varchar      not null,
+    email      varchar(255) not null,
+    firstname  varchar(255) not null,
+    surname    varchar(255) not null,
+    age        integer,
+    registered timestamp,
+    street     varchar,
+    zip        varchar,
+    phone      varchar(64)
+);
+
+alter table user_account
+    owner to onlineedu;
+   
 create table teacher
 (
     id         serial       not null
@@ -17,7 +40,11 @@ create table teacher
     classroom  integer
         constraint teacher_fk
             references classroom
-            on update cascade on delete set null
+            on update cascade on delete set null,
+    user_account  integer not null
+        constraint user_account_fk
+            references user_account
+            on update cascade on delete cascade
 );
 
 alter table teacher
@@ -32,7 +59,11 @@ create table student
     classroom  integer      not null
         constraint student_fk
             references classroom
-            on update cascade on delete set null
+            on update cascade on delete set null,
+    user_account  integer not null
+        constraint user_account_fk
+            references user_account
+            on update cascade on delete cascade
 );
 
 alter table student
@@ -42,7 +73,11 @@ create table parent
 (
     id         serial       not null
         constraint parent_pk
-            primary key
+            primary key,
+    user_account  integer not null
+        constraint user_account_fk
+            references user_account
+            on update cascade on delete cascade
 );
 
 alter table parent
@@ -64,41 +99,6 @@ create table family
 );
 
 alter table family
-    owner to onlineedu;
-
-create table user_account
-(
-    id       serial       not null
-        constraint user_account_pk
-            primary key,
-    role     varchar(64)  not null,
-    username varchar(255) not null
-        constraint user_account_un
-            unique,
-    password   varchar      not null,
-    email      varchar(255) not null,
-    firstname  varchar(255) not null,
-    surname    varchar(255) not null,
-    age        integer,
-    registered timestamp,
-    street     varchar,
-    zip        varchar,
-    phone      varchar(64),
-    student  integer
-        constraint user_account_fk
-            references student
-            on update cascade on delete cascade,
-    parent   integer
-        constraint user_account_fk_1
-            references parent
-            on update cascade on delete cascade,
-    teacher  integer
-        constraint user_account_fk_2
-            references teacher
-            on update cascade on delete cascade
-);
-
-alter table user_account
     owner to onlineedu;
 
 create table subject

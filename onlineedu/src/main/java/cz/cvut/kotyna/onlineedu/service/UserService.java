@@ -83,7 +83,8 @@ public class UserService {
 
         try {
             em.persist(student);
-            em.persist(userAccount);
+            logger.log(Level.INFO, "Student with new UserAccount (" + userAccount.getUsername() + ") created.");
+            //em.persist(userAccount);
         }
 
         catch (ConstraintViolationException e) {

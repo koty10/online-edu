@@ -19,8 +19,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "teacher")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = Teacher.FIND_ALL, query = "SELECT t FROM Teacher t"),
-    @NamedQuery(name = "Teacher.findById", query = "SELECT t FROM Teacher t WHERE t.id = :id")})
+        @NamedQuery(name = Teacher.FIND_ALL, query = "SELECT t FROM Teacher t"),
+        @NamedQuery(name = "Teacher.findById", query = "SELECT t FROM Teacher t WHERE t.id = :id")})
 public class Teacher implements Serializable {
 
     public static final String FIND_ALL = "Teacher.findAll";
@@ -36,7 +36,8 @@ public class Teacher implements Serializable {
     @JoinColumn(name = "classroom", referencedColumnName = "id")
     @ManyToOne
     private Classroom classroom;
-    @OneToOne(mappedBy = "teacher")
+    @JoinColumn(name = "user_account", referencedColumnName = "id")
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     private UserAccount userAccount;
 
     public Teacher() {
@@ -103,5 +104,5 @@ public class Teacher implements Serializable {
     public String toString() {
         return "cz.cvut.kotyna.onlineedu.entity.Teacher[ id=" + id + " ]";
     }
-    
+
 }
