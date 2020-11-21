@@ -11,11 +11,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolationException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Stateless
 public class UserService {
@@ -23,6 +26,8 @@ public class UserService {
     // connection to the database
     @PersistenceContext
     EntityManager em;
+
+    private static Logger logger = Logger.getLogger(UserService.class.getName());
 
     public List<UserAccount> getAllUsers() {
         return em.createNamedQuery(UserAccount.FIND_ALL, UserAccount.class).getResultList();
@@ -65,14 +70,29 @@ public class UserService {
         return em.find(UserAccount.class, userAccountId);
     }
 
-    public void createStudent(Student student) {
-        em.persist(student);
-    }
-
-    public UserAccount generateUserAccount(UserAccount userAccount) {
+    public void createStudent(UserAccount userAccount, Classroom classroom) {
         userAccount.setRole("student");
         userAccount.setRegistered(new Date());
 
+        generateUserAccountUsernameAndPassword(userAccount);
+
+        Student student = new Student();
+        student.setUserAccount(userAccount);
+        student.setClassroom(classroom);
+
+
+        try {
+            em.persist(student);
+            em.persist(userAccount);
+        }
+
+        catch (ConstraintViolationException e) {
+            logger.log(Level.SEVERE,"Exception: ");
+            e.getConstraintViolations().forEach(err->logger.log(Level.SEVERE,err.toString()));
+        }
+    }
+
+    private void generateUserAccountUsernameAndPassword(UserAccount userAccount) {
         String usernameBase = userAccount.getFirstname() + "." + userAccount.getSurname();
         String username = userAccount.getFirstname() + "." + userAccount.getSurname();
         int counter = 1;
@@ -88,7 +108,6 @@ public class UserService {
             e.printStackTrace();
         }
 
-        return userAccount;
         //em.persist(userAccount);
     }
 }

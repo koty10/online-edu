@@ -88,11 +88,7 @@ public class UserBackingBean implements Serializable {
     }
 
     public void createStudent() {
-        userService.generateUserAccount(userAccount);
-        Student student = new Student();
-        student.setUserAccount(userAccount);
-        student.setClassroom(classroom);
-        userService.createStudent(student);
+        userService.createStudent(userAccount, classroom);
     }
 
 

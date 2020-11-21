@@ -86,6 +86,12 @@
                     <p:inputText id="new-task-phone" value="#{userBackingBean.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
                 </div>
             </div>
+            <div class="p-field p-grid">
+                <p:outputLabel for="new-task-email" styleClass="p-col-fixed" style="width:150px" value="Email" />
+                <div class="p-col">
+                    <p:inputText id="new-task-email" value="#{userBackingBean.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
+                </div>
+            </div>
 
             <p:commandButton value="Vytvořit" action="#{userBackingBean.createStudent}" update=":data-table-students :form-new-student :form-new-student:msgs" />
         </h:form>
