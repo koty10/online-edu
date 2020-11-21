@@ -6,6 +6,8 @@
 package cz.cvut.kotyna.onlineedu.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.*;
@@ -30,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
         @NamedQuery(name = "UserAccount.findByEmail", query = "SELECT u FROM UserAccount u WHERE u.email = :email"),
         @NamedQuery(name = "UserAccount.findByFirstname", query = "SELECT u FROM UserAccount u WHERE u.firstname = :firstname"),
         @NamedQuery(name = "UserAccount.findBySurname", query = "SELECT u FROM UserAccount u WHERE u.surname = :surname"),
-        @NamedQuery(name = "UserAccount.findByAge", query = "SELECT u FROM UserAccount u WHERE u.age = :age"),
+        @NamedQuery(name = "UserAccount.findByBirthday", query = "SELECT u FROM UserAccount u WHERE u.birthday = :birthday"),
         @NamedQuery(name = "UserAccount.findByRegistered", query = "SELECT u FROM UserAccount u WHERE u.registered = :registered"),
         @NamedQuery(name = "UserAccount.findByStreet", query = "SELECT u FROM UserAccount u WHERE u.street = :street"),
         @NamedQuery(name = "UserAccount.findByZip", query = "SELECT u FROM UserAccount u WHERE u.zip = :zip"),
@@ -78,8 +80,8 @@ public class UserAccount implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "surname")
     private String surname;
-    @Column(name = "age")
-    private Integer age;
+    @Column(name = "birthday")
+    private LocalDate birthday;
     @Column(name = "registered")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registered;
@@ -176,11 +178,16 @@ public class UserAccount implements Serializable {
     }
 
     public Integer getAge() {
-        return age;
+        if (birthday == null) return 0;
+        return Period.between(birthday, LocalDate.now()).getYears();
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public Date getRegistered() {

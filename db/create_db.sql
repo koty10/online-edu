@@ -22,7 +22,7 @@ create table user_account
     email      varchar(255) not null,
     firstname  varchar(255) not null,
     surname    varchar(255) not null,
-    age        integer,
+    birthday   timestamp,
     registered timestamp,
     street     varchar,
     zip        varchar,
