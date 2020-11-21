@@ -10,7 +10,9 @@
         <ul class="top-nav-list">
             <ui:repeat value="#{userBackingBean.loggedInUser.student.classroom.teachingCollection}" var="teaching">
                 <li class="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
-                    <h:link value="#{teaching.subject.name}">
+                    <h:link>
+                        <h:outputText value="#{teaching.subject.name}" />
+                        <h:outputText value=" (#{teachingBean.getNumberOfTasksInNewOrReturnedStateForRhsTeaching(teaching.id)})" />
                         <f:param name="teachingId" value="#{teaching.id}" />
                     </h:link>
                 </li>

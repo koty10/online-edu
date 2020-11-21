@@ -1,9 +1,6 @@
 package cz.cvut.kotyna.onlineedu.jsf;
 
-import cz.cvut.kotyna.onlineedu.entity.Student;
-import cz.cvut.kotyna.onlineedu.entity.Task;
-import cz.cvut.kotyna.onlineedu.entity.Teacher;
-import cz.cvut.kotyna.onlineedu.entity.Teaching;
+import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.service.*;
 
 import javax.annotation.PostConstruct;
@@ -91,6 +88,21 @@ public class TeachingBean implements Serializable {
                 .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), taskId))
                 .filter(taskState -> taskState.equals(state))
                 .count();
+    }
+
+    public Integer getNumberOfTasksInNewOrReturnedStateForRhsTeaching(Integer teachingId) {
+        Teaching teaching = teachingService.findTeaching(teachingId);
+        Collection<Task> tasks = teaching.getTaskCollection();
+        UserAccount loggedInUser = loginService.getLoggedInUser();
+        int count = 0;
+
+        for (Task task : tasks) {
+            String state = taskService.getRawStudentsTaskState(loggedInUser.getId(), task.getId());
+            if (state.equals("new") || state.equals("returned")) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public Integer getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(Integer teachingId) {
