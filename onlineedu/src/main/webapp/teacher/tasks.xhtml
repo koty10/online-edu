@@ -40,7 +40,7 @@
 
                 <p:column headerText="Název" sortBy="#{task.name}">
                     <h:link outcome="/teacher/tasks/task" value="#{task.name}" includeViewParams="true">
-                        <h:outputText rendered="#{task.name.equals('') ? 'true' : 'false'}" value="Úkol bez názvu" />
+                        <h:outputText rendered="#{empty task.name}" value="Úkol bez názvu" />
                         <f:param name="taskId" value="#{task.id}" />
                     </h:link>
                 </p:column>
