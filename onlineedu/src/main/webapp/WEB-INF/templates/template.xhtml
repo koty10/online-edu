@@ -9,7 +9,7 @@
 <ui:insert name="metadata" />
 
 <h:head>
-    <title><ui:insert name="title">Default title</ui:insert></title>
+    <title><ui:insert name="title">Online edu</ui:insert></title>
     <h:outputStylesheet name="styles/styles.css" />
     <h:outputStylesheet name="styles/colors.css" />
     <h:outputStylesheet name="styles/primeflex.css" />
@@ -62,15 +62,10 @@
             <section class="row">
                 <aside class="big">
                     <ui:insert name="left-nav">
-                        <ul>
-                            <li class="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
-                                <h:link outcome="home" value="Home" />
-                            </li>
-                        </ul>
                     </ui:insert>
                 </aside>
                 <main class="big"><ui:insert name="content">Default content</ui:insert></main>
-                <aside class="big">Novinky</aside>
+                <aside class="big"></aside>
             </section>
             <footer>
                 <p>Footer</p>

@@ -2,17 +2,36 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
-        <title>Login Application in JSF 2</title>
+        <title>Přihlášení</title>
+        <h:outputStylesheet name="styles/styles.css" />
     </h:head>
     <h:body>
-        <h3>Login Application in JSF 2</h3>
+
         <h:messages />
-        <form id="loginForm" method="post" action="j_security_check">
-            <h:outputLabel value="User Name:" />
-            <input type="text" name="j_username" autofocus="autofocus"/> <br />
-            <h:outputLabel value="Password:" />
-            <input type="password" name="j_password" /><br/>
-            <input type="submit" value="Login" />
-        </form>
+
+        <div class="login-bg" />
+        <div class="container">
+
+            <form class="login-form" id="loginForm" method="post" action="j_security_check">
+                <h:graphicImage src="img/avatar.svg" />
+                <h2 class="title">Vítejte zpět</h2>
+                <div class="input-div one">
+                    <div class="login-entry">
+                        <h:outputLabel for="j_username" value="Přihlašovací jméno:" />
+                        <input class="input" type="text" name="j_username" autofocus="autofocus"/>
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="login-entry">
+                        <h:outputLabel for="j_password" value="Heslo:" />
+                        <input class="input" type="password" name="j_password" />
+                    </div>
+                </div>
+                <a href="#">Zapomenuté heslo?</a>
+                <input type="submit" class="btn" value="Přihlásit" />
+            </form>
+        </div>
+        <script type="text/javascript" src="js/main.js"></script>
+
     </h:body>
 </html> 

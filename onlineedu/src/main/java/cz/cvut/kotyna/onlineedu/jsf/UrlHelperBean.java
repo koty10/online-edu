@@ -11,10 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Named(value = "urlHelperBean")
 @RequestScoped
@@ -35,7 +32,8 @@ public class UrlHelperBean {
     public boolean isCurrentPage(String pathLastPart) {
         String uri = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
         String[] pathParts = uri.split("/");
-        return pathParts[pathParts.length - 1].equals(pathLastPart) || pathParts[pathParts.length - 1].equals(pathLastPart + ".xhtml");
+        return Arrays.stream(pathParts).anyMatch(part -> part.equals(pathLastPart) || part.equals(pathLastPart + ".xhtml"));
+        //return pathParts[pathParts.length - 1].equals(pathLastPart) || pathParts[pathParts.length - 1].equals(pathLastPart + ".xhtml");
     }
 
     public boolean isCurrentTeaching(String teachingId) {

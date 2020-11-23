@@ -1,0 +1,64 @@
+<ui:composition template="/WEB-INF/templates/teacher-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{userBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teachingBean.init}"/>
+            <f:viewAction action="#{taskBean.initNewTask}"/>
+            <f:viewAction action="#{taskBean.loadTasks}"/>
+
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="title">
+        Třídní kniha
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h2>Třídní kniha</h2>
+        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{userBackingBean.studentStatisticsListDataModel}">
+
+            <p:column headerText="Žák">
+                <h:outputText value="#{student.studentFirstname} #{student.studentSurname}" />
+            </p:column>
+
+            <p:column headerText="Nové">
+                <h:outputText value="#{student.numberOfTasksInNewState}" />
+            </p:column>
+            <p:column headerText="Odevzdané">
+                <h:outputText value="#{student.numberOfTasksInSubmittedState}" />
+            </p:column>
+            <p:column headerText="Vrácené">
+                <h:outputText value="#{student.numberOfTasksInReturnedState}" />
+            </p:column>
+            <p:column headerText="Odevzdané znovu">
+                <h:outputText value="#{student.numberOfTasksInResubmittedState}" />
+            </p:column>
+            <p:column headerText="Schválené">
+                <h:outputText value="#{student.numberOfTasksInAcceptedState}" />
+            </p:column>
+            <p:column headerText="Omluvené">
+                <h:outputText value="#{student.numberOfTasksInExcusedState}" />
+            </p:column>
+            <p:column headerText="Nesplněné">
+                <h:outputText value="#{student.numberOfTasksInFailedState}" />
+            </p:column>
+
+        </p:dataTable>
+
+    </ui:define>
+</ui:composition>

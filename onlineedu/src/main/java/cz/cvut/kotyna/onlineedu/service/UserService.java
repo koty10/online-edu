@@ -6,14 +6,19 @@
 package cz.cvut.kotyna.onlineedu.service;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
+import cz.cvut.kotyna.onlineedu.enums.TaskState;
+import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.classbook.StudentStatisticsModel;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.model.DataModel;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +31,9 @@ public class UserService {
     // connection to the database
     @PersistenceContext
     EntityManager em;
+
+    @EJB
+    TaskService taskService;
 
     private static Logger logger = Logger.getLogger(UserService.class.getName());
 
@@ -91,6 +99,34 @@ public class UserService {
             logger.log(Level.SEVERE,"Exception: ");
             e.getConstraintViolations().forEach(err->logger.log(Level.SEVERE,err.toString()));
         }
+    }
+
+    public List<StudentStatisticsModel> getClassbookModel(Teaching teaching) {
+        List<StudentStatisticsModel> list = new ArrayList<>();
+        for (Student student : getClassmates(teaching.getClassroom().getId())) {
+            StudentStatisticsModel studentStatisticsModel = new StudentStatisticsModel();
+            studentStatisticsModel.setStudentFirstname(student.getUserAccount().getFirstname());
+            studentStatisticsModel.setStudentSurname(student.getUserAccount().getSurname());
+            studentStatisticsModel.setNumberOfTasksInNewState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "new"));
+            studentStatisticsModel.setNumberOfTasksInSubmittedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "submitted"));
+            studentStatisticsModel.setNumberOfTasksInReturnedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "returned"));
+            studentStatisticsModel.setNumberOfTasksInResubmittedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "resubmitted"));
+            studentStatisticsModel.setNumberOfTasksInAcceptedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "accepted"));
+            studentStatisticsModel.setNumberOfTasksInExcusedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "excused"));
+            studentStatisticsModel.setNumberOfTasksInFailedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "failed"));
+            list.add(studentStatisticsModel);
+        }
+        return list;
+    }
+
+    private Integer getNumberOfTasksInRhsStateForRhsStudent(Integer userAccountId, Teaching teaching, String state) {
+        Integer count = 0;
+        for (Task task : teaching.getTaskCollection()) {
+            if (taskService.getRawStudentsTaskState(userAccountId, task.getId()).equals(state)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     private void generateUserAccountUsernameAndPassword(UserAccount userAccount) {

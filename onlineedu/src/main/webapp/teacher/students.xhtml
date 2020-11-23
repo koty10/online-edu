@@ -30,7 +30,7 @@
     <ui:define name="content">
 
         <h2>Seznam žáků</h2>
-        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{teachingBean.teaching.classroom.studentCollection}">
+        <p:dataTable resizableColumns="true" widgetVar="data-table-students" id="data-table-students" var="student" value="#{teachingBean.teaching.classroom.studentCollection}">
 
             <p:column headerText="Jméno">
                 <h:outputText value="#{student.userAccount.firstname}" />
@@ -40,7 +40,7 @@
                 <h:outputText value="#{student.userAccount.surname}" />
             </p:column>
 
-            <p:column headerText="Email">
+            <p:column headerText="Přihlašovací jméno">
                 <h:outputText value="#{student.userAccount.username}" />
             </p:column>
 
@@ -48,12 +48,12 @@
                 <h:outputText value="#{student.userAccount.email}" />
             </p:column>
 
-            <p:column headerText="Věk">
-                <h:outputText value="#{student.userAccount.age}" />
+            <p:column headerText="Mobil">
+                <h:outputText value="#{student.userAccount.phone}" />
             </p:column>
 
-            <p:column headerText="Registrován">
-                <h:outputText value="#{student.userAccount.registered}" />
+            <p:column headerText="Věk">
+                <h:outputText value="#{student.userAccount.age}" />
             </p:column>
 
             <p:column headerText="Ulice">

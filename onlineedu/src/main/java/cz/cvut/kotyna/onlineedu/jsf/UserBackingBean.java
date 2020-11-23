@@ -1,6 +1,7 @@
 package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
+import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.classbook.StudentStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
@@ -12,7 +13,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -33,10 +36,15 @@ public class UserBackingBean implements Serializable {
     @EJB
     private ClassroomService classroomService;
 
+    @Inject
+    private TeachingBean teachingBean;
+
     private Integer classroomId;
     private Classroom classroom;
 
     private UserAccount userAccount;
+
+    private ListDataModel<StudentStatisticsModel> studentStatisticsListDataModel;
 
     /**
      * Creates a new instance of UserBackingBean
@@ -91,6 +99,16 @@ public class UserBackingBean implements Serializable {
         userService.createStudent(userAccount, classroom);
     }
 
+    public ListDataModel<StudentStatisticsModel> getStudentStatisticsListDataModel() {
+        if (studentStatisticsListDataModel == null) {
+            studentStatisticsListDataModel = new ListDataModel<>(userService.getClassbookModel(teachingBean.getTeaching()));
+        }
+        return studentStatisticsListDataModel;
+    }
+
+    public void setStudentStatisticsListDataModel(ListDataModel<StudentStatisticsModel> studentStatisticsListDataModel) {
+        this.studentStatisticsListDataModel = studentStatisticsListDataModel;
+    }
 
     public UserAccount getUserAccount() {
         return userAccount;
