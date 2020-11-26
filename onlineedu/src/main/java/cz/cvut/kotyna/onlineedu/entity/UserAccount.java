@@ -178,7 +178,7 @@ public class UserAccount implements Serializable {
     }
 
     public Integer getAge() {
-        if (birthday == null) return 0;
+        if (birthday == null) return null;
         return Period.between(birthday, LocalDate.now()).getYears();
     }
 

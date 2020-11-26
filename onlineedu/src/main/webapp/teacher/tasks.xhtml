@@ -18,7 +18,6 @@
             <f:viewAction action="#{userBackingBean.setClassroom}"/>
             <f:viewAction action="#{teachingBean.init}"/>
             <f:viewAction action="#{taskBean.initNewTask}"/>
-            <f:viewAction action="#{taskBean.loadTasks}"/>
 
         </f:metadata>
     </ui:define>
@@ -31,49 +30,49 @@
 
         <h2>Úkoly</h2>
         <h:form id="table-form">
-            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{taskBean.tasksDataModel}">
+            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{taskBean.taskWithStatisticsListDataModel}">
 
                 <f:facet name="header">
                         <p:commandButton id="toggler" type="button" value="Vybrat sloupce" style="float:right" icon="pi pi-align-justify" />
                         <p:columnToggler datasource="data-table-tasks" trigger="toggler" />
                 </f:facet>
 
-                <p:column headerText="Název" sortBy="#{task.name}">
-                    <h:link outcome="/teacher/tasks/task" value="#{task.name}" includeViewParams="true">
-                        <h:outputText rendered="#{empty task.name}" value="Úkol bez názvu" />
-                        <f:param name="taskId" value="#{task.id}" />
+                <p:column headerText="Název" sortBy="#{task.taskName}">
+                    <h:link outcome="/teacher/tasks/task" value="#{task.taskName}" includeViewParams="true">
+                        <h:outputText rendered="#{empty task.taskName}" value="Úkol bez názvu" />
+                        <f:param name="taskId" value="#{task.taskId}" />
                     </h:link>
                 </p:column>
-                <p:column headerText="Vytvořeno" sortBy="#{task.dateFormatted}" visible="false">
-                    <h:outputText value="#{task.dateFormatted}" />
+                <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
+                    <h:outputText value="#{task.taskDate}" />
                 </p:column>
 
-                <p:column headerText="Nový" sortBy="#{teachingBean.getNumberOfStudentsInState('new', task.id)}">
-                    <h:outputText value="#{teachingBean.getNumberOfStudentsInState('new', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('new', task.id) > 0 ?'color-for-new' : ''}"/>
+                <p:column headerText="Nový" sortBy="#{task.numberOfStudentsInNewState}">
+                    <h:outputText value="#{task.numberOfStudentsInNewState}" styleClass="#{task.numberOfStudentsInNewState > 0 ?'color-for-new' : ''}"/>
                 </p:column>
-                <p:column headerText="Odevzdáno" sortBy="#{teachingBean.getNumberOfStudentsInState('submitted', task.id)}">
-                    <h:outputText value="#{teachingBean.getNumberOfStudentsInState('submitted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('submitted', task.id) > 0 ?'color-for-submitted' : ''}"/>
+                <p:column headerText="Odevzdáno" sortBy="#{task.numberOfStudentsInSubmittedState}">
+                    <h:outputText value="#{task.numberOfStudentsInSubmittedState}" styleClass="#{task.numberOfStudentsInSubmittedState > 0 ?'color-for-submitted' : ''}"/>
                 </p:column>
-                <p:column headerText="Vráceno" sortBy="#{teachingBean.getNumberOfStudentsInState('returned', task.id)}">
-                    <h:outputText value="#{teachingBean.getNumberOfStudentsInState('returned', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('returned', task.id) > 0 ?'color-for-returned' : ''}"/>
+                <p:column headerText="Vráceno" sortBy="#{task.numberOfStudentsInReturnedState}">
+                    <h:outputText value="#{task.numberOfStudentsInReturnedState}" styleClass="#{task.numberOfStudentsInReturnedState > 0 ?'color-for-returned' : ''}"/>
                 </p:column>
-                <p:column headerText="Znovu odevzdáno" sortBy="#{teachingBean.getNumberOfStudentsInState('resubmited', task.id)}">
-                    <h:outputText value="#{teachingBean.getNumberOfStudentsInState('resubmitted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('resubmitted', task.id) > 0 ?'color-for-resubmitted' : ''}"/>
+                <p:column headerText="Znovu odevzdáno" sortBy="#{task.numberOfStudentsInResubmittedState}">
+                    <h:outputText value="#{task.numberOfStudentsInResubmittedState}" styleClass="#{task.numberOfStudentsInResubmittedState > 0 ?'color-for-resubmitted' : ''}"/>
                 </p:column>
-                <p:column headerText="Schváleno" sortBy="#{teachingBean.getNumberOfStudentsInState('accepted', task.id)}">
-                    <h:outputText value="#{teachingBean.getNumberOfStudentsInState('accepted', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('accepted', task.id) > 0 ?'color-for-accepted' : ''}"/>
+                <p:column headerText="Schváleno" sortBy="#{task.numberOfStudentsInAcceptedState}">
+                    <h:outputText value="#{task.numberOfStudentsInAcceptedState}" styleClass="#{task.numberOfStudentsInAcceptedState > 0 ?'color-for-accepted' : ''}"/>
                 </p:column>
-                <p:column headerText="Omluven" sortBy="#{teachingBean.getNumberOfStudentsInState('excused', task.id)}" visible="false">
-                    <h:outputText value="#{teachingBean.getNumberOfStudentsInState('excused', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('excused', task.id) > 0 ?'color-for-excused' : ''}"/>
+                <p:column headerText="Omluven" sortBy="#{task.numberOfStudentsInExcusedState}" visible="false">
+                    <h:outputText value="#{task.numberOfStudentsInExcusedState}" styleClass="#{task.numberOfStudentsInExcusedState > 0 ?'color-for-excused' : ''}"/>
                 </p:column>
-                <p:column headerText="Nesplněno" sortBy="#{teachingBean.getNumberOfStudentsInState('failed', task.id)}">
-                    <h:outputText value="#{teachingBean.getNumberOfStudentsInState('failed', task.id)}" styleClass="#{teachingBean.getNumberOfStudentsInState('failed', task.id) > 0 ?'color-for-failed' : ''}"/>
+                <p:column headerText="Nesplněno" sortBy="#{task.numberOfStudentsInFailedState}">
+                    <h:outputText value="#{task.numberOfStudentsInFailedState}" styleClass="#{task.numberOfStudentsInFailedState > 0 ?'color-for-failed' : ''}"/>
                 </p:column>
-                <p:column headerText="Začátek" sortBy="#{task.timeFromFormatted}" visible="false">
-                    <h:outputText value="#{task.timeFromFormatted}" />
+                <p:column headerText="Začátek" sortBy="#{task.taskTimeFrom}" visible="false">
+                    <h:outputText value="#{task.taskTimeFrom}" />
                 </p:column>
-                <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}">
-                    <h:outputText value="#{task.timeToFormatted}" />
+                <p:column headerText="Deadline" sortBy="#{task.taskTimeTo}">
+                    <h:outputText value="#{task.taskTimeTo}" />
                 </p:column>
             </p:dataTable>
         </h:form>

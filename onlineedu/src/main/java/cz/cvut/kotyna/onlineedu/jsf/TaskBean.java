@@ -4,6 +4,7 @@ import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.StudentWithTaskState;
+import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.tasks.TaskWithStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.*;
 
 import javax.ejb.EJB;
@@ -52,8 +53,7 @@ public class TaskBean implements Serializable {
 
     private ListDataModel<StudentWithTaskState> studentsDataModel;
 
-    private ListDataModel<Task> tasksDataModel;
-    private List<Task> tasks;
+    private ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel;
 
     /**
      * Creates a new instance of TeachingBean
@@ -88,10 +88,6 @@ public class TaskBean implements Serializable {
                     taskService.getRawStudentsTaskState(s.getUserAccount().getId(), taskId)));
         }
         studentsDataModel = new ListDataModel<>(tmp);
-    }
-
-    public void loadTasks() {
-        tasks = new ArrayList<>(teachingService.getTasks(teachingBean.getTeachingId()));
     }
 
     // initialize new Task (used by form to set it's properties and persist it)
@@ -148,27 +144,57 @@ public class TaskBean implements Serializable {
         // to update table data
         //tasks.add(task);
         loadTasks();
-        tasksDataModel.setWrappedData(tasks);
+        //tasksDataModel.setWrappedData(tasks);
         // to clear the form
         task = new Task();
 
     }
 
+    public void loadTasks() {
+        List<TaskWithStatisticsModel> taskWithStatisticsModels = new ArrayList<>();
+        for (Task t : teachingService.getTasks(teachingBean.getTeachingId())) {
+            TaskWithStatisticsModel model = new TaskWithStatisticsModel();
+            model.setTaskId(t.getId());
+            model.setTaskName(t.getName());
+            model.setTaskDate(t.getDateFormatted());
+            model.setTaskTimeFrom(t.getTimeFromFormatted());
+            model.setTaskTimeTo(t.getTimeToFormatted());
 
+            Integer numberOfNew = teachingBean.getNumberOfStudentsInState("new", t.getId());
+            if (numberOfNew > 0) model.setNumberOfStudentsInNewState(numberOfNew);
 
+            Integer numberOfAccepted = teachingBean.getNumberOfStudentsInState("accepted", t.getId());
+            if (numberOfAccepted > 0) model.setNumberOfStudentsInAcceptedState(numberOfAccepted);
 
+            Integer numberOfExcused = teachingBean.getNumberOfStudentsInState("excused", t.getId());
+            if (numberOfExcused > 0) model.setNumberOfStudentsInExcusedState(teachingBean.getNumberOfStudentsInState("excused", t.getId()));
 
+            Integer numberOfFailed = teachingBean.getNumberOfStudentsInState("failed", t.getId());
+            if (numberOfFailed > 0) model.setNumberOfStudentsInFailedState(teachingBean.getNumberOfStudentsInState("failed", t.getId()));
 
+            Integer numberOfResubmitted = teachingBean.getNumberOfStudentsInState("resubmitted", t.getId());
+            if (numberOfResubmitted > 0) model.setNumberOfStudentsInResubmittedState(teachingBean.getNumberOfStudentsInState("resubmitted", t.getId()));
 
-    public ListDataModel<Task> getTasksDataModel() {
-        if (tasksDataModel == null) {
-            tasksDataModel = new ListDataModel<>(tasks);
+            Integer numberOfReturned = teachingBean.getNumberOfStudentsInState("returned", t.getId());
+            if (numberOfReturned > 0) model.setNumberOfStudentsInReturnedState(teachingBean.getNumberOfStudentsInState("returned", t.getId()));
+
+            Integer numberOfSubmitted = teachingBean.getNumberOfStudentsInState("submitted", t.getId());
+            if (numberOfSubmitted > 0) model.setNumberOfStudentsInSubmittedState(teachingBean.getNumberOfStudentsInState("submitted", t.getId()));
+
+            taskWithStatisticsModels.add(model);
         }
-        return tasksDataModel;
+        taskWithStatisticsListDataModel = new ListDataModel<>(taskWithStatisticsModels);
     }
 
-    public void setTasksDataModel(ListDataModel<Task> tasksDataModel) {
-        this.tasksDataModel = tasksDataModel;
+    public ListDataModel<TaskWithStatisticsModel> getTaskWithStatisticsListDataModel() {
+        if (taskWithStatisticsListDataModel == null) {
+            loadTasks();
+        }
+        return taskWithStatisticsListDataModel;
+    }
+
+    public void setTaskWithStatisticsListDataModel(ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel) {
+        this.taskWithStatisticsListDataModel = taskWithStatisticsListDataModel;
     }
 
     public Integer getTaskId() {
