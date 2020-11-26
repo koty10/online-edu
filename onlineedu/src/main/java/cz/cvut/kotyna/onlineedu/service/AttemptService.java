@@ -15,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -70,6 +71,9 @@ public class AttemptService {
     }
 
     public List<Attempt> getAttempts(Integer userAccountId, Integer taskId) {
+        if (taskId == null) {
+            return new ArrayList<>();
+        }
         Task task = taskService.findTask(taskId);
         return task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
     }
