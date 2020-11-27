@@ -53,6 +53,11 @@ public class UserBackingBean implements Serializable {
     }
 
     public void setClassroom() {
+
+        if (teachingBean.getTeaching() != null) {
+            classroomId = teachingBean.getTeaching().getClassroom().getId();
+        }
+
         if (classroomId == null) {
             String message = "Bad request (classroomId = null). Please use a link from within the system.";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
@@ -67,6 +72,11 @@ public class UserBackingBean implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
 
+    }
+
+    public boolean isCurrentClassroom(String classroomId) {
+        if (classroomId == null) return false;
+        return classroomId.equals(classroomId);
     }
 
     //@PostConstruct

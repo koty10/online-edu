@@ -43,12 +43,7 @@ public class UrlHelperBean {
         return value.equals(teachingId);
     }
 
-    public boolean isCurrentClassroom(String classroomId) {
-        Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        if (!map.containsKey("classroomId")) return false;
-        String value = map.get("classroomId");
-        return value.equals(classroomId);
-    }
+
 
     public String getCurrentOrDefaultTeachingId() {
         Student loggedInStudent =  loginService.getLoggedInUser().getStudent();

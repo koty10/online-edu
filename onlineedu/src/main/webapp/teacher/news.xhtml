@@ -16,15 +16,37 @@
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
             <f:viewAction action="#{userBackingBean.setClassroom}"/>
+            <f:viewAction action="#{attemptBean.loadLastAttemptsListDataModel}"/>
         </f:metadata>
     </ui:define>
 
     <ui:define name="title">
-        Hlavní stránka
+        Novinky
     </ui:define>
 
     <ui:define name="content">
-        <h1>Třídní chat</h1>
+        <h1>Novinky</h1>
+
+        <h2>Poslední odevzdané pokusy</h2>
+        <p:dataTable var="attempt" value="#{attemptBean.lastAttemptsListDataModel}">
+            <p:column headerText="Datum">
+                <h:outputText value="#{attempt.time}" />
+            </p:column>
+
+            <p:column headerText="Úkol">
+                <h:outputText value="#{attempt.task.name}" />
+            </p:column>
+
+            <p:column headerText="Student">
+                <h:outputText value="#{attempt.student.userAccount.surname}" />
+            </p:column>
+
+            <p:column headerText="Stav">
+                <h:outputText value="#{attempt.state}" />
+            </p:column>
+
+        </p:dataTable>
+
 
 
     </ui:define>

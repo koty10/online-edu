@@ -36,6 +36,9 @@ public class AttemptBean implements Serializable {
     @Inject
     private UserBackingBean userBackingBean;
 
+    @Inject
+    private TeachingBean teachingBean;
+
     @EJB
     private AttemptService attemptService;
 
@@ -129,10 +132,8 @@ public class AttemptBean implements Serializable {
     // loads ListDataModel for dataTable on teachers task page
     public void loadLastAttemptsListDataModel() {
         List<Attempt> tmp = new ArrayList<>();
-        for (Teaching t : userBackingBean.getClassroom().getTeachingCollection()) {
-            for (Task t2 : t.getTaskCollection()) {
-                tmp.addAll(t2.getAttemptCollection());
-            }
+        for (Task t2 : teachingBean.getTeaching().getTaskCollection()) {
+            tmp.addAll(t2.getAttemptCollection());
         }
         tmp = tmp.stream().sorted((x, y) -> y.getTime().compareTo(x.getTime())).limit(10).collect(Collectors.toList());
 
