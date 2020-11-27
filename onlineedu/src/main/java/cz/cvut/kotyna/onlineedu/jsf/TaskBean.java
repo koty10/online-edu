@@ -3,7 +3,7 @@ package cz.cvut.kotyna.onlineedu.jsf;
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
-import cz.cvut.kotyna.onlineedu.model.listDataModel.StudentWithTaskState;
+import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.task.StudentWithTaskState;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.tasks.TaskWithStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.*;
 

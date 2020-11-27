@@ -1,13 +1,13 @@
-package cz.cvut.kotyna.onlineedu.model.listDataModel;
+package cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.task;
 
 import cz.cvut.kotyna.onlineedu.entity.Student;
 
-public class AttemptWithTask {
+public class StudentWithTaskState {
     Student student;
     String taskState;
     String rawTaskState;
 
-    public AttemptWithTask(Student student, String taskState, String rawTaskState) {
+    public StudentWithTaskState(Student student, String taskState, String rawTaskState) {
         this.student = student;
         this.taskState = taskState;
         this.rawTaskState = rawTaskState;
