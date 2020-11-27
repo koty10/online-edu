@@ -15,6 +15,10 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Named(value = "attemptBean")
@@ -133,11 +137,19 @@ public class AttemptBean implements Serializable {
     public void loadLastAttemptsListDataModel() {
         List<Attempt> tmp = new ArrayList<>();
         for (Task t2 : teachingBean.getTeaching().getTaskCollection()) {
-            tmp.addAll(t2.getAttemptCollection());
+            tmp.addAll(t2.getAttemptCollection().stream()
+                    .sorted((x, y) -> y.getTime().compareTo(x.getTime()))
+                    .filter(distinctByKey(Attempt::getStudent))
+                    .collect(Collectors.toList()));
         }
-        tmp = tmp.stream().sorted((x, y) -> y.getTime().compareTo(x.getTime())).limit(10).collect(Collectors.toList());
+        tmp = tmp.stream().limit(10).collect(Collectors.toList());
 
         lastAttemptsListDataModel = new ListDataModel<>(tmp);
+    }
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
     }
 
     public ListDataModel<Attempt> getLastAttemptsListDataModel() {
