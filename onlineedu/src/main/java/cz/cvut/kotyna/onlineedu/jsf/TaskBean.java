@@ -55,6 +55,10 @@ public class TaskBean implements Serializable {
 
     private ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel;
 
+    // TODO rework like taskWithStatisticsListDataModel
+    private ListDataModel<Task> tasksDataModel;
+
+
     /**
      * Creates a new instance of TeachingBean
      */
@@ -227,5 +231,17 @@ public class TaskBean implements Serializable {
 
     public void setStudentsDataModel(ListDataModel<StudentWithTaskState> studentsDataModel) {
         this.studentsDataModel = studentsDataModel;
+    }
+
+    // TODO rework like taskWithStatisticsListDataModel
+    public ListDataModel<Task> getTasksDataModel() {
+        if (tasksDataModel == null) {
+            tasksDataModel = new ListDataModel<>(new ArrayList<>(teachingService.getTasks(teachingBean.getTeachingId())));
+        }
+        return tasksDataModel;
+    }
+
+    public void setTasksDataModel(ListDataModel<Task> tasksDataModel) {
+        this.tasksDataModel = tasksDataModel;
     }
 }
