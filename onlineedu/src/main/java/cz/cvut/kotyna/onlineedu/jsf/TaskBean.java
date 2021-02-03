@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,8 @@ public class TaskBean implements Serializable {
 
     @Inject
     private TeachingBean teachingBean;
+
+    private final List<String> states = Arrays.asList("new", "accepted", "excused", "failed", "resubmitted", "returned", "submitted");
 
     private Integer taskId;
     private Task task;
@@ -164,26 +167,10 @@ public class TaskBean implements Serializable {
             model.setTaskTimeFrom(t.getTimeFromFormatted());
             model.setTaskTimeTo(t.getTimeToFormatted());
 
-            Integer numberOfNew = teachingBean.getNumberOfStudentsInState("new", t.getId());
-            if (numberOfNew > 0) model.setNumberOfStudentsInNewState(numberOfNew);
-
-            Integer numberOfAccepted = teachingBean.getNumberOfStudentsInState("accepted", t.getId());
-            if (numberOfAccepted > 0) model.setNumberOfStudentsInAcceptedState(numberOfAccepted);
-
-            Integer numberOfExcused = teachingBean.getNumberOfStudentsInState("excused", t.getId());
-            if (numberOfExcused > 0) model.setNumberOfStudentsInExcusedState(teachingBean.getNumberOfStudentsInState("excused", t.getId()));
-
-            Integer numberOfFailed = teachingBean.getNumberOfStudentsInState("failed", t.getId());
-            if (numberOfFailed > 0) model.setNumberOfStudentsInFailedState(teachingBean.getNumberOfStudentsInState("failed", t.getId()));
-
-            Integer numberOfResubmitted = teachingBean.getNumberOfStudentsInState("resubmitted", t.getId());
-            if (numberOfResubmitted > 0) model.setNumberOfStudentsInResubmittedState(teachingBean.getNumberOfStudentsInState("resubmitted", t.getId()));
-
-            Integer numberOfReturned = teachingBean.getNumberOfStudentsInState("returned", t.getId());
-            if (numberOfReturned > 0) model.setNumberOfStudentsInReturnedState(teachingBean.getNumberOfStudentsInState("returned", t.getId()));
-
-            Integer numberOfSubmitted = teachingBean.getNumberOfStudentsInState("submitted", t.getId());
-            if (numberOfSubmitted > 0) model.setNumberOfStudentsInSubmittedState(teachingBean.getNumberOfStudentsInState("submitted", t.getId()));
+            for (String state : states) {
+                Integer number = teachingBean.getNumberOfStudentsInState(state, t.getId());
+                if (number > 0) model.setNumberOfStudentsInState(state, number);
+            }
 
             taskWithStatisticsModels.add(model);
         }

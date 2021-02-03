@@ -34,6 +34,25 @@ public class TaskWithStatisticsModel {
     public TaskWithStatisticsModel() {
     }
 
+    public void setNumberOfStudentsInState(String state, Integer number) {
+        switch (state) {
+            case "new":
+                numberOfStudentsInNewState = number; break;
+            case "submitted":
+                numberOfStudentsInSubmittedState = number; break;
+            case "returned":
+                numberOfStudentsInReturnedState = number; break;
+            case "resubmitted":
+                numberOfStudentsInResubmittedState = number; break;
+            case "accepted":
+                numberOfStudentsInAcceptedState = number; break;
+            case "excused":
+                numberOfStudentsInExcusedState = number; break;
+            case "failed":
+                numberOfStudentsInFailedState = number; break;
+        }
+    }
+
     // Getters & Setters
 
     public Integer getTaskId() {
