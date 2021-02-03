@@ -40,6 +40,9 @@
         <h:form id="form">
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
             <p:textEditor widgetVar="editor-attempt" value="#{attemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+            <h3>
+                Zpětná vazba
+            </h3>
             <p:textEditor widgetVar="editor-feedback" value="#{attemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" />
             <p:commandButton value="Schválit" action="#{attemptBean.acceptAttempt}" update=":form:msgs state-label"/>
             <p:commandButton value="Vrátit k přepracování" action="#{attemptBean.returnAttempt}" update=":form:msgs state-label"/>

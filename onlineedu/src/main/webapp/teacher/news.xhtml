@@ -30,7 +30,7 @@
         <h2>Poslední odevzdané pokusy</h2>
         <p:dataTable var="attempt" value="#{attemptBean.lastAttemptsListDataModel}">
             <p:column headerText="Datum">
-                <h:outputText value="#{attempt.time}" />
+                <h:outputText value="#{attempt.getTimeFormated()}" />
             </p:column>
 
             <p:column headerText="Úkol">
@@ -43,6 +43,13 @@
 
             <p:column headerText="Stav">
                 <h:outputText value="#{attempt.getStateCzechFormated()}" />
+            </p:column>
+
+            <p:column style="width:32px;text-align: center">
+                <p:link outcome="/teacher/tasks/task/attempt" includeViewParams="true" styleClass="ui-button pi pi-search">
+                    <f:param name="attemptId" value="#{attempt.id}" />
+                    <f:param name="taskId" value="#{attempt.task.id}" />
+                </p:link>
             </p:column>
 
         </p:dataTable>

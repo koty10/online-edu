@@ -142,7 +142,11 @@ public class AttemptBean implements Serializable {
                     .filter(distinctByKey(Attempt::getStudent))
                     .collect(Collectors.toList()));
         }
-        tmp = tmp.stream().limit(10).collect(Collectors.toList());
+        tmp = tmp.stream()
+                .sorted((x, y) -> y.getTime().compareTo(x.getTime()))
+                .filter(x -> !x.getState().equals("accepted") && !x.getState().equals("returned"))
+                .limit(10)
+                .collect(Collectors.toList());
 
         lastAttemptsListDataModel = new ListDataModel<>(tmp);
     }
