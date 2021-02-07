@@ -27,5 +27,40 @@
         <h1>Třídní chat</h1>
 
 
+
+
+
+        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color:green"/>
+        <h:form id="webSocketForm">
+
+            <h:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
+            <br/>
+            <h:commandButton id="sendMessage" action="#{chatBean.sendMessage}" value="Send">
+                <f:ajax execute="@form" render="message-element" />
+            </h:commandButton>
+            <br/>
+
+            <div id="messageDiv" style="border: solid red;">default</div>
+
+            <script type="text/javascript">
+                function websocketOpenListener(channel) {
+                    console.log("Connected to channel: " + channel);
+                }
+                function messageListener(message, channel, event){
+                    console.log("Incoming message: " + message);
+                    document
+                        .getElementById("messageDiv")
+                        .innerHTML += message + "&lt;br/>";
+                }
+            </script>
+            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{userBackingBean.loggedInUser.id}" />
+
+        </h:form>
+
+
+
+
+
+
     </ui:define>
 </ui:composition>
