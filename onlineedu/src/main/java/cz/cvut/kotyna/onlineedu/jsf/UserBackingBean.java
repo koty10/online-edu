@@ -54,14 +54,15 @@ public class UserBackingBean implements Serializable {
 
     public void setClassroom() {
 
-        if (teachingBean.getTeaching() != null) {
-            classroomId = teachingBean.getTeaching().getClassroom().getId();
-        }
-
         if (classroomId == null) {
-            String message = "Bad request (classroomId = null). Please use a link from within the system.";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-            return;
+            if (teachingBean.getTeaching() != null) {
+                classroomId = teachingBean.getTeaching().getClassroom().getId();
+            }
+            else {
+                String message = "Bad request (classroomId = null). Please use a link from within the system.";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+                return;
+            }
         }
 
         classroom = classroomService.findClassroom(classroomId);
@@ -75,8 +76,8 @@ public class UserBackingBean implements Serializable {
     }
 
     public boolean isCurrentClassroom(String classroomId) {
-        if (classroomId == null) return false;
-        return classroomId.equals(classroomId);
+        if (this.classroomId == null) return false;
+        return this.classroomId.toString().equals(classroomId);
     }
 
     //@PostConstruct
@@ -167,7 +168,7 @@ public class UserBackingBean implements Serializable {
 
     // Used in the top nav for teacher
     public List<Teaching> getTeachersTeachingsInCurrentClassroom() {
-        return loginService.getLoggedInUser().getTeacher().getClassroom().getTeachingCollection().stream().filter(t -> t.getTeacher().getUserAccount().getId().equals(loginService.getLoggedInUser().getId())).filter(t -> t.getClassroom().getId().equals(classroomId)).collect(Collectors.toList());
+        return this.classroom.getTeachingCollection().stream().filter(t -> t.getTeacher().getUserAccount().getId().equals(loginService.getLoggedInUser().getId())).filter(t -> t.getClassroom().getId().equals(classroomId)).collect(Collectors.toList());
     }
 
     public Classroom getDefaultTeacherClassroom() {

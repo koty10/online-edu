@@ -11,6 +11,7 @@ import javax.faces.component.UIViewParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewMetadata;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.beans.Visibility;
@@ -41,6 +42,9 @@ public class TeachingBean implements Serializable {
     @EJB
     private TeachingService teachingService;
 
+    @Inject
+    private UserBackingBean userBackingBean;
+
     private Integer teachingId;
     private Teaching teaching;
 
@@ -52,9 +56,15 @@ public class TeachingBean implements Serializable {
 
     public void init() {
         if (teachingId == null) {
-            String message = "Bad request. Please use a link from within the system.";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-            return;
+
+            if (userBackingBean.getClassroomId() != null) {
+                teachingId = getDefaultTeacherTeaching(userBackingBean.getClassroomId()).getId();
+            }
+            else {
+                String message = "Bad request. Please use a link from within the system.";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+                return;
+            }
         }
 
         teaching = teachingService.findTeaching(teachingId);
@@ -137,5 +147,10 @@ public class TeachingBean implements Serializable {
     public Teaching getDefaultTeacherTeaching(Integer classroomId) {
         Teacher loggedInTeacher = loginService.getLoggedInUser().getTeacher();
         return loggedInTeacher.getTeachingCollection().stream().filter(t -> t.getClassroom().getId().equals(classroomId)).findFirst().get();
+    }
+
+    public boolean isCurrentTeaching(String teachingId) {
+        if (this.teachingId == null) return false;
+        return this.teachingId.toString().equals(teachingId);
     }
 }
