@@ -28,7 +28,8 @@
 
             <p:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
             <br/>
-            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" value="Send" />
+            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" value="Send" update="webSocketForm:websocketMessageText">
+            </p:commandButton>
             <br/>
 
             <div id="messageDiv">
@@ -97,7 +98,6 @@
             </script>
 
             <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{teachingBean.teachingId}" >
-                <f:ajax event="someEvent" render="webSocketForm:websocketMessageText" />
             </o:socket>
 
         </h:form>

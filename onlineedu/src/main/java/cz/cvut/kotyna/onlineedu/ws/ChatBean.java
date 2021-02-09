@@ -71,7 +71,6 @@ public class ChatBean implements Serializable {
 
         messageText = null;
         push.send(json, teachingId);
-        push.send("someEvent", teachingId);
         messageText = null;
     }
 
