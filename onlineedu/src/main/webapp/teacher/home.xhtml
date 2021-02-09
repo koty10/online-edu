@@ -35,12 +35,16 @@
 
             <h:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
             <br/>
-            <h:commandButton id="sendMessage" action="#{chatBean.sendMessage}" value="Send">
+            <h:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" value="Send">
                 <f:ajax execute="@form" render="message-element" />
             </h:commandButton>
             <br/>
 
-            <div id="messageDiv" style="border: solid red;">default</div>
+            <div id="messageDiv" style="border: solid red;">
+                <p:repeat value="#{chatBean.loadMessages()}" var="message">
+                    <p>#{message.text}</p>
+                </p:repeat>
+            </div>
 
             <script type="text/javascript">
                 function websocketOpenListener(channel) {
@@ -53,7 +57,7 @@
                         .innerHTML += message + "&lt;br/>";
                 }
             </script>
-            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{userBackingBean.loggedInUser.id}" />
+            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{userBackingBean.loggedInUser.id}-#{teachingBean.teachingId}" />
 
         </h:form>
 
