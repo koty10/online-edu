@@ -5,6 +5,10 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
@@ -22,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "user_account")
-@XmlRootElement
 @NamedQueries({
         @NamedQuery(name = UserAccount.FIND_ALL, query = "SELECT u FROM UserAccount u"),
         @NamedQuery(name = "UserAccount.findById", query = "SELECT u FROM UserAccount u WHERE u.id = :id"),
@@ -38,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
         @NamedQuery(name = "UserAccount.findByZip", query = "SELECT u FROM UserAccount u WHERE u.zip = :zip"),
         @NamedQuery(name = "UserAccount.findByPhone", query = "SELECT u FROM UserAccount u WHERE u.phone = :phone"),
         @NamedQuery(name = UserAccount.FIND_USER_ACCOUNT_BY_USERNAME, query = "select userAccount from UserAccount userAccount where userAccount.username = :username")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class UserAccount implements Serializable {
 
     public static final String FIND_ALL = "UserAccount.findAll";
@@ -253,6 +257,16 @@ public class UserAccount implements Serializable {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public String getRoleFormated() {
+        switch (role) {
+            case "student" : return "Student";
+            case "teacher" : return "Vyučující";
+            case "parent" : return "Rodič";
+            case "admin" : return "Administrátor";
+            default : return "Neznámá role";
+        }
     }
 
     @Override

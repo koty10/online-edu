@@ -5,6 +5,9 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,7 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "attempt")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Attempt.findAll", query = "SELECT a FROM Attempt a"),
     @NamedQuery(name = "Attempt.findById", query = "SELECT a FROM Attempt a WHERE a.id = :id"),
@@ -28,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Attempt.findByScore", query = "SELECT a FROM Attempt a WHERE a.score = :score"),
     @NamedQuery(name = "Attempt.findByFeedback", query = "SELECT a FROM Attempt a WHERE a.feedback = :feedback"),
     @NamedQuery(name = "Attempt.findByState", query = "SELECT a FROM Attempt a WHERE a.state = :state")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Attempt implements Serializable {
 
     private static final long serialVersionUID = 1L;

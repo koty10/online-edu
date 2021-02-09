@@ -5,6 +5,9 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,12 +33,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "scheduled_teaching")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ScheduledTeaching.findAll", query = "SELECT s FROM ScheduledTeaching s"),
     @NamedQuery(name = "ScheduledTeaching.findById", query = "SELECT s FROM ScheduledTeaching s WHERE s.id = :id"),
     @NamedQuery(name = "ScheduledTeaching.findByTimeFrom", query = "SELECT s FROM ScheduledTeaching s WHERE s.timeFrom = :timeFrom"),
     @NamedQuery(name = "ScheduledTeaching.findByTimeTo", query = "SELECT s FROM ScheduledTeaching s WHERE s.timeTo = :timeTo")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class ScheduledTeaching implements Serializable {
 
     private static final long serialVersionUID = 1L;

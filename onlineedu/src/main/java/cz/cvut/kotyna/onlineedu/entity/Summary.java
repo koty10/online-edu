@@ -5,6 +5,9 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -26,12 +29,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "summary")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Summary.findAll", query = "SELECT s FROM Summary s"),
     @NamedQuery(name = "Summary.findById", query = "SELECT s FROM Summary s WHERE s.id = :id"),
     @NamedQuery(name = "Summary.findByFinalGrade", query = "SELECT s FROM Summary s WHERE s.finalGrade = :finalGrade"),
     @NamedQuery(name = "Summary.findByFeedback", query = "SELECT s FROM Summary s WHERE s.feedback = :feedback")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Summary implements Serializable {
 
     private static final long serialVersionUID = 1L;

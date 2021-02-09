@@ -5,6 +5,11 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,12 +36,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "message")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m"),
     @NamedQuery(name = "Message.findById", query = "SELECT m FROM Message m WHERE m.id = :id"),
     @NamedQuery(name = "Message.findByText", query = "SELECT m FROM Message m WHERE m.text = :text"),
     @NamedQuery(name = "Message.findByTime", query = "SELECT m FROM Message m WHERE m.time = :time")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,9 +62,11 @@ public class Message implements Serializable {
     private Date time;
     @JoinColumn(name = "chat", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Chat chat;
     @JoinColumn(name = "user_account", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnoreProperties(value = {"messageCollection", "password", "parent", "student", "teacher"})
     private UserAccount userAccount;
 
     public Message() {

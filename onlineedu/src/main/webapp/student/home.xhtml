@@ -23,30 +23,82 @@
     <ui:define name="content">
         <h1>Obsahova stranka</h1>
 
-        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color:green"/>
+        <p:messages globalOnly="true" errorStyle="color: red" infoStyle="color:green"/>
         <h:form id="webSocketForm">
 
-            <h:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
+            <p:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
             <br/>
-            <h:commandButton id="sendMessage" action="#{chatBean.sendMessage}" value="Send">
-                <f:ajax execute="@form" render="message-element" />
-            </h:commandButton>
+            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" value="Send" />
             <br/>
 
-            <div id="messageDiv" style="border: solid red;">default</div>
+            <div id="messageDiv">
+                <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
+                <p:repeat value="#{chatBean.loadMessages(teachingBean.teachingId)}" var="message">
+                    <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
+                        <img src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" class="#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : ''}" />
+                        <p>#{message.text}</p>
+                        <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.userAccount.username} (#{message.userAccount.getRoleFormated()})</span>
+                        <br/>
+                        <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.getTimeFormated()}</span>
+                    </div>
+                </p:repeat>
+            </div>
+
+
+            <template>
+                <div id="template-chat-message-container" class="chat-message-container">
+                    <img id="template-chat-message-img" src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" />
+                    <p id="template-chat-message-text">#{message.text}</p>
+                    <span id="template-chat-message-username">#{message.userAccount.username}</span>
+                    <br/>
+                    <span id="template-chat-message-time">#{message.getTimeFormated()}</span>
+                </div>
+            </template>
+
 
             <script type="text/javascript">
                 function websocketOpenListener(channel) {
                     console.log("Connected to channel: " + channel);
                 }
                 function messageListener(message, channel, event){
-                    console.log("Incoming message: " + message);
-                    document
-                        .getElementById("messageDiv")
-                        .innerHTML += message + "&lt;br/>";
+
+                    const userid = document.getElementById("user-id");
+
+                    const temp = document.getElementsByTagName("template")[0];
+                    let clone = temp.content.cloneNode(true);
+
+                    let container = clone.getElementById("template-chat-message-container");
+                    let text = clone.getElementById("template-chat-message-text");
+                    let img = clone.getElementById("template-chat-message-img");
+                    let username = clone.getElementById("template-chat-message-username");
+                    let time = clone.getElementById("template-chat-message-time");
+
+                    const json = JSON.parse(message);
+
+                    if (userid.innerText === json.userAccount.id.toString()) {
+                        container.classList.add("darker");
+                        img.classList.add("right");
+                        username.classList.add("time-left");
+                        time.classList.add("time-left");
+                    }
+                    else {
+                        username.classList.add("time-right");
+                        time.classList.add("time-right");
+                    }
+                    text.innerHTML += json.text;
+                    username.innerHTML += json.userAccount.username + " (" + json.userAccount.roleFormated + ")";
+                    time.innerHTML += json.timeFormated;
+
+                    let messages = document.getElementById("messageDiv");
+                    messages.insertBefore(clone, messages.firstChild);
+
+                    document.getElementById("webSocketForm:websocketMessageText").innerText = null;
                 }
             </script>
-            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{userBackingBean.loggedInUser.id}" />
+
+            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{teachingBean.teachingId}" >
+                <f:ajax event="someEvent" render="webSocketForm:websocketMessageText" />
+            </o:socket>
 
         </h:form>
 

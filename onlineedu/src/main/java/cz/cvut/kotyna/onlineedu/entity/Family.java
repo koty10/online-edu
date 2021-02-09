@@ -5,6 +5,9 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -25,10 +28,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "family")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Family.findAll", query = "SELECT f FROM Family f"),
     @NamedQuery(name = "Family.findById", query = "SELECT f FROM Family f WHERE f.id = :id")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Family implements Serializable {
 
     private static final long serialVersionUID = 1L;

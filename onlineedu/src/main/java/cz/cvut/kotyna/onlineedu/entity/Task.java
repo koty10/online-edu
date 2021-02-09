@@ -5,6 +5,8 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cz.cvut.kotyna.onlineedu.enums.TaskState;
 
 import java.io.Serializable;
@@ -36,7 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "task")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t"),
     @NamedQuery(name = "Task.findById", query = "SELECT t FROM Task t WHERE t.id = :id"),
@@ -45,6 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Task.findByTimeTo", query = "SELECT t FROM Task t WHERE t.timeTo = :timeTo"),
     @NamedQuery(name = "Task.findByDate", query = "SELECT t FROM Task t WHERE t.date = :date"),
     @NamedQuery(name = "Task.findByType", query = "SELECT t FROM Task t WHERE t.type = :type")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;

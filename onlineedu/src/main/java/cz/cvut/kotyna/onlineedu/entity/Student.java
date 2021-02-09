@@ -5,6 +5,9 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
@@ -18,13 +21,13 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "student")
-@XmlRootElement
 @NamedQueries({
         @NamedQuery(name = Student.FIND_ALL, query = "SELECT s FROM Student s"),
         @NamedQuery(name = "Student.findById", query = "SELECT s FROM Student s WHERE s.id = :id"),
         @NamedQuery(name = "Student.findByChatAlert", query = "SELECT s FROM Student s WHERE s.chatAlert = :chatAlert"),
         @NamedQuery(name = Student.FIND_LOGGED_IN_STUDENT, query = "select student from Student student join UserAccount user on student.id = user.student.id where user.username = :username"),
         @NamedQuery(name = Student.FIND_CLASSMATES, query = "select student from Student student where student.classroom.id = :classroomId")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Student implements Serializable {
 
     public static final String FIND_ALL = "Student.findAll";

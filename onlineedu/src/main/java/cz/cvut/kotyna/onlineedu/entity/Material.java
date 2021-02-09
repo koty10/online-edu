@@ -5,6 +5,9 @@
  */
 package cz.cvut.kotyna.onlineedu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -28,13 +31,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "material")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Material.findAll", query = "SELECT m FROM Material m"),
     @NamedQuery(name = "Material.findById", query = "SELECT m FROM Material m WHERE m.id = :id"),
     @NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m WHERE m.name = :name"),
     @NamedQuery(name = "Material.findByUrl", query = "SELECT m FROM Material m WHERE m.url = :url"),
     @NamedQuery(name = "Material.findByType", query = "SELECT m FROM Material m WHERE m.type = :type")})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Material implements Serializable {
 
     private static final long serialVersionUID = 1L;
