@@ -165,7 +165,6 @@ create table message
         constraint message_fk
             references user_account
             on update cascade on delete cascade,
-    role         varchar(64)   not null,
     text         varchar(1028) not null,
     time         timestamp     not null
 );

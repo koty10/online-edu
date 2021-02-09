@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Chat.findAll", query = "SELECT c FROM Chat c"),
-    @NamedQuery(name = "Chat.findById", query = "SELECT c FROM Chat c WHERE c.id = :id")})
+    @NamedQuery(name = "Chat.findById", query = "SELECT c FROM Chat c WHERE c.id = :id"),
+    @NamedQuery(name = "Chat.findByTeachingId", query = "SELECT c FROM Chat c WHERE c.teaching.id = :id")})
 public class Chat implements Serializable {
 
     private static final long serialVersionUID = 1L;

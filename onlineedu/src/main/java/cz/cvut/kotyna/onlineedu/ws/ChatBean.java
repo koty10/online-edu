@@ -1,12 +1,13 @@
 package cz.cvut.kotyna.onlineedu.ws;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 
-import cz.cvut.kotyna.onlineedu.entity.Classroom;
-import cz.cvut.kotyna.onlineedu.entity.Message;
-import cz.cvut.kotyna.onlineedu.entity.Student;
-import cz.cvut.kotyna.onlineedu.entity.Teacher;
+import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.jsf.UserBackingBean;
+import cz.cvut.kotyna.onlineedu.service.ChatService;
+import cz.cvut.kotyna.onlineedu.service.MessageService;
+import cz.cvut.kotyna.onlineedu.service.TeachingService;
 import org.omnifaces.cdi.Push;
 import org.omnifaces.cdi.PushContext;
 import org.omnifaces.cdi.ViewScoped;
@@ -14,14 +15,23 @@ import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Named(value = "chatBean")
 @ApplicationScoped
 public class ChatBean implements Serializable {
+
+    @EJB
+    private ChatService chatService;
+
+    @EJB
+    private MessageService messageService;
+
     @Inject
     @Push(channel = "messagePusher")
     private PushContext push;
@@ -43,23 +53,15 @@ public class ChatBean implements Serializable {
      */
 
     public void sendMessage(Integer teachingId) {
-        Collection<String> recipientUserIds = userBackingBean.getClassroom().getStudentCollection().stream()
-                .map(x -> x.getUserAccount().getId().toString() + "-" + teachingId).collect(Collectors.toList());
-        Collection<String> teachersIds = userBackingBean.getClassroom().getTeacherCollection().stream()
-                .map(x -> x.getUserAccount().getId().toString() + "-" + teachingId).collect(Collectors.toList());
-        recipientUserIds.addAll(teachersIds);
-        push.send(messageText, recipientUserIds);
+        Chat chat = chatService.getChatByTeachingId(teachingId);
+        Message message = new Message(messageText, new Date(), chat, userBackingBean.getLoggedInUser());
+        messageService.saveMessage(message);
+        push.send(messageText, teachingId);
+        messageText = null;
     }
 
-    public List<Message> loadMessages() {
-        List<Message> messages = new ArrayList<>();
-        Message m1 = new Message();
-        m1.setText("zprava 1");
-        Message m2 = new Message();
-        m2.setText("zprava 2");
-        messages.add(m1);
-        messages.add(m2);
-        return messages;
+    public Collection<Message> loadMessages(Integer teachingId) {
+        return chatService.getChatByTeachingId(teachingId).getMessageCollection();
     }
 
     public String getMessageText() {

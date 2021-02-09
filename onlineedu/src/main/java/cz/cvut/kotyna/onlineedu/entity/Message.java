@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m"),
     @NamedQuery(name = "Message.findById", query = "SELECT m FROM Message m WHERE m.id = :id"),
-    @NamedQuery(name = "Message.findByRole", query = "SELECT m FROM Message m WHERE m.role = :role"),
     @NamedQuery(name = "Message.findByText", query = "SELECT m FROM Message m WHERE m.text = :text"),
     @NamedQuery(name = "Message.findByTime", query = "SELECT m FROM Message m WHERE m.time = :time")})
 public class Message implements Serializable {
@@ -46,11 +45,6 @@ public class Message implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
-    @Column(name = "role")
-    private String role;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1028)
@@ -75,11 +69,11 @@ public class Message implements Serializable {
         this.id = id;
     }
 
-    public Message(Integer id, String role, String text, Date time) {
-        this.id = id;
-        this.role = role;
+    public Message(String text, Date time, Chat chat, UserAccount userAccount) {
         this.text = text;
         this.time = time;
+        this.chat = chat;
+        this.userAccount = userAccount;
     }
 
     public Integer getId() {
@@ -88,14 +82,6 @@ public class Message implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getText() {

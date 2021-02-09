@@ -30,19 +30,17 @@
 
 
 
-        <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color:green"/>
+        <p:messages globalOnly="true" errorStyle="color: red" infoStyle="color:green"/>
         <h:form id="webSocketForm">
 
-            <h:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
+            <p:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
             <br/>
-            <h:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" value="Send">
-                <f:ajax execute="@form" render="message-element" />
-            </h:commandButton>
+            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" value="Send" />
             <br/>
 
             <div id="messageDiv" style="border: solid red;">
-                <p:repeat value="#{chatBean.loadMessages()}" var="message">
-                    <p>#{message.text}</p>
+                <p:repeat value="#{chatBean.loadMessages(teachingBean.teachingId)}" var="message">
+                    <p>#{message.getTimeFormated()} - #{message.userAccount.username} - #{message.text}</p>
                 </p:repeat>
             </div>
 
@@ -57,7 +55,7 @@
                         .innerHTML += message + "&lt;br/>";
                 }
             </script>
-            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{userBackingBean.loggedInUser.id}-#{teachingBean.teachingId}" />
+            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{teachingBean.teachingId}" />
 
         </h:form>
 
