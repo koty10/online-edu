@@ -300,3 +300,17 @@ footer {
     float: left;
     color: #999;
 }
+
+#webSocketForm\:websocketMessageText {
+    margin: 1em 3% 1em 0;
+    width: 90%;
+    padding: 1em;
+}
+
+
+#webSocketForm\:sendMessage {
+    width: 7%;
+    margin: 0px;
+}
+
+

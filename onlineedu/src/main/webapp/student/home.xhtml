@@ -21,16 +21,13 @@
     </ui:define>
 
     <ui:define name="content">
-        <h1>Obsahova stranka</h1>
+        <h1>Třídní chat</h1>
 
         <p:messages globalOnly="true" errorStyle="color: red" infoStyle="color:green"/>
         <h:form id="webSocketForm">
 
             <p:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
-            <br/>
-            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" value="Send" update="webSocketForm:websocketMessageText">
-            </p:commandButton>
-            <br/>
+            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" icon="fas fa-paper-plane" update="webSocketForm:websocketMessageText" />
 
             <div id="messageDiv">
                 <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
