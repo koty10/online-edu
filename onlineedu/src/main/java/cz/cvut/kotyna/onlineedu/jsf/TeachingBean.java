@@ -55,8 +55,9 @@ public class TeachingBean implements Serializable {
     }
 
     public void init() {
-        if (teachingId == null) {
 
+        // If teacher enter no teachingId, then redirect him to his default teaching
+        if (teachingId == null && userBackingBean.getLoggedInUser().getRole().equals("teacher")) {
             if (userBackingBean.getClassroomId() != null) {
                 teachingId = getDefaultTeacherTeaching(userBackingBean.getClassroomId()).getId();
             }
@@ -67,8 +68,30 @@ public class TeachingBean implements Serializable {
             }
         }
 
+        // If teacher tries to enter a teaching he does not teach, then redirect him to his default teaching
+        if (userBackingBean.getLoggedInUser().getRole().equals("teacher")) {
+            if (!userBackingBean.getLoggedInUser().getTeacher().getTeachingCollection().stream().map(Teaching::getId).collect(Collectors.toList()).contains(teachingId)) {
+                if (userBackingBean.getClassroomId() != null) {
+                    teachingId = getDefaultTeacherTeaching(userBackingBean.getClassroomId()).getId();
+                }
+                else {
+                    String message = "Bad request. Please use a link from within the system.";
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+                    return;
+                }
+            }
+        }
+
+        // If student tries to enter a teaching he does not attend, then redirect him to his default teaching
+        if (userBackingBean.getLoggedInUser().getRole().equals("student")) {
+            if (!userBackingBean.getLoggedInUser().getStudent().getClassroom().getTeachingCollection().stream().map(Teaching::getId).collect(Collectors.toList()).contains(teachingId)) {
+                teachingId = getDefaultStudentTeaching().getId();
+            }
+        }
+
         teaching = teachingService.findTeaching(teachingId);
 
+        // Unable to find a teaching by entered teachingId, this situation should not appear due to upper conditions
         if (teaching == null) {
             String message = "Bad request. Unknown teaching.";
             FacesContext.getCurrentInstance().addMessage(null,

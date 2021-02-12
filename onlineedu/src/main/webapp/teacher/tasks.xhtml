@@ -9,7 +9,7 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" required="true" requiredMessage="No teaching specified.">
+            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
             <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">

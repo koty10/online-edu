@@ -54,14 +54,29 @@ public class UserBackingBean implements Serializable {
 
     public void setClassroom() {
 
+        // if classroomId is not set, then try to get it from teaching or get default
         if (classroomId == null) {
             if (teachingBean.getTeaching() != null) {
                 classroomId = teachingBean.getTeaching().getClassroom().getId();
             }
             else {
-                String message = "Bad request (classroomId = null). Please use a link from within the system.";
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-                return;
+                if (loginService.getLoggedInUser().getRole().equals("teacher")) {
+                    classroomId = getDefaultTeacherClassroom().getId();
+                }
+                else {
+                    String message = "Bad request (classroomId = null). Please use a link from within the system.";
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+                    return;
+                }
+            }
+        }
+
+        // Check if teacher tries to enter wrong classroomId. If so, set it to default value.
+        userAccount = loginService.getLoggedInUser();
+        if (userAccount.getRole().equals("teacher")) {
+            List<Integer> classroomIds = getClassroomsTeachedByCurrentTeacher().stream().map(Classroom::getId).collect(Collectors.toList());
+            if (!classroomIds.contains(classroomId)) {
+                classroomId = getDefaultTeacherClassroom().getId();
             }
         }
 
@@ -163,7 +178,7 @@ public class UserBackingBean implements Serializable {
 
     // Used in the top nav for teacher
     public List<Classroom> getClassroomsTeachedByCurrentTeacher() {
-        return loginService.getLoggedInUser().getTeacher().getTeachingCollection().stream().map(x -> x.getClassroom()).distinct().collect(Collectors.toList());
+        return loginService.getLoggedInUser().getTeacher().getTeachingCollection().stream().map(Teaching::getClassroom).distinct().collect(Collectors.toList());
     }
 
     // Used in the top nav for teacher
@@ -172,7 +187,11 @@ public class UserBackingBean implements Serializable {
     }
 
     public Classroom getDefaultTeacherClassroom() {
-        return loginService.getLoggedInUser().getTeacher().getClassroom();
+        List<Teaching> teachings = (List<Teaching>) loginService.getLoggedInUser().getTeacher().getTeachingCollection();
+        if (!teachings.isEmpty()) {
+            return teachings.get(0).getClassroom();
+        }
+        return null;
     }
 
     public Integer getClassroomId() {
