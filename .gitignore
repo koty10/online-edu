@@ -2,3 +2,5 @@
 /onlineedu/nb-configuration.xml
 /onlineedu/.idea/
 *.iml
+*.war
+*.jar

@@ -1,0 +1,42 @@
+version: '3'
+services:
+
+  edu-payara:
+#    see info at https://hub.docker.com/r/payara/server-full/
+#    image: payara/server-full:5.194
+    image: edu-payara
+    container_name: edu-payara
+    restart: unless-stopped
+    depends_on:
+      - edu-db
+    environment:
+      - SMTP_SERVER
+      - SMTP_PORT
+      - SENDER_EMAIL
+#    volumes:
+#      - ./deployments:/opt/payara/deployments
+#      - ./logs:/opt/payara/appserver/glassfish/domains/production/logs
+    ports:
+      - "8280:8080" # web
+      - "8281:8181" # web https
+      - "8248:4848" # admin
+      - "8209:9009" # debug
+
+  edu-db:
+    image: postgres
+    restart: always
+    container_name: edu-db
+#    user: "1000:1000"
+    volumes:
+      - edu-db:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_DB=onlineedu
+      - POSTGRES_USER=edu
+      - POSTGRES_PASSWORD=edu
+    ports:
+      - "8254:5432"
+
+volumes:
+    edu-db:
+

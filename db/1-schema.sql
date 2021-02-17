@@ -6,9 +6,6 @@ create table classroom
     name varchar(64) not null
 );
 
-alter table classroom
-    owner to onlineedu;
-
 create table user_account
 (
     id       serial       not null
@@ -28,9 +25,6 @@ create table user_account
     zip        varchar,
     phone      varchar(64)
 );
-
-alter table user_account
-    owner to onlineedu;
    
 create table teacher
 (
@@ -46,9 +40,6 @@ create table teacher
             references user_account
             on update cascade on delete cascade
 );
-
-alter table teacher
-    owner to onlineedu;
 
 create table student
 (
@@ -66,9 +57,6 @@ create table student
             on update cascade on delete cascade
 );
 
-alter table student
-    owner to onlineedu;
-
 create table parent
 (
     id         serial       not null
@@ -79,9 +67,6 @@ create table parent
             references user_account
             on update cascade on delete cascade
 );
-
-alter table parent
-    owner to onlineedu;
 
 create table family
 (
@@ -98,9 +83,6 @@ create table family
             primary key
 );
 
-alter table family
-    owner to onlineedu;
-
 create table subject
 (
     id   serial not null
@@ -108,9 +90,6 @@ create table subject
             primary key,
     name varchar(255)
 );
-
-alter table subject
-    owner to onlineedu;
 
 create table teaching
 (
@@ -131,9 +110,6 @@ create table teaching
             on update cascade on delete restrict
 );
 
-alter table teaching
-    owner to onlineedu;
-
 create table chat
 (
     id       serial not null
@@ -148,9 +124,6 @@ create table chat
             references teaching
             on update cascade on delete cascade
 );
-
-alter table chat
-    owner to onlineedu;
 
 create table message
 (
@@ -169,9 +142,6 @@ create table message
     time         timestamp     not null
 );
 
-alter table message
-    owner to onlineedu;
-
 create table material
 (
     id       serial       not null
@@ -186,9 +156,6 @@ create table material
     blob     bytea,
     type     varchar(64)  not null
 );
-
-alter table material
-    owner to onlineedu;
 
 create table summary
 (
@@ -209,9 +176,6 @@ create table summary
         unique (teaching, student)
 );
 
-alter table summary
-    owner to onlineedu;
-
 create table scheduled_teaching
 (
     id       serial    not null
@@ -224,9 +188,6 @@ create table scheduled_teaching
     "time_from"   timestamp not null,
     "time_to"     timestamp not null
 );
-
-alter table scheduled_teaching
-    owner to onlineedu;
 
 create table task
 (
@@ -244,9 +205,6 @@ create table task
     date     timestamp,
     type     varchar(64)
 );
-
-alter table task
-    owner to onlineedu;
 
 create table attempt
 (
@@ -268,8 +226,4 @@ create table attempt
     time     timestamp not null default CURRENT_DATE,
     state    varchar(64) not null
 );
-
-alter table attempt
-    owner to onlineedu;
-
 
