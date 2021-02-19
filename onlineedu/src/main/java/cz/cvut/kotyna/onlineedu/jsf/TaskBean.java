@@ -14,6 +14,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,33 +24,26 @@ import java.util.stream.Collectors;
 @Named(value = "taskBean")
 @ViewScoped
 public class TaskBean implements Serializable {
-
     @EJB
     private UserService userService;
-
     @EJB
     private LoginService loginService;
-
     @EJB
     private TeachingService teachingService;
-
     @EJB
     private TaskService taskService;
-
     @EJB
     private AttemptService attemptService;
-
     @Inject
     private UserBackingBean userBackingBean;
-
+    @Inject
+    private UrlHelperBean urlHelperBean;
     @Inject
     private TeachingBean teachingBean;
 
     private final List<String> states = Arrays.asList("new", "accepted", "excused", "failed", "resubmitted", "returned", "submitted");
-
     private Integer taskId;
     private Task task;
-
     // attempt text content
     private String attemptText;
     private String result;
@@ -61,28 +55,23 @@ public class TaskBean implements Serializable {
     // TODO rework like taskWithStatisticsListDataModel
     private ListDataModel<Task> tasksDataModel;
 
-
-    /**
-     * Creates a new instance of TeachingBean
-     */
-    public TaskBean() {
-    }
-
     public void init() {
         if (taskId == null) {
-            String message = "Bad request (taskId = null). Please use a link from within the system.";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-            return;
+            try {
+                final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
+                FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/tasks.xhtml?teachingId=" + teachingBean.getTeachingId());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         task = taskService.findTask(taskId);
 
         if (task == null) {
-            String message = "Bad request. Unknown task.";
+            String message = "Neznámý úkol";
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
-
     }
 
     // loads ListDataModel for dataTable on teachers task page

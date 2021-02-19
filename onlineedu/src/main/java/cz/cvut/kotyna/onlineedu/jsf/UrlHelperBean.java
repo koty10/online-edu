@@ -43,6 +43,9 @@ public class UrlHelperBean {
         return value.equals(teachingId);
     }
 
+    public String getContextPathForCurrentUser() {
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/" + loginService.getLoggedInUser().getRole();
+    }
 
 
     public String getCurrentOrDefaultTeachingId() {
