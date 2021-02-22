@@ -31,10 +31,6 @@ public class UserBackingBean implements Serializable {
     private UserService userService;
     @EJB
     private LoginService loginService;
-    @EJB
-    private ClassroomService classroomService;
-
-    private ListDataModel<StudentStatisticsModel> studentStatisticsListDataModel;
 
     public List<UserAccount> getAllUsers() {
         return userService.getAllUsers();
@@ -55,7 +51,6 @@ public class UserBackingBean implements Serializable {
     public UserAccount getLoggedInUser() {
         return loginService != null ? loginService.getLoggedInUser() : null;
     }
-
 
     //FIXME smazat - jen pro testovani
     public List<String> getPasswordsHashed() {

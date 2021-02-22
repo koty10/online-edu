@@ -37,7 +37,7 @@ public class Teacher implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
     private Collection<Teaching> teachingCollection;
     @JoinColumn(name = "classroom", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Classroom classroom;
     @JoinColumn(name = "user_account", referencedColumnName = "id")
     @OneToOne(optional = false, cascade = CascadeType.ALL)

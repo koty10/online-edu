@@ -6,53 +6,27 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
-        New page title here
+        Admin home
     </ui:define>
 
     <ui:define name="content">
-        <h1>Obsahova stranka</h1>
+        <h1>Třídy</h1>
 
+        <p:dataTable var="classroom" value="#{adminClassroomBean.allClassrooms}" >
 
-        <h2>Výuka</h2>
-        <p:dataTable var="user" value="#{userBackingBean.allUsers}">
-            <p:column headerText="Username">
-                <h:outputText value="#{user.username}" />
+            <p:column sortBy="#{classroom.name}" headerText="Název" >
+                <h:outputText value="#{classroom.name}" />
             </p:column>
 
-            <p:column headerText="Jméno a příjmení">
-                <h:outputText value="#{user.firstname} #{user.surname}" />
+            <p:column sortBy="#{classroom.teacher.userAccount.firstname}" headerText="Třídní učitel" >
+                <h:outputText value="#{classroom.teacher.userAccount.firstname} #{classroom.teacher.userAccount.surname}" />
             </p:column>
 
-            <p:column headerText="Email">
-                <h:outputText value="#{user.email}" />
-            </p:column>
-
-            <p:column headerText="Datum narození">
-                <h:outputText value="#{user.birthday}" />
-            </p:column>
-
-            <p:column headerText="Mobil">
-                <h:outputText value="#{user.phone}" />
-            </p:column>
-
-            <p:column headerText="Ulice">
-                <h:outputText value="#{user.street}" />
-            </p:column>
-
-            <p:column headerText="PSČ">
-                <h:outputText value="#{user.zip}" />
-            </p:column>
-
-            <p:column headerText="Datum registrace">
-                <h:outputText value="#{user.registered}" />
-            </p:column>
-
-            <p:column headerText="Role">
-                <h:outputText value="#{user.roleFormated}" />
+            <p:column sortBy="#{classroom.teacher.userAccount.email}" headerText="Email třídního učitele" >
+                <h:outputText value="#{classroom.teacher.userAccount.email}" />
             </p:column>
 
         </p:dataTable>
-
 
     </ui:define>
 </ui:composition>

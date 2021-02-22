@@ -6,11 +6,13 @@
 package cz.cvut.kotyna.onlineedu.service;
 
 import cz.cvut.kotyna.onlineedu.entity.Classroom;
+import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class ClassroomService {
@@ -22,6 +24,10 @@ public class ClassroomService {
     public Classroom findClassroom(Integer classroomId) {
         em.getEntityManagerFactory().getCache().evictAll();
         return em.find(Classroom.class, classroomId);
+    }
+
+    public List<Classroom> getAllClassrooms() {
+        return em.createNamedQuery(Classroom.FIND_ALL, Classroom.class).getResultList();
     }
 
 }

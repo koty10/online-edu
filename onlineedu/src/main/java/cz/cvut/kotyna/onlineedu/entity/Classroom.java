@@ -10,17 +10,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,6 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Classroom implements Serializable {
 
+    public static final String FIND_ALL = "Classroom.findAll";
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +46,8 @@ public class Classroom implements Serializable {
     private Collection<Student> studentCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom")
     private Collection<Teaching> teachingCollection;
-    @OneToMany(mappedBy = "classroom")
-    private Collection<Teacher> teacherCollection;
+    @OneToOne(mappedBy = "classroom")
+    private Teacher teacher;
 
     public Classroom() {
     }
@@ -103,13 +95,12 @@ public class Classroom implements Serializable {
         this.teachingCollection = teachingCollection;
     }
 
-    @XmlTransient
-    public Collection<Teacher> getTeacherCollection() {
-        return teacherCollection;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setTeacherCollection(Collection<Teacher> teacherCollection) {
-        this.teacherCollection = teacherCollection;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     @Override

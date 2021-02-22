@@ -122,7 +122,7 @@ VALUES('teacher', 'marie.vavrova', 'marie.vavrova', 'marie.vavrova@example.com',
 
 INSERT INTO public.user_account
 ("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('teacher', 'patricie.petrova', 'patricie.petrova', 'patricie.petrova@example.com', 'Patrície Petrová', 'Nováková', 'Mordá 50', ' 255 55', '111 222 666');
+VALUES('teacher', 'patricie.petrova', 'patricie.petrova', 'patricie.petrova@example.com', 'Patrície', 'Petrová', 'Mordá 50', ' 255 55', '111 222 666');
 
 INSERT INTO public.user_account
 ("role", username, "password", email, firstname, surname, street, zip, phone)

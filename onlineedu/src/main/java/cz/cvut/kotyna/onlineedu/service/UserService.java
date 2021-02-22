@@ -35,7 +35,7 @@ public class UserService {
     @EJB
     TaskService taskService;
 
-    private static Logger logger = Logger.getLogger(UserService.class.getName());
+    private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
     public List<UserAccount> getAllUsers() {
         return em.createNamedQuery(UserAccount.FIND_ALL, UserAccount.class).getResultList();
