@@ -12,13 +12,13 @@
             <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{userBackingBean.setClassroom}"/>
-            <f:viewAction action="#{teachingBean.init}"/>
-            <f:viewAction action="#{taskBean.initNewTask}"/>
-            <f:viewAction action="#{taskBean.loadTasks}"/>
+            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherTeachingBean.init}"/>
+            <f:viewAction action="#{teacherTaskBean.initNewTask}"/>
+            <f:viewAction action="#{teacherTaskBean.loadTasks}"/>
 
         </f:metadata>
     </ui:define>
@@ -30,7 +30,7 @@
     <ui:define name="content">
 
         <h2>Třídní kniha</h2>
-        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{userBackingBean.studentStatisticsListDataModel}">
+        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{teacherUserBackingBean.studentStatisticsListDataModel}">
 
             <p:column headerText="Žák">
                 <h:outputText value="#{student.studentFirstname} #{student.studentSurname}" />

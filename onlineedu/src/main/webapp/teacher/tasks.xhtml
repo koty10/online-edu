@@ -9,15 +9,15 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
+            <o:viewParam name="teachingId" value="#{teacherTeachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{userBackingBean.setClassroom}"/>
-            <f:viewAction action="#{teachingBean.init}"/>
-            <f:viewAction action="#{taskBean.initNewTask}"/>
+            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherTeachingBean.init}"/>
+            <f:viewAction action="#{teacherTaskBean.initNewTask}"/>
 
         </f:metadata>
     </ui:define>
@@ -30,7 +30,7 @@
 
         <h2>Úkoly</h2>
         <h:form id="table-form">
-            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{taskBean.taskWithStatisticsListDataModel}">
+            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.taskWithStatisticsListDataModel}">
 
                 <f:facet name="header">
                         <p:commandButton id="toggler" type="button" value="Vybrat sloupce" style="float:right" icon="pi pi-align-justify" />
@@ -87,28 +87,28 @@
             <div class="p-field p-grid">
                 <p:outputLabel for="new-task-name" styleClass="p-col-fixed" style="width:150px" value="Jméno úkolu" />
                 <div class="p-col">
-                    <p:inputText id="new-task-name" value="#{taskBean.task.name}" required="true" requiredMessage="Název je povinné pole"/>
+                    <p:inputText id="new-task-name" value="#{teacherTaskBean.task.name}" required="true" requiredMessage="Název je povinné pole"/>
                 </div>
             </div>
 
             <div class="p-field p-grid">
                 <p:outputLabel for="new-task-time-from" styleClass="p-col-fixed" style="width:150px" value="Začátek" />
                 <div class="p-col">
-                    <p:datePicker id="new-task-time-from" value="#{taskBean.task.timeFrom}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Začátek je povinné pole"/>
+                    <p:datePicker id="new-task-time-from" value="#{teacherTaskBean.task.timeFrom}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Začátek je povinné pole"/>
                 </div>
             </div>
 
             <div class="p-field p-grid">
                 <p:outputLabel for="new-task-time-to" styleClass="p-col-fixed" style="width:150px" value="Deadline" />
                 <div class="p-col">
-                    <p:datePicker id="new-task-time-to" value="#{taskBean.task.timeTo}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Deadline je povinné pole"/>
+                    <p:datePicker id="new-task-time-to" value="#{teacherTaskBean.task.timeTo}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Deadline je povinné pole"/>
                 </div>
             </div>
 
 
-            <p:textEditor id="new-task-editor" placeholder="Prázdné zadání..." widgetVar="new-task-editor" value="#{taskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Text zadání je povinné pole"/>
+            <p:textEditor id="new-task-editor" placeholder="Prázdné zadání..." widgetVar="new-task-editor" value="#{teacherTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Text zadání je povinné pole"/>
 
-            <p:commandButton value="Vytvořit" action="#{taskBean.createTask}" update=":table-form:data-table-tasks :form-new-task :form-new-task:msgs" />
+            <p:commandButton value="Vytvořit" action="#{teacherTaskBean.createTask}" update=":table-form:data-table-tasks :form-new-task :form-new-task:msgs" />
         </h:form>
 
 

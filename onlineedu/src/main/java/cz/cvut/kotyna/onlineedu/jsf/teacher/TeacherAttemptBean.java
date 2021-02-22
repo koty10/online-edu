@@ -1,9 +1,10 @@
-package cz.cvut.kotyna.onlineedu.jsf;
+package cz.cvut.kotyna.onlineedu.jsf.teacher;
 
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Task;
-import cz.cvut.kotyna.onlineedu.entity.Teaching;
 import cz.cvut.kotyna.onlineedu.service.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -21,61 +22,24 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Named(value = "attemptBean")
+@Named(value = "teacherAttemptBean")
 @ViewScoped
-public class AttemptBean implements Serializable {
-
-    @EJB
-    private UserService userService;
-
-    @EJB
-    private LoginService loginService;
-
-    @EJB
-    private TeachingService teachingService;
-
-    @EJB
-    private TaskService taskService;
-
-    @Inject
-    private UserBackingBean userBackingBean;
-
-    @Inject
-    private TeachingBean teachingBean;
+public class TeacherAttemptBean implements Serializable {
 
     @EJB
     private AttemptService attemptService;
+    @Inject
+    private TeacherTeachingBean teacherTeachingBean;
 
+    @Getter @Setter
     private Integer attemptId;
-    //private Integer taskId;
+    @Getter
     private Attempt attempt;
-    //private Task task;
-
+    @Getter
     ListDataModel<Attempt> lastAttemptsListDataModel;
 
-    /**
-     * Creates a new instance of TeachingBean
-     */
-    public AttemptBean() {
-    }
 
-    public void init() {
-        // set task
-        /*
-        if (taskId == null) {
-            String message = "Bad request. Please use a link from within the system.";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-            return;
-        }
-
-        task = taskService.findTask(taskId);
-
-        if (task == null) {
-            String message = "Bad request. Unknown task.";
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-        }
-        */
+    public void initAttempt() {
 
         //set attempt
         if (attemptId == null) {
@@ -93,34 +57,6 @@ public class AttemptBean implements Serializable {
         }
     }
 
-
-
-    public Integer getAttemptId() {
-        return attemptId;
-    }
-
-    public void setAttemptId(Integer attemptId) {
-        this.attemptId = attemptId;
-    }
-
-    /*
-    public Integer getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-     */
-
-    public Attempt getAttempt() {
-        return attempt;
-    }
-
     public void acceptAttempt() {
         attemptService.acceptAttempt(attempt);
         FacesMessage msg = new FacesMessage("Schváleno");
@@ -136,7 +72,7 @@ public class AttemptBean implements Serializable {
     // loads ListDataModel for dataTable on teachers task page
     public void loadLastAttemptsListDataModel() {
         List<Attempt> tmp = new ArrayList<>();
-        for (Task t2 : teachingBean.getTeaching().getTaskCollection()) {
+        for (Task t2 : teacherTeachingBean.getTeaching().getTaskCollection()) {
             tmp.addAll(t2.getAttemptCollection().stream()
                     .sorted((x, y) -> y.getTime().compareTo(x.getTime()))
                     .filter(distinctByKey(Attempt::getStudent))
@@ -154,9 +90,5 @@ public class AttemptBean implements Serializable {
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
         return t -> seen.add(keyExtractor.apply(t));
-    }
-
-    public ListDataModel<Attempt> getLastAttemptsListDataModel() {
-        return lastAttemptsListDataModel;
     }
 }

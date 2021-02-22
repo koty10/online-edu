@@ -9,14 +9,14 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
+            <o:viewParam name="teachingId" value="#{teacherTeachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{userBackingBean.setClassroom}"/>
-            <f:viewAction action="#{teachingBean.init}"/>
+            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherTeachingBean.init}"/>
         </f:metadata>
     </ui:define>
 
@@ -31,11 +31,11 @@
         <h:form id="webSocketForm">
 
             <p:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
-            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" icon="fas fa-paper-plane" update="webSocketForm:websocketMessageText" />
+            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teacherTeachingBean.teachingId)}" icon="fas fa-paper-plane" update="webSocketForm:websocketMessageText" />
 
             <div id="messageDiv">
                 <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
-                <p:repeat value="#{chatBean.loadMessages(teachingBean.teachingId)}" var="message">
+                <p:repeat value="#{chatBean.loadMessages(teacherTeachingBean.teachingId)}" var="message">
                     <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
                         <img src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" class="#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : ''}" />
                         <p>#{message.text}</p>
@@ -98,7 +98,7 @@
                 }
             </script>
 
-            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{teachingBean.teachingId}" >
+            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{teacherTeachingBean.teachingId}" >
             </o:socket>
 
         </h:form>

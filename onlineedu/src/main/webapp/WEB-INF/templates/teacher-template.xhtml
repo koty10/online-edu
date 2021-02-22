@@ -10,11 +10,11 @@
         <div class="top-nav-list-wrapper">
             <div class="top-nav-list-column">
                 <ul class="top-nav-list-row">
-                    <ui:repeat value="#{userBackingBean.classroomsTeachedByCurrentTeacher}" var="classroom">
-                        <li class="#{userBackingBean.isCurrentClassroom(classroom.id.toString()) ? 'active' : ''}">
+                    <ui:repeat value="#{teacherUserBackingBean.classroomsTeachedByCurrentTeacher}" var="classroom">
+                        <li class="#{teacherUserBackingBean.isCurrentClassroom(classroom.id.toString()) ? 'active' : ''}">
                             <h:link>
                                 <h:outputText value="#{classroom.name}" />
-                                <h:outputText value=" (#{teachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsClassroom(classroom.id)})" />
+                                <h:outputText value=" (#{teacherTeachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsClassroom(classroom.id)})" />
                                 <f:param name="classroomId" value="#{classroom.id}" />
                             </h:link>
                         </li>
@@ -22,11 +22,11 @@
                 </ul>
 
                 <ul class="top-nav-list-row">
-                    <ui:repeat value="#{userBackingBean.teachersTeachingsInCurrentClassroom}" var="teaching">
+                    <ui:repeat value="#{teacherUserBackingBean.teachersTeachingsInCurrentClassroom}" var="teaching">
                         <li class="#{teachingBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
                             <h:link>
                                 <h:outputText value="#{teaching.subject.name}" />
-                                <h:outputText value=" (#{teachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(teaching.id)})" />
+                                <h:outputText value=" (#{teacherTeachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(teaching.id)})" />
                                 <f:param name="teachingId" value="#{teaching.id}" />
                             </h:link>
                         </li>

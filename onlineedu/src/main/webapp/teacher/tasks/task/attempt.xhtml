@@ -9,22 +9,22 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No teaching specified.">
+            <o:viewParam name="teachingId" value="#{teacherTeachingBean.teachingId}" requiredMessage="No teaching specified.">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="taskId" value="#{taskBean.taskId}" requiredMessage="No task specified.">
+            <o:viewParam name="taskId" value="#{teacherTaskBean.taskId}" requiredMessage="No task specified.">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="attemptId" value="#{attemptBean.attemptId}" requiredMessage="No attempt specified.">
+            <o:viewParam name="attemptId" value="#{teacherAttemptBean.attemptId}" requiredMessage="No attempt specified.">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}" requiredMessage="No classroom specified.">
+            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}" requiredMessage="No classroom specified.">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{taskBean.init}"/>
-            <f:viewAction action="#{attemptBean.init}"/>
-            <f:viewAction action="#{teachingBean.init}"/>
-            <f:viewAction action="#{userBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherTaskBean.init}"/>
+            <f:viewAction action="#{teacherAttemptBean.initAttempt}"/>
+            <f:viewAction action="#{teacherTeachingBean.init}"/>
+            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
 
         </f:metadata>
     </ui:define>
@@ -35,23 +35,23 @@
 
     <ui:define name="content">
 
-        <h2>Pokus úkolu: #{attemptBean.attempt.task.name} <h:outputText id="state-label" value="(#{attemptBean.attempt.stateCzechFormated})"/></h2>
+        <h2>Pokus úkolu: #{teacherAttemptBean.attempt.task.name} <h:outputText id="state-label" value="(#{teacherAttemptBean.attempt.stateCzechFormated})"/></h2>
 
         <h:form id="form">
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:textEditor widgetVar="editor-attempt" value="#{attemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+            <p:textEditor widgetVar="editor-attempt" value="#{teacherAttemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
             <h3>
                 Zpětná vazba
             </h3>
-            <p:textEditor widgetVar="editor-feedback" value="#{attemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" />
-            <p:commandButton value="Schválit" action="#{attemptBean.acceptAttempt}" update=":form:msgs state-label"/>
-            <p:commandButton value="Vrátit k přepracování" action="#{attemptBean.returnAttempt}" update=":form:msgs state-label"/>
+            <p:textEditor widgetVar="editor-feedback" value="#{teacherAttemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" />
+            <p:commandButton value="Schválit" action="#{teacherAttemptBean.acceptAttempt}" update=":form:msgs state-label"/>
+            <p:commandButton value="Vrátit k přepracování" action="#{teacherAttemptBean.returnAttempt}" update=":form:msgs state-label"/>
 
 
         </h:form>
 
         <p>
-            <h:outputText value="Pokus vytvořen: #{attemptBean.attempt.timeFormated}" />
+            <h:outputText value="Pokus vytvořen: #{teacherAttemptBean.attempt.timeFormated}" />
         </p>
 
     </ui:define>

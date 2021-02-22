@@ -9,16 +9,16 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
+            <o:viewParam name="teachingId" value="#{teacherTeachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{userBackingBean.setClassroom}"/>
-            <f:viewAction action="#{teachingBean.init}"/>
-            <f:viewAction action="#{taskBean.initNewTask}"/>
-            <f:viewAction action="#{taskBean.loadTasks}"/>
+            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherTeachingBean.init}"/>
+            <f:viewAction action="#{teacherTaskBean.initNewTask}"/>
+            <f:viewAction action="#{teacherTaskBean.loadTasks}"/>
 
         </f:metadata>
     </ui:define>
@@ -30,7 +30,7 @@
     <ui:define name="content">
 
         <h2>Seznam žáků</h2>
-        <p:dataTable resizableColumns="true" widgetVar="data-table-students" id="data-table-students" var="student" value="#{teachingBean.teaching.classroom.studentCollection}">
+        <p:dataTable resizableColumns="true" widgetVar="data-table-students" id="data-table-students" var="student" value="#{teacherTeachingBean.teaching.classroom.studentCollection}">
 
             <p:column headerText="Jméno">
                 <h:outputText value="#{student.userAccount.firstname}" />
@@ -75,29 +75,29 @@
             <div class="p-field p-grid">
                 <p:outputLabel for="new-task-firstname" styleClass="p-col-fixed" style="width:150px" value="Jméno" />
                 <div class="p-col">
-                    <p:inputText id="new-task-firstname" value="#{userBackingBean.userAccount.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
+                    <p:inputText id="new-task-firstname" value="#{teacherUserBackingBean.userAccount.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
                 </div>
             </div>
             <div class="p-field p-grid">
                 <p:outputLabel for="new-task-surname" styleClass="p-col-fixed" style="width:150px" value="Příjmení" />
                 <div class="p-col">
-                    <p:inputText id="new-task-surname" value="#{userBackingBean.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
+                    <p:inputText id="new-task-surname" value="#{teacherUserBackingBean.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
                 </div>
             </div>
             <div class="p-field p-grid">
                 <p:outputLabel for="new-task-phone" styleClass="p-col-fixed" style="width:150px" value="Telefon" />
                 <div class="p-col">
-                    <p:inputText id="new-task-phone" value="#{userBackingBean.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
+                    <p:inputText id="new-task-phone" value="#{teacherUserBackingBean.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
                 </div>
             </div>
             <div class="p-field p-grid">
                 <p:outputLabel for="new-task-email" styleClass="p-col-fixed" style="width:150px" value="Email" />
                 <div class="p-col">
-                    <p:inputText id="new-task-email" value="#{userBackingBean.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
+                    <p:inputText id="new-task-email" value="#{teacherUserBackingBean.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
                 </div>
             </div>
 
-            <p:commandButton value="Vytvořit" action="#{userBackingBean.createStudent}" update=":data-table-students :form-new-student :form-new-student:msgs" />
+            <p:commandButton value="Vytvořit" action="#{teacherUserBackingBean.createStudent}" update=":data-table-students :form-new-student :form-new-student:msgs" />
         </h:form>
 
 

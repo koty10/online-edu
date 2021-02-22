@@ -9,18 +9,18 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="taskId" value="#{taskBean.taskId}">
+            <o:viewParam name="taskId" value="#{teacherTaskBean.taskId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
+            <o:viewParam name="teachingId" value="#{teacherTeachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{userBackingBean.setClassroom}"/>
-            <f:viewAction action="#{taskBean.init}"/>
-            <f:viewAction action="#{taskBean.loadStudentsListDataModel}"/>
+            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherTaskBean.init}"/>
+            <f:viewAction action="#{teacherTaskBean.loadStudentsListDataModel}"/>
         </f:metadata>
     </ui:define>
 
@@ -30,10 +30,10 @@
 
     <ui:define name="content">
 
-        <h2>Úkol: #{taskBean.task.name}</h2>
+        <h2>Úkol: #{teacherTaskBean.task.name}</h2>
         <h:form id="students-form">
 
-            <p:dataTable id="students" var="student" value="#{taskBean.studentsDataModel}" >
+            <p:dataTable id="students" var="student" value="#{teacherTaskBean.studentsDataModel}" >
 
                 <p:column style="width:2em">
                     <p:rowToggler />
@@ -48,7 +48,7 @@
                 </p:column>
 
                 <p:rowExpansion>
-                    <p:dataTable id="attempts" value="#{taskBean.getStudentsAttemptsReverseSorted()}" var="attempt">
+                    <p:dataTable id="attempts" value="#{teacherTaskBean.getStudentsAttemptsReverseSorted()}" var="attempt">
 
                         <p:column>
                             <h:outputText value="#{attempt.getTimeFormated()}" />
@@ -71,8 +71,8 @@
         <h2>Upravit zadání úkolu</h2>
         <h:form id="form-task-text">
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:textEditor widgetVar="editor-task" value="#{taskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" />
-            <p:commandButton value="Uložit" action="#{taskBean.updateTaskText}" update=":form-task-text:msgs" />
+            <p:textEditor widgetVar="editor-task" value="#{teacherTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" />
+            <p:commandButton value="Uložit" action="#{teacherTaskBean.updateTaskText}" update=":form-task-text:msgs" />
         </h:form>
 
     </ui:define>

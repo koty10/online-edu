@@ -12,12 +12,12 @@
             <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="classroomId" value="#{userBackingBean.classroomId}">
+            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{userBackingBean.setClassroom}"/>
-            <f:viewAction action="#{teachingBean.init}"/>
-            <f:viewAction action="#{attemptBean.loadLastAttemptsListDataModel}"/>
+            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherTeachingBean.init}"/>
+            <f:viewAction action="#{teacherAttemptBean.loadLastAttemptsListDataModel}"/>
         </f:metadata>
     </ui:define>
 
@@ -29,7 +29,7 @@
         <h1>Novinky</h1>
 
         <h2>Poslední odevzdané pokusy</h2>
-        <p:dataTable var="attempt" value="#{attemptBean.lastAttemptsListDataModel}">
+        <p:dataTable var="attempt" value="#{teacherAttemptBean.lastAttemptsListDataModel}">
             <p:column headerText="Datum">
                 <h:outputText value="#{attempt.getTimeFormated()}" />
             </p:column>

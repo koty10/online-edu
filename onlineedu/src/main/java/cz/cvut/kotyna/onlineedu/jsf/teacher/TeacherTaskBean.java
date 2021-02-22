@@ -1,11 +1,14 @@
-package cz.cvut.kotyna.onlineedu.jsf;
+package cz.cvut.kotyna.onlineedu.jsf.teacher;
 
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Task;
+import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.task.StudentWithTaskState;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.tasks.TaskWithStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -21,45 +24,40 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Named(value = "taskBean")
+@Named(value = "teacherTaskBean")
 @ViewScoped
-public class TaskBean implements Serializable {
-    @EJB
-    private UserService userService;
-    @EJB
-    private LoginService loginService;
+public class TeacherTaskBean implements Serializable {
+
     @EJB
     private TeachingService teachingService;
     @EJB
     private TaskService taskService;
-    @EJB
-    private AttemptService attemptService;
     @Inject
-    private UserBackingBean userBackingBean;
+    private TeacherUserBackingBean teacherUserBackingBean;
     @Inject
     private UrlHelperBean urlHelperBean;
     @Inject
-    private TeachingBean teachingBean;
+    private TeacherTeachingBean teacherTeachingBean;
 
     private final List<String> states = Arrays.asList("new", "accepted", "excused", "failed", "resubmitted", "returned", "submitted");
+    @Getter @Setter
     private Integer taskId;
+    @Getter
     private Task task;
-    // attempt text content
+    @Getter @Setter
     private String attemptText;
+    @Getter @Setter
     private String result;
-
+    @Getter @Setter
     private ListDataModel<StudentWithTaskState> studentsDataModel;
-
+    @Setter
     private ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel;
-
-    // TODO rework like taskWithStatisticsListDataModel
-    private ListDataModel<Task> tasksDataModel;
 
     public void init() {
         if (taskId == null) {
             try {
                 final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
-                FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/tasks.xhtml?teachingId=" + teachingBean.getTeachingId());
+                FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/tasks.xhtml?teachingId=" + teacherTeachingBean.getTeachingId());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -77,7 +75,7 @@ public class TaskBean implements Serializable {
     // loads ListDataModel for dataTable on teachers task page
     public void loadStudentsListDataModel() {
         List<StudentWithTaskState> tmp = new ArrayList<>();
-        for (Student s : userBackingBean.getClassroom().getStudentCollection()) {
+        for (Student s : teacherUserBackingBean.getClassroom().getStudentCollection()) {
             tmp.add(new StudentWithTaskState(
                     s,
                     taskService.getStudentsTaskState(s.getUserAccount().getId(), taskId),
@@ -105,26 +103,6 @@ public class TaskBean implements Serializable {
         return attempts;
     }
 
-    public void createAttempt() {
-        attemptService.createAttempt(attemptText, loginService.getLoggedInUser().getStudent(), task);
-        result = "Pokus úspěšně odeslán!";
-    }
-    public Task getTask() {
-        return task;
-    }
-
-    public List<Attempt> getLoggedInStudentsAttemptsReverseSorted() {
-        if (taskId == null) {
-            return new ArrayList<>();
-        }
-        Student student = loginService.getLoggedInUser().getStudent();
-        return attemptService.getAttempts(student.getUserAccount().getId(), taskId);
-    }
-
-    public String getLoggedInStudentsTaskState(Integer taskId) {
-        return taskService.getStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
-    }
-
     public void updateTaskText() {
         taskService.updateTask(task);
         FacesMessage msg = new FacesMessage("Uloženo");
@@ -132,7 +110,7 @@ public class TaskBean implements Serializable {
     }
 
     public void createTask() {
-        task.setTeaching(teachingBean.getTeaching());
+        task.setTeaching(teacherTeachingBean.getTeaching());
         taskService.createTask(task);
         FacesMessage msg = new FacesMessage("Úkol vytvořen");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -143,12 +121,11 @@ public class TaskBean implements Serializable {
         //tasksDataModel.setWrappedData(tasks);
         // to clear the form
         task = new Task();
-
     }
 
     public void loadTasks() {
         List<TaskWithStatisticsModel> taskWithStatisticsModels = new ArrayList<>();
-        for (Task t : teachingService.getTasks(teachingBean.getTeachingId())) {
+        for (Task t : teachingService.getTasks(teacherTeachingBean.getTeachingId())) {
             TaskWithStatisticsModel model = new TaskWithStatisticsModel();
             model.setTaskId(t.getId());
             model.setTaskName(t.getName());
@@ -157,7 +134,7 @@ public class TaskBean implements Serializable {
             model.setTaskTimeTo(t.getTimeToFormatted());
 
             for (String state : states) {
-                Integer number = teachingBean.getNumberOfStudentsInState(state, t.getId());
+                Integer number = teacherTeachingBean.getNumberOfStudentsInState(state, t.getId());
                 if (number > 0) model.setNumberOfStudentsInState(state, number);
             }
 
@@ -171,53 +148,5 @@ public class TaskBean implements Serializable {
             loadTasks();
         }
         return taskWithStatisticsListDataModel;
-    }
-
-    public void setTaskWithStatisticsListDataModel(ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel) {
-        this.taskWithStatisticsListDataModel = taskWithStatisticsListDataModel;
-    }
-
-    public Integer getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
-    }
-
-    public String getAttemptText() {
-        return attemptText;
-    }
-
-    public void setAttemptText(String attemptText) {
-        this.attemptText = attemptText;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public ListDataModel<StudentWithTaskState> getStudentsDataModel() {
-        return studentsDataModel;
-    }
-
-    public void setStudentsDataModel(ListDataModel<StudentWithTaskState> studentsDataModel) {
-        this.studentsDataModel = studentsDataModel;
-    }
-
-    // TODO rework like taskWithStatisticsListDataModel
-    public ListDataModel<Task> getTasksDataModel() {
-        if (tasksDataModel == null) {
-            tasksDataModel = new ListDataModel<>(new ArrayList<>(teachingService.getTasks(teachingBean.getTeachingId())));
-        }
-        return tasksDataModel;
-    }
-
-    public void setTasksDataModel(ListDataModel<Task> tasksDataModel) {
-        this.tasksDataModel = tasksDataModel;
     }
 }

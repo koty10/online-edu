@@ -18,16 +18,7 @@ import java.util.*;
 public class UrlHelperBean {
 
     @EJB
-    private UserService userService;
-
-    @EJB
     private LoginService loginService;
-
-    /**
-     * Creates a new instance of UrlHelperBean
-     */
-    public UrlHelperBean() {
-    }
 
     public boolean isCurrentPage(String pathLastPart) {
         String uri = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
@@ -36,38 +27,7 @@ public class UrlHelperBean {
         //return pathParts[pathParts.length - 1].equals(pathLastPart) || pathParts[pathParts.length - 1].equals(pathLastPart + ".xhtml");
     }
 
-    public boolean isCurrentTeaching(String teachingId) {
-        Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        if (!map.containsKey("teachingId")) return false;
-        String value = map.get("teachingId");
-        return value.equals(teachingId);
-    }
-
     public String getContextPathForCurrentUser() {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/" + loginService.getLoggedInUser().getRole();
-    }
-
-
-    public String getCurrentOrDefaultTeachingId() {
-        Student loggedInStudent =  loginService.getLoggedInUser().getStudent();
-        Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        if (!map.containsKey("teaching")) {
-            Collection<Teaching> teachings = loggedInStudent.getClassroom().getTeachingCollection();
-            if (!teachings.isEmpty()) {
-                return teachings.stream().findFirst().get().getId().toString();
-            }
-            else {
-                try {
-                    // TODO !!!!! přidat stránku none.xhtml
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("student/none.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        else {
-            return map.get("teaching");
-        }
-        return "";
     }
 }

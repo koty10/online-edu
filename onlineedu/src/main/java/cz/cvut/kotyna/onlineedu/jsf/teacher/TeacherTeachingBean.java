@@ -1,65 +1,47 @@
-package cz.cvut.kotyna.onlineedu.jsf;
+package cz.cvut.kotyna.onlineedu.jsf.teacher;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.service.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIViewParameter;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewMetadata;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import java.beans.Visibility;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-@Named(value = "teachingBean")
+@Named(value = "teacherTeachingBean")
 @ViewScoped
-public class TeachingBean implements Serializable {
-
-    @EJB
-    private UserService userService;
+public class TeacherTeachingBean implements Serializable {
 
     @EJB
     private TaskService taskService;
-
     @EJB
     private ClassroomService classroomService;
-
     @EJB
     private LoginService loginService;
-
     @EJB
     private TeachingService teachingService;
-
     @Inject
-    private UserBackingBean userBackingBean;
+    private TeacherUserBackingBean teacherUserBackingBean;
 
+    @Getter @Setter
     private Integer teachingId;
+    @Getter
     private Teaching teaching;
 
-    /**
-     * Creates a new instance of TeachingBean
-     */
-    public TeachingBean() {
-    }
 
     public void init() {
 
         // If teacher enter no teachingId, then redirect him to his default teaching
-        if (teachingId == null && userBackingBean.getLoggedInUser().getRole().equals("teacher")) {
-            if (userBackingBean.getClassroomId() != null) {
-                teachingId = getDefaultTeacherTeaching(userBackingBean.getClassroomId()).getId();
+        if (teachingId == null && loginService.getLoggedInUser().getRole().equals("teacher")) {
+            if (teacherUserBackingBean.getClassroomId() != null) {
+                teachingId = getDefaultTeacherTeaching(teacherUserBackingBean.getClassroomId()).getId();
             }
             else {
                 String message = "Bad request. Please use a link from within the system.";
@@ -69,23 +51,16 @@ public class TeachingBean implements Serializable {
         }
 
         // If teacher tries to enter a teaching he does not teach, then redirect him to his default teaching
-        if (userBackingBean.getLoggedInUser().getRole().equals("teacher")) {
-            if (!userBackingBean.getLoggedInUser().getTeacher().getTeachingCollection().stream().map(Teaching::getId).collect(Collectors.toList()).contains(teachingId)) {
-                if (userBackingBean.getClassroomId() != null) {
-                    teachingId = getDefaultTeacherTeaching(userBackingBean.getClassroomId()).getId();
+        if (loginService.getLoggedInUser().getRole().equals("teacher")) {
+            if (!loginService.getLoggedInUser().getTeacher().getTeachingCollection().stream().map(Teaching::getId).collect(Collectors.toList()).contains(teachingId)) {
+                if (teacherUserBackingBean.getClassroomId() != null) {
+                    teachingId = getDefaultTeacherTeaching(teacherUserBackingBean.getClassroomId()).getId();
                 }
                 else {
                     String message = "Bad request. Please use a link from within the system.";
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
                     return;
                 }
-            }
-        }
-
-        // If student tries to enter a teaching he does not attend, then redirect him to his default teaching
-        if (userBackingBean.getLoggedInUser().getRole().equals("student")) {
-            if (!userBackingBean.getLoggedInUser().getStudent().getClassroom().getTeachingCollection().stream().map(Teaching::getId).collect(Collectors.toList()).contains(teachingId)) {
-                teachingId = getDefaultStudentTeaching().getId();
             }
         }
 
@@ -97,22 +72,6 @@ public class TeachingBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
-    }
-
-    public Integer getTeachingId() {
-        return teachingId;
-    }
-
-    public void setTeachingId(Integer teachingId) {
-        this.teachingId = teachingId;
-    }
-
-    public Teaching getTeaching() {
-        if (teaching == null) {
-            teaching = teachingService.findTeaching(teachingId);
-        }
-
-        return teaching;
     }
 
     public Integer getNumberOfStudentsInState(String state, Integer taskId) {
@@ -159,12 +118,6 @@ public class TeachingBean implements Serializable {
             count += getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(teaching.getId());
         }
         return  count;
-    }
-
-    public Teaching getDefaultStudentTeaching() {
-        Student loggedInStudent = userService.getStudentByUsername(loginService.getLoggedInUser().getUsername());
-        Collection<Teaching> teachings = userService.getTeachings(loggedInStudent);
-        return teachings.stream().findFirst().get();
     }
 
     public Teaching getDefaultTeacherTeaching(Integer classroomId) {
