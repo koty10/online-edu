@@ -9,10 +9,10 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No teaching specified." default="#{teachingBean.defaultStudentTeaching.id}">
+            <o:viewParam name="teachingId" value="#{studentTeachingBean.teachingId}" requiredMessage="No teaching specified." default="#{studentTeachingBean.defaultStudentTeaching.id}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{teachingBean.init}"/>
+            <f:viewAction action="#{studentTeachingBean.initTeaching}"/>
         </f:metadata>
     </ui:define>
 
@@ -27,11 +27,11 @@
         <h:form id="webSocketForm">
 
             <p:inputText id="websocketMessageText" value="#{chatBean.messageText}"/>
-            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(teachingBean.teachingId)}" icon="fas fa-paper-plane" update="webSocketForm:websocketMessageText" />
+            <p:commandButton id="sendMessage" action="#{chatBean.sendMessage(studentTeachingBean.teachingId)}" icon="fas fa-paper-plane" update="webSocketForm:websocketMessageText" />
 
             <div id="messageDiv">
                 <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
-                <p:repeat value="#{chatBean.loadMessages(teachingBean.teachingId)}" var="message">
+                <p:repeat value="#{chatBean.loadMessages(studentTeachingBean.teachingId)}" var="message">
                     <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
                         <img src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" class="#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : ''}" />
                         <p>#{message.text}</p>
@@ -94,13 +94,13 @@
                 }
             </script>
 
-            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{teachingBean.teachingId}" >
+            <o:socket channel="messagePusher" onmessage="messageListener" onopen="websocketOpenListener" user="#{studentTeachingBean.teachingId}" >
             </o:socket>
 
         </h:form>
 
         <h2>Seznam spolužáků</h2>
-        <p:dataTable var="classmate" value="#{userBackingBean.classmates}">
+        <p:dataTable var="classmate" value="#{studentUserBackingBean.classmates}">
             <p:column headerText="Id">
                 <h:outputText value="#{classmate.id}" />
             </p:column>

@@ -9,18 +9,18 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}" requiredMessage="No teaching specified." default="#{teachingBean.defaultStudentTeaching.id}">
+            <o:viewParam name="teachingId" value="#{studentTeachingBean.teachingId}" requiredMessage="No teaching specified." default="#{studentTeachingBean.defaultStudentTeaching.id}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="taskId" value="#{taskBean.taskId}" requiredMessage="No task specified.">
+            <o:viewParam name="taskId" value="#{studentTaskBean.taskId}" requiredMessage="No task specified.">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="attemptId" value="#{attemptBean.attemptId}" requiredMessage="No attempt specified.">
+            <o:viewParam name="attemptId" value="#{studentAttemptBean.attemptId}" requiredMessage="No attempt specified.">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{taskBean.init}"/>
-            <f:viewAction action="#{attemptBean.init}"/>
-            <f:viewAction action="#{teachingBean.init}"/>
+            <f:viewAction action="#{studentTaskBean.initTask}"/>
+            <f:viewAction action="#{studentAttemptBean.initAttempt}"/>
+            <f:viewAction action="#{studentTeachingBean.initTeaching}"/>
 
         </f:metadata>
     </ui:define>
@@ -31,21 +31,21 @@
 
     <ui:define name="content">
 
-        <h2>Pokus úkolu: #{attemptBean.attempt.task.name} (todo:done/undone)</h2>
+        <h2>Pokus úkolu: #{studentAttemptBean.attempt.task.name} (todo:done/undone)</h2>
 
         <h:form>
-            <p:textEditor widgetVar="editor-attempt" value="#{attemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+            <p:textEditor widgetVar="editor-attempt" value="#{studentAttemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
         </h:form>
 
         <h2>
             Zpětná vazba
         </h2>
         <h:form>
-            <p:textEditor widgetVar="editor-feedback" value="#{attemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
+            <p:textEditor widgetVar="editor-feedback" value="#{studentAttemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
         </h:form>
 
         <p>
-            <h:outputText value="Pokus vytvořen: #{attemptBean.attempt.timeFormated}" />
+            <h:outputText value="Pokus vytvořen: #{studentAttemptBean.attempt.timeFormated}" />
         </p>
 
     </ui:define>

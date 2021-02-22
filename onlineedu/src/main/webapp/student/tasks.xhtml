@@ -7,12 +7,10 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam name="teachingId" value="#{teachingBean.teachingId}" required="true" requiredMessage="No teaching specified.">
+            <f:viewParam name="teachingId" value="#{studentTeachingBean.teachingId}" required="true" requiredMessage="No teaching specified.">
                 <f:validateLongRange minimum="1"/>
             </f:viewParam>
-            <f:viewAction action="#{teachingBean.init}"/>
-            <f:viewAction action="#{taskBean.loadTasks}"/>
-
+            <f:viewAction action="#{studentTeachingBean.initTeaching}"/>
         </f:metadata>
     </ui:define>
 
@@ -23,17 +21,17 @@
     <ui:define name="content">
 
         <h2>Úkoly</h2>
-        <p:dataTable var="task" value="#{taskBean.tasksDataModel}">
+        <p:dataTable var="task" value="#{studentTaskBean.tasksDataModel}">
 
             <p:column headerText="Název">
                 <h:link outcome="/student/tasks/task" value="#{task.name}">
                     <h:outputText rendered="#{empty task.name}" value="Úkol bez názvu" />
                     <f:param name="taskId" value="#{task.id}" />
-                    <f:param name="teachingId" value="#{teachingBean.teachingId}" />
+                    <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
                 </h:link>
             </p:column>
             <p:column headerText="Stav">
-                <h:outputText value="#{taskBean.getLoggedInStudentsTaskState(task.id)}" />
+                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
             </p:column>
             <p:column headerText="Deadline">
                 <h:outputText value="#{task.timeToFormatted}" />

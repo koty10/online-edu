@@ -82,21 +82,6 @@ public class TeacherTeachingBean implements Serializable {
                 .count();
     }
 
-    public Integer getNumberOfTasksInNewOrReturnedStateForRhsTeaching(Integer teachingId) {
-        Teaching teaching = teachingService.findTeaching(teachingId);
-        Collection<Task> tasks = teaching.getTaskCollection();
-        UserAccount loggedInUser = loginService.getLoggedInUser();
-        int count = 0;
-
-        for (Task task : tasks) {
-            String state = taskService.getRawStudentsTaskState(loggedInUser.getId(), task.getId());
-            if (state.equals("new") || state.equals("returned")) {
-                count++;
-            }
-        }
-        return count;
-    }
-
     public Integer getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(Integer teachingId) {
         Teaching teaching = teachingService.findTeaching(teachingId);
         Collection<Student> students = teaching.getClassroom().getStudentCollection();

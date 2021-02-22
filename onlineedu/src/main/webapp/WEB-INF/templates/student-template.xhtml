@@ -9,10 +9,10 @@
     <ui:define name="top-nav">
         <ul class="top-nav-list">
             <ui:repeat value="#{userBackingBean.loggedInUser.student.classroom.teachingCollection}" var="teaching">
-                <li class="#{urlHelperBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
+                <li class="#{studentTeachingBean.isCurrentTeaching(teaching.id.toString()) ? 'active' : ''}">
                     <h:link>
                         <h:outputText value="#{teaching.subject.name}" />
-                        <h:outputText value=" (#{teachingBean.getNumberOfTasksInNewOrReturnedStateForRhsTeaching(teaching.id)})" />
+                        <h:outputText value=" (#{studentTeachingBean.getNumberOfTasksInNewOrReturnedStateForRhsTeaching(teaching.id)})" />
                         <f:param name="teachingId" value="#{teaching.id}" />
                     </h:link>
                 </li>

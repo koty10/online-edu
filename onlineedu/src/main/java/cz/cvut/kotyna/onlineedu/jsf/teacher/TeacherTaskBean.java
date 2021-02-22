@@ -53,7 +53,7 @@ public class TeacherTaskBean implements Serializable {
     @Setter
     private ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel;
 
-    public void init() {
+    public void initTask() {
         if (taskId == null) {
             try {
                 final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
