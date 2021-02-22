@@ -1,3 +1,9 @@
+/* Admin */
+
+INSERT INTO public.user_account
+("role", username, "password", email, firstname, surname, street, zip, phone)
+VALUES('admin', 'admin', 'admin', 'admin@example.com', 'Daniel', 'Koten', 'ulice', 'psč', '123456789');
+
 /*Classroom*/
 
 INSERT INTO public.classroom

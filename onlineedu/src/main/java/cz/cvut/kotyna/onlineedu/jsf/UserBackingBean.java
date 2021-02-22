@@ -72,8 +72,8 @@ public class UserBackingBean implements Serializable {
         }
 
         // Check if teacher tries to enter wrong classroomId. If so, set it to default value.
-        userAccount = loginService.getLoggedInUser();
-        if (userAccount.getRole().equals("teacher")) {
+        UserAccount loggedInUser = loginService.getLoggedInUser();
+        if (loggedInUser.getRole().equals("teacher")) {
             List<Integer> classroomIds = getClassroomsTeachedByCurrentTeacher().stream().map(Classroom::getId).collect(Collectors.toList());
             if (!classroomIds.contains(classroomId)) {
                 classroomId = getDefaultTeacherClassroom().getId();
