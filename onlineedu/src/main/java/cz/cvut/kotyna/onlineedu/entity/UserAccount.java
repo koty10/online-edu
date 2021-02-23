@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Collection;
@@ -196,6 +197,16 @@ public class UserAccount implements Serializable {
 
     public Date getRegistered() {
         return registered;
+    }
+
+    public String getRegisteredFormatted() {
+        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        if (registered != null) {
+            return nf.format(registered);
+        }
+        else {
+            return "";
+        }
     }
 
     public void setRegistered(Date registered) {

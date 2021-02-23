@@ -1,0 +1,107 @@
+<ui:composition template="/WEB-INF/templates/admin-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        Admin home
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Třídy</h1>
+
+        <h:form id="form">
+
+            <p:growl id="messages" showDetail="true"/>
+
+            <div class="buttonbar">
+                <div>
+                    <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminTeacherBean.initNewTeacher}"
+                                     update=":form:manage-teacher-content" oncomplete="PF('manageTeacherDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target=":form:manage-teacher-content"/>
+                    </p:commandButton>
+                </div>
+                <div>
+                    <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
+                        <p:dataExporter type="pdf" target="dt-teachers" fileName="seznam-učitelů"/>
+                    </p:commandButton>
+                </div>
+            </div>
+
+            <p:dataTable id="dt-teachers" var="user" value="#{userBackingBean.allTeachers}">
+                <p:column headerText="Username">
+                    <h:outputText value="#{user.userAccount.username}" />
+                </p:column>
+
+                <p:column headerText="Jméno a příjmení">
+                    <h:outputText value="#{user.userAccount.firstname} #{user.userAccount.surname}" />
+                </p:column>
+
+                <p:column headerText="Email">
+                    <h:outputText value="#{user.userAccount.email}" />
+                </p:column>
+
+                <p:column headerText="Mobil">
+                    <h:outputText value="#{user.userAccount.phone}" />
+                </p:column>
+
+                <p:column headerText="Ulice">
+                    <h:outputText value="#{user.userAccount.street}" />
+                </p:column>
+
+                <p:column headerText="PSČ">
+                    <h:outputText value="#{user.userAccount.zip}" />
+                </p:column>
+
+                <p:column headerText="Datum registrace">
+                    <h:outputText value="#{user.userAccount.registeredFormatted}" />
+                </p:column>
+
+                <p:column headerText="Třída">
+                    <h:outputText value="#{user.classroom.name}" />
+                </p:column>
+
+            </p:dataTable>
+
+
+            <p:dialog header="Teacher Details" width="450" showEffect="fade" modal="true"
+                      widgetVar="manageTeacherDialog" responsive="true">
+                <p:outputPanel id="manage-teacher-content" class="ui-fluid">
+                    <p:outputPanel>
+                        <div class="p-field">
+                            <p:outputLabel for="firstname">Jméno</p:outputLabel>
+                            <p:inputText id="firstname" value="#{adminTeacherBean.teacher.userAccount.firstname}" required="true"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="surname">Příjmení</p:outputLabel>
+                            <p:inputText id="surname" value="#{adminTeacherBean.teacher.userAccount.surname}" required="true"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="phone">Telefon</p:outputLabel>
+                            <p:inputText id="phone" value="#{adminTeacherBean.teacher.userAccount.phone}" required="true"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="email">Email</p:outputLabel>
+                            <p:inputText id="email" value="#{adminTeacherBean.teacher.userAccount.email}" required="true"/>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{adminTeacherBean.saveTeacher}"
+                                     update="manage-teacher-content" process="manage-teacher-content @this"/>
+                    <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageTeacherDialog').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+            </p:dialog>
+
+
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>

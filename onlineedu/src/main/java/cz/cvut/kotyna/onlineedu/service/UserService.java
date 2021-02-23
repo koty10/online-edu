@@ -129,7 +129,7 @@ public class UserService {
         return count;
     }
 
-    private void generateUserAccountUsernameAndPassword(UserAccount userAccount) {
+    public UserAccount generateUserAccountUsernameAndPassword(UserAccount userAccount) {
         String usernameBase = userAccount.getFirstname() + "." + userAccount.getSurname();
         String username = userAccount.getFirstname() + "." + userAccount.getSurname();
         int counter = 1;
@@ -144,6 +144,8 @@ public class UserService {
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
+        return userAccount;
 
         //em.persist(userAccount);
     }

@@ -14,8 +14,8 @@
     <h:outputStylesheet name="styles/colors.css" />
     <h:outputStylesheet name="styles/primeflex.css" />
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
-    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+    <h:outputStylesheet library="webjars" name="font-awesome/5.15.2/css/all.min-jsf.css" />
+    <h:outputStylesheet library="webjars" name="font-awesome/5.15.2/css/v4-shims.min-jsf.css" />
 </h:head>
 
 <h:body>
@@ -40,7 +40,7 @@
                                     <f:param name="teachingId" value="#{teacherTeachingBean.getDefaultTeacherTeaching(teacherUserBackingBean.defaultTeacherClassroom.id).id}" />
                                 </h:link>
                                 <h:link rendered="#{userBackingBean.loggedInUser.role.equals('parent')}" outcome="/parent/home" value="Třída"></h:link>
-                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('admin')}" outcome="/admin/home" value="Admin page"></h:link>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('admin')}" outcome="/admin/classrooms" value="Admin page"></h:link>
                             </li>
                         </ui:fragment>
                     </ul>

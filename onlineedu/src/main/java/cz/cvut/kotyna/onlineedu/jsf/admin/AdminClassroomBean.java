@@ -6,10 +6,13 @@ import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
 import org.primefaces.component.datatable.DataTable;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
@@ -35,10 +38,26 @@ public class AdminClassroomBean implements Serializable {
     @PostConstruct
     public void init() {
         allClassrooms = new ArrayList<>(classroomService.getAllClassrooms());
+        classroom = new Classroom();
     }
 
     public void initClassroom() {
         classroom = classroomService.findClassroom(classroomId);
     }
 
+    public void initNewClassroom() {
+        classroom = new Classroom();
+    }
+
+    public void saveClassroom() {
+        classroomService.saveClassroom(classroom);
+        if (classroom.getId() == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Třída vytvořena"));
+        }
+        else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Třída upravena"));
+        }
+        PrimeFaces.current().executeScript("PF('manageClassroomDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-classrooms");
+    }
 }

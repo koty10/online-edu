@@ -12,6 +12,7 @@ import cz.cvut.kotyna.onlineedu.entity.Task;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -28,6 +29,15 @@ public class ClassroomService {
 
     public List<Classroom> getAllClassrooms() {
         return em.createNamedQuery(Classroom.FIND_ALL, Classroom.class).getResultList();
+    }
+
+    public void saveClassroom(Classroom classroom) {
+        if (classroom.getId() == null) {
+            em.persist(classroom);
+        }
+        else {
+            em.merge(classroom);
+        }
     }
 
 }
