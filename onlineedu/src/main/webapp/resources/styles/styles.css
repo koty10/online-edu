@@ -314,3 +314,12 @@ footer {
 }
 
 
+
+
+.full-width {
+    width: 100%;
+}
+.noBorders tr, .noBorders td {
+    background: none !important;
+    border: none !important;
+}

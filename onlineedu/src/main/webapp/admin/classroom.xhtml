@@ -1,0 +1,70 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="classroomId" value="#{adminClassroomBean.classroomId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{adminClassroomBean.initClassroom}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="title">
+        Admin classroom
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Třída #{adminClassroomBean.classroom.name}</h1>
+
+        <p:panelGrid columns="2" columnClasses="ui-grid-col-4, ui-grid-col-8" styleClass="noBorders">
+
+            <p:column>
+                <h2>Třídní učitel</h2>
+                <p:panelGrid columns="2" styleClass="noBorders">
+                    <f:facet name="header">
+                        <h:graphicImage name="images/avatar-woman.png" alt="logo" styleClass="full-width" />
+                    </f:facet>
+
+                    <h:outputText value="Jméno a příjmení:"/>
+                    <h:outputText value="#{adminClassroomBean.classroom.teacher.userAccount.firstname} #{adminClassroomBean.classroom.teacher.userAccount.surname}"/>
+
+                    <h:outputText value="Email:"/>
+                    <h:outputText value="#{adminClassroomBean.classroom.teacher.userAccount.email}"/>
+
+                    <h:outputText value="Telefon:"/>
+                    <h:outputText value="#{adminClassroomBean.classroom.teacher.userAccount.phone}"/>
+
+                    <h:outputText value="Adresa:"/>
+                    <h:outputText value="#{adminClassroomBean.classroom.teacher.userAccount.street}, #{adminClassroomBean.classroom.teacher.userAccount.zip}"/>
+                </p:panelGrid>
+            </p:column>
+
+            <p:column>
+                <h2>Seznam žáků</h2>
+
+                <p:dataTable var="student" value="#{adminClassroomBean.classroom.studentCollection}" >
+
+                    <p:column sortBy="#{student.userAccount.firstname}" headerText="Jméno a Příjmení" >
+                        <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
+                    </p:column>
+
+                    <p:column style="width:3rem;text-align: center">
+                        <p:linkButton outcome="/admin/users" icon="pi pi-search" title="Detail">
+                        </p:linkButton>
+                    </p:column>
+
+                </p:dataTable>
+            </p:column>
+
+
+        </p:panelGrid>
+
+    </ui:define>
+</ui:composition>

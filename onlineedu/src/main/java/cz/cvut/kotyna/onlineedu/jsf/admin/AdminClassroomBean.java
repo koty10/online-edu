@@ -27,10 +27,18 @@ public class AdminClassroomBean implements Serializable {
 
     @Getter @Setter
     private List<Classroom> allClassrooms;
+    @Getter @Setter
+    private Classroom classroom;
+    @Getter @Setter
+    private Integer classroomId;
 
     @PostConstruct
     public void init() {
         allClassrooms = new ArrayList<>(classroomService.getAllClassrooms());
+    }
+
+    public void initClassroom() {
+        classroom = classroomService.findClassroom(classroomId);
     }
 
 }
