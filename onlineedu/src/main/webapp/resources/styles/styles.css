@@ -323,3 +323,8 @@ footer {
     background: none !important;
     border: none !important;
 }
+
+.buttonbar {
+    display: flex;
+    justify-content: space-between;
+}

@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class AdminClassroomBean implements Serializable {
 
     @EJB
     private ClassroomService classroomService;
+
+    @Inject
+    private AdminUserBackingBean adminUserBackingBean;
 
     @Getter @Setter
     private List<Classroom> allClassrooms;
@@ -50,14 +54,17 @@ public class AdminClassroomBean implements Serializable {
     }
 
     public void saveClassroom() {
-        classroomService.saveClassroom(classroom);
         if (classroom.getId() == null) {
+            classroomService.saveClassroom(classroom);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Třída vytvořena"));
         }
         else {
+            classroomService.saveClassroom(classroom);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Třída upravena"));
         }
         PrimeFaces.current().executeScript("PF('manageClassroomDialog').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-classrooms");
+        PrimeFaces.current().ajax().update("form");
+        allClassrooms = new ArrayList<>(classroomService.getAllClassrooms());
+        adminUserBackingBean.init();
     }
 }

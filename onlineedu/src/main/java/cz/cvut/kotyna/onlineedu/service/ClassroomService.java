@@ -34,6 +34,10 @@ public class ClassroomService {
     public void saveClassroom(Classroom classroom) {
         if (classroom.getId() == null) {
             em.persist(classroom);
+            if (classroom.getTeacher() != null) {
+                classroom.getTeacher().setClassroom(classroom);
+                em.merge(classroom.getTeacher());
+            }
         }
         else {
             em.merge(classroom);

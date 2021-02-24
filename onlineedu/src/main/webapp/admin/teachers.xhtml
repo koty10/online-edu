@@ -14,7 +14,7 @@
 
         <h:form id="form">
 
-            <p:growl id="messages" showDetail="true"/>
+            <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
             <div class="buttonbar">
                 <div>
@@ -25,8 +25,8 @@
                     </p:commandButton>
                 </div>
                 <div>
-                    <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
-                        <p:dataExporter type="pdf" target="dt-teachers" fileName="seznam-učitelů"/>
+                    <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                        <p:dataExporter type="pdf" target="dt-teachers" fileName="seznam-učitelů" encoding="cp1250" />
                     </p:commandButton>
                 </div>
             </div>
@@ -73,26 +73,26 @@
                     <p:outputPanel>
                         <div class="p-field">
                             <p:outputLabel for="firstname">Jméno</p:outputLabel>
-                            <p:inputText id="firstname" value="#{adminTeacherBean.teacher.userAccount.firstname}" required="true"/>
+                            <p:inputText id="firstname" value="#{adminTeacherBean.teacher.userAccount.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
                         </div>
                         <div class="p-field">
                             <p:outputLabel for="surname">Příjmení</p:outputLabel>
-                            <p:inputText id="surname" value="#{adminTeacherBean.teacher.userAccount.surname}" required="true"/>
+                            <p:inputText id="surname" value="#{adminTeacherBean.teacher.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
                         </div>
                         <div class="p-field">
                             <p:outputLabel for="phone">Telefon</p:outputLabel>
-                            <p:inputText id="phone" value="#{adminTeacherBean.teacher.userAccount.phone}" required="true"/>
+                            <p:inputText id="phone" value="#{adminTeacherBean.teacher.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
                         </div>
                         <div class="p-field">
                             <p:outputLabel for="email">Email</p:outputLabel>
-                            <p:inputText id="email" value="#{adminTeacherBean.teacher.userAccount.email}" required="true"/>
+                            <p:inputText id="email" value="#{adminTeacherBean.teacher.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
                         </div>
                     </p:outputPanel>
                 </p:outputPanel>
 
                 <f:facet name="footer">
                     <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{adminTeacherBean.saveTeacher}"
-                                     update="manage-teacher-content" process="manage-teacher-content @this"/>
+                                     update="manage-teacher-content messages" process="manage-teacher-content @this"/>
                     <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageTeacherDialog').hide()"
                                      class="ui-button-secondary"/>
                 </f:facet>

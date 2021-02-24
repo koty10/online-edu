@@ -46,7 +46,7 @@ public class Classroom implements Serializable {
     private Collection<Student> studentCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom")
     private Collection<Teaching> teachingCollection;
-    @OneToOne(mappedBy = "classroom")
+    @OneToOne(mappedBy = "classroom", cascade = CascadeType.MERGE)
     private Teacher teacher;
 
     public Classroom() {
