@@ -20,6 +20,9 @@
             <li class="#{urlHelperBean.isCurrentPage('teachers') ? 'active' : ''}">
                 <h:link outcome="/admin/teachers" value="Učitelé"/>
             </li>
+            <li class="#{urlHelperBean.isCurrentPage('students') ? 'active' : ''}">
+                <h:link outcome="/admin/students" value="Žáci"/>
+            </li>
             <li class="#{urlHelperBean.isCurrentPage('users') ? 'active' : ''}">
                 <h:link outcome="/admin/users" value="Uživatelé"/>
             </li>

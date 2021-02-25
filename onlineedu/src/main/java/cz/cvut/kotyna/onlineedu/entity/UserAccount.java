@@ -280,6 +280,10 @@ public class UserAccount implements Serializable {
         }
     }
 
+    public String getFullAddress() {
+        return street + (!street.isEmpty() && !zip.isEmpty() ? "," : "") + zip;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

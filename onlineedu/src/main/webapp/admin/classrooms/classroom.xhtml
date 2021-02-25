@@ -55,8 +55,9 @@
                         <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
                     </p:column>
 
-                    <p:column style="width:3rem;text-align: center">
-                        <p:linkButton outcome="/admin/users" icon="pi pi-search" title="Detail">
+                    <p:column style="width:3rem;text-align: center" exportable="false">
+                        <p:linkButton outcome="/admin/students/student" icon="pi pi-search" title="Detail">
+                            <f:param name="studentId" value="#{student.id}" />
                         </p:linkButton>
                     </p:column>
 
