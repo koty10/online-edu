@@ -6,11 +6,11 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
-        Admin home
+        Admin - seznam učitelů
     </ui:define>
 
     <ui:define name="content">
-        <h1>Třídy</h1>
+        <h1>Učitelé</h1>
 
         <h:form id="form">
 
@@ -25,43 +25,49 @@
                     </p:commandButton>
                 </div>
                 <div>
-                    <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                    <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
                         <p:dataExporter type="pdf" target="dt-teachers" fileName="seznam-učitelů" encoding="cp1250" />
                     </p:commandButton>
                 </div>
             </div>
 
-            <p:dataTable id="dt-teachers" var="user" value="#{userBackingBean.allTeachers}">
+            <p:dataTable id="dt-teachers" var="teacher" value="#{userBackingBean.allTeachers}">
                 <p:column headerText="Username">
-                    <h:outputText value="#{user.userAccount.username}" />
+                    <h:outputText value="#{teacher.userAccount.username}" />
                 </p:column>
 
                 <p:column headerText="Jméno a příjmení">
-                    <h:outputText value="#{user.userAccount.firstname} #{user.userAccount.surname}" />
+                    <h:outputText value="#{teacher.userAccount.firstname} #{teacher.userAccount.surname}" />
                 </p:column>
 
                 <p:column headerText="Email">
-                    <h:outputText value="#{user.userAccount.email}" />
+                    <h:outputText value="#{teacher.userAccount.email}" />
                 </p:column>
 
                 <p:column headerText="Mobil">
-                    <h:outputText value="#{user.userAccount.phone}" />
+                    <h:outputText value="#{teacher.userAccount.phone}" />
                 </p:column>
 
                 <p:column headerText="Ulice">
-                    <h:outputText value="#{user.userAccount.street}" />
+                    <h:outputText value="#{teacher.userAccount.street}" />
                 </p:column>
 
                 <p:column headerText="PSČ">
-                    <h:outputText value="#{user.userAccount.zip}" />
+                    <h:outputText value="#{teacher.userAccount.zip}" />
                 </p:column>
 
                 <p:column headerText="Datum registrace">
-                    <h:outputText value="#{user.userAccount.registeredFormatted}" />
+                    <h:outputText value="#{teacher.userAccount.registeredFormatted}" />
                 </p:column>
 
                 <p:column headerText="Třída">
-                    <h:outputText value="#{user.classroom.name}" />
+                    <h:outputText value="#{teacher.classroom.name}" />
+                </p:column>
+
+                <p:column style="width:3rem;text-align: center" exportable="false">
+                    <p:linkButton outcome="/admin/teachers/teacher" icon="pi pi-search" title="Detail">
+                        <f:param name="teacherId" value="#{teacher.id}" />
+                    </p:linkButton>
                 </p:column>
 
             </p:dataTable>

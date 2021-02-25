@@ -8,7 +8,7 @@
                 xmlns:of="http://omnifaces.org/functions">
 
     <ui:define name="title">
-        Admin home
+        Admin - seznam tříd
     </ui:define>
 
     <ui:define name="content">
@@ -26,7 +26,7 @@
                     </p:commandButton>
                 </div>
                 <div>
-                    <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                    <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
                         <p:dataExporter type="pdf" target="dt-classrooms" fileName="seznam-tříd" encoding="cp1250" />
                     </p:commandButton>
                 </div>
@@ -64,7 +64,7 @@
                     <p:outputPanel>
                         <div class="p-field">
                             <p:outputLabel for="name">Název</p:outputLabel>
-                            <p:inputText id="name" value="#{adminClassroomBean.classroom.name}" required="true"/>
+                            <p:inputText id="name" value="#{adminClassroomBean.classroom.name}" required="true"  requiredMessage="Název je povinné pole" />
                         </div>
                         <div class="p-field">
                             <p:outputLabel for="teacher">Třídní učitel</p:outputLabel>
@@ -78,7 +78,7 @@
 
                 <f:facet name="footer">
                     <p:commandButton id="save" value="Uložit" icon="pi pi-check" actionListener="#{adminClassroomBean.saveClassroom}"
-                                     update=":form:dt-classrooms" process="manage-classroom-content @this" />
+                                     update=":form:dt-classrooms manage-classroom-content messages" process="manage-classroom-content @this" />
                     <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageClassroomDialog').hide()"
                                      class="ui-button-secondary"/>
                 </f:facet>

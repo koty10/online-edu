@@ -9,50 +9,52 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="classroomId" value="#{adminClassroomBean.classroomId}">
+            <o:viewParam name="teacherId" value="#{adminTeacherBean.teacherId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{adminClassroomBean.initClassroom}"/>
+            <f:viewAction action="#{adminTeacherBean.initTeacher}"/>
         </f:metadata>
     </ui:define>
 
     <ui:define name="title">
-        Admin classroom
+        Admin - detail učitele
     </ui:define>
 
     <ui:define name="content">
-        <h1>Třída #{adminClassroomBean.classroom.name}</h1>
 
         <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" styleClass="noBorders" layout="grid">
-
             <p:column>
-                <h2>Třídní učitel</h2>
+                <h1>Profil učitele</h1>
                 <p:panelGrid columns="2" styleClass="noBorders">
                     <f:facet name="header">
                         <h:graphicImage name="images/avatar-woman.png" alt="logo" styleClass="half-width" />
                     </f:facet>
 
                     <h:outputText value="Jméno a příjmení:"/>
-                    <h:outputText value="#{adminClassroomBean.classroom.teacher.userAccount.firstname} #{adminClassroomBean.classroom.teacher.userAccount.surname}"/>
+                    <h:outputText value="#{adminTeacherBean.teacher.userAccount.firstname} #{adminTeacherBean.teacher.userAccount.surname}"/>
 
                     <h:outputText value="Email:"/>
-                    <h:outputText value="#{adminClassroomBean.classroom.teacher.userAccount.email}"/>
+                    <h:outputText value="#{adminTeacherBean.teacher.userAccount.email}"/>
 
                     <h:outputText value="Telefon:"/>
-                    <h:outputText value="#{adminClassroomBean.classroom.teacher.userAccount.phone}"/>
+                    <h:outputText value="#{adminTeacherBean.teacher.userAccount.phone}"/>
 
                     <h:outputText value="Adresa:"/>
-                    <h:outputText value="#{adminClassroomBean.classroom.teacher.userAccount.street}, #{adminClassroomBean.classroom.teacher.userAccount.zip}"/>
+                    <h:outputText value="#{adminTeacherBean.teacher.userAccount.street}, #{adminTeacherBean.teacher.userAccount.zip}"/>
                 </p:panelGrid>
             </p:column>
 
             <p:column>
-                <h2>Seznam žáků</h2>
+                <h1>Vyučované předměty ve třídách</h1>
 
-                <p:dataTable var="student" value="#{adminClassroomBean.classroom.studentCollection}" >
+                <p:dataTable var="teaching" value="#{adminTeacherBean.teacher.teachingCollection}" >
 
-                    <p:column sortBy="#{student.userAccount.firstname}" headerText="Jméno a Příjmení" >
-                        <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
+                    <p:column sortBy="#{teaching.subject.name}" headerText="Předmět" >
+                        <h:outputText value="#{teaching.subject.name}" />
+                    </p:column>
+
+                    <p:column sortBy="#{teaching.classroom.name}" headerText="Třída" >
+                        <h:outputText value="#{teaching.classroom.name}" />
                     </p:column>
 
                     <p:column style="width:3rem;text-align: center">
