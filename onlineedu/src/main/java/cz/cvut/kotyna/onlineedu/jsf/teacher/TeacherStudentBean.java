@@ -53,7 +53,6 @@ public class TeacherStudentBean extends StudentBean implements Serializable {
             student.setClassroom(teacherUserBackingBean.getClassroom());
         }
         super.saveStudent();
-        //s
         teacherTeachingBean.init();
         PrimeFaces.current().executeScript("PF('manageStudentDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-students");

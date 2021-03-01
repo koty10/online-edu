@@ -4,6 +4,7 @@ import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Summary;
 import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.service.StudentService;
+import cz.cvut.kotyna.onlineedu.service.TeachingService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,8 @@ public class StudentBean {
     protected StudentService studentService;
     @EJB
     protected UserService userService;
+    @EJB
+    protected TeachingService teachingService;
 
     @Getter
     @Setter
@@ -67,7 +70,16 @@ public class StudentBean {
     public Summary getStudentSummaryForRhsTeaching(Integer teachingId) {
         if (student == null) return null;
         Optional<Summary> s = student.getSummaryCollection().stream().filter(x -> x.getTeaching().getId().equals(teachingId)).findFirst();
-        return s.orElse(null);
+        if (s.isPresent()) {
+            return s.get();
+        }
+        Summary summary = new Summary();
+        summary.setStudent(student);
+        summary.setTeaching(teachingService.findTeaching(teachingId));
+        summary.setFeedback("");
+        summary.setFinalGrade("");
+        student.getSummaryCollection().add(summary);
+        return summary;
     }
 
 }

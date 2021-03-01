@@ -75,22 +75,25 @@
                         <h:outputText value="#{teacherStudentBean.getStudentSummaryForRhsTeaching(teaching.id).finalGrade}" />
                     </p:column>
 
-                    <p:column style="width:3rem;text-align: center">
-                        <p:linkButton outcome="/home" icon="pi pi-search" title="Detail">
-                        </p:linkButton>
-                    </p:column>
-
                 </p:dataTable>
             </p:column>
 
 
         </p:panelGrid>
 
-        <h:form id="form">
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:textEditor id="student-summary-feedback-editor" widgetVar="student-summary-feedback-editor" value="#{teacherStudentBean.getStudentSummaryForRhsTeaching(teacherTeachingBean.teachingId).feedback}" height="300" style="margin-bottom:10px" secure="false"/>
-            <p:commandButton value="Uložit" action="#{teacherStudentBean.saveStudent}" update=":form:msgs" />
-        </h:form>
+        <p:panel styleClass="noBorders" >
+
+            <h1>Poznámka k žákovi</h1>
+
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+                <p:textEditor id="student-summary-feedback-editor" widgetVar="student-summary-feedback-editor" value="#{teacherStudentBean.getStudentSummaryForRhsTeaching(teacherTeachingBean.teachingId).feedback}" height="300" style="margin-bottom:10px" secure="false"/>
+                <p:commandButton value="Uložit" action="#{teacherStudentBean.saveStudent}" update=":form:msgs" />
+            </h:form>
+
+        </p:panel>
+
+
 
     </ui:define>
 </ui:composition>

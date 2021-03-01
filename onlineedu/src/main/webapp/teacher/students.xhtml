@@ -61,7 +61,7 @@
 
                 </f:facet>
 
-                <p:column headerText="Username">
+                <p:column headerText="Username" visible="false">
                     <h:outputText value="#{student.userAccount.username}" />
                 </p:column>
 
@@ -77,20 +77,12 @@
                     <h:outputText value="#{student.userAccount.phone}" />
                 </p:column>
 
-                <p:column headerText="Ulice">
-                    <h:outputText value="#{student.userAccount.street}" />
+                <p:column headerText="Adresa">
+                    <h:outputText value="#{student.userAccount.fullAddress}" />
                 </p:column>
 
-                <p:column headerText="PSČ">
-                    <h:outputText value="#{student.userAccount.zip}" />
-                </p:column>
-
-                <p:column headerText="Datum registrace">
+                <p:column headerText="Datum registrace" visible="false">
                     <h:outputText value="#{student.userAccount.registeredFormatted}" />
-                </p:column>
-
-                <p:column headerText="Třída">
-                    <h:outputText value="#{student.classroom.name}" />
                 </p:column>
 
                 <p:column style="width:3rem;text-align: center" exportable="false">

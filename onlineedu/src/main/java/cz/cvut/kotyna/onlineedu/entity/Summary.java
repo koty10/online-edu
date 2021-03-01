@@ -46,7 +46,6 @@ public class Summary implements Serializable {
     @Size(max = 64)
     @Column(name = "final_grade")
     private String finalGrade;
-    @Size(max = 1024)
     @Column(name = "feedback")
     private String feedback;
     @JoinColumn(name = "student", referencedColumnName = "id")

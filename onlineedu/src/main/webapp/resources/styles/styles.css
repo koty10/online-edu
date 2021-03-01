@@ -321,7 +321,7 @@ footer {
     margin-left: 25%;
 }
 
-.noBorders tr, .noBorders td {
+.noBorders tr, .noBorders td, .noBorders div {
     background: none !important;
     border: none !important;
 }
