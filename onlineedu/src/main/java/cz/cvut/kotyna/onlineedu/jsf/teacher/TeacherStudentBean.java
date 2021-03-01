@@ -20,10 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Named(value = "teacherStudentBean")
 @ViewScoped
@@ -33,6 +30,8 @@ public class TeacherStudentBean extends StudentBean implements Serializable {
     private UrlHelperBean urlHelperBean;
     @Inject
     private TeacherTeachingBean teacherTeachingBean;
+    @Inject
+    private TeacherUserBackingBean teacherUserBackingBean;
 
     @Override
     public void initStudent() {
@@ -48,4 +47,15 @@ public class TeacherStudentBean extends StudentBean implements Serializable {
         setStudent(studentService.findStudent(studentId));
     }
 
+    @Override
+    public void saveStudent() {
+        if (student.getId() == null) {
+            student.setClassroom(teacherUserBackingBean.getClassroom());
+        }
+        super.saveStudent();
+        //s
+        teacherTeachingBean.init();
+        PrimeFaces.current().executeScript("PF('manageStudentDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-students");
+    }
 }

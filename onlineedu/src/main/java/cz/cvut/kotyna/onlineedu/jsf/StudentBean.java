@@ -64,15 +64,6 @@ public class StudentBean {
         }
     }
 
-    public String getStudentFinalGradeForRhsTeaching(Integer teachingId) {
-        if (student == null) return "";
-        Optional<Summary> s = student.getSummaryCollection().stream().filter(x -> x.getTeaching().getId().equals(teachingId)).findFirst();
-        if (s.isPresent()) {
-            return s.get().getFinalGrade();
-        }
-        return "";
-    }
-
     public Summary getStudentSummaryForRhsTeaching(Integer teachingId) {
         if (student == null) return null;
         Optional<Summary> s = student.getSummaryCollection().stream().filter(x -> x.getTeaching().getId().equals(teachingId)).findFirst();

@@ -35,7 +35,6 @@ public class TeacherTeachingBean implements Serializable {
     @Getter
     private Teaching teaching;
 
-
     public void init() {
 
         // If teacher enter no teachingId, then redirect him to his default teaching

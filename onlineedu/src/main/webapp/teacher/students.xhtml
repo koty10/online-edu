@@ -30,83 +30,126 @@
     <ui:define name="content">
 
         <h2>Seznam žáků</h2>
-        <p:dataTable resizableColumns="true" widgetVar="data-table-students" id="data-table-students" var="student" value="#{teacherTeachingBean.teaching.classroom.studentCollection}">
 
-            <p:column headerText="Jméno">
-                <h:outputText value="#{student.userAccount.firstname}" />
-            </p:column>
+        <h:form id="form">
 
-            <p:column headerText="Příjmení">
-                <h:outputText value="#{student.userAccount.surname}" />
-            </p:column>
+            <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <p:column headerText="Přihlašovací jméno">
-                <h:outputText value="#{student.userAccount.username}" />
-            </p:column>
+            <p:dataTable widgetVar="dt-students" id="dt-students" var="student" value="#{teacherTeachingBean.teaching.classroom.studentCollection}">
 
-            <p:column headerText="Email">
-                <h:outputText value="#{student.userAccount.email}" />
-            </p:column>
+                <f:facet name="header">
+                    <div class="buttonbar">
+                        <div>
+                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{teacherStudentBean.initNewStudent}"
+                                             update=":form:manage-student-content" oncomplete="PF('manageStudentDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-student-content"/>
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                                <p:dataExporter type="pdf" target="dt-students" fileName="seznam-žáků" encoding="cp1250" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <div class="buttonbar flex-end">
+                        <div>
+                            <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                            <p:columnToggler datasource="dt-students" trigger="toggler" />
+                        </div>
+                    </div>
 
-            <p:column headerText="Mobil">
-                <h:outputText value="#{student.userAccount.phone}" />
-            </p:column>
+                </f:facet>
 
-            <p:column headerText="Věk">
-                <h:outputText value="#{student.userAccount.age}" />
-            </p:column>
+                <p:column headerText="Username">
+                    <h:outputText value="#{student.userAccount.username}" />
+                </p:column>
 
-            <p:column headerText="Ulice">
-                <h:outputText value="#{student.userAccount.street}" />
-            </p:column>
+                <p:column headerText="Jméno a příjmení">
+                    <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
+                </p:column>
 
-            <p:column headerText="PSČ">
-                <h:outputText value="#{student.userAccount.zip}" />
-            </p:column>
+                <p:column headerText="Email">
+                    <h:outputText value="#{student.userAccount.email}" />
+                </p:column>
 
-            <p:column style="width:3rem;text-align: center" exportable="false">
-                <p:linkButton outcome="/teacher/students/student" icon="pi pi-search" title="Detail">
-                    <f:param name="studentId" value="#{student.id}" />
-                    <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
-                    <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
-                </p:linkButton>
-            </p:column>
+                <p:column headerText="Mobil">
+                    <h:outputText value="#{student.userAccount.phone}" />
+                </p:column>
 
-        </p:dataTable>
+                <p:column headerText="Ulice">
+                    <h:outputText value="#{student.userAccount.street}" />
+                </p:column>
 
-        <h:outputScript library="js" name="date-picker-locale.js" />
+                <p:column headerText="PSČ">
+                    <h:outputText value="#{student.userAccount.zip}" />
+                </p:column>
 
-        <h:form id="form-new-student">
-            <h3>Přidat žáka</h3>
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+                <p:column headerText="Datum registrace">
+                    <h:outputText value="#{student.userAccount.registeredFormatted}" />
+                </p:column>
 
-            <div class="p-field p-grid">
-                <p:outputLabel for="new-task-firstname" styleClass="p-col-fixed" style="width:150px" value="Jméno" />
-                <div class="p-col">
-                    <p:inputText id="new-task-firstname" value="#{teacherUserBackingBean.userAccount.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
-                </div>
-            </div>
-            <div class="p-field p-grid">
-                <p:outputLabel for="new-task-surname" styleClass="p-col-fixed" style="width:150px" value="Příjmení" />
-                <div class="p-col">
-                    <p:inputText id="new-task-surname" value="#{teacherUserBackingBean.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
-                </div>
-            </div>
-            <div class="p-field p-grid">
-                <p:outputLabel for="new-task-phone" styleClass="p-col-fixed" style="width:150px" value="Telefon" />
-                <div class="p-col">
-                    <p:inputText id="new-task-phone" value="#{teacherUserBackingBean.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
-                </div>
-            </div>
-            <div class="p-field p-grid">
-                <p:outputLabel for="new-task-email" styleClass="p-col-fixed" style="width:150px" value="Email" />
-                <div class="p-col">
-                    <p:inputText id="new-task-email" value="#{teacherUserBackingBean.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
-                </div>
-            </div>
+                <p:column headerText="Třída">
+                    <h:outputText value="#{student.classroom.name}" />
+                </p:column>
 
-            <p:commandButton value="Vytvořit" action="#{teacherUserBackingBean.createStudent}" update=":data-table-students :form-new-student :form-new-student:msgs" />
+                <p:column style="width:3rem;text-align: center" exportable="false">
+                    <p:linkButton outcome="/teacher/students/student" icon="pi pi-search" title="Detail">
+                        <f:param name="studentId" value="#{student.id}" />
+                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                        <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                    </p:linkButton>
+                </p:column>
+
+            </p:dataTable>
+
+
+            <p:dialog header="Student Details" width="450" showEffect="fade" modal="true"
+                      widgetVar="manageStudentDialog" responsive="true">
+                <p:outputPanel id="manage-student-content" class="ui-fluid">
+                    <p:outputPanel>
+                        <div class="p-field">
+                            <p:outputLabel for="firstname">Jméno</p:outputLabel>
+                            <p:inputText id="firstname" value="#{teacherStudentBean.student.userAccount.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="surname">Příjmení</p:outputLabel>
+                            <p:inputText id="surname" value="#{teacherStudentBean.student.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="phone">Telefon</p:outputLabel>
+                            <p:inputText id="phone" value="#{teacherStudentBean.student.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="email">Email</p:outputLabel>
+                            <p:inputText id="email" value="#{teacherStudentBean.student.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="street">Ulice</p:outputLabel>
+                            <p:inputText id="street" value="#{teacherStudentBean.student.userAccount.street}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="zip">PSČ</p:outputLabel>
+                            <p:inputText id="zip" value="#{teacherStudentBean.student.userAccount.zip}"/>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{teacherStudentBean.saveStudent}"
+                                     update="manage-student-content dt-students messages" process="manage-student-content @this"/>
+                    <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageStudentDialog').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+            </p:dialog>
+
         </h:form>
+
+
+
+
+
+
 
 
     </ui:define>

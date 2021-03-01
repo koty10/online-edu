@@ -33,6 +33,8 @@ public class TeachingService {
     }
 
     public Teaching findTeaching(Integer id) {
+        // There is some problem with cache and if you create a new student from teacher/students.xhtml, so the students list remains the same
+        em.getEntityManagerFactory().getCache().evictAll();
         return em.find(Teaching.class, id);
     }
 }
