@@ -4,6 +4,7 @@ import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Summary;
 import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.jsf.StudentBean;
+import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.service.StudentService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 import lombok.Getter;
@@ -15,7 +16,9 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,5 +28,24 @@ import java.util.Optional;
 @Named(value = "teacherStudentBean")
 @ViewScoped
 public class TeacherStudentBean extends StudentBean implements Serializable {
+
+    @Inject
+    private UrlHelperBean urlHelperBean;
+    @Inject
+    private TeacherTeachingBean teacherTeachingBean;
+
+    @Override
+    public void initStudent() {
+        if (studentId == null) {
+            try {
+                final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
+                FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/students.xhtml?teachingId=" + teacherTeachingBean.getTeachingId());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        setStudent(studentService.findStudent(studentId));
+    }
 
 }

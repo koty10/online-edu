@@ -20,19 +20,18 @@ import java.util.Optional;
 
 public class StudentBean {
 
-
     @EJB
-    private StudentService studentService;
+    protected StudentService studentService;
     @EJB
-    private UserService userService;
+    protected UserService userService;
 
     @Getter
     @Setter
-    private List<Student> allStudents;
+    protected List<Student> allStudents;
     @Getter @Setter
-    private Student student;
+    protected Student student;
     @Getter @Setter
-    private Integer studentId;
+    protected Integer studentId;
 
     @PostConstruct
     public void init() {
