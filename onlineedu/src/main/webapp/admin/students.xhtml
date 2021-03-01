@@ -93,6 +93,21 @@
                             <p:outputLabel for="email">Email</p:outputLabel>
                             <p:inputText id="email" value="#{adminStudentBean.student.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
                         </div>
+                        <div class="p-field">
+                            <p:outputLabel for="street">Ulice</p:outputLabel>
+                            <p:inputText id="street" value="#{adminStudentBean.student.userAccount.street}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="zip">PSČ</p:outputLabel>
+                            <p:inputText id="zip" value="#{adminStudentBean.student.userAccount.zip}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="classroom">Třída</p:outputLabel>
+                            <p:selectOneMenu id="classroom" value="#{adminStudentBean.student.classroom}" layout="responsive" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Třída je povinné pole">
+                                <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
+                                <f:selectItems value="#{adminClassroomBean.allClassrooms}" var="classroom" itemValue="#{classroom}" itemLabel="#{classroom.name}" />
+                            </p:selectOneMenu>
+                        </div>
                     </p:outputPanel>
                 </p:outputPanel>
 

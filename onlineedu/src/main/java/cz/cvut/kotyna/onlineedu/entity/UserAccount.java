@@ -281,7 +281,10 @@ public class UserAccount implements Serializable {
     }
 
     public String getFullAddress() {
-        return street + (!street.isEmpty() && !zip.isEmpty() ? "," : "") + zip;
+        if (street == null && zip == null) return "";
+        else if (street != null && zip != null) return street + (!street.isEmpty() && !zip.isEmpty() ? "," : "") + zip;
+        else if (street != null) return street;
+        else return zip;
     }
 
     @Override
