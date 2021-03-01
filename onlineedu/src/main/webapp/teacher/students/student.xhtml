@@ -72,7 +72,7 @@
                     </p:column>
 
                     <p:column sortBy="#{teaching.classroom.name}" headerText="Známka" >
-                        <h:outputText value="#{teacherStudentBean.getStudentFinalGradeForRhsTeaching(teaching.id)}" />
+                        <h:outputText value="#{teacherStudentBean.getStudentSummaryForRhsTeaching(teaching.id).finalGrade}" />
                     </p:column>
 
                     <p:column style="width:3rem;text-align: center">
@@ -85,6 +85,12 @@
 
 
         </p:panelGrid>
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+            <p:textEditor id="student-summary-feedback-editor" widgetVar="student-summary-feedback-editor" value="#{teacherStudentBean.getStudentSummaryForRhsTeaching(teacherTeachingBean.teachingId).feedback}" height="300" style="margin-bottom:10px" secure="false"/>
+            <p:commandButton value="Uložit" action="#{teacherStudentBean.saveStudent}" update=":form:msgs" />
+        </h:form>
 
     </ui:define>
 </ui:composition>

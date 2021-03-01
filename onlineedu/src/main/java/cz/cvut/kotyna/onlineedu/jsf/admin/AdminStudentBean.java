@@ -29,4 +29,11 @@ import java.util.stream.Collectors;
 @ViewScoped
 public class AdminStudentBean extends StudentBean implements Serializable {
 
+    @Override
+    public void saveStudent() {
+        super.saveStudent();
+        PrimeFaces.current().executeScript("PF('manageStudentDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-students");
+    }
+
 }

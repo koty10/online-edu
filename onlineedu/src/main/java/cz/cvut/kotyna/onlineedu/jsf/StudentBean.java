@@ -62,8 +62,6 @@ public class StudentBean {
             studentService.saveStudent(student);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Student upraven"));
         }
-        PrimeFaces.current().executeScript("PF('manageStudentDialog').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-students");
     }
 
     public String getStudentFinalGradeForRhsTeaching(Integer teachingId) {
@@ -73,6 +71,12 @@ public class StudentBean {
             return s.get().getFinalGrade();
         }
         return "";
+    }
+
+    public Summary getStudentSummaryForRhsTeaching(Integer teachingId) {
+        if (student == null) return null;
+        Optional<Summary> s = student.getSummaryCollection().stream().filter(x -> x.getTeaching().getId().equals(teachingId)).findFirst();
+        return s.orElse(null);
     }
 
 }

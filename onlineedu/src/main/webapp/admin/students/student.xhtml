@@ -64,7 +64,7 @@
                     </p:column>
 
                     <p:column sortBy="#{teaching.classroom.name}" headerText="Známka" >
-                        <h:outputText value="#{adminStudentBean.getStudentFinalGradeForRhsTeaching(teaching.id)}" />
+                        <h:outputText value="#{adminStudentBean.getStudentSummaryForRhsTeaching(teaching.id).finalGrade}" />
                     </p:column>
 
                     <p:column style="width:3rem;text-align: center">
