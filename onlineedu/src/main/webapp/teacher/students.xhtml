@@ -64,6 +64,14 @@
                 <h:outputText value="#{student.userAccount.zip}" />
             </p:column>
 
+            <p:column style="width:3rem;text-align: center" exportable="false">
+                <p:linkButton outcome="/teacher/students/student" icon="pi pi-search" title="Detail">
+                    <f:param name="studentId" value="#{student.id}" />
+                    <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                    <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                </p:linkButton>
+            </p:column>
+
         </p:dataTable>
 
         <h:outputScript library="js" name="date-picker-locale.js" />

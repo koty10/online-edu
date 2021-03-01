@@ -1,12 +1,10 @@
-package cz.cvut.kotyna.onlineedu.jsf.admin;
+package cz.cvut.kotyna.onlineedu.jsf.teacher;
 
 import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Summary;
-import cz.cvut.kotyna.onlineedu.entity.Teacher;
 import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.jsf.StudentBean;
 import cz.cvut.kotyna.onlineedu.service.StudentService;
-import cz.cvut.kotyna.onlineedu.service.TeacherService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,10 +21,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-@Named(value = "adminStudentBean")
+@Named(value = "teacherStudentBean")
 @ViewScoped
-public class AdminStudentBean extends StudentBean implements Serializable {
+public class TeacherStudentBean extends StudentBean implements Serializable {
 
 }

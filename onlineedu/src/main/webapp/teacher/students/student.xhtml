@@ -1,0 +1,90 @@
+<ui:composition template="/WEB-INF/templates/teacher-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="studentId" value="#{teacherStudentBean.studentId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="teachingId" value="#{teacherTeachingBean.teachingId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherStudentBean.initStudent}"/>
+            <f:viewAction action="#{teacherTeachingBean.init}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="title">
+        Detail žáka
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" styleClass="noBorders" layout="grid">
+            <p:column>
+                <h1>Profil žáka</h1>
+                <p:panelGrid columns="2" styleClass="noBorders">
+                    <f:facet name="header">
+                        <h:graphicImage name="images/avatar-woman.png" alt="logo" styleClass="half-width" />
+                    </f:facet>
+
+                    <h:outputText value="Jméno a příjmení:"/>
+                    <h:outputText value="#{teacherStudentBean.student.userAccount.firstname} #{teacherStudentBean.student.userAccount.surname}"/>
+
+                    <h:outputText value="Třída:"/>
+                    <h:outputText value="#{teacherStudentBean.student.classroom.name}"/>
+
+                    <h:outputText value="Třídní učitel:"/>
+                    <h:outputText value="#{teacherStudentBean.student.classroom.teacher.userAccount.firstname} #{teacherStudentBean.student.classroom.teacher.userAccount.surname}"/>
+
+                    <h:outputText value="Email:"/>
+                    <h:outputText value="#{teacherStudentBean.student.userAccount.email}"/>
+
+                    <h:outputText value="Telefon:"/>
+                    <h:outputText value="#{teacherStudentBean.student.userAccount.phone}"/>
+
+                    <h:outputText value="Adresa:"/>
+                    <h:outputText value="#{teacherStudentBean.student.userAccount.fullAddress}"/>
+                </p:panelGrid>
+            </p:column>
+
+            <p:column>
+                <h1>Aktuální předměty</h1>
+
+                <p:dataTable var="teaching" value="#{teacherStudentBean.student.classroom.teachingCollection}" >
+
+                    <p:column sortBy="#{teaching.subject.name}" headerText="Předmět" >
+                        <h:outputText value="#{teaching.subject.name}" />
+                    </p:column>
+
+                    <p:column sortBy="#{teaching.teacher.userAccount.firstname} #{teaching.teacher.userAccount.surname}" headerText="Vyučující" >
+                        <h:outputText value="#{teaching.teacher.userAccount.firstname} #{teaching.teacher.userAccount.surname}" />
+                    </p:column>
+
+                    <p:column sortBy="#{teaching.classroom.name}" headerText="Známka" >
+                        <h:outputText value="#{teacherStudentBean.getStudentFinalGradeForRhsTeaching(teaching.id)}" />
+                    </p:column>
+
+                    <p:column style="width:3rem;text-align: center">
+                        <p:linkButton outcome="/home" icon="pi pi-search" title="Detail">
+                        </p:linkButton>
+                    </p:column>
+
+                </p:dataTable>
+            </p:column>
+
+
+        </p:panelGrid>
+
+    </ui:define>
+</ui:composition>
