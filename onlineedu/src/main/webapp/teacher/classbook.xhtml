@@ -30,7 +30,7 @@
     <ui:define name="content">
 
         <h2>Třídní kniha</h2>
-        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{teacherUserBackingBean.studentStatisticsListDataModel}">
+        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{teacherUserBackingBean.studentStatisticsListDataModel}" size="small">
 
             <p:column headerText="Žák">
                 <h:outputText value="#{student.studentFirstname} #{student.studentSurname}" />
