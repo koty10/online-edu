@@ -96,11 +96,10 @@ public class TeacherTaskBean implements Serializable {
             return new ArrayList<>();
         }
         Task task = taskService.findTask(taskId);
-        List<Attempt> attempts = task.getAttemptCollection().stream()
+        return task.getAttemptCollection().stream()
                 .filter(a -> a.getStudent().getId().equals(selectedStudent.getId()))
                 .sorted((x, y) -> y.getTime().compareTo(x.getTime()))
                 .collect(Collectors.toList());
-        return attempts;
     }
 
     public void updateTaskText() {
@@ -132,6 +131,7 @@ public class TeacherTaskBean implements Serializable {
             model.setTaskDate(t.getDateFormatted());
             model.setTaskTimeFrom(t.getTimeFromFormatted());
             model.setTaskTimeTo(t.getTimeToFormatted());
+            model.setType(t.getType());
 
             for (String state : states) {
                 Integer number = teacherTeachingBean.getNumberOfStudentsInState(state, t.getId());

@@ -30,18 +30,23 @@
 
         <h2>Úkoly</h2>
         <h:form id="table-form">
-            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.taskWithStatisticsListDataModel}">
+            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.taskWithStatisticsListDataModel}" size="small">
 
                 <f:facet name="header">
-                        <p:commandButton id="toggler" type="button" value="Vybrat sloupce" style="float:right" icon="pi pi-align-justify" />
-                        <p:columnToggler datasource="data-table-tasks" trigger="toggler" />
+                    <div class="buttonbar flex-end">
+                        <div>
+                            <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                            <p:columnToggler datasource="data-table-tasks" trigger="toggler" />
+                        </div>
+                    </div>
+
                 </f:facet>
 
                 <p:column headerText="Název" sortBy="#{task.taskName}">
-                    <h:link outcome="/teacher/tasks/task" value="#{task.taskName}" includeViewParams="true">
-                        <h:outputText rendered="#{empty task.taskName}" value="Úkol bez názvu" />
-                        <f:param name="taskId" value="#{task.taskId}" />
-                    </h:link>
+                    <h:outputText value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" />
+                </p:column>
+                <p:column headerText="Typ" sortBy="#{task.type}">
+                    <h:outputText value="#{task.type}" />
                 </p:column>
                 <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
                     <h:outputText value="#{task.taskDate}" />
@@ -74,6 +79,15 @@
                 <p:column headerText="Deadline" sortBy="#{task.taskTimeTo}">
                     <h:outputText value="#{task.taskTimeTo}" />
                 </p:column>
+
+                <p:column style="width:3rem;text-align: center" exportable="false">
+                    <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail">
+                        <f:param name="taskId" value="#{task.taskId}" />
+                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                        <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                    </p:linkButton>
+                </p:column>
+
             </p:dataTable>
         </h:form>
 

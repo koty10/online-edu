@@ -1,22 +1,24 @@
 package cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.tasks;
 
 public class TaskWithStatisticsModel {
-    Integer taskId;
-    String taskName;
-    String taskDate;
-    String taskTimeFrom;
-    String taskTimeTo;
-    Integer numberOfStudentsInNewState;
-    Integer numberOfStudentsInSubmittedState;
-    Integer numberOfStudentsInReturnedState;
-    Integer numberOfStudentsInResubmittedState;
-    Integer numberOfStudentsInAcceptedState;
-    Integer numberOfStudentsInExcusedState;
-    Integer numberOfStudentsInFailedState;
+    private Integer taskId;
+    private String taskName;
+    private String taskDate;
+    private String taskTimeFrom;
+    private String taskTimeTo;
+    private Integer numberOfStudentsInNewState;
+    private Integer numberOfStudentsInSubmittedState;
+    private Integer numberOfStudentsInReturnedState;
+    private Integer numberOfStudentsInResubmittedState;
+    private Integer numberOfStudentsInAcceptedState;
+    private Integer numberOfStudentsInExcusedState;
+    private Integer numberOfStudentsInFailedState;
+    private String type;
 
     // Constructor
 
-    public TaskWithStatisticsModel(Integer taskId, String taskName, String taskDate, String taskTimeFrom, String taskTimeTo, Integer numberOfStudentsInNewState, Integer numberOfStudentsInSubmittedState, Integer numberOfStudentsInReturnedState, Integer numberOfStudentsInResubmittedState, Integer numberOfStudentsInAcceptedState, Integer numberOfStudentsInExcusedState, Integer numberOfStudentsInFailedState) {
+
+    public TaskWithStatisticsModel(Integer taskId, String taskName, String taskDate, String taskTimeFrom, String taskTimeTo, Integer numberOfStudentsInNewState, Integer numberOfStudentsInSubmittedState, Integer numberOfStudentsInReturnedState, Integer numberOfStudentsInResubmittedState, Integer numberOfStudentsInAcceptedState, Integer numberOfStudentsInExcusedState, Integer numberOfStudentsInFailedState, String type) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.taskDate = taskDate;
@@ -29,6 +31,7 @@ public class TaskWithStatisticsModel {
         this.numberOfStudentsInAcceptedState = numberOfStudentsInAcceptedState;
         this.numberOfStudentsInExcusedState = numberOfStudentsInExcusedState;
         this.numberOfStudentsInFailedState = numberOfStudentsInFailedState;
+        this.type = type;
     }
 
     public TaskWithStatisticsModel() {
@@ -149,5 +152,13 @@ public class TaskWithStatisticsModel {
 
     public void setNumberOfStudentsInFailedState(Integer numberOfStudentsInFailedState) {
         this.numberOfStudentsInFailedState = numberOfStudentsInFailedState;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
