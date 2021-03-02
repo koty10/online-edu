@@ -87,6 +87,7 @@ public class TeacherTaskBean implements Serializable {
     // initialize new Task (used by form to set it's properties and persist it)
     public void initNewTask() {
         task = new Task();
+        task.setType("normal");
     }
 
     public List<Attempt> getStudentsAttemptsReverseSorted() {
@@ -120,6 +121,7 @@ public class TeacherTaskBean implements Serializable {
         //tasksDataModel.setWrappedData(tasks);
         // to clear the form
         task = new Task();
+        task.setType("normal");
     }
 
     public void loadTasks() {
@@ -131,7 +133,8 @@ public class TeacherTaskBean implements Serializable {
             model.setTaskDate(t.getDateFormatted());
             model.setTaskTimeFrom(t.getTimeFromFormatted());
             model.setTaskTimeTo(t.getTimeToFormatted());
-            model.setType(t.getType());
+            model.setType(t.getTypeCzechFormatted());
+            model.setPoints(t.getPoints());
 
             for (String state : states) {
                 Integer number = teacherTeachingBean.getNumberOfStudentsInState(state, t.getId());

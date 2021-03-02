@@ -28,9 +28,9 @@
 
     <ui:define name="content">
 
-        <h2>Úkoly</h2>
+        <h1>Úkoly</h1>
         <h:form id="table-form">
-            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.taskWithStatisticsListDataModel}" size="small">
+            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.taskWithStatisticsListDataModel}" size="small" >
 
                 <f:facet name="header">
                     <div class="buttonbar flex-end">
@@ -45,8 +45,8 @@
                 <p:column headerText="Název" sortBy="#{task.taskName}">
                     <h:outputText value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" />
                 </p:column>
-                <p:column headerText="Typ" sortBy="#{task.type}">
-                    <h:outputText value="#{task.type}" />
+                <p:column headerText="Typ (počet bodů)" sortBy="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" sortOrder="desc">
+                    <h:outputText value="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" />
                 </p:column>
                 <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
                     <h:outputText value="#{task.taskDate}" />
@@ -94,30 +94,64 @@
 
         <h:outputScript library="js" name="date-picker-locale.js" />
 
-        <h:form id="form-new-task">
-            <h3>Vytvořit úkol</h3>
+        <h:form id="form-new-task" style="margin-top: 5rem">
+            <h2>Vytvořit úkol</h2>
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <div class="p-field p-grid">
-                <p:outputLabel for="new-task-name" styleClass="p-col-fixed" style="width:150px" value="Jméno úkolu" />
-                <div class="p-col">
-                    <p:inputText id="new-task-name" value="#{teacherTaskBean.task.name}" required="true" requiredMessage="Název je povinné pole"/>
-                </div>
-            </div>
+            <p:panelGrid columns="2" styleClass="ui-noborder" >
+                <p:column>
+                    <div class="p-field p-grid">
+                        <p:outputLabel for="new-task-name" styleClass="p-col-fixed" style="width:150px" value="Jméno úkolu" />
+                        <div class="p-col">
+                            <p:inputText id="new-task-name" value="#{teacherTaskBean.task.name}" required="true" requiredMessage="Název je povinné pole"/>
+                        </div>
+                    </div>
 
-            <div class="p-field p-grid">
-                <p:outputLabel for="new-task-time-from" styleClass="p-col-fixed" style="width:150px" value="Začátek" />
-                <div class="p-col">
-                    <p:datePicker id="new-task-time-from" value="#{teacherTaskBean.task.timeFrom}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Začátek je povinné pole"/>
-                </div>
-            </div>
+                    <div class="p-field p-grid">
+                        <p:outputLabel for="new-task-type" styleClass="p-col-fixed" style="width:150px" value="Typ" />
+                        <div class="p-col">
+                            <p:selectOneMenu id="new-task-type" value="#{teacherTaskBean.task.type}" rendered="true" requiredMessage="Typ je povinné pole">
+                                <f:selectItem itemValue="normal" itemLabel="Povinný" />
+                                <f:selectItem itemValue="extra" itemLabel="Dobrovolný" />
+                                <p:ajax update="panel-group-container" />
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                </p:column>
+                <p:column>
+                    <h:panelGroup id="panel-group-container" layout="block" >
+                        <h:panelGroup id="panel-group-points" layout="block" styleClass="p-field p-grid" rendered="#{teacherTaskBean.task.type.equals('extra')}">
+                            <p:outputLabel for="new-task-points" styleClass="p-col-fixed" style="width:150px" value="Počet bodů" />
+                            <div class="p-col">
+                                <p:inputText id="new-task-points" value="#{teacherTaskBean.task.points}" required="true" requiredMessage="Počet bodů je povinné pole"/>
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup id="panel-group-points-slider" layout="block" styleClass="p-field p-grid" rendered="#{teacherTaskBean.task.type.equals('extra')}">
+                            <div class="p-col">
+                                <p:slider for="new-task-points" range="false" minValue="0" maxValue="100"/>
+                            </div>
+                        </h:panelGroup>
 
-            <div class="p-field p-grid">
-                <p:outputLabel for="new-task-time-to" styleClass="p-col-fixed" style="width:150px" value="Deadline" />
-                <div class="p-col">
-                    <p:datePicker id="new-task-time-to" value="#{teacherTaskBean.task.timeTo}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Deadline je povinné pole"/>
-                </div>
-            </div>
+                        <h:panelGroup id="panel-group-time-from" layout="block" styleClass="p-field p-grid" rendered="#{teacherTaskBean.task.type.equals('normal')}">
+                            <p:outputLabel for="new-task-time-from" styleClass="p-col-fixed" style="width:150px" value="Začátek" />
+                            <div class="p-col">
+                                <p:datePicker id="new-task-time-from" value="#{teacherTaskBean.task.timeFrom}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Začátek je povinné pole"/>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup id="panel-group-time-to" layout="block" styleClass="p-field p-grid" rendered="#{teacherTaskBean.task.type.equals('normal')}">
+                            <p:outputLabel for="new-task-time-to" styleClass="p-col-fixed" style="width:150px" value="Deadline" />
+                            <div class="p-col">
+                                <p:datePicker id="new-task-time-to" value="#{teacherTaskBean.task.timeTo}" showTime="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Deadline je povinné pole"/>
+                            </div>
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+                </p:column>
+            </p:panelGrid>
+
+
+
 
 
             <p:textEditor id="new-task-editor" placeholder="Prázdné zadání..." widgetVar="new-task-editor" value="#{teacherTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Text zadání je povinné pole"/>

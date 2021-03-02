@@ -73,6 +73,8 @@ public class Task implements Serializable {
     @Size(max = 64)
     @Column(name = "type")
     private String type;
+    @Column(name = "points")
+    private Integer points;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
     private Collection<Attempt> attemptCollection;
     @JoinColumn(name = "teaching", referencedColumnName = "id")
@@ -170,6 +172,23 @@ public class Task implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getTypeCzechFormatted() {
+        if (type == null) return "";
+        switch (type) {
+            case "normal" : return "Povinný";
+            case "extra" : return "Dobrovolný";
+            default: return "Neznámý";
+        }
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 
     @XmlTransient

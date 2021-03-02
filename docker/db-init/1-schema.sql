@@ -203,7 +203,8 @@ create table task
     "time_from"   timestamp,
     "time_to"     timestamp,
     date     timestamp,
-    type     varchar(64)
+    type     varchar(64),
+	points     integer
 );
 
 create table attempt

@@ -14,11 +14,12 @@ public class TaskWithStatisticsModel {
     private Integer numberOfStudentsInExcusedState;
     private Integer numberOfStudentsInFailedState;
     private String type;
+    private Integer points;
 
     // Constructor
 
 
-    public TaskWithStatisticsModel(Integer taskId, String taskName, String taskDate, String taskTimeFrom, String taskTimeTo, Integer numberOfStudentsInNewState, Integer numberOfStudentsInSubmittedState, Integer numberOfStudentsInReturnedState, Integer numberOfStudentsInResubmittedState, Integer numberOfStudentsInAcceptedState, Integer numberOfStudentsInExcusedState, Integer numberOfStudentsInFailedState, String type) {
+    public TaskWithStatisticsModel(Integer taskId, String taskName, String taskDate, String taskTimeFrom, String taskTimeTo, Integer numberOfStudentsInNewState, Integer numberOfStudentsInSubmittedState, Integer numberOfStudentsInReturnedState, Integer numberOfStudentsInResubmittedState, Integer numberOfStudentsInAcceptedState, Integer numberOfStudentsInExcusedState, Integer numberOfStudentsInFailedState, String type, Integer points) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.taskDate = taskDate;
@@ -32,6 +33,7 @@ public class TaskWithStatisticsModel {
         this.numberOfStudentsInExcusedState = numberOfStudentsInExcusedState;
         this.numberOfStudentsInFailedState = numberOfStudentsInFailedState;
         this.type = type;
+        this.points = points;
     }
 
     public TaskWithStatisticsModel() {
@@ -160,5 +162,13 @@ public class TaskWithStatisticsModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }
