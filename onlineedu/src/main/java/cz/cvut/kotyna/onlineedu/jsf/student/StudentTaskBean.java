@@ -96,6 +96,10 @@ public class StudentTaskBean implements Serializable {
         return taskService.getStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
     }
 
+    public String getLoggedInStudentsTaskStateRaw(Integer taskId) {
+        return taskService.getRawStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
+    }
+
     // TODO rework like taskWithStatisticsListDataModel
     public ListDataModel<Task> getTasksDataModel() {
         if (tasksDataModel == null) {

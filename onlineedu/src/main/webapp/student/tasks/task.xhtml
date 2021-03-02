@@ -25,13 +25,13 @@
 
     <ui:define name="content">
 
-        <h2>Úkol #{studentTaskBean.task.name}</h2>
+        <h2>Úkol #{studentTaskBean.task.name} (#{studentTaskBean.getLoggedInStudentsTaskState(studentTaskBean.taskId)})</h2>
 
         <h:form>
             <p:textEditor widgetVar="editor1" value="#{studentTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
         </h:form>
 
-        <h:form id="form-attempt">
+        <h:form id="form-attempt" rendered="#{!studentTaskBean.getLoggedInStudentsTaskStateRaw(studentTaskBean.taskId).equals('accepted')}">
             <h3 style="margin-top:0">Nový pokus</h3>
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
             <p:textEditor widgetVar="editor-attempt" value="#{studentTaskBean.attemptText}" height="300" style="margin-bottom:10px" secure="false"/>
@@ -46,14 +46,20 @@
         </h3>
 
         <p:dataTable id="attempts" var="attempt" value="#{studentTaskBean.loggedInStudentsAttemptsReverseSorted}" >
-            <p:column headerText="Id">
-                <h:outputText value="#{attempt.id}" />
+            <p:column headerText="Čas odeslání">
+                <h:outputText value="#{attempt.timeFormated}" />
             </p:column>
 
-            <p:column headerText="Popisek">
-                <h:link outcome="/student/tasks/task/attempt" value="#{attempt.timeFormated}" includeViewParams="true" >
+            <p:column headerText="Stav">
+                <h:outputText value="#{attempt.stateCzechFormated}" />
+            </p:column>
+
+            <p:column style="width:3rem;text-align: center" exportable="false">
+                <p:linkButton outcome="/student/tasks/task/attempt" icon="pi pi-search" title="Detail">
                     <f:param name="attemptId" value="#{attempt.id}" />
-                </h:link>
+                    <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
+                    <f:param name="taskId" value="#{studentTaskBean.taskId}" />
+                </p:linkButton>
             </p:column>
         </p:dataTable>
 

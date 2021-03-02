@@ -31,7 +31,7 @@
 
     <ui:define name="content">
 
-        <h2>Pokus úkolu: #{studentAttemptBean.attempt.task.name} (todo:done/undone)</h2>
+        <h2>Pokus úkolu: #{studentAttemptBean.attempt.task.name} (#{studentAttemptBean.attempt.stateCzechFormated})</h2>
 
         <h:form>
             <p:textEditor widgetVar="editor-attempt" value="#{studentAttemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />

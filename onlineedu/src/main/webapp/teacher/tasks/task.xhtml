@@ -18,6 +18,7 @@
             <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
+            <f:viewAction action="#{teacherTeachingBean.init}"/>
             <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
             <f:viewAction action="#{teacherTaskBean.initTask}"/>
             <f:viewAction action="#{teacherTaskBean.loadStudentsListDataModel}"/>
@@ -57,7 +58,7 @@
                             <h:outputText value="#{attempt.getStateCzechFormated()}" />
                         </p:column>
 
-                        <p:column style="width:32px;text-align: center">
+                        <p:column style="width:3rem;text-align: center">
                             <p:linkButton outcome="/teacher/tasks/task/attempt" includeViewParams="true" icon="pi pi-search" title="Detail">
                                 <f:param name="attemptId" value="#{attempt.id}" />
                             </p:linkButton>
