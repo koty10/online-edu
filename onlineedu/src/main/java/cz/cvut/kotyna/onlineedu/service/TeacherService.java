@@ -30,9 +30,6 @@ public class TeacherService {
     @PersistenceContext
     EntityManager em;
 
-    @EJB
-    UserService userService;
-
     private static final Logger logger = Logger.getLogger(TeacherService.class.getName());
 
     public List<Teacher> getAllTeachers() {

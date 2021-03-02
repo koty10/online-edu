@@ -37,4 +37,13 @@ public class TeachingService {
         em.getEntityManagerFactory().getCache().evictAll();
         return em.find(Teaching.class, id);
     }
+
+    public void saveTeaching(Teaching teaching) {
+        if (teaching.getId() == null) {
+            em.persist(teaching);
+        }
+        else {
+            em.merge(teaching);
+        }
+    }
 }

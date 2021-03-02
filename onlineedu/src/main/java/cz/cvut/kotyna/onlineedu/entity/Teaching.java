@@ -119,6 +119,8 @@ public class Teaching implements Serializable {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+        // TODO ask if it is a good idea to solve one to many relation ship like this.. it is due to cache
+        teacher.getTeachingCollection().add(this);
     }
 
     @XmlTransient

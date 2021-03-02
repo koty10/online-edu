@@ -22,51 +22,103 @@
 
     <ui:define name="content">
 
-        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" styleClass="noBorders" layout="grid">
-            <p:column>
-                <h1>Profil učitele</h1>
-                <p:panelGrid columns="2" styleClass="noBorders">
-                    <f:facet name="header">
-                        <h:graphicImage name="images/avatar-woman.png" alt="logo" styleClass="half-width" />
-                    </f:facet>
+        <h:form id="form">
 
-                    <h:outputText value="Jméno a příjmení:"/>
-                    <h:outputText value="#{adminTeacherBean.teacher.userAccount.firstname} #{adminTeacherBean.teacher.userAccount.surname}"/>
+            <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" styleClass="noBorders" layout="grid">
+                <p:column>
+                    <h1>Profil učitele</h1>
+                    <p:panelGrid columns="2" styleClass="noBorders">
+                        <f:facet name="header">
+                            <h:graphicImage name="images/avatar-woman.png" alt="logo" styleClass="half-width" />
+                        </f:facet>
 
-                    <h:outputText value="Email:"/>
-                    <h:outputText value="#{adminTeacherBean.teacher.userAccount.email}"/>
+                        <h:outputText value="Jméno a příjmení:"/>
+                        <h:outputText value="#{adminTeacherBean.teacher.userAccount.firstname} #{adminTeacherBean.teacher.userAccount.surname}"/>
 
-                    <h:outputText value="Telefon:"/>
-                    <h:outputText value="#{adminTeacherBean.teacher.userAccount.phone}"/>
+                        <h:outputText value="Email:"/>
+                        <h:outputText value="#{adminTeacherBean.teacher.userAccount.email}"/>
 
-                    <h:outputText value="Adresa:"/>
-                    <h:outputText value="#{adminTeacherBean.teacher.userAccount.street}, #{adminTeacherBean.teacher.userAccount.zip}"/>
-                </p:panelGrid>
-            </p:column>
+                        <h:outputText value="Telefon:"/>
+                        <h:outputText value="#{adminTeacherBean.teacher.userAccount.phone}"/>
 
-            <p:column>
-                <h1>Vyučované předměty ve třídách</h1>
+                        <h:outputText value="Adresa:"/>
+                        <h:outputText value="#{adminTeacherBean.teacher.userAccount.street}, #{adminTeacherBean.teacher.userAccount.zip}"/>
+                    </p:panelGrid>
+                </p:column>
 
-                <p:dataTable var="teaching" value="#{adminTeacherBean.teacher.teachingCollection}" >
+                <p:column>
+                    <h1>Vyučované předměty ve třídách</h1>
 
-                    <p:column sortBy="#{teaching.subject.name}" headerText="Předmět" >
-                        <h:outputText value="#{teaching.subject.name}" />
-                    </p:column>
+                    <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-                    <p:column sortBy="#{teaching.classroom.name}" headerText="Třída" >
-                        <h:outputText value="#{teaching.classroom.name}" />
-                    </p:column>
+                    <div class="buttonbar">
+                        <div>
+                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminTeachingBean.initNewTeaching}"
+                                             update=":form:manage-teaching-content" oncomplete="PF('manageTeachingDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-teaching-content"/>
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                                <p:dataExporter type="pdf" target="dt-teachings" fileName="seznam-výuky" encoding="cp1250" />
+                            </p:commandButton>
+                        </div>
+                    </div>
 
-                    <p:column style="width:3rem;text-align: center">
-                        <p:linkButton outcome="/admin/users" icon="pi pi-search" title="Detail">
-                        </p:linkButton>
-                    </p:column>
+                    <p:dataTable id="dt-teachings" var="teaching" value="#{adminTeacherBean.teacher.teachingCollection}" >
 
-                </p:dataTable>
-            </p:column>
+                        <p:column sortBy="#{teaching.subject.name}" headerText="Předmět" >
+                            <h:outputText value="#{teaching.subject.name}" />
+                        </p:column>
 
+                        <p:column sortBy="#{teaching.classroom.name}" headerText="Třída" >
+                            <h:outputText value="#{teaching.classroom.name}" />
+                        </p:column>
 
-        </p:panelGrid>
+                        <p:column style="width:3rem;text-align: center">
+                            <p:linkButton outcome="/admin/users" icon="pi pi-search" title="Detail">
+                            </p:linkButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:column>
+
+            </p:panelGrid>
+
+            <p:dialog header="Nová výuka" width="450" showEffect="fade" modal="true"
+                      widgetVar="manageTeachingDialog" responsive="true">
+                <p:outputPanel id="manage-teaching-content" class="ui-fluid">
+                    <p:outputPanel>
+
+                        <div class="p-field">
+                            <p:outputLabel for="subject">Předmět</p:outputLabel>
+                            <p:selectOneMenu id="subject" value="#{adminTeachingBean.teaching.subject}" layout="responsive" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Předmět je povinné pole" >
+                                <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
+                                <f:selectItems value="#{adminSubjectBean.allSubjects}" var="subject" itemValue="#{subject}" itemLabel="#{subject.name}" />
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="p-field">
+                            <p:outputLabel for="classroom">Třída</p:outputLabel>
+                            <p:selectOneMenu id="classroom" value="#{adminTeachingBean.teaching.classroom}" layout="responsive" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Třída je povinné pole" >
+                                <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
+                                <f:selectItems value="#{adminClassroomBean.allClassrooms}" var="classroom" itemValue="#{classroom}" itemLabel="#{classroom.name}" />
+                            </p:selectOneMenu>
+                        </div>
+
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{adminTeachingBean.saveTeaching(adminTeacherBean.teacher)}"
+                                     update="manage-teaching-content messages" process="manage-teaching-content @this"/>
+                    <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageTeachingDialog').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+            </p:dialog>
+
+        </h:form>
 
     </ui:define>
 </ui:composition>

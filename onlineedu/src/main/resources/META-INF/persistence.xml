@@ -27,6 +27,7 @@
       <property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
       <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
       <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="eclipselink.cache.shared.default" value="false"/>
     </properties>
   </persistence-unit>
 </persistence>
