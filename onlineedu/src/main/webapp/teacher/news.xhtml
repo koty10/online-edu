@@ -9,7 +9,7 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <o:viewParam name="teachingId" value="#{teachingBean.teachingId}">
+            <o:viewParam name="teachingId" value="#{teacherTeachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
             <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
@@ -39,18 +39,20 @@
             </p:column>
 
             <p:column headerText="Student">
-                <h:outputText value="#{attempt.student.userAccount.surname}" />
+                <h:outputText value="#{attempt.student.userAccount.firstname} #{attempt.student.userAccount.surname}" />
             </p:column>
 
             <p:column headerText="Stav">
                 <h:outputText value="#{attempt.getStateCzechFormated()}" />
             </p:column>
 
-            <p:column style="width:32px;text-align: center">
-                <p:link outcome="/teacher/tasks/task/attempt" includeViewParams="true" styleClass="ui-button pi pi-search">
+            <p:column style="width:3rem;text-align: center" exportable="false">
+                <p:linkButton outcome="/teacher/tasks/task/attempt" icon="pi pi-search" title="Detail">
                     <f:param name="attemptId" value="#{attempt.id}" />
                     <f:param name="taskId" value="#{attempt.task.id}" />
-                </p:link>
+                    <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                    <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                </p:linkButton>
             </p:column>
 
         </p:dataTable>
