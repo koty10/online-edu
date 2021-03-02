@@ -28,6 +28,7 @@
                                 <h:outputText value="#{teaching.subject.name}" />
                                 <h:outputText value=" (#{teacherTeachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(teaching.id)})" />
                                 <f:param name="teachingId" value="#{teaching.id}" />
+                                <f:param name="studentId" value="#{teacherStudentBean.studentId}" disable="#{empty teacherStudentBean.studentId}" />
                             </h:link>
                         </li>
                     </ui:repeat>

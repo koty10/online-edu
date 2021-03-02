@@ -130,8 +130,8 @@ public class UserService {
     }
 
     public UserAccount generateUserAccountUsernameAndPassword(UserAccount userAccount) {
-        String usernameBase = userAccount.getFirstname() + "." + userAccount.getSurname();
-        String username = userAccount.getFirstname() + "." + userAccount.getSurname();
+        String usernameBase = (userAccount.getFirstname() + "." + userAccount.getSurname()).toLowerCase();
+        String username = (userAccount.getFirstname() + "." + userAccount.getSurname()).toLowerCase();
         int counter = 1;
         while(!em.createNamedQuery(UserAccount.FIND_USER_ACCOUNT_BY_USERNAME, UserAccount.class).setParameter("username", username).getResultList().isEmpty()) {
             username = usernameBase + counter++;
