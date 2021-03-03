@@ -132,6 +132,8 @@ public class TeacherUserBackingBean implements Serializable {
         return null;
     }
 
+
+
     //FIXME smazat - jen pro testovani
     public List<String> getPasswordsHashed() {
         return loginService.getPasswordsHashed();

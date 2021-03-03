@@ -18,12 +18,13 @@ import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Stateless
 public class UserService {
@@ -114,9 +115,34 @@ public class UserService {
             studentStatisticsModel.setNumberOfTasksInAcceptedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "accepted"));
             studentStatisticsModel.setNumberOfTasksInExcusedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "excused"));
             studentStatisticsModel.setNumberOfTasksInFailedState(getNumberOfTasksInRhsStateForRhsStudent(student.getUserAccount().getId(), teaching, "failed"));
+
+            Integer studentPoints = 0;
+
+            List<Task> extraTasks = teaching.getTaskCollection().stream().filter(task -> (task.getType() != null && task.getType().equals("extra"))).collect(Collectors.toList());
+            for (Task task : extraTasks) {
+                List<Attempt> acceptedAttempts = task.getAttemptCollection().stream()
+                        .filter(attempt -> attempt.getState().equals("accepted"))
+                        .filter(attempt -> attempt.getStudent().equals(student))
+                        .filter(distinctByKey(Attempt::getStudent))
+                        .collect(Collectors.toList());
+                // There should be none or only one attempt
+                for (Attempt attempt : acceptedAttempts) {
+                    if (attempt.getTask() != null && attempt.getTask().getPoints() != null) {
+                        studentPoints += attempt.getTask().getPoints();
+                    }
+                }
+            }
+
+            studentStatisticsModel.setPoints(studentPoints);
+
             list.add(studentStatisticsModel);
         }
         return list;
+    }
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
     }
 
     private Integer getNumberOfTasksInRhsStateForRhsStudent(Integer userAccountId, Teaching teaching, String state) {

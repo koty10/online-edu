@@ -10,9 +10,11 @@ public class StudentStatisticsModel {
     Integer numberOfTasksInAcceptedState;
     Integer numberOfTasksInExcusedState;
     Integer numberOfTasksInFailedState;
+    Integer points;
 
     // Constructor
-    public StudentStatisticsModel(String studentFirstname, String studentSurname, Integer numberOfTasksInNewState, Integer numberOfTasksInSubmittedState, Integer numberOfTasksInReturnedState, Integer numberOfTasksInResubmittedState, Integer numberOfTasksInAcceptedState, Integer numberOfTasksInExcusedState, Integer numberOfTasksInFailedState) {
+
+    public StudentStatisticsModel(String studentFirstname, String studentSurname, Integer numberOfTasksInNewState, Integer numberOfTasksInSubmittedState, Integer numberOfTasksInReturnedState, Integer numberOfTasksInResubmittedState, Integer numberOfTasksInAcceptedState, Integer numberOfTasksInExcusedState, Integer numberOfTasksInFailedState, Integer points) {
         this.studentFirstname = studentFirstname;
         this.studentSurname = studentSurname;
         this.numberOfTasksInNewState = numberOfTasksInNewState;
@@ -22,6 +24,7 @@ public class StudentStatisticsModel {
         this.numberOfTasksInAcceptedState = numberOfTasksInAcceptedState;
         this.numberOfTasksInExcusedState = numberOfTasksInExcusedState;
         this.numberOfTasksInFailedState = numberOfTasksInFailedState;
+        this.points = points;
     }
 
     public StudentStatisticsModel() {
@@ -100,5 +103,13 @@ public class StudentStatisticsModel {
 
     public void setNumberOfTasksInFailedState(Integer numberOfTasksInFailedState) {
         this.numberOfTasksInFailedState = numberOfTasksInFailedState;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }

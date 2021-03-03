@@ -36,6 +36,9 @@
                 <h:outputText value="#{student.studentFirstname} #{student.studentSurname}" />
             </p:column>
 
+            <p:column headerText="Body za dobrovolné úkoly">
+                <h:outputText value="#{student.points}" />
+            </p:column>
             <p:column headerText="Nové">
                 <h:outputText value="#{student.numberOfTasksInNewState}" />
             </p:column>
