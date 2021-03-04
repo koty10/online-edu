@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,11 +55,20 @@ public class StudentTaskBean implements Serializable {
     private String attemptText;
     @Getter @Setter
     private String result;
-    @Getter @Setter
-    private ListDataModel<StudentWithTaskState> studentsDataModel;
-    // TODO rework like taskWithStatisticsListDataModel
     @Setter
-    private ListDataModel<Task> tasksDataModel;
+    private Collection<Task> tasks;
+    @Setter
+    private Collection<Task> extraNotYetAcceptedTasks;
+    @Setter
+    private Collection<Task> extraAlreadyAcceptedTasks;
+    @Setter
+    private Collection<Task> extraAlreadySentTasks;
+    @Setter
+    private Collection<Task> normalNotYetAcceptedTasks;
+    @Setter
+    private Collection<Task> normalAlreadyAcceptedTasks;
+    @Setter
+    private Collection<Task> normalAlreadySentTasks;
 
     public void initTask() {
         if (taskId == null) {
@@ -100,11 +110,84 @@ public class StudentTaskBean implements Serializable {
         return taskService.getRawStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
     }
 
-    // TODO rework like taskWithStatisticsListDataModel
-    public ListDataModel<Task> getTasksDataModel() {
-        if (tasksDataModel == null) {
-            tasksDataModel = new ListDataModel<>(new ArrayList<>(teachingService.getTasks(studentTeachingBean.getTeachingId())));
+    public Collection<Task> getTasks() {
+        if (tasks == null) {
+            tasks = teachingService.getTasks(studentTeachingBean.getTeachingId());
         }
-        return tasksDataModel;
+        return tasks;
+    }
+
+    public Collection<Task> getExtraNotYetAcceptedTasks() {
+        if (extraNotYetAcceptedTasks == null) {
+            extraNotYetAcceptedTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
+                    .filter(task ->
+                            !getLoggedInStudentsTaskStateRaw(task.getId()).equals("accepted") &&
+                            !getLoggedInStudentsTaskStateRaw(task.getId()).equals("submitted") &&
+                            !getLoggedInStudentsTaskStateRaw(task.getId()).equals("resubmitted")
+                    )
+                    .filter(task -> task.getType() != null && task.getType().equals("extra"))
+                    .collect(Collectors.toList());
+        }
+        return extraNotYetAcceptedTasks;
+    }
+
+    public Collection<Task> getExtraAlreadyAcceptedTasks() {
+        if (extraAlreadyAcceptedTasks == null) {
+            extraAlreadyAcceptedTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
+                    .filter(task -> getLoggedInStudentsTaskStateRaw(task.getId()).equals("accepted"))
+                    .filter(task -> task.getType() != null && task.getType().equals("extra"))
+                    .collect(Collectors.toList());
+        }
+        return extraAlreadyAcceptedTasks;
+    }
+
+    public Collection<Task> getExtraAlreadySentTasks() {
+        if (extraAlreadySentTasks == null) {
+            extraAlreadySentTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
+                    .filter(task ->
+                            getLoggedInStudentsTaskStateRaw(task.getId()).equals("submitted") ||
+                            getLoggedInStudentsTaskStateRaw(task.getId()).equals("resubmitted")
+                    )
+                    .filter(task -> task.getType() != null && task.getType().equals("extra"))
+                    .collect(Collectors.toList());
+        }
+        return extraAlreadySentTasks;
+    }
+
+    public Collection<Task> getNormalNotYetAcceptedTasks() {
+        if (normalNotYetAcceptedTasks == null) {
+            normalNotYetAcceptedTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
+                    .filter(task ->
+                            !getLoggedInStudentsTaskStateRaw(task.getId()).equals("accepted") &&
+                                    !getLoggedInStudentsTaskStateRaw(task.getId()).equals("submitted") &&
+                                    !getLoggedInStudentsTaskStateRaw(task.getId()).equals("resubmitted")
+                    )
+                    .filter(task -> task.getType() != null && task.getType().equals("normal"))
+                    .collect(Collectors.toList());
+        }
+        return normalNotYetAcceptedTasks;
+    }
+
+    public Collection<Task> getNormalAlreadyAcceptedTasks() {
+        if (normalAlreadyAcceptedTasks == null) {
+            normalAlreadyAcceptedTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
+                    .filter(task -> getLoggedInStudentsTaskStateRaw(task.getId()).equals("accepted"))
+                    .filter(task -> task.getType() != null && task.getType().equals("normal"))
+                    .collect(Collectors.toList());
+        }
+        return normalAlreadyAcceptedTasks;
+    }
+
+    public Collection<Task> getNormalAlreadySentTasks() {
+        if (normalAlreadySentTasks == null) {
+            normalAlreadySentTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
+                    .filter(task ->
+                            getLoggedInStudentsTaskStateRaw(task.getId()).equals("submitted") ||
+                                    getLoggedInStudentsTaskStateRaw(task.getId()).equals("resubmitted")
+                    )
+                    .filter(task -> task.getType() != null && task.getType().equals("normal"))
+                    .collect(Collectors.toList());
+        }
+        return normalAlreadySentTasks;
     }
 }

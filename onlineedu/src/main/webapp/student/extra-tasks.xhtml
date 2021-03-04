@@ -7,7 +7,7 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam name="teachingId" value="#{studentTeachingBean.teachingId}" required="true" requiredMessage="No teaching specified.">
+            <f:viewParam name="teachingId" value="#{studentTeachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </f:viewParam>
             <f:viewAction action="#{studentTeachingBean.initTeaching}"/>
@@ -21,14 +21,13 @@
     <ui:define name="content">
 
         <h2>Úkoly</h2>
-
         <h:form id="form">
 
             <div class="card">
                 <p:tabView dynamic="true" cache="true">
                     <p:tab title="Nesplněné">
 
-                        <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{studentTaskBean.normalNotYetAcceptedTasks}" size="small" emptyMessage="Žádné takové úkoly nejsou.">
+                        <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{studentTaskBean.extraNotYetAcceptedTasks}" size="small" emptyMessage="Žádné takové úkoly nejsou.">
 
                             <f:facet name="header">
                                 <div class="buttonbar flex-end">
@@ -44,12 +43,12 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
-                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
+                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
+                                <h:outputText value="#{task.points}" />
                             </p:column>
 
-                            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}">
-                                <h:outputText value="#{task.timeToFormatted}" sortOrder="desc"/>
+                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
+                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
                             </p:column>
 
                             <p:column style="width:3rem;text-align: center" exportable="false">
@@ -65,7 +64,7 @@
 
                     <p:tab title="Odeslané">
 
-                        <p:dataTable widgetVar="data-table-tasks-submitted-or-resubmitted" id="data-table-tasks-submitted-or-resubmitted" var="task" value="#{studentTaskBean.normalAlreadySentTasks}" size="small" emptyMessage="Žádné takové úkoly nejsou.">
+                        <p:dataTable widgetVar="data-table-tasks-submitted-or-resubmitted" id="data-table-tasks-submitted-or-resubmitted" var="task" value="#{studentTaskBean.extraAlreadySentTasks}" size="small" emptyMessage="Žádné takové úkoly nejsou.">
 
                             <f:facet name="header">
                                 <div class="buttonbar flex-end">
@@ -81,12 +80,12 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
-                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
+                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
+                                <h:outputText value="#{task.points}" />
                             </p:column>
 
-                            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">
-                                <h:outputText value="#{task.timeToFormatted}" />
+                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
+                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
                             </p:column>
 
                             <p:column style="width:3rem;text-align: center" exportable="false">
@@ -102,7 +101,7 @@
 
                     <p:tab title="Hotové">
 
-                        <p:dataTable widgetVar="data-table-tasks-accepted" id="data-table-tasks-accepted" var="task" value="#{studentTaskBean.normalAlreadyAcceptedTasks}" size="small" emptyMessage="Žádné takové úkoly nejsou.">
+                        <p:dataTable widgetVar="data-table-tasks-accepted" id="data-table-tasks-accepted" var="task" value="#{studentTaskBean.extraAlreadyAcceptedTasks}" size="small" emptyMessage="Žádné takové úkoly nejsou.">
 
                             <f:facet name="header">
                                 <div class="buttonbar flex-end">
@@ -118,12 +117,12 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
-                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
+                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
+                                <h:outputText value="#{task.points}" />
                             </p:column>
 
-                            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">
-                                <h:outputText value="#{task.timeToFormatted}" />
+                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
+                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
                             </p:column>
 
                             <p:column style="width:3rem;text-align: center" exportable="false">
@@ -138,6 +137,8 @@
                     </p:tab>
                 </p:tabView>
             </div>
+
+
 
         </h:form>
 
