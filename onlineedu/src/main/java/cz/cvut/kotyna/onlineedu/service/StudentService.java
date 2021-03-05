@@ -37,6 +37,7 @@ public class StudentService {
 
     public void saveStudent(Student student) {
         if (student.getId() == null) {
+            student.setPoints(0);
             em.persist(student);
         }
         else {

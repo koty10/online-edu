@@ -13,8 +13,10 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -86,16 +88,19 @@ public class UserAccount implements Serializable {
     @Column(name = "surname")
     private String surname;
     @Column(name = "birthday")
-    private LocalDate birthday;
+    private Date birthday;
     @Column(name = "registered")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registered;
-    @Size(max = 2147483647)
+    @Size(max = 128)
     @Column(name = "street")
     private String street;
-    @Size(max = 2147483647)
+    @Size(max = 32)
     @Column(name = "zip")
     private String zip;
+    @Size(max = 128)
+    @Column(name = "city")
+    private String city;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Size(max = 64)
     @Column(name = "phone")
@@ -184,14 +189,25 @@ public class UserAccount implements Serializable {
 
     public Integer getAge() {
         if (birthday == null) return null;
-        return Period.between(birthday, LocalDate.now()).getYears();
+        LocalDate localDateBirthday = LocalDate.ofInstant(birthday.toInstant(), ZoneId.systemDefault());
+        return Period.between(localDateBirthday, LocalDate.now()).getYears();
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public String getBirthdayFormatted() {
+        SimpleDateFormat nf = new SimpleDateFormat("dd. MM. yyyy");
+        if (birthday != null) {
+            return nf.format(birthday);
+        }
+        else {
+            return "";
+        }
+    }
+
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -200,7 +216,7 @@ public class UserAccount implements Serializable {
     }
 
     public String getRegisteredFormatted() {
-        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        SimpleDateFormat nf = new SimpleDateFormat("dd. MM. yyyy HH:mm");
         if (registered != null) {
             return nf.format(registered);
         }
@@ -270,6 +286,14 @@ public class UserAccount implements Serializable {
         this.teacher = teacher;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getRoleFormated() {
         switch (role) {
             case "student" : return "Student";
@@ -281,8 +305,10 @@ public class UserAccount implements Serializable {
     }
 
     public String getFullAddress() {
-        if (street == null && zip == null) return "";
+        if (street == null && zip == null && city == null) return "";
+        else if (street != null && zip != null && city != null) return street + ((!street.isEmpty() && !zip.isEmpty()) || (!street.isEmpty() && !city.isEmpty())? ", " : "") + zip + (!city.isEmpty() ? " " : "") + city;
         else if (street != null && zip != null) return street + (!street.isEmpty() && !zip.isEmpty() ? ", " : "") + zip;
+        else if (street != null && city != null) return street + (!street.isEmpty() && !city.isEmpty() ? ", " : "") + city;
         else if (street != null) return street;
         else return zip;
     }

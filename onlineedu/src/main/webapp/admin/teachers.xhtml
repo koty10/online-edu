@@ -60,6 +60,10 @@
                     <h:outputText value="#{teacher.userAccount.registeredFormatted}" />
                 </p:column>
 
+                <p:column headerText="Datum narození">
+                    <h:outputText value="#{teacher.userAccount.birthdayFormatted}" />
+                </p:column>
+
                 <p:column headerText="Třída">
                     <h:outputText value="#{teacher.classroom.name}" />
                 </p:column>
@@ -100,6 +104,14 @@
                         <div class="p-field">
                             <p:outputLabel for="zip">PSČ</p:outputLabel>
                             <p:inputText id="zip" value="#{adminTeacherBean.teacher.userAccount.zip}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="city">Město</p:outputLabel>
+                            <p:inputText id="city" value="#{adminTeacherBean.teacher.userAccount.city}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="birthday">Datum narození</p:outputLabel>
+                            <p:datePicker id="birthday" value="#{adminTeacherBean.teacher.userAccount.birthday}" locale="cs" pattern="dd.MM.yyyy"/>
                         </div>
                     </p:outputPanel>
                 </p:outputPanel>

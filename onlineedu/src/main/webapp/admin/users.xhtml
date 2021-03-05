@@ -33,16 +33,12 @@
                 <h:outputText value="#{user.phone}" />
             </p:column>
 
-            <p:column headerText="Ulice">
-                <h:outputText value="#{user.street}" />
-            </p:column>
-
-            <p:column headerText="PSČ">
-                <h:outputText value="#{user.zip}" />
+            <p:column headerText="Adresa">
+                <h:outputText value="#{user.fullAddress}" />
             </p:column>
 
             <p:column headerText="Datum registrace">
-                <h:outputText value="#{user.registered}" />
+                <h:outputText value="#{user.registeredFormatted}" />
             </p:column>
 
             <p:column headerText="Role">

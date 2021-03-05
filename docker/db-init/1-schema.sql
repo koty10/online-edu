@@ -21,9 +21,10 @@ create table user_account
     surname    varchar(255) not null,
     birthday   timestamp,
     registered timestamp,
-    street     varchar,
-    zip        varchar,
-    phone      varchar(64)
+    street     varchar(128),
+    zip        varchar(32),
+    phone      varchar(64),
+    city       varchar(128)
 );
    
 create table teacher

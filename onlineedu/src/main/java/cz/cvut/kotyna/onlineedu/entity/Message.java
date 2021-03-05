@@ -104,7 +104,7 @@ public class Message implements Serializable {
     }
 
     public String getTimeFormated() {
-        SimpleDateFormat nf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        SimpleDateFormat nf = new SimpleDateFormat("dd. MM. yyyy HH:mm");
         return nf.format(time);
     }
 

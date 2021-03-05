@@ -85,6 +85,10 @@
                     <h:outputText value="#{student.userAccount.registeredFormatted}" />
                 </p:column>
 
+                <p:column headerText="Datum narození" visible="false">
+                    <h:outputText value="#{student.userAccount.birthdayFormatted}" />
+                </p:column>
+
                 <p:column style="width:5rem;text-align: center" exportable="false">
 
                     <p:commandButton icon="pi pi-pencil" update=":form:manage-student-content"
@@ -131,6 +135,14 @@
                         <div class="p-field">
                             <p:outputLabel for="zip">PSČ</p:outputLabel>
                             <p:inputText id="zip" value="#{teacherStudentBean.student.userAccount.zip}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="city">Město</p:outputLabel>
+                            <p:inputText id="city" value="#{teacherStudentBean.student.userAccount.city}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="birthday">Datum narození</p:outputLabel>
+                            <p:datePicker id="birthday" value="#{teacherStudentBean.student.userAccount.birthday}" locale="cs" pattern="dd.MM.yyyy"/>
                         </div>
                     </p:outputPanel>
                 </p:outputPanel>
