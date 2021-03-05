@@ -2,6 +2,7 @@ package cz.cvut.kotyna.onlineedu.jsf.teacher;
 
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Task;
+import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.service.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class TeacherAttemptBean implements Serializable {
     private AttemptService attemptService;
     @Inject
     private TeacherTeachingBean teacherTeachingBean;
+    @Inject
+    UrlHelperBean urlHelperBean;
 
     @Getter @Setter
     private Integer attemptId;
@@ -41,11 +45,14 @@ public class TeacherAttemptBean implements Serializable {
 
     public void initAttempt() {
 
-        //set attempt
         if (attemptId == null) {
-            String message = "Bad request. Please use a link from within the system.";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-            return;
+            try {
+                final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
+                FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/tasks.xhtml?teachingId=" + teacherTeachingBean.getTeachingId());
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         attempt = attemptService.findAttempt(attemptId);

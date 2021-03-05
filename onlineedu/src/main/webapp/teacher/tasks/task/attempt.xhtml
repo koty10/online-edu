@@ -21,11 +21,10 @@
             <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}" requiredMessage="No classroom specified.">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <f:viewAction action="#{teacherTaskBean.initTask}"/>
-            <f:viewAction action="#{teacherAttemptBean.initAttempt}"/>
             <f:viewAction action="#{teacherTeachingBean.init}"/>
             <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
-
+            <f:viewAction action="#{teacherAttemptBean.initAttempt}"/>
+            <f:viewAction action="#{teacherTaskBean.initTask}"/>
         </f:metadata>
     </ui:define>
 
