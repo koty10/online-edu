@@ -31,11 +31,11 @@
 
             <div id="messageDiv">
                 <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
-                <p:repeat value="#{chatBean.loadMessages(studentTeachingBean.teachingId)}" var="message">
+                <p:repeat value="#{chatBean.getMessages(studentTeachingBean.teachingId)}" var="message">
                     <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
                         <img src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" class="#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : ''}" />
                         <p>#{message.text}</p>
-                        <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.userAccount.username} (#{message.userAccount.getRoleFormated()})</span>
+                        <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.userAccount.firstname} #{message.userAccount.surname} (#{message.userAccount.getRoleFormated()})</span>
                         <br/>
                         <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.getTimeFormated()}</span>
                     </div>
@@ -98,70 +98,6 @@
             </o:socket>
 
         </h:form>
-
-        <h2>Seznam spolužáků</h2>
-        <p:dataTable var="classmate" value="#{studentUserBackingBean.classmates}">
-            <p:column headerText="Id">
-                <h:outputText value="#{classmate.id}" />
-            </p:column>
-
-            <p:column headerText="Jméno">
-                <h:outputText value="#{classmate.userAccount.firstname}" />
-            </p:column>
-
-            <p:column headerText="Příjmení">
-                <h:outputText value="#{classmate.userAccount.surname}" />
-            </p:column>
-
-            <p:column headerText="Email">
-                <h:outputText value="#{classmate.userAccount.email}" />
-            </p:column>
-
-            <p:column headerText="Věk">
-                <h:outputText value="#{classmate.userAccount.age}" />
-            </p:column>
-
-            <p:column headerText="Chat alert">
-                <h:outputText value="#{classmate.chatAlert}" />
-            </p:column>
-
-            <p:column headerText="Registrován">
-                <h:outputText value="#{classmate.userAccount.registered}" />
-            </p:column>
-
-            <p:column headerText="Ulice">
-                <h:outputText value="#{classmate.userAccount.street}" />
-            </p:column>
-
-            <p:column headerText="PSČ">
-                <h:outputText value="#{classmate.userAccount.zip}" />
-            </p:column>
-
-            <p:column headerText="Classroom_id">
-                <h:outputText value="#{classmate.classroom.id}" />
-            </p:column>
-        </p:dataTable>
-
-        <h2>Výuka</h2>
-        <p:dataTable var="teaching" value="#{userBackingBean.loggedInUser.student.classroom.teachingCollection}">
-            <p:column headerText="Id">
-                <h:outputText value="#{teaching.id}" />
-            </p:column>
-
-            <p:column headerText="Třída">
-                <h:outputText value="#{teaching.classroom.name}" />
-            </p:column>
-
-            <p:column headerText="Učitel">
-                <h:outputText value="#{teaching.teacher.userAccount.firstname} #{teaching.teacher.userAccount.surname}" />
-            </p:column>
-
-            <p:column headerText="Předmět">
-                <h:outputText value="#{teaching.subject.name}" />
-            </p:column>
-
-        </p:dataTable>
-
 
     </ui:define>
 </ui:composition>

@@ -35,7 +35,7 @@
 
             <div id="messageDiv">
                 <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
-                <p:repeat value="#{chatBean.loadMessages(teacherTeachingBean.teachingId)}" var="message">
+                <p:repeat value="#{chatBean.getMessages(teacherTeachingBean.teachingId)}" var="message">
                     <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
                         <img src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" class="#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : ''}" />
                         <p>#{message.text}</p>

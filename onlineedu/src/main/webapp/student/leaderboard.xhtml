@@ -1,0 +1,37 @@
+<ui:composition template="/WEB-INF/templates/student-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="teachingId" value="#{studentTeachingBean.teachingId}" requiredMessage="No teaching specified." default="#{studentTeachingBean.defaultStudentTeaching.id}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{studentTeachingBean.initTeaching}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="title">
+        Síň slávy
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Síň slávy</h1>
+
+        <p:dataTable var="classmate" value="#{studentUserBackingBean.classmatesReverseSortedByPoints}">
+            <p:column headerText="Body">
+                <h:outputText value="#{classmate.points}" />
+            </p:column>
+
+            <p:column headerText="Jméno a příjmení">
+                <h:outputText value="#{classmate.userAccount.firstname} #{classmate.userAccount.surname}" />
+            </p:column>
+        </p:dataTable>
+
+    </ui:define>
+</ui:composition>

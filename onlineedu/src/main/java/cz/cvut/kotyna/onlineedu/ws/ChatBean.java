@@ -74,7 +74,7 @@ public class ChatBean implements Serializable {
         messageText = null;
     }
 
-    public Collection<Message> loadMessages(Integer teachingId) {
+    public List<Message> getMessages(Integer teachingId) {
         return chatService.getChatByTeachingId(teachingId).getMessageCollection().stream().sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
     }
 

@@ -30,6 +30,8 @@ public class AttemptService {
 
     @EJB
     TaskService taskService;
+    @EJB
+    StudentService studentService;
 
     public Attempt findAttempt(Integer attemptId) {
         return em.find(Attempt.class, attemptId);
@@ -61,6 +63,13 @@ public class AttemptService {
     }
 
     public void acceptAttempt(Attempt attempt) {
+        // If the task is accepted first time (as it should be), then give student the points
+        String state = taskService.getRawStudentsTaskState(attempt.getStudent().getUserAccount().getId(), attempt.getTask().getId());
+        if (!state.equals(TaskState.ACCEPTED.toString())) {
+            attempt.getStudent().setPoints(attempt.getStudent().getPoints() + attempt.getTask().getPoints());
+            studentService.saveStudent(attempt.getStudent());
+        }
+
         attempt.setState(TaskState.ACCEPTED.toString());
         em.merge(attempt);
     }

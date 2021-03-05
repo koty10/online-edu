@@ -22,6 +22,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,14 @@ public class StudentUserBackingBean implements Serializable {
     public List<Student> getClassmates() {
         try {
             return userService.getClassmates(loginService.getLoggedInUser().getStudent().getClassroom().getId());
+        } catch (NullPointerException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Student> getClassmatesReverseSortedByPoints() {
+        try {
+            return userService.getClassmates(loginService.getLoggedInUser().getStudent().getClassroom().getId()).stream().sorted(Comparator.comparingInt(Student::getPoints).reversed()).collect(Collectors.toList());
         } catch (NullPointerException e) {
             return new ArrayList<>();
         }

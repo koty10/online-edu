@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,6 +44,9 @@ public class Student implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "chat_alert")
     private String chatAlert;
+    @NotNull
+    @Column(name = "points")
+    private Integer points;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Collection<Summary> summaryCollection;
     @JoinColumn(name = "classroom", referencedColumnName = "id")
@@ -79,6 +83,14 @@ public class Student implements Serializable {
 
     public void setChatAlert(String chatAlert) {
         this.chatAlert = chatAlert;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 
     @XmlTransient

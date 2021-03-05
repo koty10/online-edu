@@ -54,7 +54,8 @@ create table student
     user_account  integer not null
         constraint user_account_fk
             references user_account
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+    points       integer default 0 not null
 );
 
 create table parent
