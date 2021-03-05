@@ -46,10 +46,10 @@
             <template>
                 <div id="template-chat-message-container" class="chat-message-container">
                     <img id="template-chat-message-img" src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" />
-                    <p id="template-chat-message-text">#{message.text}</p>
-                    <span id="template-chat-message-username">#{message.userAccount.username}</span>
+                    <p id="template-chat-message-text"></p>
+                    <span id="template-chat-message-username"></span>
                     <br/>
-                    <span id="template-chat-message-time">#{message.getTimeFormated()}</span>
+                    <span id="template-chat-message-time"></span>
                 </div>
             </template>
 
@@ -84,7 +84,7 @@
                         time.classList.add("time-right");
                     }
                     text.innerHTML += json.text;
-                    username.innerHTML += json.userAccount.username + " (" + json.userAccount.roleFormated + ")";
+                    username.innerHTML += json.userAccount.firstname + " " + json.userAccount.surname + " (" + json.userAccount.roleFormated + ")";
                     time.innerHTML += json.timeFormated;
 
                     let messages = document.getElementById("messageDiv");
