@@ -48,8 +48,8 @@
                                 <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
                             </p:column>
 
-                            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}">
-                                <h:outputText value="#{task.timeToFormatted}" sortOrder="desc"/>
+                            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">
+                                <h:outputText value="#{task.timeToFormatted}" />
                             </p:column>
 
                             <p:column style="width:3rem;text-align: center" exportable="false">
