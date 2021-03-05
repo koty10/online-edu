@@ -253,17 +253,14 @@ footer {
 
 /* Chat messages containers */
 .chat-message-container {
-    border: 2px solid #dedede;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
+    width: 100%;
 }
 
 /* Darker chat container */
-.darker {
+.darker .chat-message-box {
     border-color: #ccc;
     background-color: #ddd;
+    float: right;
 }
 
 /* Clear floats */
@@ -276,10 +273,14 @@ footer {
 /* Style images */
 .chat-message-container img {
     float: left;
-    max-width: 60px;
-    width: 100%;
-    margin-right: 20px;
+
+
+    display: inline-block;
     border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: #2671ff;
+    margin: 0 10px 10px 0;
 }
 
 /* Style the right image */
@@ -289,16 +290,37 @@ footer {
     margin-right:0;
 }
 
+.chat-message-box {
+    display: flex;
+    padding: 10px 10px 0 10px;
+    border-radius: 0 6px 6px 0;
+    max-width: 80%;
+    width: auto;
+
+    float: left;
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+
+    margin: 10px 0;
+}
+
+
 /* Style time text */
 .time-right {
     float: right;
     color: #aaa;
+
+    font-size: 8pt;
+    margin-bottom: 10px;
 }
 
 /* Style time text */
 .time-left {
     float: left;
     color: #999;
+
+    font-size: 8pt;
+    margin-bottom: 10px;
 }
 
 #webSocketForm\:websocketMessageText {

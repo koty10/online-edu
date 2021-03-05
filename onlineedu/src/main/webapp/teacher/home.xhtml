@@ -37,11 +37,22 @@
                 <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
                 <p:repeat value="#{chatBean.getMessages(teacherTeachingBean.teachingId)}" var="message">
                     <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
-                        <img src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" class="#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : ''}" />
-                        <p>#{message.text}</p>
-                        <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.userAccount.firstname} #{message.userAccount.surname} (#{message.userAccount.getRoleFormated()})</span>
-                        <br/>
-                        <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.getTimeFormated()}</span>
+                        <div class="chat-message-box">
+
+                            <p:graphicImage value="http://www.gravatar.com/avatar/?d=identicon" alt="avatar" rendered="#{(message.userAccount.id != userBackingBean.loggedInUser.id)}"/>
+
+                            <div class="chat-message-content">
+                                <div class="chat-message-message">
+                                    <p>#{message.text}</p>
+                                </div>
+                                <div class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : 'left'}">
+                                    #{message.userAccount.firstname} #{message.userAccount.surname} (#{message.userAccount.getRoleFormated()}) &#8226; #{message.getTimeFormated()}
+                                </div>
+                            </div>
+
+                            <p:graphicImage value="http://www.gravatar.com/avatar/?d=identicon" alt="avatar" rendered="#{(message.userAccount.id == userBackingBean.loggedInUser.id)}"/>
+
+                        </div>
                     </div>
                 </p:repeat>
             </div>
