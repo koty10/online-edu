@@ -32,32 +32,32 @@
         <h2>Třídní kniha</h2>
         <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{teacherUserBackingBean.studentStatisticsListDataModel}" size="small">
 
-            <p:column headerText="Žák">
+            <p:column headerText="Žák" sortBy="#{student.studentFirstname} #{student.studentSurname}" sortOrder="asc">
                 <h:outputText value="#{student.studentFirstname} #{student.studentSurname}" />
             </p:column>
 
-            <p:column headerText="Body za dobrovolné úkoly">
+            <p:column headerText="Body za dobrovolné úkoly" sortBy="#{student.points}">
                 <h:outputText value="#{student.points}" />
             </p:column>
-            <p:column headerText="Nové">
+            <p:column headerText="Nové" sortBy="#{student.numberOfTasksInNewState}">
                 <h:outputText value="#{student.numberOfTasksInNewState}" />
             </p:column>
-            <p:column headerText="Odevzdané">
+            <p:column headerText="Odevzdané" sortBy="#{student.numberOfTasksInSubmittedState}">
                 <h:outputText value="#{student.numberOfTasksInSubmittedState}" />
             </p:column>
-            <p:column headerText="Vrácené">
+            <p:column headerText="Vrácené" sortBy="#{student.numberOfTasksInReturnedState}">
                 <h:outputText value="#{student.numberOfTasksInReturnedState}" />
             </p:column>
-            <p:column headerText="Odevzdané znovu">
+            <p:column headerText="Odevzdané znovu" sortBy="#{student.numberOfTasksInResubmittedState}">
                 <h:outputText value="#{student.numberOfTasksInResubmittedState}" />
             </p:column>
-            <p:column headerText="Schválené">
+            <p:column headerText="Schválené" sortBy="#{student.numberOfTasksInAcceptedState}">
                 <h:outputText value="#{student.numberOfTasksInAcceptedState}" />
             </p:column>
-            <p:column headerText="Omluvené">
+            <p:column headerText="Omluvené" sortBy="#{student.numberOfTasksInExcusedState}">
                 <h:outputText value="#{student.numberOfTasksInExcusedState}" />
             </p:column>
-            <p:column headerText="Nesplněné">
+            <p:column headerText="Nesplněné" sortBy="#{student.numberOfTasksInFailedState}">
                 <h:outputText value="#{student.numberOfTasksInFailedState}" />
             </p:column>
 

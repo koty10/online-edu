@@ -39,6 +39,7 @@ public class TeacherStudentBean extends StudentBean implements Serializable {
             try {
                 final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
                 FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/students.xhtml?teachingId=" + teacherTeachingBean.getTeachingId());
+                return;
             } catch (IOException e) {
                 e.printStackTrace();
             }
