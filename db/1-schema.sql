@@ -21,9 +21,10 @@ create table user_account
     surname    varchar(255) not null,
     birthday   timestamp,
     registered timestamp,
-    street     varchar,
-    zip        varchar,
-    phone      varchar(64)
+    street     varchar(128),
+    zip        varchar(32),
+    phone      varchar(64),
+    city       varchar(128)
 );
    
 create table teacher
@@ -54,7 +55,8 @@ create table student
     user_account  integer not null
         constraint user_account_fk
             references user_account
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+    points       integer default 0 not null
 );
 
 create table parent
@@ -203,7 +205,8 @@ create table task
     "time_from"   timestamp,
     "time_to"     timestamp,
     date     timestamp,
-    type     varchar(64)
+    type      varchar(64) default 'normal'::character varying not null,
+	points     integer
 );
 
 create table attempt

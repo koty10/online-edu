@@ -205,7 +205,7 @@ create table task
     "time_from"   timestamp,
     "time_to"     timestamp,
     date     timestamp,
-    type     varchar(64),
+    type      varchar(64) default 'normal'::character varying not null,
 	points     integer
 );
 
