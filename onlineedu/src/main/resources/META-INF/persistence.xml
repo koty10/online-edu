@@ -19,6 +19,7 @@
     <class>cz.cvut.kotyna.onlineedu.entity.Message</class>
     <class>cz.cvut.kotyna.onlineedu.entity.Task</class>
     <properties>
+      <!--
       <property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
       <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
@@ -27,6 +28,7 @@
       <property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
       <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>
       <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
+      -->
       <property name="eclipselink.cache.shared.default" value="false"/>
     </properties>
   </persistence-unit>
