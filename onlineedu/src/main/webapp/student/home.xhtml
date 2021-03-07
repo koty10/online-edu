@@ -33,11 +33,22 @@
                 <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
                 <p:repeat value="#{chatBean.getMessages(studentTeachingBean.teachingId)}" var="message">
                     <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
-                        <img src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" class="#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : ''}" />
-                        <p>#{message.text}</p>
-                        <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.userAccount.firstname} #{message.userAccount.surname} (#{message.userAccount.getRoleFormated()})</span>
-                        <br/>
-                        <span class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'left' : 'right'}">#{message.getTimeFormated()}</span>
+                        <div class="chat-message-box #{(message.userAccount.role.equals('teacher')) ? 'message-teacher' : 'message-student'}">
+
+                            <p:graphicImage value="http://www.gravatar.com/avatar/?d=identicon" alt="avatar" rendered="#{(message.userAccount.id != userBackingBean.loggedInUser.id)}"/>
+
+                            <div class="chat-message-content">
+                                <div class="chat-message-message">
+                                    <p>#{message.text}</p>
+                                </div>
+                                <div class="time-#{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'right' : 'left'}">
+                                    #{message.userAccount.firstname} #{message.userAccount.surname} (#{message.userAccount.getRoleFormated()}) | #{message.getTimeFormated()}
+                                </div>
+                            </div>
+
+                            <p:graphicImage value="http://www.gravatar.com/avatar/?d=identicon" alt="avatar" rendered="#{(message.userAccount.id == userBackingBean.loggedInUser.id)}"/>
+
+                        </div>
                     </div>
                 </p:repeat>
             </div>
@@ -45,11 +56,15 @@
 
             <template>
                 <div id="template-chat-message-container" class="chat-message-container">
-                    <img id="template-chat-message-img" src="http://www.gravatar.com/avatar/?d=identicon" alt="Avatar" />
-                    <p id="template-chat-message-text"></p>
-                    <span id="template-chat-message-username"></span>
-                    <br/>
-                    <span id="template-chat-message-time"></span>
+                    <div id="template-chat-message-box" class="chat-message-box">
+                        <div id="template-chat-message-content" class="chat-message-content">
+                            <div class="chat-message-message">
+                                <p id="template-chat-message-text"></p>
+                            </div>
+                            <div id="template-chat-message-username">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </template>
 
@@ -66,26 +81,34 @@
                     let clone = temp.content.cloneNode(true);
 
                     let container = clone.getElementById("template-chat-message-container");
+                    let messageBox = clone.getElementById("template-chat-message-box");
                     let text = clone.getElementById("template-chat-message-text");
-                    let img = clone.getElementById("template-chat-message-img");
                     let username = clone.getElementById("template-chat-message-username");
-                    let time = clone.getElementById("template-chat-message-time");
+
+                    let img = document.createElement('img');
+                    img.src = "http://www.gravatar.com/avatar/?d=identicon";
 
                     const json = JSON.parse(message);
 
                     if (userid.innerText === json.userAccount.id.toString()) {
                         container.classList.add("darker");
-                        img.classList.add("right");
-                        username.classList.add("time-left");
-                        time.classList.add("time-left");
+                        username.classList.add("time-right");
+                        messageBox.appendChild(img);
                     }
                     else {
-                        username.classList.add("time-right");
-                        time.classList.add("time-right");
+                        username.classList.add("time-left");
+                        messageBox.insertBefore(img, messageBox.childNodes[0]);
                     }
+
+                    if (json.userAccount.role === "teacher") {
+                        messageBox.classList.add("message-teacher");
+                    }
+                    else {
+                        messageBox.classList.add("message-student");
+                    }
+
                     text.innerHTML += json.text;
-                    username.innerHTML += json.userAccount.firstname + " " + json.userAccount.surname + " (" + json.userAccount.roleFormated + ")";
-                    time.innerHTML += json.timeFormated;
+                    username.innerHTML += json.userAccount.firstname + " " + json.userAccount.surname + " (" + json.userAccount.roleFormated + ") | " + json.timeFormated;
 
                     let messages = document.getElementById("messageDiv");
                     messages.insertBefore(clone, messages.firstChild);
