@@ -48,13 +48,10 @@
                 <div class="column-narrow flex-column">
                     <h:form id="login-form">
                         <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
-                            <p:menuitem value="todo1" update="messages" icon="pi pi-save"/>
-                            <p:menuitem value="todo2" update="messages" icon="pi pi-refresh"/>
-                            <p:menuitem value="todo3" ajax="false" icon="pi pi-times"/>
+                            <p:menuitem value="Uživatelský profil" update="messages" icon="pi pi-user"/>
                             <p:separator />
-                            <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-home"/>
+                            <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-sign-out"/>
                         </p:menuButton>
-                        <p:commandButton value="Přihlásit" rendered="#{not userLogin.loggedIn}" action="login" />
                         <p:growl id="messages" showDetail="true"/>
                     </h:form>
                 </div>

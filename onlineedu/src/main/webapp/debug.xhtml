@@ -1,0 +1,187 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        New page title here
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Obsahova stranka</h1>
+
+        <h2>Seznam uživatelů</h2>
+        <p:dataTable var="user" value="#{userBackingBean.allUsers}">
+            <p:column headerText="Id">
+                <h:outputText value="#{user.id}" />
+            </p:column>
+
+            <p:column headerText="Role">
+                <h:outputText value="#{user.role}" />
+            </p:column>
+
+            <p:column headerText="Username">
+                <h:outputText value="#{user.username}" />
+            </p:column>
+
+            <p:column headerText="Password (hashed)">
+                <h:outputText value="#{user.password}" />
+            </p:column>
+
+            <p:column headerText="Student_id">
+                <h:outputText value="#{user.student.id}" />
+            </p:column>
+
+            <p:column headerText="Parent_id">
+                <h:outputText value="#{user.parent.id}" />
+            </p:column>
+
+            <p:column headerText="Teacher_id">
+                <h:outputText value="#{user.teacher.id}" />
+            </p:column>
+        </p:dataTable>
+
+        <h2>Seznam studentů</h2>
+        <p:dataTable var="student" value="#{userBackingBean.allStudents}">
+            <p:column headerText="Id">
+                <h:outputText value="#{student.id}" />
+            </p:column>
+
+            <p:column headerText="Jméno">
+                <h:outputText value="#{student.userAccount.firstname}" />
+            </p:column>
+
+            <p:column headerText="Příjmení">
+                <h:outputText value="#{student.userAccount.surname}" />
+            </p:column>
+
+            <p:column headerText="Email">
+                <h:outputText value="#{student.userAccount.email}" />
+            </p:column>
+
+            <p:column headerText="Věk">
+                <h:outputText value="#{student.userAccount.age}" />
+            </p:column>
+
+            <p:column headerText="Chat alert">
+                <h:outputText value="#{student.chatAlert}" />
+            </p:column>
+
+            <p:column headerText="Registrován">
+                <h:outputText value="#{student.userAccount.registered}" />
+            </p:column>
+
+            <p:column headerText="Ulice">
+                <h:outputText value="#{student.userAccount.street}" />
+            </p:column>
+
+            <p:column headerText="PSČ">
+                <h:outputText value="#{student.userAccount.zip}" />
+            </p:column>
+
+            <p:column headerText="Classroom_id">
+                <h:outputText value="#{student.classroom.id}" />
+            </p:column>
+        </p:dataTable>
+
+        <h2>Seznam rodičů</h2>
+        <p:dataTable var="parent" value="#{userBackingBean.allParents}">
+            <p:column headerText="Id">
+                <h:outputText value="#{parent.id}" />
+            </p:column>
+
+            <p:column headerText="Jméno">
+                <h:outputText value="#{parent.userAccount.firstname}" />
+            </p:column>
+
+            <p:column headerText="Příjmení">
+                <h:outputText value="#{parent.userAccount.surname}" />
+            </p:column>
+
+            <p:column headerText="Email">
+                <h:outputText value="#{parent.userAccount.email}" />
+            </p:column>
+
+            <p:column headerText="Věk">
+                <h:outputText value="#{parent.userAccount.age}" />
+            </p:column>
+
+            <p:column headerText="Mobil">
+                <h:outputText value="#{parent.userAccount.phone}" />
+            </p:column>
+
+            <p:column headerText="Registrován">
+                <h:outputText value="#{parent.userAccount.registered}" />
+            </p:column>
+
+            <p:column headerText="Ulice">
+                <h:outputText value="#{parent.userAccount.street}" />
+            </p:column>
+
+            <p:column headerText="PSČ">
+                <h:outputText value="#{parent.userAccount.zip}" />
+            </p:column>
+
+        </p:dataTable>
+
+        <h2>Seznam učitelů</h2>
+        <p:dataTable var="teacher" value="#{userBackingBean.allTeachers}">
+            <p:column headerText="Id">
+                <h:outputText value="#{teacher.id}" />
+            </p:column>
+
+            <p:column headerText="Jméno">
+                <h:outputText value="#{teacher.userAccount.firstname}" />
+            </p:column>
+
+            <p:column headerText="Příjmení">
+                <h:outputText value="#{teacher.userAccount.surname}" />
+            </p:column>
+
+            <p:column headerText="Email">
+                <h:outputText value="#{teacher.userAccount.email}" />
+            </p:column>
+
+            <p:column headerText="Věk">
+                <h:outputText value="#{teacher.userAccount.age}" />
+            </p:column>
+
+            <p:column headerText="Mobil">
+                <h:outputText value="#{teacher.userAccount.phone}" />
+            </p:column>
+
+            <p:column headerText="Registrován">
+                <h:outputText value="#{teacher.userAccount.registered}" />
+            </p:column>
+
+            <p:column headerText="Ulice">
+                <h:outputText value="#{teacher.userAccount.street}" />
+            </p:column>
+
+            <p:column headerText="PSČ">
+                <h:outputText value="#{teacher.userAccount.zip}" />
+            </p:column>
+
+            <p:column headerText="Classroom_id">
+                <h:outputText value="#{teacher.classroom.id}" />
+            </p:column>
+        </p:dataTable>
+
+
+
+
+
+        <h2>Seznam uživatelů</h2>
+        <p:dataTable var="pass" value="#{userBackingBean.passwordsHashed}">
+            <p:column headerText="username">
+                <h:outputText value="#{pass}" />
+            </p:column>
+
+        </p:dataTable>
+
+
+
+    </ui:define>
+</ui:composition>

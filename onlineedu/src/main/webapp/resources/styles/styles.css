@@ -364,3 +364,42 @@ footer {
     justify-content: flex-end;
     margin-top: 0.5rem;
 }
+
+.login-box-block {
+    height: 250px;
+    border: 1px solid #dbdbdb;
+    border-radius: 2px;
+    transition: background-color .3s;
+}
+
+.login-box-link {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: transparent;
+}
+
+.login-box-icon {
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
+}
+
+.login-box-inner {
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #419dce;
+    border-radius: 1px;
+}
+
+.login-box-inner h2 {
+    color: #fff;
+    font-size: 18px;
+    line-height: 21px;
+}
