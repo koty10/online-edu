@@ -29,7 +29,7 @@ public class UserLogin {
 //        String newId = FacesContext.getCurrentInstance().getExternalContext().getSessionId(true);
 //        Principal newPrincipal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/onlineedu/");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/");
         } catch (IOException ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
