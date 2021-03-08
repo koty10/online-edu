@@ -28,10 +28,14 @@
                 <h:link outcome="/student/home" value="Home" includeViewParams="true"/>
             </li>
             <li class="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
-                <h:link outcome="/student/tasks" value="Úkoly" includeViewParams="true" />
+                <h:link outcome="/student/tasks" includeViewParams="true" >
+                    <h:outputText value="Úkoly (#{studentTeachingBean.getNumberOfTasksInNewOrReturnedStateForRhsType('normal')})" />
+                </h:link>
             </li>
             <li class="#{urlHelperBean.isCurrentPage('extra-tasks') ? 'active' : ''}">
-                <h:link outcome="/student/extra-tasks" value="Cvičení za body" includeViewParams="true" />
+                <h:link outcome="/student/extra-tasks" includeViewParams="true" >
+                    <h:outputText value="Cvičení za body (#{studentTeachingBean.getNumberOfTasksInNewOrReturnedStateForRhsType('extra')})" />
+                </h:link>
             </li>
             <li class="#{urlHelperBean.isCurrentPage('leaderboard') ? 'active' : ''}">
                 <h:link outcome="/student/leaderboard" value="Síň slávy" includeViewParams="true"/>

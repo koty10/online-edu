@@ -85,4 +85,17 @@ public class StudentTeachingBean implements Serializable {
         }
         return count;
     }
+
+    public Integer getNumberOfTasksInNewOrReturnedStateForRhsType(String type) {
+        UserAccount loggedInUser = loginService.getLoggedInUser();
+        int count = 0;
+
+        for (Task task : teaching.getTaskCollection().stream().filter(task -> task.getType().equals(type)).collect(Collectors.toList())) {
+            String state = taskService.getRawStudentsTaskState(loggedInUser.getId(), task.getId());
+            if (state.equals("new") || state.equals("returned")) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
