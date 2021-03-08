@@ -5,6 +5,7 @@ import cz.cvut.kotyna.onlineedu.entity.Teacher;
 import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
+import cz.cvut.kotyna.onlineedu.service.TeacherService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -28,6 +29,8 @@ import java.util.stream.Collectors;
 @ViewScoped
 public class AdminClassroomBean implements Serializable {
 
+    @EJB
+    private TeacherService teacherService;
     @EJB
     private ClassroomService classroomService;
 
@@ -61,16 +64,21 @@ public class AdminClassroomBean implements Serializable {
     public void saveClassroom() {
         if (classroom.getId() == null) {
             classroomService.saveClassroom(classroom);
+            if (classroom.getTeacher() != null) {
+                teacherService.saveTeacher(classroom.getTeacher());
+            }
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Třída vytvořena"));
         }
         else {
             classroomService.saveClassroom(classroom);
+            if (classroom.getTeacher() != null) {
+                teacherService.saveTeacher(classroom.getTeacher());
+            }
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Třída upravena"));
         }
         PrimeFaces.current().executeScript("PF('manageClassroomDialog').hide()");
         PrimeFaces.current().ajax().update("form");
         allClassrooms = new ArrayList<>(classroomService.getAllClassrooms());
-        adminUserBackingBean.init();
     }
 
     public List<Classroom> getClassroomsWithoutTeacher() {
