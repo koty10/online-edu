@@ -1,0 +1,70 @@
+<ui:composition template="/WEB-INF/templates/admin-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <o:viewParam name="adminId" value="#{adminAdminBean.adminId}">
+                <f:validateLongRange minimum="1"/>
+            </o:viewParam>
+            <f:viewAction action="#{adminAdminBean.initAdmin}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="title">
+        Admin - detail administrátora
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+            <p:column styleClass="p-lg-6">
+                    <h1>Profil administrátora</h1>
+                    <p:panelGrid columns="2" styleClass="noBorders">
+                        <f:facet name="header">
+                            <h:graphicImage name="images/avatar-woman.png" alt="logo" styleClass="half-width" />
+                        </f:facet>
+
+                        <h:outputText value="Jméno a příjmení:"/>
+                        <h:outputText value="#{adminAdminBean.admin.firstname} #{adminAdminBean.admin.surname}"/>
+
+                        <h:outputText value="Email:"/>
+                        <h:outputText value="#{adminAdminBean.admin.email}"/>
+
+                        <h:outputText value="Telefon:"/>
+                        <h:outputText value="#{adminAdminBean.admin.phone}"/>
+
+                        <h:outputText value="Adresa:"/>
+                        <h:outputText value="#{adminAdminBean.admin.fullAddress}"/>
+                    </p:panelGrid>
+                    <h2>Změnit heslo</h2>
+                    <p:panelGrid columns="2" styleClass="noBorders">
+
+                        <p:outputLabel for="currentPassword" value="Současné heslo:"/>
+                        <p:inputText type="password" id="currentPassword" value="#{userBackingBean.currentPassword}" required="true" requiredMessage="Současné heslo je povinné pole"/>
+
+                        <p:outputLabel for="newPassword" value="Nové heslo:"/>
+                        <p:inputText type="password" id="newPassword" value="#{userBackingBean.newPassword}" required="true" requiredMessage="Nové heslo je povinné pole"/>
+
+                        <p:outputLabel for="newPasswordRepeated" value="Nové heslo znovu:"/>
+                        <p:inputText type="password" id="newPasswordRepeated" value="#{userBackingBean.newPasswordRepeated}" required="true" requiredMessage="Nové heslo znovu je povinné pole"/>
+
+                        <p:defaultCommand target="save-command-button"/>
+                        <p:commandButton id="save-command-button" value="Změnit heslo" icon="pi pi-check" actionListener="#{userBackingBean.changePassword(adminAdminBean.admin)}"
+                                         update="messages" />
+
+                    </p:panelGrid>
+                </p:column>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

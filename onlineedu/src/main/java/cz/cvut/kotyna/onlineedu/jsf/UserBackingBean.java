@@ -2,9 +2,12 @@ package cz.cvut.kotyna.onlineedu.jsf;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.classbook.StudentStatisticsModel;
+import cz.cvut.kotyna.onlineedu.service.AuthService;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,6 +23,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,6 +36,14 @@ public class UserBackingBean implements Serializable {
     private UserService userService;
     @EJB
     private LoginService loginService;
+
+    @Getter
+    @Setter
+    private String currentPassword;
+    @Getter @Setter
+    private String newPassword;
+    @Getter @Setter
+    private String newPasswordRepeated;
 
     public List<UserAccount> getAllUsers() {
         return userService.getAllUsers();
@@ -50,6 +63,31 @@ public class UserBackingBean implements Serializable {
 
     public UserAccount getLoggedInUser() {
         return loginService != null ? loginService.getLoggedInUser() : null;
+    }
+
+    public void changePassword(UserAccount userAccount) {
+        String currentPasswordHashed = "";
+        String newPasswordHashed = "";
+
+        try {
+            currentPasswordHashed = AuthService.encodeSHA256(currentPassword, "");
+            newPasswordHashed = AuthService.encodeSHA256(newPassword, "");
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        if (!currentPasswordHashed.equals(userAccount.getPassword())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Chybné heslo", "Zadané současné heslo je chybné!"));
+        }
+        else if (!newPassword.equals(newPasswordRepeated)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Různá hesla", "Zadaná nová hesla se neshodují!"));
+        }
+        else {
+            userAccount.setPassword(newPasswordHashed);
+            userService.saveUserAccount(userAccount);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Heslo změněno", "Heslo bylo úspěšně změněno!"));
+        }
     }
 
     //FIXME smazat - jen pro testovani

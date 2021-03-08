@@ -1,6 +1,7 @@
 package cz.cvut.kotyna.onlineedu.jsf.admin;
 
 import cz.cvut.kotyna.onlineedu.entity.UserAccount;
+import cz.cvut.kotyna.onlineedu.service.AuthService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +11,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,5 +68,4 @@ public class AdminAdminBean implements Serializable {
         PrimeFaces.current().executeScript("PF('manageAdminDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-admins");
     }
-
 }

@@ -38,6 +38,9 @@ public class TeacherUserBackingBean implements Serializable {
     @Getter
     private Classroom classroom;
     // used to create a new user
+    @Getter @Setter
+    private Integer userAccountId;
+    @Getter
     private UserAccount userAccount;
     private ListDataModel<StudentStatisticsModel> studentStatisticsListDataModel;
 
@@ -85,9 +88,13 @@ public class TeacherUserBackingBean implements Serializable {
         return this.classroomId.toString().equals(classroomId);
     }
 
+    public void initUserAccount() {
+        userAccount = userService.findUserAccount(userAccountId);
+    }
+
     // used to create a new user account
     @PostConstruct
-    public void initUserAccount() {
+    public void initNewUserAccount() {
         userAccount = new UserAccount();
     }
 
@@ -104,10 +111,6 @@ public class TeacherUserBackingBean implements Serializable {
 
     public void setStudentStatisticsListDataModel(ListDataModel<StudentStatisticsModel> studentStatisticsListDataModel) {
         this.studentStatisticsListDataModel = studentStatisticsListDataModel;
-    }
-
-    public UserAccount getUserAccount() {
-        return userAccount;
     }
 
     public void setUserAccount(UserAccount userAccount) {

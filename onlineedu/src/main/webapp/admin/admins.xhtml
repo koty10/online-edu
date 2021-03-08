@@ -69,13 +69,19 @@
                     <h:outputText value="#{admin.birthdayFormatted}" />
                 </p:column>
 
-                <p:column style="width:3rem;text-align: center" exportable="false">
+                <p:column style="width:5rem;text-align: center" exportable="false">
+
                     <p:commandButton icon="pi pi-pencil" update=":form:manage-admin-content"
                                      oncomplete="PF('manageAdminDialog').show()"
                                      styleClass="ui-button-success" style="margin-right: 0.25rem;" process="@this">
                         <f:setPropertyActionListener value="#{admin}" target="#{adminAdminBean.admin}"/>
                         <p:resetInput target=":form:manage-admin-content"/>
                     </p:commandButton>
+
+                    <p:linkButton outcome="/admin/admins/admin" icon="pi pi-search" title="Detail">
+                        <f:param name="adminId" value="#{admin.id}" />
+                    </p:linkButton>
+
                 </p:column>
 
             </p:dataTable>

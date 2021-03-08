@@ -181,10 +181,13 @@ public class UserService {
 
         userAccount.setUsername(username);
 
-        try {
-            userAccount.setPassword(AuthService.encodeSHA256(userAccount.getUsername(), ""));
-        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        // If the user is created now
+        if (userAccount.getPassword() == null) {
+            try {
+                userAccount.setPassword(AuthService.encodeSHA256(userAccount.getUsername(), ""));
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
         }
 
         return userAccount;

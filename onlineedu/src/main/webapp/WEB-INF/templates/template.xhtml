@@ -45,16 +45,19 @@
                         </ui:fragment>
                     </ul>
                 </ui:insert>
-                <div class="column-narrow flex-column">
-                    <h:form id="login-form">
-                        <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
-                            <p:menuitem value="Uživatelský profil" update="messages" icon="pi pi-user"/>
-                            <p:separator />
-                            <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-sign-out"/>
-                        </p:menuButton>
-                        <p:growl id="messages" showDetail="true"/>
-                    </h:form>
-                </div>
+                <ui:insert name="top-right-menu">
+                    <div class="column-narrow flex-column">
+                        <h:form id="login-form">
+                            <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
+                                <p:menuitem value="Uživatelský profil" update="messages" icon="pi pi-user"/>
+                                <p:separator />
+                                <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-sign-out"/>
+                            </p:menuButton>
+                            <p:growl id="messages" showDetail="true"/>
+                        </h:form>
+                    </div>
+                </ui:insert>
+
             </header>
             <section class="row">
                 <aside class="big">
