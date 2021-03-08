@@ -16,51 +16,56 @@
 
             <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <div class="buttonbar">
-                <div>
-                    <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminAdminBean.initNewAdmin}"
-                                     update=":form:manage-admin-content" oncomplete="PF('manageAdminDialog').show()"
-                                     styleClass="ui-button-success" style="margin-right: .5rem">
-                        <p:resetInput target=":form:manage-admin-content"/>
-                    </p:commandButton>
-                </div>
-                <div>
-                    <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
-                        <p:dataExporter type="pdf" target="dt-admins" fileName="seznam-učitelů" encoding="cp1250" />
-                    </p:commandButton>
-                </div>
-            </div>
+            <p:dataTable id="dt-admins" var="admin" value="#{adminAdminBean.allAdmins}" size="small">
 
-            <p:dataTable id="dt-admins" var="admin" value="#{adminAdminBean.allAdmins}">
-                <p:column headerText="Username">
+                <f:facet name="header">
+                    <div class="buttonbar">
+                        <div>
+                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminAdminBean.initNewAdmin}"
+                                             update=":form:manage-admin-content" oncomplete="PF('manageAdminDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-admin-content"/>
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                                <p:dataExporter type="pdf" target="dt-admins" fileName="seznam-učitelů" encoding="cp1250" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <div class="buttonbar flex-end">
+                        <div>
+                            <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                            <p:columnToggler datasource="dt-admins" trigger="toggler" />
+                        </div>
+                    </div>
+                </f:facet>
+
+                <p:column headerText="Username" sortBy="#{admin.username}">
                     <h:outputText value="#{admin.username}" />
                 </p:column>
 
-                <p:column headerText="Jméno a příjmení">
+                <p:column headerText="Jméno a příjmení" sortBy="#{admin.firstname} #{admin.surname}">
                     <h:outputText value="#{admin.firstname} #{admin.surname}" />
                 </p:column>
 
-                <p:column headerText="Email">
+                <p:column headerText="Email" sortBy="#{admin.email}">
                     <h:outputText value="#{admin.email}" />
                 </p:column>
 
-                <p:column headerText="Mobil">
+                <p:column headerText="Mobil" sortBy="#{admin.phone}">
                     <h:outputText value="#{admin.phone}" />
                 </p:column>
 
-                <p:column headerText="Ulice">
-                    <h:outputText value="#{admin.street}" />
+                <p:column headerText="Adresa" sortBy="#{admin.fullAddress}">
+                    <h:outputText value="#{admin.fullAddress}" />
                 </p:column>
 
-                <p:column headerText="PSČ">
-                    <h:outputText value="#{admin.zip}" />
-                </p:column>
-
-                <p:column headerText="Datum registrace">
+                <p:column headerText="Datum registrace" visible="false" sortBy="#{admin.registeredFormatted}">
                     <h:outputText value="#{admin.registeredFormatted}" />
                 </p:column>
 
-                <p:column headerText="Datum narození">
+                <p:column headerText="Datum narození" visible="false" sortBy="#{admin.birthdayFormatted}">
                     <h:outputText value="#{admin.birthdayFormatted}" />
                 </p:column>
 
