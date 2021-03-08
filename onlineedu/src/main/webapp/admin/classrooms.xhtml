@@ -17,24 +17,30 @@
         <h:form id="form">
             <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <div class="buttonbar">
-                <div>
-                    <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminClassroomBean.initNewClassroom}"
-                                     update=":form:manage-classroom-content" oncomplete="PF('manageClassroomDialog').show()"
-                                     styleClass="ui-button-success" style="margin-right: .5rem">
-                        <p:resetInput target=":form:manage-classroom-content"/>
-                    </p:commandButton>
-                </div>
-                <div>
-                    <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
-                        <p:dataExporter type="pdf" target="dt-classrooms" fileName="seznam-tříd" encoding="cp1250" />
-                    </p:commandButton>
-                </div>
-            </div>
-
-
-
             <p:dataTable id="dt-classrooms" var="classroom" value="#{adminClassroomBean.allClassrooms}" >
+
+                <f:facet name="header">
+                    <div class="buttonbar">
+                        <div>
+                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminClassroomBean.initNewClassroom}"
+                                             update=":form:manage-classroom-content" oncomplete="PF('manageClassroomDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-classroom-content"/>
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                                <p:dataExporter type="pdf" target="dt-classrooms" fileName="seznam-tříd" encoding="cp1250" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <div class="buttonbar flex-end">
+                        <div>
+                            <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                            <p:columnToggler datasource="dt-classrooms" trigger="toggler" />
+                        </div>
+                    </div>
+                </f:facet>
 
                 <p:column sortBy="#{classroom.name}" headerText="Název" >
                     <h:outputText value="#{classroom.name}" />

@@ -16,22 +16,31 @@
 
             <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <div class="buttonbar">
-                <div>
-                    <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminStudentBean.initNewStudent}"
-                                     update=":form:manage-student-content" oncomplete="PF('manageStudentDialog').show()"
-                                     styleClass="ui-button-success" style="margin-right: .5rem">
-                        <p:resetInput target=":form:manage-student-content"/>
-                    </p:commandButton>
-                </div>
-                <div>
-                    <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
-                        <p:dataExporter type="pdf" target="dt-students" fileName="seznam-žáků" encoding="cp1250" />
-                    </p:commandButton>
-                </div>
-            </div>
-
             <p:dataTable id="dt-students" var="student" value="#{userBackingBean.allStudents}">
+
+                <f:facet name="header">
+                    <div class="buttonbar">
+                        <div>
+                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminStudentBean.initNewStudent}"
+                                             update=":form:manage-student-content" oncomplete="PF('manageStudentDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-student-content"/>
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                                <p:dataExporter type="pdf" target="dt-students" fileName="seznam-žáků" encoding="cp1250" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <div class="buttonbar flex-end">
+                        <div>
+                            <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                            <p:columnToggler datasource="dt-students" trigger="toggler" />
+                        </div>
+                    </div>
+                </f:facet>
+
                 <p:column headerText="Username">
                     <h:outputText value="#{student.userAccount.username}" />
                 </p:column>

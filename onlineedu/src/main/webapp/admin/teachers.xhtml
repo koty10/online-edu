@@ -16,55 +16,60 @@
 
             <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <div class="buttonbar">
-                <div>
-                    <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminTeacherBean.initNewTeacher}"
-                                     update=":form:manage-teacher-content" oncomplete="PF('manageTeacherDialog').show()"
-                                     styleClass="ui-button-success" style="margin-right: .5rem">
-                        <p:resetInput target=":form:manage-teacher-content"/>
-                    </p:commandButton>
-                </div>
-                <div>
-                    <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
-                        <p:dataExporter type="pdf" target="dt-teachers" fileName="seznam-učitelů" encoding="cp1250" />
-                    </p:commandButton>
-                </div>
-            </div>
-
             <p:dataTable id="dt-teachers" var="teacher" value="#{userBackingBean.allTeachers}">
-                <p:column headerText="Username">
+
+                <f:facet name="header">
+                    <div class="buttonbar">
+                        <div>
+                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminTeacherBean.initNewTeacher}"
+                                             update=":form:manage-teacher-content" oncomplete="PF('manageTeacherDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-teacher-content"/>
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                                <p:dataExporter type="pdf" target="dt-teachers" fileName="seznam-učitelů" encoding="cp1250" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    <div class="buttonbar flex-end">
+                        <div>
+                            <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                            <p:columnToggler datasource="dt-teachers" trigger="toggler" />
+                        </div>
+                    </div>
+                </f:facet>
+
+                <p:column headerText="Username" sortBy="#{teacher.userAccount.username}">
                     <h:outputText value="#{teacher.userAccount.username}" />
                 </p:column>
 
-                <p:column headerText="Jméno a příjmení">
+                <p:column headerText="Jméno a příjmení" sortBy="#{teacher.userAccount.firstname} #{teacher.userAccount.surname}">
                     <h:outputText value="#{teacher.userAccount.firstname} #{teacher.userAccount.surname}" />
                 </p:column>
 
-                <p:column headerText="Email">
+                <p:column headerText="Email" sortBy="#{teacher.userAccount.email}">
                     <h:outputText value="#{teacher.userAccount.email}" />
                 </p:column>
 
-                <p:column headerText="Mobil">
+                <p:column headerText="Mobil" sortBy="#{teacher.userAccount.phone}">
                     <h:outputText value="#{teacher.userAccount.phone}" />
                 </p:column>
 
-                <p:column headerText="Ulice">
-                    <h:outputText value="#{teacher.userAccount.street}" />
+                <p:column headerText="Adresa" sortBy="#{teacher.userAccount.fullAddress}">
+                    <h:outputText value="#{teacher.userAccount.fullAddress}" />
                 </p:column>
 
-                <p:column headerText="PSČ">
-                    <h:outputText value="#{teacher.userAccount.zip}" />
-                </p:column>
-
-                <p:column headerText="Datum registrace">
+                <p:column headerText="Datum registrace" sortBy="#{teacher.userAccount.registeredFormatted}" visible="false">
                     <h:outputText value="#{teacher.userAccount.registeredFormatted}" />
                 </p:column>
 
-                <p:column headerText="Datum narození">
+                <p:column headerText="Datum narození" sortBy="#{teacher.userAccount.birthdayFormatted}" visible="false">
                     <h:outputText value="#{teacher.userAccount.birthdayFormatted}" />
                 </p:column>
 
-                <p:column headerText="Třída">
+                <p:column headerText="Třída" sortBy="#{teacher.classroom.name}">
                     <h:outputText value="#{teacher.classroom.name}" />
                 </p:column>
 
