@@ -17,6 +17,7 @@
             </o:viewParam>
             <f:viewAction action="#{studentTeachingBean.initTeaching}"/>
             <f:viewAction action="#{studentUserBackingBean.initUserAccount}"/>
+            <f:viewAction action="#{studentStudentBean.initStudent}"/>
         </f:metadata>
     </ui:define>
 
@@ -30,7 +31,10 @@
 
             <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <p:column styleClass="p-lg-6">
+            <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" styleClass="noBorders" layout="grid">
+
+                <p:column styleClass="p-lg-6">
+
                     <h1>Profil žáka</h1>
                     <p:panelGrid columns="2" styleClass="noBorders">
                         <f:facet name="header">
@@ -38,17 +42,18 @@
                         </f:facet>
 
                         <h:outputText value="Jméno a příjmení:"/>
-                        <h:outputText value="#{teacherUserBackingBean.userAccount.firstname} #{teacherUserBackingBean.userAccount.surname}"/>
+                        <h:outputText value="#{studentUserBackingBean.userAccount.firstname} #{studentUserBackingBean.userAccount.surname}"/>
 
                         <h:outputText value="Email:"/>
-                        <h:outputText value="#{teacherUserBackingBean.userAccount.email}"/>
+                        <h:outputText value="#{studentUserBackingBean.userAccount.email}"/>
 
                         <h:outputText value="Telefon:"/>
-                        <h:outputText value="#{teacherUserBackingBean.userAccount.phone}"/>
+                        <h:outputText value="#{studentUserBackingBean.userAccount.phone}"/>
 
                         <h:outputText value="Adresa:"/>
-                        <h:outputText value="#{teacherUserBackingBean.userAccount.fullAddress}"/>
+                        <h:outputText value="#{studentUserBackingBean.userAccount.fullAddress}"/>
                     </p:panelGrid>
+
                     <h2>Změnit heslo</h2>
                     <p:panelGrid columns="2" styleClass="noBorders">
 
@@ -67,6 +72,28 @@
 
                     </p:panelGrid>
                 </p:column>
+
+                <p:column>
+                    <h1>Aktuální předměty</h1>
+
+                    <p:dataTable var="teaching" value="#{studentUserBackingBean.userAccount.student.classroom.teachingCollection}" >
+
+                        <p:column sortBy="#{teaching.subject.name}" headerText="Předmět" >
+                            <h:outputText value="#{teaching.subject.name}" />
+                        </p:column>
+
+                        <p:column sortBy="#{teaching.teacher.userAccount.firstname} #{teaching.teacher.userAccount.surname}" headerText="Vyučující" >
+                            <h:outputText value="#{teaching.teacher.userAccount.firstname} #{teaching.teacher.userAccount.surname}" />
+                        </p:column>
+
+                        <p:column sortBy="#{teaching.classroom.name}" headerText="Známka" >
+                            <h:outputText value="#{studentStudentBean.getStudentSummaryForRhsTeaching(teaching.id).finalGrade}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </p:column>
+
+            </p:panelGrid>
 
         </h:form>
 
