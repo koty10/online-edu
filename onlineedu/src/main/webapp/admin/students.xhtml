@@ -68,7 +68,15 @@
                     <h:outputText value="#{student.classroom.name}" />
                 </p:column>
 
-                <p:column style="width:3rem;text-align: center" exportable="false">
+                <p:column style="width:5rem;text-align: center" exportable="false">
+
+                    <p:commandButton icon="pi pi-pencil" update=":form:manage-student-content"
+                                     oncomplete="PF('manageStudentDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: 0.25rem;" process="@this">
+                        <f:setPropertyActionListener value="#{student}" target="#{adminStudentBean.student}"/>
+                        <p:resetInput target=":form:manage-student-content"/>
+                    </p:commandButton>
+
                     <p:linkButton outcome="/admin/students/student" icon="pi pi-search" title="Detail">
                         <f:param name="studentId" value="#{student.id}" />
                     </p:linkButton>
@@ -124,11 +132,15 @@
                 </p:outputPanel>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{adminStudentBean.saveStudent}"
-                                     update="manage-student-content messages" process="manage-student-content @this"/>
+                    <p:defaultCommand target="save-command-button"/>
+                    <p:commandButton id="save-command-button" value="Uložit" icon="pi pi-check" actionListener="#{adminStudentBean.saveStudent}"
+                                     update="manage-student-content dt-students messages" process="manage-student-content @this"/>
                     <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageStudentDialog').hide()"
-                                     class="ui-button-secondary"/>
+                                     class="ui-button-secondary" update="manage-student-content" process="@this" >
+                        <p:resetInput target="manage-student-content"/>
+                    </p:commandButton>
                 </f:facet>
+
             </p:dialog>
 
 
