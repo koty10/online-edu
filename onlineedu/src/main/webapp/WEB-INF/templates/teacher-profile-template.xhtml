@@ -1,0 +1,52 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="top-nav">
+        <ul class="top-nav-list"></ul>
+    </ui:define>
+
+    <ui:define name="left-nav">
+        <ul>
+            <h:messages style="color: red"/>
+
+            <li class="#{urlHelperBean.isCurrentPage('home') ? 'active' : ''}">
+                <h:link outcome="/teacher/home" value="Home" includeViewParams="true"/>
+            </li>
+            <li class="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
+                <h:link outcome="/teacher/tasks" value="Úkoly" includeViewParams="true" />
+            </li>
+            <li class="#{urlHelperBean.isCurrentPage('students') ? 'active' : ''}">
+                <h:link outcome="/teacher/students" value="Seznam žáků" includeViewParams="true" />
+            </li>
+            <li class="#{urlHelperBean.isCurrentPage('classbook') ? 'active' : ''}">
+                <h:link outcome="/teacher/classbook" value="Třídní kniha" includeViewParams="true" />
+            </li>
+            <li class="#{urlHelperBean.isCurrentPage('news') ? 'active' : ''}">
+                <h:link outcome="/teacher/news" value="Novinky" includeViewParams="true" />
+            </li>
+
+        </ul>
+    </ui:define>
+
+    <ui:define name="top-right-menu">
+        <div class="column-narrow flex-column">
+            <h:form id="login-form">
+                <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
+                    <p:menuitem outcome="/teacher/user" value="Uživatelský profil" update="messages" icon="pi pi-user">
+                        <f:param name="userAccountId" value="#{userBackingBean.loggedInUser.id}" />
+                    </p:menuitem>
+                    <p:separator />
+                    <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-sign-out"/>
+                </p:menuButton>
+                <p:growl id="messages" showDetail="true"/>
+            </h:form>
+        </div>
+    </ui:define>
+
+
+</ui:composition>

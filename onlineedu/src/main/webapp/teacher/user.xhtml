@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/templates/teacher-template.xhtml"
+<ui:composition template="/WEB-INF/templates/teacher-profile-template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -12,14 +12,7 @@
             <o:viewParam name="userAccountId" value="#{teacherUserBackingBean.userAccountId}">
                 <f:validateLongRange minimum="1"/>
             </o:viewParam>
-            <o:viewParam name="classroomId" value="#{teacherUserBackingBean.classroomId}">
-                <f:validateLongRange minimum="1"/>
-            </o:viewParam>
-            <o:viewParam name="teachingId" value="#{teacherTeachingBean.teachingId}">
-                <f:validateLongRange minimum="1"/>
-            </o:viewParam>
-            <f:viewAction action="#{teacherTeachingBean.init}"/>
-            <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
+            <f:viewAction action="#{teacherTeachingBean.initNewTeaching}"/>
             <f:viewAction action="#{teacherUserBackingBean.initUserAccount}"/>
         </f:metadata>
     </ui:define>
@@ -34,7 +27,9 @@
 
             <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <p:column styleClass="p-lg-6">
+            <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" styleClass="noBorders" layout="grid">
+
+                <p:column styleClass="p-lg-6">
                     <h1>Profil učitele</h1>
                     <p:panelGrid columns="2" styleClass="noBorders">
                         <f:facet name="header">
@@ -52,6 +47,9 @@
 
                         <h:outputText value="Adresa:"/>
                         <h:outputText value="#{teacherUserBackingBean.userAccount.fullAddress}"/>
+
+                        <h:outputText value="Třídní učitel třídy:"/>
+                        <h:outputText value="#{teacherUserBackingBean.userAccount.teacher.classroom.name}"/>
                     </p:panelGrid>
                     <h2>Změnit heslo</h2>
                     <p:panelGrid columns="2" styleClass="noBorders">
@@ -71,6 +69,72 @@
 
                     </p:panelGrid>
                 </p:column>
+
+                <p:column>
+                    <h1>Vyučované předměty ve třídách</h1>
+
+                    <div class="buttonbar">
+                        <div>
+                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{teacherTeachingBean.initNewTeaching}"
+                                             update=":form:manage-teaching-content" oncomplete="PF('manageTeachingDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-teaching-content"/>
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                                <p:dataExporter type="pdf" target="dt-teachings" fileName="seznam-výuky" encoding="cp1250" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+
+                    <p:dataTable id="dt-teachings" var="teaching" value="#{teacherUserBackingBean.userAccount.teacher.teachingCollection}" >
+
+                        <p:column sortBy="#{teaching.subject.name}" headerText="Předmět" >
+                            <h:outputText value="#{teaching.subject.name}" />
+                        </p:column>
+
+                        <p:column sortBy="#{teaching.classroom.name}" headerText="Třída" >
+                            <h:outputText value="#{teaching.classroom.name}" />
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:column>
+
+            </p:panelGrid>
+
+            <p:dialog header="Nová výuka" width="450" showEffect="fade" modal="true"
+                      widgetVar="manageTeachingDialog" responsive="true">
+                <p:outputPanel id="manage-teaching-content" class="ui-fluid">
+                    <p:outputPanel>
+
+                        <div class="p-field">
+                            <p:outputLabel for="subject">Předmět</p:outputLabel>
+                            <p:selectOneMenu id="subject" value="#{teacherTeachingBean.teaching.subject}" layout="responsive" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Předmět je povinné pole" >
+                                <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
+                                <f:selectItems value="#{adminSubjectBean.allSubjects}" var="subject" itemValue="#{subject}" itemLabel="#{subject.name}" />
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="p-field">
+                            <p:outputLabel for="classroom">Třída</p:outputLabel>
+                            <p:selectOneMenu id="classroom" value="#{teacherTeachingBean.teaching.classroom}" layout="responsive" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Třída je povinné pole" >
+                                <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
+                                <f:selectItems value="#{adminClassroomBean.allClassrooms}" var="classroom" itemValue="#{classroom}" itemLabel="#{classroom.name}" />
+                            </p:selectOneMenu>
+                        </div>
+
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{teacherTeachingBean.saveTeaching(teacherUserBackingBean.userAccount.teacher)}"
+                                     update="manage-teaching-content messages" process="manage-teaching-content @this"/>
+                    <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageTeachingDialog').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+            </p:dialog>
 
         </h:form>
 

@@ -4,7 +4,9 @@ import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.service.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -112,5 +114,29 @@ public class TeacherTeachingBean implements Serializable {
     public boolean isCurrentTeaching(String teachingId) {
         if (this.teachingId == null) return false;
         return this.teachingId.toString().equals(teachingId);
+    }
+
+
+
+
+
+    public void initNewTeaching() {
+        teaching = new Teaching();
+    }
+
+    public void saveTeaching(Teacher teacher) {
+
+        teaching.setTeacher(teacher);
+
+        if (teaching.getId() == null) {
+            teachingService.saveTeaching(teaching);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Učitel vytvořen"));
+        }
+        else {
+            teachingService.saveTeaching(teaching);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Učitel upraven"));
+        }
+        PrimeFaces.current().executeScript("PF('manageTeachingDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-teachings");
     }
 }
