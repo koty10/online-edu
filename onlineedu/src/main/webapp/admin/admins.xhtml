@@ -1,0 +1,123 @@
+<ui:composition template="/WEB-INF/templates/admin-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        Admin - seznam administrátorů
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Administrátoři</h1>
+
+        <h:form id="form">
+
+            <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+            <div class="buttonbar">
+                <div>
+                    <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminAdminBean.initNewAdmin}"
+                                     update=":form:manage-admin-content" oncomplete="PF('manageAdminDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target=":form:manage-admin-content"/>
+                    </p:commandButton>
+                </div>
+                <div>
+                    <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
+                        <p:dataExporter type="pdf" target="dt-admins" fileName="seznam-učitelů" encoding="cp1250" />
+                    </p:commandButton>
+                </div>
+            </div>
+
+            <p:dataTable id="dt-admins" var="admin" value="#{adminAdminBean.allAdmins}">
+                <p:column headerText="Username">
+                    <h:outputText value="#{admin.username}" />
+                </p:column>
+
+                <p:column headerText="Jméno a příjmení">
+                    <h:outputText value="#{admin.firstname} #{admin.surname}" />
+                </p:column>
+
+                <p:column headerText="Email">
+                    <h:outputText value="#{admin.email}" />
+                </p:column>
+
+                <p:column headerText="Mobil">
+                    <h:outputText value="#{admin.phone}" />
+                </p:column>
+
+                <p:column headerText="Ulice">
+                    <h:outputText value="#{admin.street}" />
+                </p:column>
+
+                <p:column headerText="PSČ">
+                    <h:outputText value="#{admin.zip}" />
+                </p:column>
+
+                <p:column headerText="Datum registrace">
+                    <h:outputText value="#{admin.registeredFormatted}" />
+                </p:column>
+
+                <p:column headerText="Datum narození">
+                    <h:outputText value="#{admin.birthdayFormatted}" />
+                </p:column>
+
+            </p:dataTable>
+
+
+            <p:dialog header="Nový učitel" width="450" showEffect="fade" modal="true"
+                      widgetVar="manageAdminDialog" responsive="true">
+                <p:outputPanel id="manage-admin-content" class="ui-fluid">
+                    <p:outputPanel>
+                        <div class="p-field">
+                            <p:outputLabel for="firstname">Jméno</p:outputLabel>
+                            <p:inputText id="firstname" value="#{adminAdminBean.admin.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="surname">Příjmení</p:outputLabel>
+                            <p:inputText id="surname" value="#{adminAdminBean.admin.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="phone">Telefon</p:outputLabel>
+                            <p:inputText id="phone" value="#{adminAdminBean.admin.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="email">Email</p:outputLabel>
+                            <p:inputText id="email" value="#{adminAdminBean.admin.email}" required="true" requiredMessage="Email je povinné pole"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="street">Ulice</p:outputLabel>
+                            <p:inputText id="street" value="#{adminAdminBean.admin.street}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="zip">PSČ</p:outputLabel>
+                            <p:inputText id="zip" value="#{adminAdminBean.admin.zip}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="city">Město</p:outputLabel>
+                            <p:inputText id="city" value="#{adminAdminBean.admin.city}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="birthday">Datum narození</p:outputLabel>
+                            <p:datePicker id="birthday" value="#{adminAdminBean.admin.birthday}" locale="cs" pattern="dd.MM.yyyy"/>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{adminAdminBean.saveAdmin}"
+                                     update="manage-admin-content messages" process="manage-admin-content @this"/>
+                    <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageAdminDialog').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+            </p:dialog>
+
+
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>

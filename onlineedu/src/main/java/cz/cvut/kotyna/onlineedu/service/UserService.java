@@ -18,12 +18,14 @@ import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.Normalizer;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -38,8 +40,22 @@ public class UserService {
 
     private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
+    public void saveUserAccount(UserAccount userAccount) {
+        if (userAccount.getId() == null) {
+            em.persist(userAccount);
+        }
+        else {
+            em.merge(userAccount);
+        }
+    }
+
     public List<UserAccount> getAllUsers() {
         return em.createNamedQuery(UserAccount.FIND_ALL, UserAccount.class).getResultList();
+    }
+
+    public List<UserAccount> getAllAdmins() {
+        return em.createNamedQuery(UserAccount.FIND_ALL, UserAccount.class).getResultList().stream()
+                .filter(userAccount -> userAccount.getRole().equals("admin")).collect(Collectors.toList());
     }
 
     public List<Student> getAllStudents() {
@@ -156,8 +172,8 @@ public class UserService {
     }
 
     public UserAccount generateUserAccountUsernameAndPassword(UserAccount userAccount) {
-        String usernameBase = (userAccount.getFirstname() + "." + userAccount.getSurname()).toLowerCase();
-        String username = (userAccount.getFirstname() + "." + userAccount.getSurname()).toLowerCase();
+        String usernameBase = normalizeString(userAccount.getFirstname() + "." + userAccount.getSurname());
+        String username = usernameBase;
         int counter = 1;
         while(!em.createNamedQuery(UserAccount.FIND_USER_ACCOUNT_BY_USERNAME, UserAccount.class).setParameter("username", username).getResultList().isEmpty()) {
             username = usernameBase + counter++;
@@ -172,7 +188,23 @@ public class UserService {
         }
 
         return userAccount;
+    }
 
-        //em.persist(userAccount);
+    /**
+     * Removes all diacritics from the string and sets to lowercase.
+     */
+    private String normalizeString(final String string) {
+        if (string == null) {
+            return null;
+        }
+
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+
+        String temp = string.trim();
+        temp = Normalizer.normalize(temp, Normalizer.Form.NFD);
+        temp = pattern.matcher(temp).replaceAll("");
+        temp = temp.replaceAll("[\uFEFF-\uFFFF]", ""); // remove 'ZERO WIDTH NO-BREAK SPACE' chars (U+FEFF)
+
+        return temp.toLowerCase();
     }
 }

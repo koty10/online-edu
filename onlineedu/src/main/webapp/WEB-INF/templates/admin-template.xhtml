@@ -26,6 +26,9 @@
             <li class="#{urlHelperBean.isCurrentPage('users') ? 'active' : ''}">
                 <h:link outcome="/admin/users" value="Uživatelé"/>
             </li>
+            <li class="#{urlHelperBean.isCurrentPage('admins') ? 'active' : ''}">
+                <h:link outcome="/admin/admins" value="Administrátoři"/>
+            </li>
         </ul>
     </ui:define>
 
