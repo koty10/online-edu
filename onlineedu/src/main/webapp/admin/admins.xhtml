@@ -64,6 +64,15 @@
                     <h:outputText value="#{admin.birthdayFormatted}" />
                 </p:column>
 
+                <p:column style="width:3rem;text-align: center" exportable="false">
+                    <p:commandButton icon="pi pi-pencil" update=":form:manage-admin-content"
+                                     oncomplete="PF('manageAdminDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: 0.25rem;" process="@this">
+                        <f:setPropertyActionListener value="#{admin}" target="#{adminAdminBean.admin}"/>
+                        <p:resetInput target=":form:manage-admin-content"/>
+                    </p:commandButton>
+                </p:column>
+
             </p:dataTable>
 
 
@@ -107,10 +116,13 @@
                 </p:outputPanel>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{adminAdminBean.saveAdmin}"
-                                     update="manage-admin-content messages" process="manage-admin-content @this"/>
+                    <p:defaultCommand target="save-command-button"/>
+                    <p:commandButton id="save-command-button" value="Uložit" icon="pi pi-check" actionListener="#{adminAdminBean.saveAdmin}"
+                                     update="manage-admin-content dt-admins messages" process="manage-admin-content @this"/>
                     <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageAdminDialog').hide()"
-                                     class="ui-button-secondary"/>
+                                     class="ui-button-secondary" update="manage-admin-content" process="@this" >
+                        <p:resetInput target="manage-admin-content"/>
+                    </p:commandButton>
                 </f:facet>
             </p:dialog>
 
