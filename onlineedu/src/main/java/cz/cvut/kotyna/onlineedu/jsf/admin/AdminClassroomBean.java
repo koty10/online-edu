@@ -1,6 +1,7 @@
 package cz.cvut.kotyna.onlineedu.jsf.admin;
 
 import cz.cvut.kotyna.onlineedu.entity.Classroom;
+import cz.cvut.kotyna.onlineedu.entity.Teacher;
 import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
@@ -21,6 +22,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Named(value = "adminClassroomBean")
 @ViewScoped
@@ -31,6 +33,9 @@ public class AdminClassroomBean implements Serializable {
 
     @Inject
     private AdminUserBackingBean adminUserBackingBean;
+
+    @Inject
+    private AdminTeacherBean adminTeacherBean;
 
     @Getter @Setter
     private List<Classroom> allClassrooms;
@@ -66,5 +71,14 @@ public class AdminClassroomBean implements Serializable {
         PrimeFaces.current().ajax().update("form");
         allClassrooms = new ArrayList<>(classroomService.getAllClassrooms());
         adminUserBackingBean.init();
+    }
+
+    public List<Classroom> getClassroomsWithoutTeacher() {
+        List<Classroom> classroomsWithoutTeacher = classroomService.getAllClassrooms().stream().filter(classroom -> classroom.getTeacher() == null).collect(Collectors.toList());
+        Classroom c = adminTeacherBean.getTeacher().getClassroom();
+        if (c != null) {
+            classroomsWithoutTeacher.add(c);
+        }
+        return classroomsWithoutTeacher;
     }
 }

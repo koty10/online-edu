@@ -89,40 +89,47 @@
             <p:dialog header="Nový učitel" width="450" showEffect="fade" modal="true"
                       widgetVar="manageTeacherDialog" responsive="true">
                 <p:outputPanel id="manage-teacher-content" class="ui-fluid">
-                    <p:outputPanel>
-                        <div class="p-field">
-                            <p:outputLabel for="firstname">Jméno</p:outputLabel>
-                            <p:inputText id="firstname" value="#{adminTeacherBean.teacher.userAccount.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
-                        </div>
-                        <div class="p-field">
-                            <p:outputLabel for="surname">Příjmení</p:outputLabel>
-                            <p:inputText id="surname" value="#{adminTeacherBean.teacher.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
-                        </div>
-                        <div class="p-field">
-                            <p:outputLabel for="phone">Telefon</p:outputLabel>
-                            <p:inputText id="phone" value="#{adminTeacherBean.teacher.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
-                        </div>
-                        <div class="p-field">
-                            <p:outputLabel for="email">Email</p:outputLabel>
-                            <p:inputText id="email" value="#{adminTeacherBean.teacher.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
-                        </div>
-                        <div class="p-field">
-                            <p:outputLabel for="street">Ulice</p:outputLabel>
-                            <p:inputText id="street" value="#{adminTeacherBean.teacher.userAccount.street}"/>
-                        </div>
-                        <div class="p-field">
-                            <p:outputLabel for="zip">PSČ</p:outputLabel>
-                            <p:inputText id="zip" value="#{adminTeacherBean.teacher.userAccount.zip}"/>
-                        </div>
-                        <div class="p-field">
-                            <p:outputLabel for="city">Město</p:outputLabel>
-                            <p:inputText id="city" value="#{adminTeacherBean.teacher.userAccount.city}"/>
-                        </div>
-                        <div class="p-field">
-                            <p:outputLabel for="birthday">Datum narození</p:outputLabel>
-                            <p:datePicker id="birthday" value="#{adminTeacherBean.teacher.userAccount.birthday}" locale="cs" pattern="dd.MM.yyyy"/>
-                        </div>
-                    </p:outputPanel>
+                    <div class="p-field">
+                        <p:outputLabel for="firstname">Jméno</p:outputLabel>
+                        <p:inputText id="firstname" value="#{adminTeacherBean.teacher.userAccount.firstname}" required="true" requiredMessage="Jméno je povinné pole"/>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="surname">Příjmení</p:outputLabel>
+                        <p:inputText id="surname" value="#{adminTeacherBean.teacher.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="phone">Telefon</p:outputLabel>
+                        <p:inputText id="phone" value="#{adminTeacherBean.teacher.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="email">Email</p:outputLabel>
+                        <p:inputText id="email" value="#{adminTeacherBean.teacher.userAccount.email}" required="true" requiredMessage="Email je povinné pole"/>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="street">Ulice</p:outputLabel>
+                        <p:inputText id="street" value="#{adminTeacherBean.teacher.userAccount.street}"/>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="zip">PSČ</p:outputLabel>
+                        <p:inputText id="zip" value="#{adminTeacherBean.teacher.userAccount.zip}"/>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="city">Město</p:outputLabel>
+                        <p:inputText id="city" value="#{adminTeacherBean.teacher.userAccount.city}"/>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="birthday">Datum narození</p:outputLabel>
+                        <p:datePicker id="birthday" value="#{adminTeacherBean.teacher.userAccount.birthday}" locale="cs" pattern="dd.MM.yyyy"/>
+                    </div>
+
+                    <div class="p-field">
+                        <p:outputLabel for="classroom">Třída</p:outputLabel>
+                        <p:selectOneMenu id="classroom" value="#{adminTeacherBean.teacher.classroom}" layout="responsive" converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
+                            <f:selectItems value="#{adminClassroomBean.classroomsWithoutTeacher}" var="classroom" itemValue="#{classroom}" itemLabel="#{classroom.name}" />
+                        </p:selectOneMenu>
+                    </div>
+
                 </p:outputPanel>
 
                 <f:facet name="footer">

@@ -61,19 +61,17 @@
             <p:dialog header="Nová třída" width="450" showEffect="fade" modal="true"
                       widgetVar="manageClassroomDialog" responsive="true">
                 <p:outputPanel id="manage-classroom-content" class="ui-fluid">
-                    <p:outputPanel>
-                        <div class="p-field">
-                            <p:outputLabel for="name">Název</p:outputLabel>
-                            <p:inputText id="name" value="#{adminClassroomBean.classroom.name}" required="true"  requiredMessage="Název je povinné pole" />
-                        </div>
-                        <div class="p-field">
-                            <p:outputLabel for="teacher">Třídní učitel</p:outputLabel>
-                            <p:selectOneMenu id="teacher" value="#{adminClassroomBean.classroom.teacher}" layout="responsive" converter="omnifaces.SelectItemsConverter">
-                                <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
-                                <f:selectItems value="#{adminUserBackingBean.teachersWithoutClassroom}" var="teacher" itemValue="#{teacher}" itemLabel="#{teacher.userAccount.firstname} #{teacher.userAccount.surname}" />
-                            </p:selectOneMenu>
-                        </div>
-                    </p:outputPanel>
+                    <div class="p-field">
+                        <p:outputLabel for="name">Název</p:outputLabel>
+                        <p:inputText id="name" value="#{adminClassroomBean.classroom.name}" required="true"  requiredMessage="Název je povinné pole" />
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="teacher">Třídní učitel</p:outputLabel>
+                        <p:selectOneMenu id="teacher" value="#{adminClassroomBean.classroom.teacher}" layout="responsive" converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
+                            <f:selectItems value="#{adminUserBackingBean.teachersWithoutClassroom}" var="teacher" itemValue="#{teacher}" itemLabel="#{teacher.userAccount.firstname} #{teacher.userAccount.surname}" />
+                        </p:selectOneMenu>
+                    </div>
                 </p:outputPanel>
 
                 <f:facet name="footer">
