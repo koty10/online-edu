@@ -35,6 +35,14 @@ public class StudentUserBackingBean implements Serializable {
     @EJB
     private LoginService loginService;
 
+    @Getter @Setter
+    private Integer userAccountId;
+    @Getter
+    private UserAccount userAccount;
+
+    public void initUserAccount() {
+        userAccount = userService.findUserAccount(userAccountId);
+    }
 
     public List<Student> getClassmates() {
         try {

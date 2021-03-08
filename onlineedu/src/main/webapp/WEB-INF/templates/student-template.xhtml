@@ -39,5 +39,20 @@
         </ul>
     </ui:define>
 
+    <ui:define name="top-right-menu">
+        <div class="column-narrow flex-column">
+            <h:form id="login-form">
+                <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
+                    <p:menuitem outcome="/student/user" value="Uživatelský profil" update="messages" icon="pi pi-user">
+                        <f:param name="userAccountId" value="#{userBackingBean.loggedInUser.id}" />
+                        <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
+                    </p:menuitem>
+                    <p:separator />
+                    <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-sign-out"/>
+                </p:menuButton>
+                <p:growl id="messages" showDetail="true"/>
+            </h:form>
+        </div>
+    </ui:define>
 
 </ui:composition>
