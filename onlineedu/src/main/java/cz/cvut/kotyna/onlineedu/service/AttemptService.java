@@ -65,7 +65,7 @@ public class AttemptService {
     public void acceptAttempt(Attempt attempt) {
         // If the task is accepted first time (as it should be), then give student the points
         String state = taskService.getRawStudentsTaskState(attempt.getStudent().getUserAccount().getId(), attempt.getTask().getId());
-        if (!state.equals(TaskState.ACCEPTED.toString())) {
+        if (!state.equals(TaskState.ACCEPTED.toString()) && attempt.getTask().getType().equals("extra")) {
             attempt.getStudent().setPoints(attempt.getStudent().getPoints() + attempt.getTask().getPoints());
             studentService.saveStudent(attempt.getStudent());
         }
