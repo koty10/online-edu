@@ -53,8 +53,6 @@ public class StudentTaskBean implements Serializable {
     private Task task;
     @Getter @Setter
     private String attemptText;
-    @Getter @Setter
-    private String result;
     @Setter
     private Collection<Task> tasks;
     @Setter
@@ -91,7 +89,17 @@ public class StudentTaskBean implements Serializable {
 
     public void createAttempt() {
         attemptService.createAttempt(attemptText, loginService.getLoggedInUser().getStudent(), task);
-        result = "Pokus úspěšně odeslán!";
+        try {
+            final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
+            if (task.getType().equals("normal")) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/tasks.xhtml?teachingId=" + studentTeachingBean.getTeachingId());
+            }
+            else {
+                FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/extra-tasks.xhtml?teachingId=" + studentTeachingBean.getTeachingId());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Attempt> getLoggedInStudentsAttemptsReverseSorted() {

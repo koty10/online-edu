@@ -37,12 +37,12 @@
         <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" layout="grid">
 
             <p:column>
-                <h2>Zadání úkolu (<p:link style="font-size: 1em;" outcome="/teacher/tasks/task" includeViewParams="true" value="#{teacherAttemptBean.attempt.task.name}" />)</h2>
+                <h1>Zadání úkolu (<p:link style="font-size: 1em;" outcome="/teacher/tasks/task" includeViewParams="true" value="#{empty teacherAttemptBean.attempt.task.name ? 'Úkol bez názvu' : teacherAttemptBean.attempt.task.name}" />)</h1>
                 <h:outputText value="#{teacherAttemptBean.attempt.task.text}" escape="false"/>
             </p:column>
 
             <p:column>
-                <h2>Odevzdaný pokus <h:outputText id="state-label" value="(#{teacherAttemptBean.attempt.stateCzechFormated})"/> | <h:outputText value="#{teacherAttemptBean.attempt.timeFormated}" /></h2>
+                <h1>Odevzdaný pokus <h:outputText id="state-label" value="(#{teacherAttemptBean.attempt.stateCzechFormated})"/> | <h:outputText value="#{teacherAttemptBean.attempt.timeFormated}" /></h1>
                 <h:outputText value="#{teacherAttemptBean.attempt.text}" escape="false"/>
             </p:column>
 

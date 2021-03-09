@@ -84,6 +84,6 @@ public class AttemptService {
             return new ArrayList<>();
         }
         Task task = taskService.findTask(taskId);
-        return task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
+        return task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
     }
 }

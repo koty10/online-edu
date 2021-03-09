@@ -26,43 +26,54 @@
 
     <ui:define name="content">
 
-        <h2>Úkol #{studentTaskBean.task.name} (#{studentTaskBean.getLoggedInStudentsTaskState(studentTaskBean.taskId)})</h2>
+        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" layout="grid">
 
-        <h:form>
-            <p:textEditor widgetVar="editor1" value="#{studentTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
-        </h:form>
+            <p:column>
+                <h1>Zadání úkolu (#{empty studentTaskBean.task.name ? 'Úkol bez názvu' : studentTaskBean.task.name})</h1>
+                <h:outputText value="#{studentTaskBean.task.text}" escape="false"/>
 
-        <h:form id="form-attempt" rendered="#{!studentTaskBean.getLoggedInStudentsTaskStateRaw(studentTaskBean.taskId).equals('accepted')}">
-            <h3 style="margin-top:0">Nový pokus</h3>
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:textEditor widgetVar="editor-attempt" value="#{studentTaskBean.attemptText}" height="300" style="margin-bottom:10px" secure="false"/>
+                <h:form id="form-attempt" rendered="#{studentTaskBean.getLoggedInStudentsTaskStateRaw(studentTaskBean.taskId).equals('new') || studentTaskBean.getLoggedInStudentsTaskStateRaw(studentTaskBean.taskId).equals('returned')}">
+                    <h2 style="margin-top:0">Nový pokus</h2>
+                    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+                    <p:textEditor widgetVar="editor-attempt" value="#{studentTaskBean.attemptText}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Řešení úkolu je povinné pole"/>
 
-            <p:commandButton value="Odeslat" action="#{studentTaskBean.createAttempt()}" update="attempts result :form-attempt:msgs" />
+                    <p:commandButton value="Odeslat" action="#{studentTaskBean.createAttempt()}" update=":form-attempt:msgs" />
 
-            <p><h:outputText id="result">#{studentTaskBean.result}</h:outputText></p>
-        </h:form>
+                </h:form>
 
-        <h3>
-            Pokusy
-        </h3>
-
-        <p:dataTable id="attempts" var="attempt" value="#{studentTaskBean.loggedInStudentsAttemptsReverseSorted}" >
-            <p:column headerText="Čas odeslání">
-                <h:outputText value="#{attempt.timeFormated}" />
             </p:column>
 
-            <p:column headerText="Stav">
-                <h:outputText value="#{attempt.stateCzechFormated}" />
+            <p:column>
+                <h1>Odevzdané pokusy</h1>
+                <ui:repeat value="#{studentTaskBean.loggedInStudentsAttemptsReverseSorted}" var="attempt">
+
+                    <p:link style="text-decoration: none!important;" outcome="/student/tasks/task/attempt">
+                        <p:card style="width: 100%;">
+
+                            <f:facet name="title">
+                                <h:outputText value="#{attempt.stateCzechFormated}"/>
+                            </f:facet>
+                            <f:facet name="subtitle">
+                                <h:outputText value="#{attempt.timeFormated}" />
+                            </f:facet>
+
+                            <h:outputText value="#{attempt.text}" escape="false"/>
+
+                            <h:outputText style="font-weight: bold;" value="Zpětná vazba" rendered="#{not empty attempt.feedback}"/>
+                            <h:outputText value="#{attempt.feedback}" escape="false"/>
+                        </p:card>
+
+                        <f:param name="attemptId" value="#{attempt.id}" />
+                        <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
+                        <f:param name="taskId" value="#{studentTaskBean.taskId}" />
+                    </p:link>
+
+                    <br/>
+
+                </ui:repeat>
             </p:column>
 
-            <p:column style="width:3rem;text-align: center" exportable="false">
-                <p:linkButton outcome="/student/tasks/task/attempt" icon="pi pi-search" title="Detail">
-                    <f:param name="attemptId" value="#{attempt.id}" />
-                    <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
-                    <f:param name="taskId" value="#{studentTaskBean.taskId}" />
-                </p:linkButton>
-            </p:column>
-        </p:dataTable>
+        </p:panelGrid>
 
     </ui:define>
 </ui:composition>

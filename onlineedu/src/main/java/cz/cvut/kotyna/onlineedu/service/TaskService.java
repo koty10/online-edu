@@ -16,6 +16,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,14 +44,16 @@ public class TaskService {
     }
 
     public String getStudentsTaskState(Integer userAccountId, Integer taskId) {
-        List<Attempt> attempts = attemptService.getAttempts(userAccountId, taskId);
+        List<Attempt> attempts = attemptService.getAttempts(userAccountId, taskId).stream()
+                .sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
         if (attempts.isEmpty()) return "Nový";
         if (attempts.stream().map(Attempt::getState).anyMatch(x -> x.equals("accepted"))) return "Schváleno";
         return attempts.get(attempts.size() - 1).getStateCzechFormated();
     }
 
     public String getRawStudentsTaskState(Integer userAccountId, Integer taskId) {
-        List<Attempt> attempts = attemptService.getAttempts(userAccountId, taskId);
+        List<Attempt> attempts = attemptService.getAttempts(userAccountId, taskId).stream()
+            .sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
         if (attempts.isEmpty()) return "new";
         if (attempts.stream().map(Attempt::getState).anyMatch(x -> x.equals("accepted"))) return "accepted";
         return attempts.get(attempts.size() - 1).getState();
