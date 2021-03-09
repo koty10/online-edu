@@ -33,6 +33,8 @@ public class TeacherAttemptBean implements Serializable {
     @Inject
     private TeacherTeachingBean teacherTeachingBean;
     @Inject
+    private TeacherTaskBean teacherTaskBean;
+    @Inject
     UrlHelperBean urlHelperBean;
 
     @Getter @Setter
@@ -68,12 +70,26 @@ public class TeacherAttemptBean implements Serializable {
         attemptService.acceptAttempt(attempt);
         FacesMessage msg = new FacesMessage("Schváleno");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        try {
+            final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/tasks/task.xhtml?teachingId=" + teacherTeachingBean.getTeachingId() + "&taskId=" + teacherTaskBean.getTaskId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void returnAttempt() {
         attemptService.returnAttempt(attempt);
         FacesMessage msg = new FacesMessage("Vráceno");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        try {
+            final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/tasks/task.xhtml?teachingId=" + teacherTeachingBean.getTeachingId() + "&taskId=" + teacherTaskBean.getTaskId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // loads ListDataModel for dataTable on teachers task page
