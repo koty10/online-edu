@@ -44,8 +44,14 @@
                     <h:outputText value="#{student.student.userAccount.surname} #{student.student.userAccount.firstname}" />
                 </p:column>
 
-                <p:column headerText="Stav" sortBy="#{student.taskState}">
+                <p:column headerText="Stav" sortBy="#{student.taskState}" sortOrder="desc">
                     <h:outputText value="#{student.taskState}" styleClass="color-for-#{student.rawTaskState}"/>
+                </p:column>
+
+                <p:column style="width:3rem;text-align: center" exportable="false" rendered="#{teacherTaskBean.getNumberOfStudentsAttemptsForRhsStudent(student.student) > 0}">
+                    <p:linkButton outcome="/teacher/tasks/task/attempt" icon="pi pi-search" title="Detail" includeViewParams="true">
+                        <f:param name="attemptId" value="#{teacherTaskBean.studentsAttemptsReverseSorted.get(0).id}" />
+                    </p:linkButton>
                 </p:column>
 
                 <p:rowExpansion>

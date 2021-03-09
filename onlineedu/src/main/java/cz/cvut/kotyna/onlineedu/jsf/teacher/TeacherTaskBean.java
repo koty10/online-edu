@@ -104,6 +104,16 @@ public class TeacherTaskBean implements Serializable {
                 .collect(Collectors.toList());
     }
 
+    // it is used in "rendered" parameter because it is in prerender phase and row data is not available yet
+    public Integer getNumberOfStudentsAttemptsForRhsStudent(Student selectedStudent) {
+        if (taskId == null || selectedStudent == null) {
+            return 0;
+        }
+        Task task = taskService.findTask(taskId);
+        return (int) task.getAttemptCollection().stream()
+                .filter(a -> a.getStudent().getId().equals(selectedStudent.getId())).count();
+    }
+
     public void updateTaskText() {
         taskService.updateTask(task);
         FacesMessage msg = new FacesMessage("Uloženo");
