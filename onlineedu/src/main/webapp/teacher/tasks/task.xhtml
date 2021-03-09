@@ -49,7 +49,7 @@
                 </p:column>
 
                 <p:column style="width:3rem;text-align: center" exportable="false" rendered="#{teacherTaskBean.getNumberOfStudentsAttemptsForRhsStudent(student.student) > 0}">
-                    <p:linkButton outcome="/teacher/tasks/task/attempt" icon="pi pi-search" title="Detail" includeViewParams="true">
+                    <p:linkButton outcome="/teacher/tasks/task/attempt" value="Zobrazit poslední pokus" icon="pi pi-search" title="Detail" includeViewParams="true">
                         <f:param name="attemptId" value="#{teacherTaskBean.studentsAttemptsReverseSorted.get(0).id}" />
                     </p:linkButton>
                 </p:column>

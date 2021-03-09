@@ -34,24 +34,36 @@
 
     <ui:define name="content">
 
-        <h2>Pokus úkolu: #{teacherAttemptBean.attempt.task.name} <h:outputText id="state-label" value="(#{teacherAttemptBean.attempt.stateCzechFormated})"/></h2>
+        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" layout="grid">
+
+            <p:column>
+                <h2>Zadání úkolu (<p:link style="font-size: 1em;" outcome="/teacher/tasks/task" includeViewParams="true" value="#{teacherAttemptBean.attempt.task.name}" />)</h2>
+                <h:outputText value="#{teacherAttemptBean.attempt.task.text}" escape="false"/>
+            </p:column>
+
+            <p:column>
+                <h2>Odevzdaný pokus <h:outputText id="state-label" value="(#{teacherAttemptBean.attempt.stateCzechFormated})"/> | <h:outputText value="#{teacherAttemptBean.attempt.timeFormated}" /></h2>
+                <h:outputText value="#{teacherAttemptBean.attempt.text}" escape="false"/>
+            </p:column>
+
+        </p:panelGrid>
 
         <h:form id="form">
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:textEditor widgetVar="editor-attempt" value="#{teacherAttemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
-            <h3>
-                Zpětná vazba
-            </h3>
-            <p:textEditor widgetVar="editor-feedback" value="#{teacherAttemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" />
-            <p:commandButton value="Schválit" action="#{teacherAttemptBean.acceptAttempt}" update=":form:msgs state-label"/>
-            <p:commandButton value="Vrátit k přepracování" action="#{teacherAttemptBean.returnAttempt}" update=":form:msgs state-label"/>
 
+            <p:panelGrid columns="1" columnClasses="ui-g-12 ui-md-12 ui-lg-12" layout="grid">
+
+                <p:column>
+                    <h3>Zpětná vazba</h3>
+                    <p:textEditor widgetVar="editor-feedback" value="#{teacherAttemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" />
+                    <p:commandButton style="margin-right:0.5rem;" value="Schválit" icon="pi pi-thumbs-up" styleClass="ui-button-success" action="#{teacherAttemptBean.acceptAttempt}" update=":form:msgs state-label"/>
+                    <p:commandButton value="Vrátit k přepracování" icon="pi pi-thumbs-down" styleClass="ui-button-warning" action="#{teacherAttemptBean.returnAttempt}" update=":form:msgs state-label"/>
+                </p:column>
+
+            </p:panelGrid>
 
         </h:form>
 
-        <p>
-            <h:outputText value="Pokus vytvořen: #{teacherAttemptBean.attempt.timeFormated}" />
-        </p>
 
     </ui:define>
 </ui:composition>

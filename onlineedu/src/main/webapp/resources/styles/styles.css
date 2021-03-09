@@ -105,6 +105,10 @@ li a {
     text-decoration: none;
 }
 
+.ui-button a {
+    text-decoration: none;
+}
+
 li:hover:not(.active) {
     background-color: #111;
 }
