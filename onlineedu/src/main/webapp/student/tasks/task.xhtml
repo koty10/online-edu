@@ -30,7 +30,7 @@
 
             <p:column>
                 <h1>Zadání úkolu (#{empty studentTaskBean.task.name ? 'Úkol bez názvu' : studentTaskBean.task.name})</h1>
-                <h:outputText value="#{studentTaskBean.task.text}" escape="false"/>
+                <h:outputText value="#{studentTaskBean.task.text}" escape="false"/> <br/>
 
                 <h:form id="form-attempt" rendered="#{studentTaskBean.getLoggedInStudentsTaskStateRaw(studentTaskBean.taskId).equals('new') || studentTaskBean.getLoggedInStudentsTaskStateRaw(studentTaskBean.taskId).equals('returned')}">
                     <h2 style="margin-top:0">Nový pokus</h2>
