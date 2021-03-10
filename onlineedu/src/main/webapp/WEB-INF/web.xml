@@ -124,4 +124,12 @@
         <extension>svg</extension>
         <mime-type>image/svg+xml</mime-type>
     </mime-mapping>
+
+    <!-- OmniFaces specific settings. -->
+
+    <context-param>
+        <param-name>org.omnifaces.FACES_VIEWS_SCAN_PATHS</param-name>
+        <param-value>/*.xhtml</param-value> <!-- Enable extensionless URLs on entire webapp. -->
+    </context-param>
+
 </web-app>
