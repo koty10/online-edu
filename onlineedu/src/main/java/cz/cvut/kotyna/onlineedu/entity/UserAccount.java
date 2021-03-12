@@ -14,14 +14,19 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.LAZY;
 
 /**
  *
@@ -43,6 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
         @NamedQuery(name = "UserAccount.findByStreet", query = "SELECT u FROM UserAccount u WHERE u.street = :street"),
         @NamedQuery(name = "UserAccount.findByZip", query = "SELECT u FROM UserAccount u WHERE u.zip = :zip"),
         @NamedQuery(name = "UserAccount.findByPhone", query = "SELECT u FROM UserAccount u WHERE u.phone = :phone"),
+        @NamedQuery(name = "UserAccount.findByLoginToken", query = "SELECT u FROM UserAccount u JOIN LoginToken lt WHERE lt.tokenHash = :tokenHash"),
         @NamedQuery(name = UserAccount.FIND_USER_ACCOUNT_BY_USERNAME, query = "select userAccount from UserAccount userAccount where userAccount.username = :username")})
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class UserAccount implements Serializable {
@@ -113,6 +119,9 @@ public class UserAccount implements Serializable {
     private Student student;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "userAccount")
     private Teacher teacher;
+
+    @OneToMany(mappedBy = "userAccount", fetch = LAZY, cascade = ALL, orphanRemoval = true)
+    private List<LoginToken> loginTokens = new ArrayList<>();
 
     public UserAccount() {
     }
@@ -292,6 +301,14 @@ public class UserAccount implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<LoginToken> getLoginTokens() {
+        return loginTokens;
+    }
+
+    public void setLoginTokens(List<LoginToken> loginTokens) {
+        this.loginTokens = loginTokens;
     }
 
     public String getRoleFormated() {

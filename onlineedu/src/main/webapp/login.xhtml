@@ -1,6 +1,9 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Přihlášení</title>
         <h:outputStylesheet name="styles/styles.css" />
@@ -12,24 +15,17 @@
         <div class="login-bg" />
         <div class="container">
 
-            <form class="login-form" id="loginForm" method="post" action="j_security_check">
-                <h:graphicImage src="img/avatar.svg" />
-                <h2 class="title">Vítejte zpět</h2>
-                <div class="input-div one">
-                    <div class="login-entry">
-                        <h:outputLabel for="j_username" value="Přihlašovací jméno:" />
-                        <input class="input" type="text" name="j_username" autofocus="autofocus"/>
-                    </div>
-                </div>
-                <div class="input-div pass">
-                    <div class="login-entry">
-                        <h:outputLabel for="j_password" value="Heslo:" />
-                        <input class="input" type="password" name="j_password" />
-                    </div>
-                </div>
-                <a href="#">Zapomenuté heslo?</a>
-                <input type="submit" class="btn" value="Přihlásit" />
-            </form>
+            <h:form id="loginForm">
+
+                <h:inputText id="email" type="email" value="#{loginBacking.user.username}">
+                </h:inputText>
+                <h:inputText id="password" type="password" value="#{loginBacking.password}"/>
+
+                <p:selectBooleanCheckbox id="rememberMe" value="#{loginBacking.rememberMe}" />
+
+                <p:commandButton id="login" action="#{loginBacking.login}" ajax="false" /> <!-- Ajax must be false, otherwise browser won't remember autofill for login. -->
+
+            </h:form>
         </div>
 
     </h:body>

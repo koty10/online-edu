@@ -28,6 +28,8 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static org.omnifaces.utils.security.MessageDigests.digest;
+
 @Stateless
 public class UserService {
 
@@ -82,6 +84,47 @@ public class UserService {
         try {
             if (username != null) {
                 return em.createNamedQuery(Student.FIND_LOGGED_IN_STUDENT, Student.class).setParameter("username", username).getSingleResult();
+            } else {
+                return null;
+            }
+        }
+        catch(NoResultException e) {
+            return null;
+        }
+    }
+
+    public UserAccount findUserAccountByUsername(String username) {
+        try {
+            if (username != null) {
+                return em.createNamedQuery("UserAccount.findByUsername", UserAccount.class).setParameter("username", username).getSingleResult();
+            } else {
+                return null;
+            }
+        }
+        catch(NoResultException e) {
+            return null;
+        }
+    }
+
+    public UserAccount getByEmailAndPassword(String username, String password) {
+        UserAccount user = findUserAccountByUsername(username);
+
+        try {
+            if (!user.getPassword().equals(AuthService.encodeSHA256(password, ""))) {
+                throw new NoResultException();
+            }
+        }
+        catch (UnsupportedEncodingException | NoSuchAlgorithmException exception) {
+            return null;
+        }
+
+        return user;
+    }
+
+    public UserAccount findUserAccountByLoginToken(String loginToken) {
+        try {
+            if (loginToken != null) {
+                return em.createNamedQuery("UserAccount.findByLoginToken", UserAccount.class).setParameter("tokenHash", loginToken).getSingleResult();
             } else {
                 return null;
             }

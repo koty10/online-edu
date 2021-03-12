@@ -74,6 +74,13 @@
             <version>3.8</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.omnifaces/omniutils -->
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omniutils</artifactId>
+            <version>0.12</version>
+        </dependency>
+
         <!-- Font Awesome -->
         <dependency>
             <groupId>org.webjars</groupId>
