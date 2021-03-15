@@ -7,7 +7,7 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam name="teachingId" value="#{studentTeachingBean.teachingId}" required="true" requiredMessage="No teaching specified.">
+            <f:viewParam name="teachingId" value="#{studentTeachingBean.teachingId}">
                 <f:validateLongRange minimum="1"/>
             </f:viewParam>
             <f:viewAction action="#{studentTeachingBean.initTeaching}"/>
