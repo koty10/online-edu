@@ -73,6 +73,7 @@ public class StudentTaskBean implements Serializable {
             try {
                 final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
                 FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/tasks.xhtml?teachingId=" + studentTeachingBean.getTeachingId());
+                return;
             } catch (IOException e) {
                 e.printStackTrace();
             }
