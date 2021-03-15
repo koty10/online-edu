@@ -1,23 +1,32 @@
 @startuml
-[*] --> New
+State "Znovu odevzdaný" as Znovuodevzdaný
+[*] --> Nový
 
-New --> Submitted : first attempt
+Nový --> Odeslaný : Odeslat první pokus
 
-Submitted --> Returned : returned to fix
+Odeslaný --> Vrácený : Vrátit k přepracování
 
-Returned --> Resubmitted : further attempts
+Vrácený --> Znovuodevzdaný : Odeslat opravný pokus
 
-Resubmitted --> Accepted : accepted by teacher
+Znovuodevzdaný --> Schválený : Schválit učitelem
 
-Resubmitted --> Returned : returned to fix again
+Znovuodevzdaný --> Vrácený : Znovu vrátit k přepracování
 
-Submitted -> Accepted : accepted by teacher
+Odeslaný -> Schválený : Schválit učitelem
 
-New --> Failed : After deadline or no more attempts
+Nový --> Nesplněný : Vypršel termín
 
-Returned --> Failed : After deadline or no more attempts
+Vrácený --> Nesplněný : Vypršel termín
 
-Failed --> [*]
+Nový --> Omluvený : Omluvit
 
-Accepted --> [*]
+Vrácený --> Omluvený : Omluvit
+
+Nesplněný --> Omluvený : Omluvit
+
+Nesplněný --> [*]
+
+Schválený --> [*]
+
+Omluvený --> [*]
 @enduml
