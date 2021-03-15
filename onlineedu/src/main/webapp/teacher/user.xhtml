@@ -81,11 +81,6 @@
                                 <p:resetInput target=":form:manage-teaching-content"/>
                             </p:commandButton>
                         </div>
-                        <div>
-                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
-                                <p:dataExporter type="pdf" target="dt-teachings" fileName="seznam-výuky" encoding="cp1250" />
-                            </p:commandButton>
-                        </div>
                     </div>
 
                     <p:dataTable id="dt-teachings" var="teaching" value="#{teacherUserBackingBean.userAccount.teacher.teachingCollection}" >

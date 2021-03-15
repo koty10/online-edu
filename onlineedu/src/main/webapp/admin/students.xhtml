@@ -28,13 +28,6 @@
                             </p:commandButton>
                         </div>
                         <div>
-                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
-                                <p:dataExporter type="pdf" target="dt-students" fileName="seznam-žáků" encoding="cp1250" />
-                            </p:commandButton>
-                        </div>
-                    </div>
-                    <div class="buttonbar flex-end">
-                        <div>
                             <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
                             <p:columnToggler datasource="dt-students" trigger="toggler" />
                         </div>

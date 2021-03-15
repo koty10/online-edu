@@ -269,11 +269,11 @@ footer {
 }
 
 .message-teacher {
-    background-color: #c1ebef;
+    background-color: #fff5cb;
 }
 
 .message-student {
-    background-color: #fff5cb;
+    background-color: #c1ebef;
 }
 
 /* Clear floats */

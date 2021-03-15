@@ -51,22 +51,19 @@
 
                     <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-                    <div class="buttonbar">
-                        <div>
-                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminTeachingBean.initNewTeaching}"
-                                             update=":form:manage-teaching-content" oncomplete="PF('manageTeachingDialog').show()"
-                                             styleClass="ui-button-success" style="margin-right: .5rem">
-                                <p:resetInput target=":form:manage-teaching-content"/>
-                            </p:commandButton>
-                        </div>
-                        <div>
-                            <p:commandButton value="Stáhnout jako PDF" icon="pi pi-upload" styleClass="ui-button-help" ajax="false" immediate="true">
-                                <p:dataExporter type="pdf" target="dt-teachings" fileName="seznam-výuky" encoding="cp1250" />
-                            </p:commandButton>
-                        </div>
-                    </div>
-
                     <p:dataTable id="dt-teachings" var="teaching" value="#{adminTeacherBean.teacher.teachingCollection}" >
+
+                        <f:facet name="header">
+                            <div class="buttonbar">
+                                <div>
+                                    <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminTeachingBean.initNewTeaching}"
+                                                     update=":form:manage-teaching-content" oncomplete="PF('manageTeachingDialog').show()"
+                                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                                        <p:resetInput target=":form:manage-teaching-content"/>
+                                    </p:commandButton>
+                                </div>
+                            </div>
+                        </f:facet>
 
                         <p:column sortBy="#{teaching.subject.name}" headerText="Předmět" >
                             <h:outputText value="#{teaching.subject.name}" />
