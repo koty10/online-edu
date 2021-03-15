@@ -31,22 +31,22 @@
 
     <ui:define name="content">
 
-        <h2>Pokus úkolu: #{studentAttemptBean.attempt.task.name} (#{studentAttemptBean.attempt.stateCzechFormated})</h2>
+        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-6, ui-g-12 ui-md-12 ui-lg-6" layout="grid">
 
-        <h:form>
-            <p:textEditor widgetVar="editor-attempt" value="#{studentAttemptBean.attempt.text}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
-        </h:form>
+            <p:column>
+                <h1>Zadání úkolu (<p:link style="font-size: 1em;" outcome="/student/tasks/task" includeViewParams="true" value="#{empty studentAttemptBean.attempt.task.name ? 'Úkol bez názvu' : studentAttemptBean.attempt.task.name}" />)</h1>
+                <h:outputText value="#{studentAttemptBean.attempt.task.text}" escape="false"/>
+                <br/>
+                <h1>Zpětná vazba</h1>
+                <h:outputText value="#{studentAttemptBean.attempt.feedback}" escape="false"/>
+            </p:column>
 
-        <h2>
-            Zpětná vazba
-        </h2>
-        <h:form>
-            <p:textEditor widgetVar="editor-feedback" value="#{studentAttemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" readonly="true" toolbarVisible="false" />
-        </h:form>
+            <p:column>
+                <h1>Odevzdaný pokus <h:outputText id="state-label" value="(#{studentAttemptBean.attempt.stateCzechFormated})"/> | <h:outputText value="#{studentAttemptBean.attempt.timeFormated}" /></h1>
+                <h:outputText value="#{studentAttemptBean.attempt.text}" escape="false"/>
+            </p:column>
 
-        <p>
-            <h:outputText value="Pokus vytvořen: #{studentAttemptBean.attempt.timeFormated}" />
-        </p>
+        </p:panelGrid>
 
     </ui:define>
 </ui:composition>
