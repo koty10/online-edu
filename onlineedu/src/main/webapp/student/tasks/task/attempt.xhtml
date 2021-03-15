@@ -37,7 +37,9 @@
                 <h1>Zadání úkolu (<p:link style="font-size: 1em;" outcome="/student/tasks/task" includeViewParams="true" value="#{empty studentAttemptBean.attempt.task.name ? 'Úkol bez názvu' : studentAttemptBean.attempt.task.name}" />)</h1>
                 <h:outputText value="#{studentAttemptBean.attempt.task.text}" escape="false"/>
                 <br/>
-                <h1>Zpětná vazba</h1>
+                <ui:fragment rendered="#{not empty studentAttemptBean.attempt.feedback}">
+                    <h1>Zpětná vazba</h1>
+                </ui:fragment>
                 <h:outputText value="#{studentAttemptBean.attempt.feedback}" escape="false"/>
             </p:column>
 
