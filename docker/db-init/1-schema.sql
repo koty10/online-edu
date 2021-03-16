@@ -230,3 +230,18 @@ create table attempt
     state    varchar(64) not null
 );
 
+create table login_token
+(
+    id           serial                   not null
+        constraint login_token_pk
+            primary key,
+    token_hash   bytea                    not null,
+    created      timestamp with time zone not null,
+    expiration   timestamp with time zone not null,
+    ip_address   varchar(64)              not null,
+    description  varchar(256)             not null,
+    user_account integer                  not null
+        constraint login_token_fk_user_account
+            references user_account
+            on update cascade on delete cascade
+);
