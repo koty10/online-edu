@@ -3,8 +3,6 @@ package cz.cvut.kotyna.onlineedu.jsf.admin;
 import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.service.AuthService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
-import lombok.Getter;
-import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
@@ -28,11 +26,8 @@ public class AdminAdminBean implements Serializable {
     @EJB
     private UserService userService;
 
-    @Getter @Setter
     private List<UserAccount> allAdmins;
-    @Getter @Setter
     private UserAccount admin;
-    @Getter @Setter
     private Integer adminId;
 
     @PostConstruct
@@ -67,5 +62,32 @@ public class AdminAdminBean implements Serializable {
         }
         PrimeFaces.current().executeScript("PF('manageAdminDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-admins");
+    }
+
+
+    // Getters & Setters
+
+    public List<UserAccount> getAllAdmins() {
+        return allAdmins;
+    }
+
+    public void setAllAdmins(List<UserAccount> allAdmins) {
+        this.allAdmins = allAdmins;
+    }
+
+    public UserAccount getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(UserAccount admin) {
+        this.admin = admin;
+    }
+
+    public Integer getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 }

@@ -8,8 +8,6 @@ import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.classbook.StudentSta
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -35,9 +33,7 @@ public class StudentUserBackingBean implements Serializable {
     @EJB
     private LoginService loginService;
 
-    @Getter @Setter
     private Integer userAccountId;
-    @Getter
     private UserAccount userAccount;
 
     public void initUserAccount() {
@@ -62,5 +58,25 @@ public class StudentUserBackingBean implements Serializable {
 
     public Collection<Teaching> getTeachings() {
         return userService.getTeachings(loginService.getLoggedInUser().getStudent());
+    }
+
+
+    // Getters & Setters
+
+
+    public Integer getUserAccountId() {
+        return userAccountId;
+    }
+
+    public void setUserAccountId(Integer userAccountId) {
+        this.userAccountId = userAccountId;
+    }
+
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 }

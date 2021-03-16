@@ -7,8 +7,6 @@ import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.task.StudentWithTaskState;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.tasks.TaskWithStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -40,17 +38,11 @@ public class TeacherTaskBean implements Serializable {
     private TeacherTeachingBean teacherTeachingBean;
 
     private final List<String> states = Arrays.asList("new", "accepted", "excused", "failed", "resubmitted", "returned", "submitted");
-    @Getter @Setter
     private Integer taskId;
-    @Getter
     private Task task;
-    @Getter @Setter
     private String attemptText;
-    @Getter @Setter
     private String result;
-    @Getter @Setter
     private ListDataModel<StudentWithTaskState> studentsDataModel;
-    @Setter
     private ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel;
 
     public void initTask() {
@@ -162,5 +154,52 @@ public class TeacherTaskBean implements Serializable {
             loadTasks();
         }
         return taskWithStatisticsListDataModel;
+    }
+
+    // Getters & Setters
+
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public String getAttemptText() {
+        return attemptText;
+    }
+
+    public void setAttemptText(String attemptText) {
+        this.attemptText = attemptText;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public ListDataModel<StudentWithTaskState> getStudentsDataModel() {
+        return studentsDataModel;
+    }
+
+    public void setStudentsDataModel(ListDataModel<StudentWithTaskState> studentsDataModel) {
+        this.studentsDataModel = studentsDataModel;
+    }
+
+    public void setTaskWithStatisticsListDataModel(ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel) {
+        this.taskWithStatisticsListDataModel = taskWithStatisticsListDataModel;
     }
 }

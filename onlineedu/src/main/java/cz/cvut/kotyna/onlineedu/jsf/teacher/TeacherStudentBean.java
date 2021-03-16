@@ -7,8 +7,6 @@ import cz.cvut.kotyna.onlineedu.jsf.StudentBean;
 import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.service.StudentService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
-import lombok.Getter;
-import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;

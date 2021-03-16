@@ -6,8 +6,6 @@ import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.TeacherService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
-import lombok.Getter;
-import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
@@ -30,11 +28,8 @@ public class AdminTeacherBean implements Serializable {
     @EJB
     private UserService userService;
 
-    @Getter @Setter
     private List<Teacher> allTeachers;
-    @Getter @Setter
     private Teacher teacher;
-    @Getter @Setter
     private Integer teacherId;
 
     @PostConstruct
@@ -73,4 +68,30 @@ public class AdminTeacherBean implements Serializable {
         PrimeFaces.current().ajax().update("form:messages", "form:dt-teachers");
     }
 
+
+    // Getters & Setters
+
+    public List<Teacher> getAllTeachers() {
+        return allTeachers;
+    }
+
+    public void setAllTeachers(List<Teacher> allTeachers) {
+        this.allTeachers = allTeachers;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Integer getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
+    }
 }

@@ -3,9 +3,6 @@ package cz.cvut.kotyna.onlineedu.jsf.student;
 import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.service.*;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -29,10 +26,7 @@ public class StudentAttemptBean implements Serializable {
     @EJB
     private AttemptService attemptService;
 
-    @Getter
-    @Setter
     private Integer attemptId;
-    @Getter
     private Attempt attempt;
 
     public void initAttempt() {
@@ -51,5 +45,24 @@ public class StudentAttemptBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
         }
+    }
+
+    // Getters & Setters
+
+
+    public Integer getAttemptId() {
+        return attemptId;
+    }
+
+    public void setAttemptId(Integer attemptId) {
+        this.attemptId = attemptId;
+    }
+
+    public Attempt getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(Attempt attempt) {
+        this.attempt = attempt;
     }
 }

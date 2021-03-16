@@ -6,8 +6,6 @@ import cz.cvut.kotyna.onlineedu.service.AuthService;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -37,12 +35,8 @@ public class UserBackingBean implements Serializable {
     @EJB
     private LoginService loginService;
 
-    @Getter
-    @Setter
     private String currentPassword;
-    @Getter @Setter
     private String newPassword;
-    @Getter @Setter
     private String newPasswordRepeated;
 
     public List<UserAccount> getAllUsers() {
@@ -93,5 +87,33 @@ public class UserBackingBean implements Serializable {
     //FIXME smazat - jen pro testovani
     public List<String> getPasswordsHashed() {
         return loginService.getPasswordsHashed();
+    }
+
+
+    // Getters & Setters
+
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getNewPasswordRepeated() {
+        return newPasswordRepeated;
+    }
+
+    public void setNewPasswordRepeated(String newPasswordRepeated) {
+        this.newPasswordRepeated = newPasswordRepeated;
     }
 }

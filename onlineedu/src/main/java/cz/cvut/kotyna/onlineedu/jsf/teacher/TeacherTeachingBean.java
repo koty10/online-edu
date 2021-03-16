@@ -2,8 +2,6 @@ package cz.cvut.kotyna.onlineedu.jsf.teacher;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.service.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
@@ -32,9 +30,7 @@ public class TeacherTeachingBean implements Serializable {
     @Inject
     private TeacherUserBackingBean teacherUserBackingBean;
 
-    @Getter @Setter
     private Integer teachingId;
-    @Getter
     private Teaching teaching;
 
     public void init() {
@@ -138,5 +134,23 @@ public class TeacherTeachingBean implements Serializable {
         }
         PrimeFaces.current().executeScript("PF('manageTeachingDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-teachings");
+    }
+
+    // Getters & Setters
+
+    public Integer getTeachingId() {
+        return teachingId;
+    }
+
+    public void setTeachingId(Integer teachingId) {
+        this.teachingId = teachingId;
+    }
+
+    public Teaching getTeaching() {
+        return teaching;
+    }
+
+    public void setTeaching(Teaching teaching) {
+        this.teaching = teaching;
     }
 }

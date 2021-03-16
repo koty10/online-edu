@@ -4,8 +4,6 @@ import cz.cvut.kotyna.onlineedu.entity.Attempt;
 import cz.cvut.kotyna.onlineedu.entity.Task;
 import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.service.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -37,12 +35,9 @@ public class TeacherAttemptBean implements Serializable {
     @Inject
     UrlHelperBean urlHelperBean;
 
-    @Getter @Setter
     private Integer attemptId;
-    @Getter
     private Attempt attempt;
-    @Getter
-    ListDataModel<Attempt> lastAttemptsListDataModel;
+    private ListDataModel<Attempt> lastAttemptsListDataModel;
 
 
     public void initAttempt() {
@@ -113,5 +108,33 @@ public class TeacherAttemptBean implements Serializable {
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
         return t -> seen.add(keyExtractor.apply(t));
+    }
+
+
+    // Getters & Setters
+
+
+    public Integer getAttemptId() {
+        return attemptId;
+    }
+
+    public void setAttemptId(Integer attemptId) {
+        this.attemptId = attemptId;
+    }
+
+    public Attempt getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(Attempt attempt) {
+        this.attempt = attempt;
+    }
+
+    public ListDataModel<Attempt> getLastAttemptsListDataModel() {
+        return lastAttemptsListDataModel;
+    }
+
+    public void setLastAttemptsListDataModel(ListDataModel<Attempt> lastAttemptsListDataModel) {
+        this.lastAttemptsListDataModel = lastAttemptsListDataModel;
     }
 }

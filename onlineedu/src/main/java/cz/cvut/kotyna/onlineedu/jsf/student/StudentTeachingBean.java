@@ -2,8 +2,6 @@ package cz.cvut.kotyna.onlineedu.jsf.student;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
 import cz.cvut.kotyna.onlineedu.service.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -28,9 +26,7 @@ public class StudentTeachingBean implements Serializable {
     @EJB
     private TeachingService teachingService;
 
-    @Getter @Setter
     private Integer teachingId;
-    @Setter
     private Teaching teaching;
 
     public void initTeaching() {
@@ -97,5 +93,20 @@ public class StudentTeachingBean implements Serializable {
             }
         }
         return count;
+    }
+
+    // Getters & Setters
+
+
+    public Integer getTeachingId() {
+        return teachingId;
+    }
+
+    public void setTeachingId(Integer teachingId) {
+        this.teachingId = teachingId;
+    }
+
+    public void setTeaching(Teaching teaching) {
+        this.teaching = teaching;
     }
 }

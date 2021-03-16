@@ -5,8 +5,6 @@ import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.classbook.StudentSta
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -33,14 +31,10 @@ public class TeacherUserBackingBean implements Serializable {
     @Inject
     private TeacherTeachingBean teacherTeachingBean;
 
-    @Getter @Setter
     private Integer classroomId;
-    @Getter
     private Classroom classroom;
     // used to create a new user
-    @Getter @Setter
     private Integer userAccountId;
-    @Getter
     private UserAccount userAccount;
     private ListDataModel<StudentStatisticsModel> studentStatisticsListDataModel;
 
@@ -140,5 +134,37 @@ public class TeacherUserBackingBean implements Serializable {
     //FIXME smazat - jen pro testovani
     public List<String> getPasswordsHashed() {
         return loginService.getPasswordsHashed();
+    }
+
+
+    // Getters & Setters
+
+
+    public Integer getClassroomId() {
+        return classroomId;
+    }
+
+    public void setClassroomId(Integer classroomId) {
+        this.classroomId = classroomId;
+    }
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
+    }
+
+    public Integer getUserAccountId() {
+        return userAccountId;
+    }
+
+    public void setUserAccountId(Integer userAccountId) {
+        this.userAccountId = userAccountId;
+    }
+
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 }

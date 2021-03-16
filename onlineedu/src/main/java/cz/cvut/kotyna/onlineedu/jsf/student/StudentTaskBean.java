@@ -7,8 +7,6 @@ import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.task.StudentWithTaskState;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.tasks.TaskWithStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -47,25 +45,15 @@ public class StudentTaskBean implements Serializable {
     private StudentTeachingBean studentTeachingBean;
 
     private final List<String> states = Arrays.asList("new", "accepted", "excused", "failed", "resubmitted", "returned", "submitted");
-    @Getter @Setter
     private Integer taskId;
-    @Getter
     private Task task;
-    @Getter @Setter
     private String attemptText;
-    @Setter
     private Collection<Task> tasks;
-    @Setter
     private Collection<Task> extraNotYetAcceptedTasks;
-    @Setter
     private Collection<Task> extraAlreadyAcceptedTasks;
-    @Setter
     private Collection<Task> extraAlreadySentTasks;
-    @Setter
     private Collection<Task> normalNotYetAcceptedTasks;
-    @Setter
     private Collection<Task> normalAlreadyAcceptedTasks;
-    @Setter
     private Collection<Task> normalAlreadySentTasks;
 
     public void initTask() {
@@ -198,5 +186,61 @@ public class StudentTaskBean implements Serializable {
                     .collect(Collectors.toList());
         }
         return normalAlreadySentTasks;
+    }
+
+
+    // Getters & Setters
+
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public String getAttemptText() {
+        return attemptText;
+    }
+
+    public void setAttemptText(String attemptText) {
+        this.attemptText = attemptText;
+    }
+
+    public void setTasks(Collection<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public void setExtraNotYetAcceptedTasks(Collection<Task> extraNotYetAcceptedTasks) {
+        this.extraNotYetAcceptedTasks = extraNotYetAcceptedTasks;
+    }
+
+    public void setExtraAlreadyAcceptedTasks(Collection<Task> extraAlreadyAcceptedTasks) {
+        this.extraAlreadyAcceptedTasks = extraAlreadyAcceptedTasks;
+    }
+
+    public void setExtraAlreadySentTasks(Collection<Task> extraAlreadySentTasks) {
+        this.extraAlreadySentTasks = extraAlreadySentTasks;
+    }
+
+    public void setNormalNotYetAcceptedTasks(Collection<Task> normalNotYetAcceptedTasks) {
+        this.normalNotYetAcceptedTasks = normalNotYetAcceptedTasks;
+    }
+
+    public void setNormalAlreadyAcceptedTasks(Collection<Task> normalAlreadyAcceptedTasks) {
+        this.normalAlreadyAcceptedTasks = normalAlreadyAcceptedTasks;
+    }
+
+    public void setNormalAlreadySentTasks(Collection<Task> normalAlreadySentTasks) {
+        this.normalAlreadySentTasks = normalAlreadySentTasks;
     }
 }

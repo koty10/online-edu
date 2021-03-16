@@ -6,8 +6,6 @@ import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.service.StudentService;
 import cz.cvut.kotyna.onlineedu.service.TeachingService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
-import lombok.Getter;
-import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
@@ -28,12 +26,8 @@ public class StudentBean {
     @EJB
     protected TeachingService teachingService;
 
-    @Getter
-    @Setter
     protected List<Student> allStudents;
-    @Getter @Setter
     protected Student student;
-    @Getter @Setter
     protected Integer studentId;
 
     @PostConstruct
@@ -82,4 +76,30 @@ public class StudentBean {
         return summary;
     }
 
+    // Getters & Setters
+
+
+    public List<Student> getAllStudents() {
+        return allStudents;
+    }
+
+    public void setAllStudents(List<Student> allStudents) {
+        this.allStudents = allStudents;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
 }

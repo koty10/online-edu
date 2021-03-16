@@ -6,8 +6,6 @@ import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.TeacherService;
-import lombok.Getter;
-import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.primefaces.component.datatable.DataTable;
 
@@ -40,11 +38,8 @@ public class AdminClassroomBean implements Serializable {
     @Inject
     private AdminTeacherBean adminTeacherBean;
 
-    @Getter @Setter
     private List<Classroom> allClassrooms;
-    @Getter @Setter
     private Classroom classroom;
-    @Getter @Setter
     private Integer classroomId;
 
     @PostConstruct
@@ -88,5 +83,32 @@ public class AdminClassroomBean implements Serializable {
             classroomsWithoutTeacher.add(c);
         }
         return classroomsWithoutTeacher;
+    }
+
+
+    // Getters & Setters
+
+    public List<Classroom> getAllClassrooms() {
+        return allClassrooms;
+    }
+
+    public void setAllClassrooms(List<Classroom> allClassrooms) {
+        this.allClassrooms = allClassrooms;
+    }
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
+    }
+
+    public Integer getClassroomId() {
+        return classroomId;
+    }
+
+    public void setClassroomId(Integer classroomId) {
+        this.classroomId = classroomId;
     }
 }

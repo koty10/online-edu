@@ -5,8 +5,6 @@ import cz.cvut.kotyna.onlineedu.entity.Teacher;
 import cz.cvut.kotyna.onlineedu.entity.Teaching;
 import cz.cvut.kotyna.onlineedu.service.SubjectService;
 import cz.cvut.kotyna.onlineedu.service.TeachingService;
-import lombok.Getter;
-import lombok.Setter;
 import org.primefaces.PrimeFaces;
 
 import javax.ejb.EJB;
