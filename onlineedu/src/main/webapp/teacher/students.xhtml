@@ -102,7 +102,7 @@
 
 
             <p:dialog header="Detail studenta" width="450" showEffect="fade" modal="true"
-                      widgetVar="manageStudentDialog" responsive="true">
+                      widgetVar="manageStudentDialog" responsive="true" positionType="absolute">
                 <p:outputPanel id="manage-student-content" class="ui-fluid">
                     <p:outputPanel>
                         <div class="p-field">
@@ -135,7 +135,7 @@
                         </div>
                         <div class="p-field">
                             <p:outputLabel for="birthday">Datum narození</p:outputLabel>
-                            <p:datePicker id="birthday" value="#{teacherStudentBean.student.userAccount.birthday}" locale="cs" pattern="dd.MM.yyyy"/>
+                            <p:datePicker id="birthday" value="#{teacherStudentBean.student.userAccount.birthday}" monthNavigator="true" yearNavigator="true" locale="cs" pattern="dd.MM.yyyy"/>
                         </div>
                     </p:outputPanel>
                 </p:outputPanel>
