@@ -431,5 +431,5 @@ VALUES(9, 10);
 /* Admin */
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone, birthday, registered)
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
 VALUES('admin', 'admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=', 'admin@example.com', 'Daniel', 'Koten', 'ulice', 'psč', 'město', '123456789', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
