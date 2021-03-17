@@ -229,40 +229,44 @@ VALUES(1, 1, 8);
 /*Task*/
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(1, 'Zadání prvního úkolu');
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(1, '<p>Zadání prvního úkolu</p>', 'První úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(1, 'Zadání druhého úkolu');
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(1, '<p>Zadání druhého úkolu</p>', 'Druhý úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(1, 'Zadání třetího úkolu');
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(1, '<p>Zadání třetího úkolu</p>', 'Třetí úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(2, 'Zadání prvního úkolu');
+(teaching, "text", name, date, type, points)
+VALUES(1, '<p>Zadání dobrovolného úkolu...</p>', 'Úkol navíc', '2021-03-02 19:30:53.484', 'extra', 10);
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(3, 'Zadání prvního úkolu');
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(2, '<p>Zadání prvního úkolu</p>', 'První úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(4, 'Zadání prvního úkolu');
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(3, '<p>Zadání prvního úkolu</p>', 'První úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(4, 'Zadání druhého úkolu');
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(4, '<p>Zadání prvního úkolu</p>', 'První úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(5, 'Zadání prvního úkolu');
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(4, '<p>Zadání druhého úkolu</p>', 'Druhý úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
 
 INSERT INTO public.task
-(teaching, "text")
-VALUES(6, 'Zadání prvního úkolu');
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(5, '<p>Zadání prvního úkolu</p>', 'První úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
+
+INSERT INTO public.task
+(teaching, "text", name, time_from, time_to, date, type, points)
+VALUES(6, '<p>Zadání prvního úkolu</p>', 'První úkol', '2021-03-26 19:30:00', '2021-03-27 19:30:00', '2021-03-02 19:30:53.484', 'normal', 0);
 
 
 /*Summary*/
