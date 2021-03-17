@@ -1,6 +1,7 @@
 package cz.cvut.kotyna.onlineedu.jsf.student;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
+import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.service.*;
 
 import javax.ejb.EJB;
@@ -9,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -25,6 +27,8 @@ public class StudentTeachingBean implements Serializable {
     private TaskService taskService;
     @EJB
     private TeachingService teachingService;
+    @Inject
+    private UrlHelperBean urlHelperBean;
 
     private Integer teachingId;
     private Teaching teaching;
@@ -34,7 +38,19 @@ public class StudentTeachingBean implements Serializable {
         // If student tries to enter a teaching he does not attend, then redirect him to his default teaching
         if (loginService.getLoggedInUser().getRole().equals("student")) {
             if (!loginService.getLoggedInUser().getStudent().getClassroom().getTeachingCollection().stream().map(Teaching::getId).collect(Collectors.toList()).contains(teachingId)) {
-                teachingId = getDefaultStudentTeaching().getId();
+                Teaching t = getDefaultStudentTeaching();
+                if (t != null) {
+                    teachingId = getDefaultStudentTeaching().getId();
+                } else {
+                    try {
+                        final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
+                        FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/user");
+                        return;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return;
+                }
             }
         }
 
@@ -59,7 +75,7 @@ public class StudentTeachingBean implements Serializable {
     public Teaching getDefaultStudentTeaching() {
         Student loggedInStudent = userService.getStudentByUsername(loginService.getLoggedInUser().getUsername());
         Collection<Teaching> teachings = userService.getTeachings(loggedInStudent);
-        return teachings.stream().findFirst().get();
+        return teachings.stream().findFirst().orElse(null);
     }
 
     public boolean isCurrentTeaching(String teachingId) {

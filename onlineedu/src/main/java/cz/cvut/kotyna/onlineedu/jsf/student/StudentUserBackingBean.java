@@ -37,7 +37,12 @@ public class StudentUserBackingBean implements Serializable {
     private UserAccount userAccount;
 
     public void initUserAccount() {
-        userAccount = userService.findUserAccount(userAccountId);
+        if (userAccountId != null) {
+            userAccount = userService.findUserAccount(userAccountId);
+        }
+        else {
+            userAccount = loginService.getLoggedInUser();
+        }
     }
 
     public List<Student> getClassmates() {

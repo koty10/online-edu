@@ -1,6 +1,7 @@
 package cz.cvut.kotyna.onlineedu.jsf.teacher;
 
 import cz.cvut.kotyna.onlineedu.entity.*;
+import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.classbook.StudentStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
@@ -14,6 +15,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +32,8 @@ public class TeacherUserBackingBean implements Serializable {
     private ClassroomService classroomService;
     @Inject
     private TeacherTeachingBean teacherTeachingBean;
+    @Inject
+    private UrlHelperBean urlHelperBean;
 
     private Integer classroomId;
     private Classroom classroom;
@@ -47,12 +51,18 @@ public class TeacherUserBackingBean implements Serializable {
                 classroomId = teacherTeachingBean.getTeaching().getClassroom().getId();
             }
             else {
-                if (loginService.getLoggedInUser().getRole().equals("teacher")) {
-                    classroomId = getDefaultTeacherClassroom().getId();
+                Classroom defaultClassroom = getDefaultTeacherClassroom();
+                if (defaultClassroom != null) {
+                    classroomId = defaultClassroom.getId();
                 }
                 else {
-                    String message = "Bad request (classroomId = null). Please use a link from within the system.";
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+                    try {
+                        final String contextPathForCurrentUser = urlHelperBean.getContextPathForCurrentUser();
+                        FacesContext.getCurrentInstance().getExternalContext().redirect(contextPathForCurrentUser + "/user");
+                        return;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     return;
                 }
             }
@@ -83,7 +93,11 @@ public class TeacherUserBackingBean implements Serializable {
     }
 
     public void initUserAccount() {
-        userAccount = userService.findUserAccount(userAccountId);
+        if (userAccountId != null) {
+            userAccount = userService.findUserAccount(userAccountId);
+        } else {
+            userAccount = loginService.getLoggedInUser();
+        }
     }
 
     // used to create a new user account

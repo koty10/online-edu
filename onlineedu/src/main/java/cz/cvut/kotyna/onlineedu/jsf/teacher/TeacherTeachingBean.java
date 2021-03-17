@@ -107,7 +107,7 @@ public class TeacherTeachingBean implements Serializable {
 
     public Teaching getDefaultTeacherTeaching(Integer classroomId) {
         Teacher loggedInTeacher = loginService.getLoggedInUser().getTeacher();
-        return loggedInTeacher.getTeachingCollection().stream().filter(t -> t.getClassroom().getId().equals(classroomId)).findFirst().get();
+        return loggedInTeacher.getTeachingCollection().stream().filter(t -> t.getClassroom().getId().equals(classroomId)).findFirst().orElse(null);
     }
 
     public boolean isCurrentTeaching(String teachingId) {
@@ -129,11 +129,11 @@ public class TeacherTeachingBean implements Serializable {
 
         if (teaching.getId() == null) {
             teachingService.saveTeaching(teaching);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Učitel vytvořen"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Výuka vytvořena"));
         }
         else {
             teachingService.saveTeaching(teaching);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Učitel upraven"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Výuka upravena"));
         }
         PrimeFaces.current().executeScript("PF('manageTeachingDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-teachings");

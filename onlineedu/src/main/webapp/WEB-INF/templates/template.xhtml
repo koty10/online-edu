@@ -36,10 +36,7 @@
                                 <h:link rendered="#{userBackingBean.loggedInUser.role.equals('student')}" outcome="/student/home" value="Třída">
                                     <f:param name="teachingId" value="#{studentTeachingBean.defaultStudentTeaching.id}" />
                                 </h:link>
-                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('teacher')}" outcome="/teacher/home" value="Třída">
-                                    <f:param name="classroomId" value="#{teacherUserBackingBean.defaultTeacherClassroom.id}" />
-                                    <f:param name="teachingId" value="#{teacherTeachingBean.getDefaultTeacherTeaching(teacherUserBackingBean.defaultTeacherClassroom.id).id}" />
-                                </h:link>
+                                <h:link rendered="#{userBackingBean.loggedInUser.role.equals('teacher')}" outcome="/teacher/home" value="Třída" />
                                 <h:link rendered="#{userBackingBean.loggedInUser.role.equals('parent')}" outcome="/parent/home" value="Třída"></h:link>
                                 <h:link rendered="#{userBackingBean.loggedInUser.role.equals('admin')}" outcome="/admin/classrooms" value="Admin page"></h:link>
                             </li>
