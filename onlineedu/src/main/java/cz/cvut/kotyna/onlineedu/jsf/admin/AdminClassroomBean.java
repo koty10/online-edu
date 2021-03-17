@@ -60,6 +60,7 @@ public class AdminClassroomBean implements Serializable {
         if (classroom.getId() == null) {
             classroomService.saveClassroom(classroom);
             if (classroom.getTeacher() != null) {
+                classroom.getTeacher().setClassroom(classroom);
                 teacherService.saveTeacher(classroom.getTeacher());
             }
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Třída vytvořena"));
@@ -67,6 +68,7 @@ public class AdminClassroomBean implements Serializable {
         else {
             classroomService.saveClassroom(classroom);
             if (classroom.getTeacher() != null) {
+                classroom.getTeacher().setClassroom(classroom);
                 teacherService.saveTeacher(classroom.getTeacher());
             }
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Třída upravena"));
