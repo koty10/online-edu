@@ -53,7 +53,7 @@
             <p:column>
                 <h1>Aktuální předměty</h1>
 
-                <p:dataTable var="teaching" value="#{adminStudentBean.student.classroom.teachingCollection}" >
+                <p:dataTable var="teaching" value="#{adminStudentBean.student.classroom.teachingCollection}" size="small">
 
                     <p:column sortBy="#{teaching.subject.name}" headerText="Předmět" >
                         <h:outputText value="#{teaching.subject.name}" />

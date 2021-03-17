@@ -49,7 +49,7 @@
             <p:column>
                 <h2>Seznam žáků</h2>
 
-                <p:dataTable var="student" value="#{adminClassroomBean.classroom.studentCollection}" >
+                <p:dataTable var="student" value="#{adminClassroomBean.classroom.studentCollection}" size="small">
 
                     <p:column sortBy="#{student.userAccount.firstname}" headerText="Jméno a Příjmení" >
                         <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
