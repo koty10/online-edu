@@ -37,6 +37,9 @@ public class TeacherTeachingBean implements Serializable {
 
         // If teacher enter no teachingId, then redirect him to his default teaching
         if (teachingId == null && loginService.getLoggedInUser().getRole().equals("teacher")) {
+            if (teacherUserBackingBean.getClassroomId() == null) {
+                teacherUserBackingBean.setClassroom();
+            }
             if (teacherUserBackingBean.getClassroomId() != null) {
                 teachingId = getDefaultTeacherTeaching(teacherUserBackingBean.getClassroomId()).getId();
             }
