@@ -27,40 +27,40 @@ VALUES('4.B');
 /*User*/
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'ivana.coufalova', 'WdwEI/s8ro1QsrPKDyu4xNjoxEgW86IUAx0xtbTKe98=', 'Ivana', 'Coufalová', 'ivana.coufalova@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'ivana.coufalova', 'WdwEI/s8ro1QsrPKDyu4xNjoxEgW86IUAx0xtbTKe98=', 'Ivana', 'Coufalová', 'ivana.coufalova@example.com', 'Polní 10', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'dana.kadlecova', 'U4bm2X13JkFWRD3s8tBliWJT0p0nVnlMgyOOX8GH1Ho=', 'Dana', 'Kadlecová', 'dana.kadlecova@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'dana.kadlecova', 'U4bm2X13JkFWRD3s8tBliWJT0p0nVnlMgyOOX8GH1Ho=', 'Dana', 'Kadlecová', 'dana.kadlecova@example.com', 'Polní 20', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'michala.jandova', '9eh9mFVG/ngJK2SjPVkuF1V6n25a3L+9H6rS1/PGzX0=', 'Michala', 'Jandová', 'michala.jandova@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'michala.jandova', '9eh9mFVG/ngJK2SjPVkuF1V6n25a3L+9H6rS1/PGzX0=', 'Michala', 'Jandová', 'michala.jandova@example.com', 'Polní 30', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'josef.masek', '1L+8TUBn4GV9PcbmlZ0lLmYFwAOokfcXXS+6N+COnzY=', 'Josef', 'Mašek', 'josef.masek@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'josef.masek', '1L+8TUBn4GV9PcbmlZ0lLmYFwAOokfcXXS+6N+COnzY=', 'Josef', 'Mašek', 'josef.masek@example.com', 'Polní 40', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'richard.burda', '35AV/BUoIf4JkJR46i3pLS9mNrT2NumJV+UniW63GDw=', 'Richard', 'Burda', 'richard.burda@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'richard.burda', '35AV/BUoIf4JkJR46i3pLS9mNrT2NumJV+UniW63GDw=', 'Richard', 'Burda', 'richard.burda@example.com', 'Polní 50', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'jakub.novotny', 'fM1o/2NfJgdUsBO0XedRRf2h4NGat5NXWzEOqbuDjOY=', 'Jakub', 'Novotný', 'jakub.novotny@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'jakub.novotny', 'fM1o/2NfJgdUsBO0XedRRf2h4NGat5NXWzEOqbuDjOY=', 'Jakub', 'Novotný', 'jakub.novotny@example.com', 'Polní 60', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'filip.nejedly', '5GAWF3bI4g5sxfPs6DQRw22iVw/1cgMruYV3UrBHM7k=', 'Filip', 'Nejedlý', 'filip.nejedly@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'filip.nejedly', '5GAWF3bI4g5sxfPs6DQRw22iVw/1cgMruYV3UrBHM7k=', 'Filip', 'Nejedlý', 'filip.nejedly@example.com', 'Polní 70', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'petr.dvorak', 'SFsh/+eARGwdHFhDqI8mvbsZvArl5EvB3/01yvCdq28=', 'Petr', 'Dvořák', 'petr.dvorak@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'petr.dvorak', 'SFsh/+eARGwdHFhDqI8mvbsZvArl5EvB3/01yvCdq28=', 'Petr', 'Dvořák', 'petr.dvorak@example.com', 'Polní 80', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", firstname, surname, email, street, zip)
-VALUES('student', 'david.soucek', 'H+AUUUFYEG5+pkZqbZPjD3jKKvWkdhfjt5MPsz9QOtA=', 'David', 'Souček', 'david.soucek@example.com', '', '');
+("role", username, "password", firstname, surname, email, street, zip, city, phone, birthday, registered)
+VALUES('student', 'david.soucek', 'H+AUUUFYEG5+pkZqbZPjD3jKKvWkdhfjt5MPsz9QOtA=', 'David', 'Souček', 'david.soucek@example.com', 'Polní 90', '111 22', 'Vidlákov', '123456789', '2010-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 /*Student*/
 
@@ -105,28 +105,28 @@ VALUES('', 3, 9);
 /*User*/
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('teacher', 'jana.novakova', 'VTpuTbgPEgkiV9hBBEU3vsuW+kqo3xW8XVtnfYANqUA=', 'jana.novakova@example.com', 'Jana', 'Nováková', 'Dolnohradská 50', ' 255 55', '111 222 333');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('teacher', 'jana.novakova', 'VTpuTbgPEgkiV9hBBEU3vsuW+kqo3xW8XVtnfYANqUA=', 'jana.novakova@example.com', 'Jana', 'Nováková', 'Dolnohradská 50', ' 255 55', 'Praha', '111 222 333', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('teacher', 'jana.kopecka', 'cdormPrA/sPldpxcPHU6i4tMVfJ2jNnS7/xvVdIDDiI=', 'jana.kopecka@example.com', 'Jana', 'Kopecká', 'Vysoká 41', ' 255 55', '111 222 444');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('teacher', 'jana.kopecka', 'cdormPrA/sPldpxcPHU6i4tMVfJ2jNnS7/xvVdIDDiI=', 'jana.kopecka@example.com', 'Jana', 'Kopecká', 'Vysoká 41', ' 255 55', 'Praha', '111 222 444', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('teacher', 'lucie.petraskova', 'TU49Q4frSxOhrQYt0UIfeaYm5+JPK7rdmUt4j80Rs4s=', 'lucie.petraskova@example.com', 'Lucie', 'Petrásková', 'Šedivá 10', ' 255 05', '555 555 555');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('teacher', 'lucie.petraskova', 'TU49Q4frSxOhrQYt0UIfeaYm5+JPK7rdmUt4j80Rs4s=', 'lucie.petraskova@example.com', 'Lucie', 'Petrásková', 'Šedivá 10', ' 255 05', 'Praha', '555 555 555', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('teacher', 'marie.vavrova', 'DPDmSdUkjj3HHSrbL+t536IbkUhyifJCTwCsYOc0Tfc=', 'marie.vavrova@example.com', 'Marie', 'Vávrová', 'Dolnomoravská 50', ' 255 55', '111 222 555');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('teacher', 'marie.vavrova', 'DPDmSdUkjj3HHSrbL+t536IbkUhyifJCTwCsYOc0Tfc=', 'marie.vavrova@example.com', 'Marie', 'Vávrová', 'Dolnomoravská 50', ' 255 55', 'Praha', '111 222 555', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('teacher', 'patricie.petrova', 'F0aox1N0xBUL8d84FfWC7kRW7Gtb6ZVySpEVArYsWG4=', 'patricie.petrova@example.com', 'Patrície', 'Petrová', 'Mordá 50', ' 255 55', '111 222 666');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('teacher', 'patricie.petrova', 'F0aox1N0xBUL8d84FfWC7kRW7Gtb6ZVySpEVArYsWG4=', 'patricie.petrova@example.com', 'Patrície', 'Petrová', 'Mordá 50', ' 255 55', 'Praha', '111 222 666', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('teacher', 'magdalena.otrubova', 'chKDLgxAovr/IHHHBg1zzlU3pT281r5FPWgQ4bNFJYo=', 'magdalena.otrubova@example.com', 'Magdaléna', 'Otrubová', 'Žlutá 50', ' 255 55', '111 222 777');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('teacher', 'magdalena.otrubova', 'chKDLgxAovr/IHHHBg1zzlU3pT281r5FPWgQ4bNFJYo=', 'magdalena.otrubova@example.com', 'Magdaléna', 'Otrubová', 'Žlutá 50', ' 255 55', 'Praha', '111 222 777', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 
 /*Teacher*/
@@ -291,44 +291,44 @@ VALUES(1, 5, '2', 'Docela dobré');
 /*User*/
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'lubomir.coufal', '/Kvmc4DCbw7B4B81Vk2OTixXNnZ0xiITHntDBMa5kGs=', 'lubomir.coufal@example.com', 'Lubomír', 'Coufal', 'Spálená 20', '111 02', '123456789');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'lubomir.coufal', '/Kvmc4DCbw7B4B81Vk2OTixXNnZ0xiITHntDBMa5kGs=', 'lubomir.coufal@example.com', 'Lubomír', 'Coufal', 'Polní 10', '111 22', 'Vidlákov', '123 456 789', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'radka.coufalova', '7qhhYmPM7dwlOcUhYCYmYQfe8e90M03nsyyF1hQ1Qtw=', 'radka.coufalova@example.com', 'Radka', 'Coufalová', '', '', '123456789');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'radka.coufalova', '7qhhYmPM7dwlOcUhYCYmYQfe8e90M03nsyyF1hQ1Qtw=', 'radka.coufalova@example.com', 'Radka', 'Coufalová', 'Polní 10', '111 22', 'Vidlákov', '123 456 789', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'radka.kadlecova', 'V/cMocjrl1I8S4SpcLIerK18wUKCh9swFPf4EGgb/as=', 'radka.kadlecova@example.com', 'Radka', 'Kadlecová', '', '', '111 111 111');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'radka.kadlecova', 'V/cMocjrl1I8S4SpcLIerK18wUKCh9swFPf4EGgb/as=', 'radka.kadlecova@example.com', 'Radka', 'Kadlecová', 'Polní 20', '111 22', 'Vidlákov', '111 111 111', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'bohumila.jandova', 'a/qU4DRp26ucaqeG/fjYmMsE3X9oT20e5ArYiyA8Iks=', 'bohumila.jandova@example.com', 'Bohumila', 'Jandová', '', '', '');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'bohumila.jandova', 'a/qU4DRp26ucaqeG/fjYmMsE3X9oT20e5ArYiyA8Iks=', 'bohumila.jandova@example.com', 'Bohumila', 'Jandová', 'Polní 30', '111 22', 'Vidlákov', '123 456 789', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'lukas.masek', 'dLRiyuKBru3yrunHn2yNrsZ6w5P8oDp8uFDuQF4/gRc=', 'lukas.masek@example.com', 'Lukáš', 'Mašek', '', '', '222 222 222');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'lukas.masek', 'dLRiyuKBru3yrunHn2yNrsZ6w5P8oDp8uFDuQF4/gRc=', 'lukas.masek@example.com', 'Lukáš', 'Mašek', 'Polní 40', '111 22', 'Vidlákov', '222 222 222', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'evzen.burda', 'IFloIiKz85mZUnvyycA6c6vN+mg0B9YyBDrXiMteqb0=', 'evzen.burda@example.com', 'Evžen', 'Burda', 'Úzká 12', '158 03', '333 333 333');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'evzen.burda', 'IFloIiKz85mZUnvyycA6c6vN+mg0B9YyBDrXiMteqb0=', 'evzen.burda@example.com', 'Evžen', 'Burda', 'Polní 50', '111 22', 'Vidlákov', '333 333 333', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'lucie.novotna', '6WsqFrurkLvde8XzUrWD/CbGplD9nKD3VKZisHp4i3w=', 'lucie.novotna@example.com', 'Lucie', 'Novotná', '', '', '');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'lucie.novotna', '6WsqFrurkLvde8XzUrWD/CbGplD9nKD3VKZisHp4i3w=', 'lucie.novotna@example.com', 'Lucie', 'Novotná', 'Polní 60', '111 22', 'Vidlákov', '111 111 111', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'alexandr.nejedly', 'KBwisAQ6aXzaDNw6DSEuOBava+UwbBGuxBolz1bbg6c=', 'alexandr.nejedly@example.com', 'Alexandr', 'Nejedlý', '', '', '');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'alexandr.nejedly', 'KBwisAQ6aXzaDNw6DSEuOBava+UwbBGuxBolz1bbg6c=', 'alexandr.nejedly@example.com', 'Alexandr', 'Nejedlý', 'Polní 70', '111 22', 'Vidlákov', '222 222 222', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'martina.dvorakova', 'sDHrIJE2CVdyPRIxsYhMoDh7WdKl8k09awLyB4LP4Sc=', 'martina.dvorakova@example.com', 'Martina', 'Dvořáková', '', '', '');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'martina.dvorakova', 'sDHrIJE2CVdyPRIxsYhMoDh7WdKl8k09awLyB4LP4Sc=', 'martina.dvorakova@example.com', 'Martina', 'Dvořáková', 'Polní 80', '111 22', 'Vidlákov', '333 333 333', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('parent', 'roman.soucek', 'X4U9bj9IHWqfzygTAdGfYNK/VLBqNzqVveyhZyq9KLg=', 'roman.soucek@example.com', 'Roman', 'Souček', '', '', '444 444 444');
+("role", username, "password", email, firstname, surname, street, zip, city, phone, birthday, registered)
+VALUES('parent', 'roman.soucek', 'X4U9bj9IHWqfzygTAdGfYNK/VLBqNzqVveyhZyq9KLg=', 'roman.soucek@example.com', 'Roman', 'Souček', 'Polní 90', '111 22', 'Vidlákov', '444 444 444', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
 
 
 /*Parent*/
@@ -431,5 +431,5 @@ VALUES(9, 10);
 /* Admin */
 
 INSERT INTO public.user_account
-("role", username, "password", email, firstname, surname, street, zip, phone)
-VALUES('admin', 'admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=', 'admin@example.com', 'Daniel', 'Koten', 'ulice', 'psč', '123456789');
+("role", username, "password", email, firstname, surname, street, zip, phone, birthday, registered)
+VALUES('admin', 'admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=', 'admin@example.com', 'Daniel', 'Koten', 'ulice', 'psč', 'město', '123456789', '1990-03-01 16:58:47.469', '2021-03-01 16:58:47.469');
