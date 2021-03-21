@@ -6,6 +6,7 @@ import cz.cvut.kotyna.onlineedu.service.AuthService;
 import cz.cvut.kotyna.onlineedu.service.ClassroomService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
+import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -81,6 +82,9 @@ public class UserBackingBean implements Serializable {
             userAccount.setPassword(newPasswordHashed);
             userService.saveUserAccount(userAccount);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Heslo změněno", "Heslo bylo úspěšně změněno!"));
+            this.currentPassword = "";
+            this.newPassword = "";
+            this.newPasswordRepeated = "";
         }
     }
 
