@@ -51,7 +51,7 @@
                     </p:panelGrid>
 
                     <h2>Změnit heslo</h2>
-                    <p:panelGrid columns="2" styleClass="noBorders">
+                    <p:panelGrid columns="2" styleClass="noBorders" id="changePasswordPanelGrid">
 
                         <p:outputLabel for="currentPassword" value="Současné heslo:"/>
                         <p:inputText type="password" id="currentPassword" value="#{userBackingBean.currentPassword}" required="true" requiredMessage="Současné heslo je povinné pole"/>
@@ -63,8 +63,8 @@
                         <p:inputText type="password" id="newPasswordRepeated" value="#{userBackingBean.newPasswordRepeated}" required="true" requiredMessage="Nové heslo znovu je povinné pole"/>
 
                         <p:defaultCommand target="save-command-button"/>
-                        <p:commandButton id="save-command-button" value="Změnit heslo" icon="pi pi-check" actionListener="#{userBackingBean.changePassword(studentUserBackingBean.userAccount)}"
-                                         update="messages" />
+                        <p:commandButton id="save-command-button" value="Změnit heslo" icon="pi pi-check" actionListener="#{userBackingBean.changePassword(userBackingBean.loggedInUser)}"
+                                         update="messages form:changePasswordPanelGrid" />
 
                     </p:panelGrid>
                 </p:column>
