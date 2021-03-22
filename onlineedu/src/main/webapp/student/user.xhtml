@@ -63,7 +63,7 @@
                         <p:inputText type="password" id="newPasswordRepeated" value="#{userBackingBean.newPasswordRepeated}" required="true" requiredMessage="Nové heslo znovu je povinné pole"/>
 
                         <p:defaultCommand target="save-command-button"/>
-                        <p:commandButton id="save-command-button" value="Změnit heslo" icon="pi pi-check" actionListener="#{userBackingBean.changePassword(userBackingBean.loggedInUser)}"
+                        <p:commandButton id="save-command-button" value="Změnit heslo" icon="pi pi-check" actionListener="#{userBackingBean.changePassword(userBackingBean.loggedInUser.id)}"
                                          update="messages form:changePasswordPanelGrid" />
 
                     </p:panelGrid>

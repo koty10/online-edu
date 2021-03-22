@@ -60,7 +60,8 @@ public class UserBackingBean implements Serializable {
         return loginService != null ? loginService.getLoggedInUser() : null;
     }
 
-    public void changePassword(UserAccount userAccount) {
+    public void changePassword(Integer userAccountId) {
+        UserAccount userAccount = userService.findUserAccount(userAccountId);
         String currentPasswordHashed = "";
         String newPasswordHashed = "";
 

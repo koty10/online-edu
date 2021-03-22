@@ -4,6 +4,7 @@ import cz.cvut.kotyna.onlineedu.entity.Student;
 import cz.cvut.kotyna.onlineedu.entity.Summary;
 import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.service.StudentService;
+import cz.cvut.kotyna.onlineedu.service.SummaryService;
 import cz.cvut.kotyna.onlineedu.service.TeachingService;
 import cz.cvut.kotyna.onlineedu.service.UserService;
 import org.primefaces.PrimeFaces;
@@ -53,10 +54,16 @@ public class StudentBean {
             // generate username and hashed password (same as username for testing purposes)
             student.setUserAccount(userService.generateUserAccountUsernameAndPassword(student.getUserAccount()));
             studentService.saveStudent(student);
+            // reload student
+            student = studentService.findStudent(student.getId());
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Student vytvořen"));
         }
         else {
             studentService.saveStudent(student);
+            // reload student
+            student = studentService.findStudent(student.getId());
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Student upraven"));
         }
     }
