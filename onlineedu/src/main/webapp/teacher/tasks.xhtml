@@ -17,7 +17,7 @@
             </o:viewParam>
             <f:viewAction action="#{teacherTeachingBean.init}"/>
             <f:viewAction action="#{teacherUserBackingBean.setClassroom}"/>
-            <f:viewAction action="#{teacherTaskBean.initNewTask}"/>
+            <f:viewAction action="#{teacherTaskBean.initNewTask('normal')}"/>
 
         </f:metadata>
     </ui:define>
@@ -30,7 +30,7 @@
 
         <h1>Úkoly</h1>
         <h:form id="table-form">
-            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.taskWithStatisticsListDataModel}" size="small" >
+            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.getTaskWithStatisticsListDataModel('normal')}" size="small" >
 
                 <f:facet name="header">
                     <div class="buttonbar flex-end">
@@ -153,7 +153,7 @@
 
             <p:textEditor id="new-task-editor" placeholder="Prázdné zadání..." widgetVar="new-task-editor" value="#{teacherTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Text zadání je povinné pole"/>
 
-            <p:commandButton value="Vytvořit" action="#{teacherTaskBean.createTask}" update=":table-form:data-table-tasks :form-new-task :form-new-task:msgs" />
+            <p:commandButton value="Vytvořit" action="#{teacherTaskBean.createTask('normal')}" update=":table-form:data-table-tasks :form-new-task :form-new-task:msgs" />
         </h:form>
 
 

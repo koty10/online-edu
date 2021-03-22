@@ -27,8 +27,6 @@ import java.util.stream.Collectors;
 public class TeacherTaskBean implements Serializable {
 
     @EJB
-    private TeachingService teachingService;
-    @EJB
     private TaskService taskService;
     @Inject
     private TeacherUserBackingBean teacherUserBackingBean;
@@ -37,7 +35,6 @@ public class TeacherTaskBean implements Serializable {
     @Inject
     private TeacherTeachingBean teacherTeachingBean;
 
-    private final List<String> states = Arrays.asList("new", "accepted", "excused", "failed", "resubmitted", "returned", "submitted");
     private Integer taskId;
     private Task task;
     private String attemptText;
@@ -78,9 +75,9 @@ public class TeacherTaskBean implements Serializable {
     }
 
     // initialize new Task (used by form to set it's properties and persist it)
-    public void initNewTask() {
+    public void initNewTask(String type) {
         task = new Task();
-        task.setType("normal");
+        task.setType(type);
     }
 
     public List<Attempt> getStudentsAttemptsReverseSorted() {
@@ -112,46 +109,25 @@ public class TeacherTaskBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void createTask() {
+    public void createTask(String type) {
         task.setTeaching(teacherTeachingBean.getTeaching());
         taskService.createTask(task);
         FacesMessage msg = new FacesMessage("Úkol vytvořen");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-
         // to update table data
-        //tasks.add(task);
-        loadTasks();
-        //tasksDataModel.setWrappedData(tasks);
+        loadTasks(type);
         // to clear the form
         task = new Task();
-        task.setType("normal");
+        task.setType(type);
     }
 
-    public void loadTasks() {
-        List<TaskWithStatisticsModel> taskWithStatisticsModels = new ArrayList<>();
-        for (Task t : teachingService.getTasks(teacherTeachingBean.getTeachingId())) {
-            TaskWithStatisticsModel model = new TaskWithStatisticsModel();
-            model.setTaskId(t.getId());
-            model.setTaskName(t.getName());
-            model.setTaskDate(t.getDateFormatted());
-            model.setTaskTimeFrom(t.getTimeFromFormatted());
-            model.setTaskTimeTo(t.getTimeToFormatted());
-            model.setType(t.getTypeCzechFormatted());
-            model.setPoints(t.getPoints());
-
-            for (String state : states) {
-                Integer number = teacherTeachingBean.getNumberOfStudentsInState(state, t.getId());
-                if (number > 0) model.setNumberOfStudentsInState(state, number);
-            }
-
-            taskWithStatisticsModels.add(model);
-        }
-        taskWithStatisticsListDataModel = new ListDataModel<>(taskWithStatisticsModels);
+    public void loadTasks(String type) {
+        taskWithStatisticsListDataModel = new ListDataModel<>(taskService.getTaskWithStatisticsModels(teacherTeachingBean.getTeachingId(), type));
     }
 
-    public ListDataModel<TaskWithStatisticsModel> getTaskWithStatisticsListDataModel() {
+    public ListDataModel<TaskWithStatisticsModel> getTaskWithStatisticsListDataModel(String type) {
         if (taskWithStatisticsListDataModel == null) {
-            loadTasks();
+            loadTasks(type);
         }
         return taskWithStatisticsListDataModel;
     }
