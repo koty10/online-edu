@@ -44,6 +44,25 @@
                         <h:outputText value="Adresa:"/>
                         <h:outputText value="#{adminTeacherBean.teacher.userAccount.fullAddress}"/>
                     </p:panelGrid>
+
+                    <h2>Změnit heslo</h2>
+                    <p:panelGrid columns="2" styleClass="noBorders" id="changePasswordPanelGrid">
+
+                        <p:outputLabel for="currentPassword" value="Současné heslo:"/>
+                        <p:inputText type="password" id="currentPassword" value="#{userBackingBean.currentPassword}" required="true" requiredMessage="Současné heslo je povinné pole"/>
+
+                        <p:outputLabel for="newPassword" value="Nové heslo:"/>
+                        <p:inputText type="password" id="newPassword" value="#{userBackingBean.newPassword}" required="true" requiredMessage="Nové heslo je povinné pole"/>
+
+                        <p:outputLabel for="newPasswordRepeated" value="Nové heslo znovu:"/>
+                        <p:inputText type="password" id="newPasswordRepeated" value="#{userBackingBean.newPasswordRepeated}" required="true" requiredMessage="Nové heslo znovu je povinné pole"/>
+
+                        <p:defaultCommand target="save-command-button"/>
+                        <p:commandButton id="save-command-button" value="Změnit heslo" icon="pi pi-check" actionListener="#{userBackingBean.changePassword(adminTeacherBean.teacher.userAccount.id)}"
+                                         update="messages form:changePasswordPanelGrid" process="changePasswordPanelGrid @this" />
+
+                    </p:panelGrid>
+
                 </p:column>
 
                 <p:column>
