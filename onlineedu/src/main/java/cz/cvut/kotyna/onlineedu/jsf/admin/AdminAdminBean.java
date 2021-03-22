@@ -45,19 +45,20 @@ public class AdminAdminBean implements Serializable {
     }
 
     public void saveAdmin() {
-
-        admin.setRole("admin");
-        admin.setRegistered(new Date());
-
-        // generate username and hashed password (same as username for testing purposes)
-        admin = userService.generateUserAccountUsernameAndPassword(admin);
-
-        userService.saveUserAccount(admin);
-
         if (admin.getId() == null) {
+            admin.setRole("admin");
+            admin.setRegistered(new Date());
+            // generate username and hashed password (same as username for testing purposes)
+            admin = userService.generateUserAccountUsernameAndPassword(admin);
+            userService.saveUserAccount(admin);
+            // reload admin
+            admin = userService.findUserAccount(admin.getId());
+            allAdmins = new ArrayList<>(userService.getAllAdmins());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Administrátor vytvořen"));
-        }
-        else {
+        } else {
+            userService.saveUserAccount(admin);
+            // reload admin
+            admin = userService.findUserAccount(admin.getId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Administrátor upraven"));
         }
         PrimeFaces.current().executeScript("PF('manageAdminDialog').hide()");

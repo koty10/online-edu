@@ -50,18 +50,19 @@ public class AdminTeacherBean implements Serializable {
 
     public void saveTeacher() {
 
-        teacher.getUserAccount().setRole("teacher");
-        teacher.getUserAccount().setRegistered(new Date());
-
-        // generate username and hashed password (same as username for testing purposes)
-        teacher.setUserAccount(userService.generateUserAccountUsernameAndPassword(teacher.getUserAccount()));
-
-        teacherService.saveTeacher(teacher);
-
         if (teacher.getId() == null) {
+            teacher.getUserAccount().setRole("teacher");
+            teacher.getUserAccount().setRegistered(new Date());
+            // generate username and hashed password (same as username for testing purposes)
+            teacher.setUserAccount(userService.generateUserAccountUsernameAndPassword(teacher.getUserAccount()));
+            teacherService.saveTeacher(teacher);
+            // reload teacher
+            teacher = teacherService.findTeacher(teacher.getId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Učitel vytvořen"));
-        }
-        else {
+        } else {
+            teacherService.saveTeacher(teacher);
+            // reload teacher
+            teacher = teacherService.findTeacher(teacher.getId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Učitel upraven"));
         }
         PrimeFaces.current().executeScript("PF('manageTeacherDialog').hide()");
