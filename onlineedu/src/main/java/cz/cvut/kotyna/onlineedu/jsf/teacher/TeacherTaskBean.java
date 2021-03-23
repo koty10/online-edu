@@ -124,9 +124,7 @@ public class TeacherTaskBean implements Serializable {
         FacesMessage msg = new FacesMessage("Úkol vytvořen");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         // to update table data
-        // TODO separate into 2 functions
         loadTasks(type);
-        loadCompletedTasks(type);
         // to clear the form
         task = new Task();
         task.setType(type);
