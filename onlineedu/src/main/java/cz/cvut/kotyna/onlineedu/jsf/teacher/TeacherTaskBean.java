@@ -68,8 +68,8 @@ public class TeacherTaskBean implements Serializable {
         for (Student s : teacherUserBackingBean.getClassroom().getStudentCollection()) {
             tmp.add(new StudentWithTaskState(
                     s,
-                    taskService.getStudentsTaskState(s.getUserAccount().getId(), taskId),
-                    taskService.getRawStudentsTaskState(s.getUserAccount().getId(), taskId)));
+                    taskService.getStudentsTaskState(s.getUserAccount().getId(), task),
+                    taskService.getRawStudentsTaskState(s.getUserAccount().getId(), task)));
         }
         studentsDataModel = new ListDataModel<>(tmp);
     }

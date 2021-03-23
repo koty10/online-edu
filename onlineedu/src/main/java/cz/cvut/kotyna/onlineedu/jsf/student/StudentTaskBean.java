@@ -96,15 +96,15 @@ public class StudentTaskBean implements Serializable {
             return new ArrayList<>();
         }
         Student student = loginService.getLoggedInUser().getStudent();
-        return attemptService.getAttempts(student.getUserAccount().getId(), taskId);
+        return attemptService.getAttempts(student.getUserAccount().getId(), task);
     }
 
     public String getLoggedInStudentsTaskState(Integer taskId) {
-        return taskService.getStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
+        return taskService.getStudentsTaskState(loginService.getLoggedInUser().getId(), task);
     }
 
     public String getLoggedInStudentsTaskStateRaw(Integer taskId) {
-        return taskService.getRawStudentsTaskState(loginService.getLoggedInUser().getId(), taskId);
+        return taskService.getRawStudentsTaskState(loginService.getLoggedInUser().getId(), task);
     }
 
     public Collection<Task> getTasks() {

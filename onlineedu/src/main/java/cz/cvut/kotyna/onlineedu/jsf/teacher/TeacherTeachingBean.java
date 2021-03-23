@@ -74,10 +74,10 @@ public class TeacherTeachingBean implements Serializable {
         }
     }
 
-    public Integer getNumberOfStudentsInState(String state, Integer taskId) {
+    public Integer getNumberOfStudentsInState(String state, Task task) {
         Collection<Student> students = teaching.getClassroom().getStudentCollection();
         return (int) students.stream()
-                .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), taskId))
+                .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), task))
                 .filter(taskState -> taskState.equals(state))
                 .count();
     }
@@ -90,7 +90,7 @@ public class TeacherTeachingBean implements Serializable {
 
         for (Task task : tasks) {
             count += (int) students.stream()
-                    .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), task.getId()))
+                    .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), task))
                     .filter(taskState -> taskState.equals("submitted") || taskState.equals("resubmitted"))
                     .count();
         }

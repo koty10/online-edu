@@ -164,7 +164,7 @@ public class UserService {
     private Integer getNumberOfTasksInRhsStateForRhsStudent(Integer userAccountId, Teaching teaching, String state) {
         Integer count = 0;
         for (Task task : teaching.getTaskCollection()) {
-            if (taskService.getRawStudentsTaskState(userAccountId, task.getId()).equals(state)) {
+            if (taskService.getRawStudentsTaskState(userAccountId, task).equals(state)) {
                 count++;
             }
         }

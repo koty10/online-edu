@@ -90,7 +90,7 @@ public class StudentTeachingBean implements Serializable {
         int count = 0;
 
         for (Task task : tasks) {
-            String state = taskService.getRawStudentsTaskState(loggedInUser.getId(), task.getId());
+            String state = taskService.getRawStudentsTaskState(loggedInUser.getId(), task);
             if (state.equals("new") || state.equals("returned")) {
                 count++;
             }
@@ -103,7 +103,7 @@ public class StudentTeachingBean implements Serializable {
         int count = 0;
 
         for (Task task : teaching.getTaskCollection().stream().filter(task -> task.getType().equals(type)).collect(Collectors.toList())) {
-            String state = taskService.getRawStudentsTaskState(loggedInUser.getId(), task.getId());
+            String state = taskService.getRawStudentsTaskState(loggedInUser.getId(), task);
             if (state.equals("new") || state.equals("returned")) {
                 count++;
             }

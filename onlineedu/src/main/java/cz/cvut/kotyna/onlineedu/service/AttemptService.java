@@ -64,7 +64,7 @@ public class AttemptService {
 
     public void acceptAttempt(Attempt attempt) {
         // If the task is accepted first time (as it should be), then give student the points
-        String state = taskService.getRawStudentsTaskState(attempt.getStudent().getUserAccount().getId(), attempt.getTask().getId());
+        String state = taskService.getRawStudentsTaskState(attempt.getStudent().getUserAccount().getId(), attempt.getTask());
         if (!state.equals(TaskState.ACCEPTED.toString()) && attempt.getTask().getType().equals("extra")) {
             attempt.getStudent().setPoints(attempt.getStudent().getPoints() + attempt.getTask().getPoints());
             studentService.saveStudent(attempt.getStudent());
@@ -79,11 +79,13 @@ public class AttemptService {
         em.merge(attempt);
     }
 
-    public List<Attempt> getAttempts(Integer userAccountId, Integer taskId) {
-        if (taskId == null) {
+    public List<Attempt> getAttempts(Integer userAccountId, Task task) {
+        if (task == null) {
             return new ArrayList<>();
         }
-        Task task = taskService.findTask(taskId);
-        return task.getAttemptCollection().stream().filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId)).sorted((x, y) -> y.getTime().compareTo(x.getTime())).collect(Collectors.toList());
+        return task.getAttemptCollection().stream()
+                .filter(a -> a.getStudent().getUserAccount().getId().equals(userAccountId))
+                .sorted((x, y) -> y.getTime().compareTo(x.getTime()))
+                .collect(Collectors.toList());
     }
 }

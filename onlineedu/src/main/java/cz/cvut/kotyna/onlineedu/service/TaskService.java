@@ -47,16 +47,16 @@ public class TaskService {
         em.merge(task);
     }
 
-    public String getStudentsTaskState(Integer userAccountId, Integer taskId) {
-        List<Attempt> attempts = attemptService.getAttempts(userAccountId, taskId).stream()
+    public String getStudentsTaskState(Integer userAccountId, Task task) {
+        List<Attempt> attempts = attemptService.getAttempts(userAccountId, task).stream()
                 .sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
         if (attempts.isEmpty()) return "Nový";
         if (attempts.stream().map(Attempt::getState).anyMatch(x -> x.equals("accepted"))) return "Schváleno";
         return attempts.get(attempts.size() - 1).getStateCzechFormated();
     }
 
-    public String getRawStudentsTaskState(Integer userAccountId, Integer taskId) {
-        List<Attempt> attempts = attemptService.getAttempts(userAccountId, taskId).stream()
+    public String getRawStudentsTaskState(Integer userAccountId, Task task) {
+        List<Attempt> attempts = attemptService.getAttempts(userAccountId, task).stream()
             .sorted(Comparator.comparing(Attempt::getTime)).collect(Collectors.toList());
         if (attempts.isEmpty()) return "new";
         if (attempts.stream().map(Attempt::getState).anyMatch(x -> x.equals("accepted"))) return "accepted";
@@ -100,7 +100,7 @@ public class TaskService {
 
             for (String state : states) {
                 int number = (int) teaching.getClassroom().getStudentCollection().stream()
-                        .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), t.getId()))
+                        .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), t))
                         .filter(taskState -> taskState.equals(state))
                         .count();
                 if (number > 0) model.setNumberOfStudentsInState(state, number);
