@@ -44,8 +44,8 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
-                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
+                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">
+                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
                             <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">
@@ -81,8 +81,8 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
-                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
+                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">
+                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
                             <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">
@@ -118,8 +118,8 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}">
-                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task.id)}" />
+                            <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">
+                                <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
                             <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">

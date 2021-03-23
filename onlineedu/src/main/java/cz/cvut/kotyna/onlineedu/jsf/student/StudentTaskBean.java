@@ -99,11 +99,11 @@ public class StudentTaskBean implements Serializable {
         return attemptService.getAttempts(student.getUserAccount().getId(), task);
     }
 
-    public String getLoggedInStudentsTaskState(Integer taskId) {
+    public String getLoggedInStudentsTaskState(Task task) {
         return taskService.getStudentsTaskState(loginService.getLoggedInUser().getId(), task);
     }
 
-    public String getLoggedInStudentsTaskStateRaw(Integer taskId) {
+    public String getLoggedInStudentsTaskStateRaw(Task task) {
         return taskService.getRawStudentsTaskState(loginService.getLoggedInUser().getId(), task);
     }
 
@@ -118,9 +118,9 @@ public class StudentTaskBean implements Serializable {
         if (extraNotYetAcceptedTasks == null) {
             extraNotYetAcceptedTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
                     .filter(task ->
-                            !getLoggedInStudentsTaskStateRaw(task.getId()).equals("accepted") &&
-                            !getLoggedInStudentsTaskStateRaw(task.getId()).equals("submitted") &&
-                            !getLoggedInStudentsTaskStateRaw(task.getId()).equals("resubmitted")
+                            !getLoggedInStudentsTaskStateRaw(task).equals("accepted") &&
+                            !getLoggedInStudentsTaskStateRaw(task).equals("submitted") &&
+                            !getLoggedInStudentsTaskStateRaw(task).equals("resubmitted")
                     )
                     .filter(task -> task.getType() != null && task.getType().equals("extra"))
                     .collect(Collectors.toList());
@@ -131,7 +131,7 @@ public class StudentTaskBean implements Serializable {
     public Collection<Task> getExtraAlreadyAcceptedTasks() {
         if (extraAlreadyAcceptedTasks == null) {
             extraAlreadyAcceptedTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
-                    .filter(task -> getLoggedInStudentsTaskStateRaw(task.getId()).equals("accepted"))
+                    .filter(task -> getLoggedInStudentsTaskStateRaw(task).equals("accepted"))
                     .filter(task -> task.getType() != null && task.getType().equals("extra"))
                     .collect(Collectors.toList());
         }
@@ -142,8 +142,8 @@ public class StudentTaskBean implements Serializable {
         if (extraAlreadySentTasks == null) {
             extraAlreadySentTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
                     .filter(task ->
-                            getLoggedInStudentsTaskStateRaw(task.getId()).equals("submitted") ||
-                            getLoggedInStudentsTaskStateRaw(task.getId()).equals("resubmitted")
+                            getLoggedInStudentsTaskStateRaw(task).equals("submitted") ||
+                            getLoggedInStudentsTaskStateRaw(task).equals("resubmitted")
                     )
                     .filter(task -> task.getType() != null && task.getType().equals("extra"))
                     .collect(Collectors.toList());
@@ -155,9 +155,9 @@ public class StudentTaskBean implements Serializable {
         if (normalNotYetAcceptedTasks == null) {
             normalNotYetAcceptedTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
                     .filter(task ->
-                            !getLoggedInStudentsTaskStateRaw(task.getId()).equals("accepted") &&
-                                    !getLoggedInStudentsTaskStateRaw(task.getId()).equals("submitted") &&
-                                    !getLoggedInStudentsTaskStateRaw(task.getId()).equals("resubmitted")
+                            !getLoggedInStudentsTaskStateRaw(task).equals("accepted") &&
+                                    !getLoggedInStudentsTaskStateRaw(task).equals("submitted") &&
+                                    !getLoggedInStudentsTaskStateRaw(task).equals("resubmitted")
                     )
                     .filter(task -> task.getType() != null && task.getType().equals("normal"))
                     .collect(Collectors.toList());
@@ -168,7 +168,7 @@ public class StudentTaskBean implements Serializable {
     public Collection<Task> getNormalAlreadyAcceptedTasks() {
         if (normalAlreadyAcceptedTasks == null) {
             normalAlreadyAcceptedTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
-                    .filter(task -> getLoggedInStudentsTaskStateRaw(task.getId()).equals("accepted"))
+                    .filter(task -> getLoggedInStudentsTaskStateRaw(task).equals("accepted"))
                     .filter(task -> task.getType() != null && task.getType().equals("normal"))
                     .collect(Collectors.toList());
         }
@@ -179,8 +179,8 @@ public class StudentTaskBean implements Serializable {
         if (normalAlreadySentTasks == null) {
             normalAlreadySentTasks = teachingService.getTasks(studentTeachingBean.getTeachingId()).stream()
                     .filter(task ->
-                            getLoggedInStudentsTaskStateRaw(task.getId()).equals("submitted") ||
-                                    getLoggedInStudentsTaskStateRaw(task.getId()).equals("resubmitted")
+                            getLoggedInStudentsTaskStateRaw(task).equals("submitted") ||
+                                    getLoggedInStudentsTaskStateRaw(task).equals("resubmitted")
                     )
                     .filter(task -> task.getType() != null && task.getType().equals("normal"))
                     .collect(Collectors.toList());

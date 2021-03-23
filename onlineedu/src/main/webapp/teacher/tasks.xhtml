@@ -45,39 +45,55 @@
                 <p:column headerText="Název" sortBy="#{task.taskName}">
                     <h:outputText value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" />
                 </p:column>
-                <p:column headerText="Typ (počet bodů)" sortBy="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" sortOrder="desc">
-                    <h:outputText value="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" />
-                </p:column>
                 <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
                     <h:outputText value="#{task.taskDate}" />
                 </p:column>
 
-                <p:column headerText="Nový" sortBy="#{task.numberOfStudentsInNewState}">
-                    <h:outputText value="#{task.numberOfStudentsInNewState}" styleClass="#{task.numberOfStudentsInNewState > 0 ?'color-for-new' : ''}"/>
+                <p:column headerText="Nedokončeno" sortBy="#{task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState}">
+                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState > 0}" value="#{(task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState).toString()}" styleClass="rounded-button ui-button-warning" >
+                        <f:param name="taskId" value="#{task.taskId}" />
+                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                        <f:param name="state" value="new" />
+                        <f:param name="state" value="returned" />
+                    </p:linkButton>
                 </p:column>
-                <p:column headerText="Odevzdáno" sortBy="#{task.numberOfStudentsInSubmittedState}">
-                    <h:outputText value="#{task.numberOfStudentsInSubmittedState}" styleClass="#{task.numberOfStudentsInSubmittedState > 0 ?'color-for-submitted' : ''}"/>
-                </p:column>
-                <p:column headerText="Vráceno" sortBy="#{task.numberOfStudentsInReturnedState}">
-                    <h:outputText value="#{task.numberOfStudentsInReturnedState}" styleClass="#{task.numberOfStudentsInReturnedState > 0 ?'color-for-returned' : ''}"/>
-                </p:column>
-                <p:column headerText="Znovu odevzdáno" sortBy="#{task.numberOfStudentsInResubmittedState}">
-                    <h:outputText value="#{task.numberOfStudentsInResubmittedState}" styleClass="#{task.numberOfStudentsInResubmittedState > 0 ?'color-for-resubmitted' : ''}"/>
+                <p:column headerText="Odevzdáno" sortBy="#{task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState}">
+                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState > 0}" value="#{(task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState).toString()}" styleClass="rounded-button ui-button-info" >
+                        <f:param name="taskId" value="#{task.taskId}" />
+                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                        <f:param name="state" value="submitted" />
+                        <f:param name="state" value="resubmitted" />
+                    </p:linkButton>
                 </p:column>
                 <p:column headerText="Schváleno" sortBy="#{task.numberOfStudentsInAcceptedState}">
-                    <h:outputText value="#{task.numberOfStudentsInAcceptedState}" styleClass="#{task.numberOfStudentsInAcceptedState > 0 ?'color-for-accepted' : ''}"/>
+                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInAcceptedState > 0}" value="#{(task.numberOfStudentsInAcceptedState).toString()}" styleClass="rounded-button ui-button-success" >
+                        <f:param name="taskId" value="#{task.taskId}" />
+                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                        <f:param name="state" value="accepted" />
+                    </p:linkButton>
                 </p:column>
                 <p:column headerText="Omluven" sortBy="#{task.numberOfStudentsInExcusedState}" visible="false">
-                    <h:outputText value="#{task.numberOfStudentsInExcusedState}" styleClass="#{task.numberOfStudentsInExcusedState > 0 ?'color-for-excused' : ''}"/>
+                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInExcusedState > 0}" value="#{(task.numberOfStudentsInExcusedState).toString()}" styleClass="rounded-button ui-button-secondary" >
+                        <f:param name="taskId" value="#{task.taskId}" />
+                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                        <f:param name="state" value="excused" />
+                    </p:linkButton>
                 </p:column>
                 <p:column headerText="Nesplněno" sortBy="#{task.numberOfStudentsInFailedState}">
-                    <h:outputText value="#{task.numberOfStudentsInFailedState}" styleClass="#{task.numberOfStudentsInFailedState > 0 ?'color-for-failed' : ''}"/>
+                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInFailedState > 0}" value="#{(task.numberOfStudentsInFailedState).toString()}" styleClass="rounded-button ui-button-danger" >
+                        <f:param name="taskId" value="#{task.taskId}" />
+                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                        <f:param name="state" value="failed" />
+                    </p:linkButton>
                 </p:column>
                 <p:column headerText="Začátek" sortBy="#{task.taskTimeFrom}" visible="false">
                     <h:outputText value="#{task.taskTimeFrom}" />
                 </p:column>
                 <p:column headerText="Deadline" sortBy="#{task.taskTimeTo}">
                     <h:outputText value="#{task.taskTimeTo}" />
+                </p:column>
+                <p:column rendered="false" headerText="Typ (počet bodů)" sortBy="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" sortOrder="desc">
+                    <h:outputText value="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" />
                 </p:column>
 
                 <p:column style="width:3rem;text-align: center" exportable="false">

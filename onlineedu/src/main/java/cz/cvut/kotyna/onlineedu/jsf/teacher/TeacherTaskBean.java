@@ -7,6 +7,7 @@ import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.task.StudentWithTaskState;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.tasks.TaskWithStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.*;
+import org.omnifaces.cdi.Param;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -37,6 +38,9 @@ public class TeacherTaskBean implements Serializable {
 
     private Integer taskId;
     private Task task;
+    // filter
+    @Inject @Param(name = "state")
+    private List<String> states;
     private String attemptText;
     private String result;
     private ListDataModel<StudentWithTaskState> studentsDataModel;
@@ -66,10 +70,13 @@ public class TeacherTaskBean implements Serializable {
     public void loadStudentsListDataModel() {
         List<StudentWithTaskState> tmp = new ArrayList<>();
         for (Student s : teacherUserBackingBean.getClassroom().getStudentCollection()) {
-            tmp.add(new StudentWithTaskState(
-                    s,
-                    taskService.getStudentsTaskState(s.getUserAccount().getId(), task),
-                    taskService.getRawStudentsTaskState(s.getUserAccount().getId(), task)));
+            String rawState = taskService.getRawStudentsTaskState(s.getUserAccount().getId(), task);
+            if (states == null || states.contains(rawState)) {
+                tmp.add(new StudentWithTaskState(
+                        s,
+                        taskService.getStudentsTaskState(s.getUserAccount().getId(), task),
+                        rawState));
+            }
         }
         studentsDataModel = new ListDataModel<>(tmp);
     }
@@ -177,5 +184,13 @@ public class TeacherTaskBean implements Serializable {
 
     public void setTaskWithStatisticsListDataModel(ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel) {
         this.taskWithStatisticsListDataModel = taskWithStatisticsListDataModel;
+    }
+
+    public List<String> getStates() {
+        return states;
+    }
+
+    public void setStates(List<String> states) {
+        this.states = states;
     }
 }
