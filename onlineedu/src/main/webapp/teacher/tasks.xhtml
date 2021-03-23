@@ -30,138 +30,204 @@
 
         <h1>Úkoly</h1>
         <h:form id="table-form">
-            <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.getTaskWithStatisticsListDataModel('normal')}" size="small" >
 
-                <f:facet name="header">
-                    <div class="buttonbar flex-end">
-                        <div>
-                            <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
-                            <p:columnToggler datasource="data-table-tasks" trigger="toggler" />
-                        </div>
-                    </div>
+            <p:tabView id="tab-view" dynamic="true" cache="true">
+                <p:tab id="tab-active" title="Aktivní">
+                    <p:dataTable widgetVar="data-table-tasks" id="data-table-tasks" var="task" value="#{teacherTaskBean.getTaskWithStatisticsListDataModel('normal')}" size="small" emptyMessage="Žádné úkoly" >
 
-                </f:facet>
+                        <f:facet name="header">
+                            <div class="buttonbar flex-end">
+                                <div>
+                                    <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                                    <p:columnToggler datasource="data-table-tasks" trigger="toggler" />
+                                </div>
+                            </div>
 
-                <p:column headerText="Název" sortBy="#{task.taskName}">
-                    <h:outputText value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" />
-                </p:column>
-                <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
-                    <h:outputText value="#{task.taskDate}" />
-                </p:column>
+                        </f:facet>
 
-                <p:column headerText="Nedokončeno" sortBy="#{task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState}">
-                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState > 0}" value="#{(task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState).toString()}" styleClass="rounded-button ui-button-warning" >
-                        <f:param name="taskId" value="#{task.taskId}" />
-                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
-                        <f:param name="state" value="new" />
-                        <f:param name="state" value="returned" />
-                    </p:linkButton>
-                </p:column>
-                <p:column headerText="Odevzdáno" sortBy="#{task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState}">
-                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState > 0}" value="#{(task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState).toString()}" styleClass="rounded-button ui-button-info" >
-                        <f:param name="taskId" value="#{task.taskId}" />
-                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
-                        <f:param name="state" value="submitted" />
-                        <f:param name="state" value="resubmitted" />
-                    </p:linkButton>
-                </p:column>
-                <p:column headerText="Schváleno" sortBy="#{task.numberOfStudentsInAcceptedState}">
-                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInAcceptedState > 0}" value="#{(task.numberOfStudentsInAcceptedState).toString()}" styleClass="rounded-button ui-button-success" >
-                        <f:param name="taskId" value="#{task.taskId}" />
-                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
-                        <f:param name="state" value="accepted" />
-                    </p:linkButton>
-                </p:column>
-                <p:column headerText="Omluven" sortBy="#{task.numberOfStudentsInExcusedState}" visible="false">
-                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInExcusedState > 0}" value="#{(task.numberOfStudentsInExcusedState).toString()}" styleClass="rounded-button ui-button-secondary" >
-                        <f:param name="taskId" value="#{task.taskId}" />
-                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
-                        <f:param name="state" value="excused" />
-                    </p:linkButton>
-                </p:column>
-                <p:column headerText="Nesplněno" sortBy="#{task.numberOfStudentsInFailedState}">
-                    <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInFailedState > 0}" value="#{(task.numberOfStudentsInFailedState).toString()}" styleClass="rounded-button ui-button-danger" >
-                        <f:param name="taskId" value="#{task.taskId}" />
-                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
-                        <f:param name="state" value="failed" />
-                    </p:linkButton>
-                </p:column>
-                <p:column headerText="Začátek" sortBy="#{task.taskTimeFrom}" visible="false">
-                    <h:outputText value="#{task.taskTimeFrom}" />
-                </p:column>
-                <p:column headerText="Deadline" sortBy="#{task.taskTimeTo}">
-                    <h:outputText value="#{task.taskTimeTo}" />
-                </p:column>
-                <p:column rendered="false" headerText="Typ (počet bodů)" sortBy="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" sortOrder="desc">
-                    <h:outputText value="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" />
-                </p:column>
+                        <p:column headerText="Název" sortBy="#{task.taskName}">
+                            <h:outputText value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" />
+                        </p:column>
+                        <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
+                            <h:outputText value="#{task.taskDate}" />
+                        </p:column>
 
-                <p:column style="width:3rem;text-align: center" exportable="false">
-                    <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail">
-                        <f:param name="taskId" value="#{task.taskId}" />
-                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
-                        <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
-                    </p:linkButton>
-                </p:column>
+                        <p:column headerText="Nedokončeno" sortBy="#{task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState}">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState > 0}" value="#{(task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState).toString()}" styleClass="rounded-button ui-button-warning" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="new" />
+                                <f:param name="state" value="returned" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Odevzdáno" sortBy="#{task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState}">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState > 0}" value="#{(task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState).toString()}" styleClass="rounded-button ui-button-info" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="submitted" />
+                                <f:param name="state" value="resubmitted" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Schváleno" sortBy="#{task.numberOfStudentsInAcceptedState}">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInAcceptedState > 0}" value="#{(task.numberOfStudentsInAcceptedState).toString()}" styleClass="rounded-button ui-button-success" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="accepted" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Omluven" sortBy="#{task.numberOfStudentsInExcusedState}" visible="false">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInExcusedState > 0}" value="#{(task.numberOfStudentsInExcusedState).toString()}" styleClass="rounded-button ui-button-secondary" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="excused" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Nesplněno" sortBy="#{task.numberOfStudentsInFailedState}">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInFailedState > 0}" value="#{(task.numberOfStudentsInFailedState).toString()}" styleClass="rounded-button ui-button-danger" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="failed" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Začátek" sortBy="#{task.taskTimeFrom}" visible="false">
+                            <h:outputText value="#{task.taskTimeFrom}" />
+                        </p:column>
+                        <p:column headerText="Deadline" sortBy="#{task.taskTimeTo}">
+                            <h:outputText value="#{task.taskTimeTo}" />
+                        </p:column>
+                        <p:column rendered="false" headerText="Typ (počet bodů)" sortBy="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" sortOrder="desc">
+                            <h:outputText value="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" />
+                        </p:column>
 
-            </p:dataTable>
+                        <p:column style="width:3rem;text-align: center" exportable="false">
+                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail">
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                            </p:linkButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:tab>
+
+                <p:tab id="tab-completed" title="Dokončené">
+                    <p:dataTable widgetVar="data-table-completed-tasks" id="data-table-completed-tasks" var="task" value="#{teacherTaskBean.getCompletedTaskWithStatisticsListDataModel('normal')}" size="small" emptyMessage="Žádné úkoly" >
+
+                        <f:facet name="header">
+                            <div class="buttonbar flex-end">
+                                <div>
+                                    <p:commandButton id="toggler-completed" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                                    <p:columnToggler datasource="data-table-completed-tasks" trigger="toggler-completed" />
+                                </div>
+                            </div>
+
+                        </f:facet>
+
+                        <p:column headerText="Název" sortBy="#{task.taskName}">
+                            <h:outputText value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" />
+                        </p:column>
+                        <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
+                            <h:outputText value="#{task.taskDate}" />
+                        </p:column>
+
+                        <p:column headerText="Nedokončeno" sortBy="#{task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState}">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState > 0}" value="#{(task.numberOfStudentsInNewState + task.numberOfStudentsInReturnedState).toString()}" styleClass="rounded-button ui-button-warning" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="new" />
+                                <f:param name="state" value="returned" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Odevzdáno" sortBy="#{task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState}">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState > 0}" value="#{(task.numberOfStudentsInSubmittedState + task.numberOfStudentsInResubmittedState).toString()}" styleClass="rounded-button ui-button-info" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="submitted" />
+                                <f:param name="state" value="resubmitted" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Schváleno" sortBy="#{task.numberOfStudentsInAcceptedState}">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInAcceptedState > 0}" value="#{(task.numberOfStudentsInAcceptedState).toString()}" styleClass="rounded-button ui-button-success" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="accepted" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Omluven" sortBy="#{task.numberOfStudentsInExcusedState}" visible="false">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInExcusedState > 0}" value="#{(task.numberOfStudentsInExcusedState).toString()}" styleClass="rounded-button ui-button-secondary" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="excused" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Nesplněno" sortBy="#{task.numberOfStudentsInFailedState}">
+                            <p:linkButton outcome="/teacher/tasks/task" rendered="#{task.numberOfStudentsInFailedState > 0}" value="#{(task.numberOfStudentsInFailedState).toString()}" styleClass="rounded-button ui-button-danger" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="state" value="failed" />
+                            </p:linkButton>
+                        </p:column>
+                        <p:column headerText="Začátek" sortBy="#{task.taskTimeFrom}" visible="false">
+                            <h:outputText value="#{task.taskTimeFrom}" />
+                        </p:column>
+                        <p:column headerText="Deadline" sortBy="#{task.taskTimeTo}">
+                            <h:outputText value="#{task.taskTimeTo}" />
+                        </p:column>
+                        <p:column rendered="false" headerText="Typ (počet bodů)" sortBy="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" sortOrder="desc">
+                            <h:outputText value="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" />
+                        </p:column>
+
+                        <p:column style="width:3rem;text-align: center" exportable="false">
+                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail">
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                            </p:linkButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
+
         </h:form>
 
         <h:form id="form-new-task" style="margin-top: 5rem">
             <h2>Vytvořit úkol</h2>
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <p:panelGrid columns="2" styleClass="ui-noborder" >
-                <p:column>
-                    <div class="p-field p-grid">
-                        <p:outputLabel for="new-task-name" styleClass="p-col-fixed" style="width:150px" value="Jméno úkolu" />
-                        <div class="p-col">
-                            <p:inputText id="new-task-name" value="#{teacherTaskBean.task.name}" required="true" requiredMessage="Název je povinné pole"/>
-                        </div>
-                    </div>
 
-                    <div class="p-field p-grid">
-                        <p:outputLabel for="new-task-type" styleClass="p-col-fixed" style="width:150px" value="Typ" />
-                        <div class="p-col">
-                            <p:selectOneMenu id="new-task-type" value="#{teacherTaskBean.task.type}" rendered="true" requiredMessage="Typ je povinné pole">
-                                <f:selectItem itemValue="normal" itemLabel="Povinný" />
-                                <f:selectItem itemValue="extra" itemLabel="Dobrovolný" />
-                                <p:ajax update="panel-group-container" />
-                            </p:selectOneMenu>
-                        </div>
-                    </div>
-                </p:column>
-                <p:column>
-                    <h:panelGroup id="panel-group-container" layout="block" >
-                        <h:panelGroup id="panel-group-points" layout="block" styleClass="p-field p-grid" rendered="#{teacherTaskBean.task.type.equals('extra')}">
-                            <p:outputLabel for="new-task-points" styleClass="p-col-fixed" style="width:150px" value="Počet bodů" />
-                            <div class="p-col">
-                                <p:inputText id="new-task-points" value="#{teacherTaskBean.task.points}" required="true" requiredMessage="Počet bodů je povinné pole"/>
-                            </div>
-                        </h:panelGroup>
-                        <h:panelGroup id="panel-group-points-slider" layout="block" styleClass="p-field p-grid" rendered="#{teacherTaskBean.task.type.equals('extra')}">
-                            <div class="p-col">
-                                <p:slider for="new-task-points" range="false" minValue="0" maxValue="100"/>
-                            </div>
-                        </h:panelGroup>
+            <h:panelGroup id="panel-group-container" layout="block" styleClass="p-sm-6" >
+                <div class="p-field p-grid">
+                    <p:outputLabel for="new-task-name" styleClass="p-col-fixed" style="width:150px" value="Jméno úkolu" />
+                    <h:panelGrid columns="1">
+                        <p:inputText id="new-task-name" value="#{teacherTaskBean.task.name}" required="true" requiredMessage="Název je povinné pole"/>
+                    </h:panelGrid>
+                </div>
 
-                        <h:panelGroup id="panel-group-time-from" layout="block" styleClass="p-field p-grid" rendered="#{teacherTaskBean.task.type.equals('normal')}">
-                            <p:outputLabel for="new-task-time-from" styleClass="p-col-fixed" style="width:150px" value="Začátek" />
-                            <div class="p-col">
-                                <p:datePicker id="new-task-time-from" value="#{teacherTaskBean.task.timeFrom}" showTime="true" monthNavigator="true" yearNavigator="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Začátek je povinné pole"/>
-                            </div>
-                        </h:panelGroup>
+                <div class="p-field p-grid">
+                    <p:outputLabel for="new-task-points" styleClass="p-col-fixed" style="width:150px" value="Počet bodů" />
+                    <h:panelGrid columns="1">
+                        <p:inputText id="new-task-points" value="#{teacherTaskBean.task.points}" required="true" requiredMessage="Počet bodů je povinné pole"/>
+                        <p:slider for="new-task-points" range="false" minValue="0" maxValue="100"/>
+                    </h:panelGrid>
+                </div>
 
-                        <h:panelGroup id="panel-group-time-to" layout="block" styleClass="p-field p-grid" rendered="#{teacherTaskBean.task.type.equals('normal')}">
-                            <p:outputLabel for="new-task-time-to" styleClass="p-col-fixed" style="width:150px" value="Deadline" />
-                            <div class="p-col">
-                                <p:datePicker id="new-task-time-to" value="#{teacherTaskBean.task.timeTo}" showTime="true" monthNavigator="true" yearNavigator="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Deadline je povinné pole"/>
-                            </div>
-                        </h:panelGroup>
-                    </h:panelGroup>
 
-                </p:column>
-            </p:panelGrid>
+                <div class="p-field p-grid">
+                    <p:outputLabel for="new-task-time-from" styleClass="p-col-fixed" style="width:150px" value="Začátek" />
+                    <h:panelGrid columns="1">
+                        <p:datePicker id="new-task-time-from" value="#{teacherTaskBean.task.timeFrom}" showTime="true" monthNavigator="true" yearNavigator="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Začátek je povinné pole"/>
+                    </h:panelGrid>
+                </div>
+                <div class="p-field p-grid">
+                    <p:outputLabel for="new-task-time-to" styleClass="p-col-fixed" style="width:150px" value="Deadline" />
+                    <h:panelGrid columns="1">
+                        <p:datePicker id="new-task-time-to" value="#{teacherTaskBean.task.timeTo}" showTime="true" monthNavigator="true" yearNavigator="true" locale="cs" pattern="dd.MM.yyyy" required="true" requiredMessage="Deadline je povinné pole"/>
+                    </h:panelGrid>
+                </div>
+            </h:panelGroup>
+
+
 
 
 
@@ -169,7 +235,7 @@
 
             <p:textEditor id="new-task-editor" placeholder="Prázdné zadání..." widgetVar="new-task-editor" value="#{teacherTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Text zadání je povinné pole"/>
 
-            <p:commandButton value="Vytvořit" action="#{teacherTaskBean.createTask('normal')}" update=":table-form:data-table-tasks :form-new-task :form-new-task:msgs" />
+            <p:commandButton value="Vytvořit" action="#{teacherTaskBean.createTask('normal')}" update=":table-form:tab-view:data-table-completed-tasks :table-form:tab-view:data-table-tasks :form-new-task :form-new-task:msgs" />
         </h:form>
 
 

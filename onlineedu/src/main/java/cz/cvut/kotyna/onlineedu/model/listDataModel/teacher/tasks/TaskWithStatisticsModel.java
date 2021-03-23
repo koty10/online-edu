@@ -58,6 +58,27 @@ public class TaskWithStatisticsModel {
         }
     }
 
+    public int getNumberOfStudentsInState(String state) {
+        switch (state) {
+            case "new":
+                return numberOfStudentsInNewState;
+            case "submitted":
+                return numberOfStudentsInSubmittedState;
+            case "returned":
+                return numberOfStudentsInReturnedState;
+            case "resubmitted":
+                return numberOfStudentsInResubmittedState;
+            case "accepted":
+                return numberOfStudentsInAcceptedState;
+            case "excused":
+                return numberOfStudentsInExcusedState;
+            case "failed":
+                return numberOfStudentsInFailedState;
+            default:
+                return 0;
+        }
+    }
+
     // Getters & Setters
 
     public Integer getTaskId() {

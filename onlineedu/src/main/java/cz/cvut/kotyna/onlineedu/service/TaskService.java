@@ -81,7 +81,7 @@ public class TaskService {
 
 
 
-    public List<TaskWithStatisticsModel> getTaskWithStatisticsModels(Integer teachingId, String type) {
+    public List<TaskWithStatisticsModel> getTaskWithStatisticsModels(Integer teachingId, String type, String requiredState) {
 
         Teaching teaching = teachingService.findTeaching(teachingId);
         List<TaskWithStatisticsModel> taskWithStatisticsModels = new ArrayList<>();
@@ -103,10 +103,20 @@ public class TaskService {
                         .map(student -> taskService.getRawStudentsTaskState(student.getUserAccount().getId(), t))
                         .filter(taskState -> taskState.equals(state))
                         .count();
-                if (number > 0) model.setNumberOfStudentsInState(state, number);
+                model.setNumberOfStudentsInState(state, number);
             }
 
-            taskWithStatisticsModels.add(model);
+            List<String> activeStates = List.of("new", "submitted", "returned", "resubmitted");
+            int totalCountOfStudentsInActiveStateForCurrentTask = 0;
+            for (String state : activeStates) {
+                totalCountOfStudentsInActiveStateForCurrentTask += model.getNumberOfStudentsInState(state);
+            }
+
+            if ("active".equals(requiredState) && totalCountOfStudentsInActiveStateForCurrentTask > 0) {
+                taskWithStatisticsModels.add(model);
+            } else if ("completed".equals(requiredState) && totalCountOfStudentsInActiveStateForCurrentTask == 0) {
+                taskWithStatisticsModels.add(model);
+            }
         }
         return taskWithStatisticsModels;
     }

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,7 @@ public class TeacherTaskBean implements Serializable {
     private String result;
     private ListDataModel<StudentWithTaskState> studentsDataModel;
     private ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel;
+    private ListDataModel<TaskWithStatisticsModel> completedTaskWithStatisticsListDataModel;
 
     public void initTask() {
         if (taskId == null) {
@@ -122,14 +124,20 @@ public class TeacherTaskBean implements Serializable {
         FacesMessage msg = new FacesMessage("Úkol vytvořen");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         // to update table data
+        // TODO separate into 2 functions
         loadTasks(type);
+        loadCompletedTasks(type);
         // to clear the form
         task = new Task();
         task.setType(type);
     }
 
     public void loadTasks(String type) {
-        taskWithStatisticsListDataModel = new ListDataModel<>(taskService.getTaskWithStatisticsModels(teacherTeachingBean.getTeachingId(), type));
+        taskWithStatisticsListDataModel = new ListDataModel<>(taskService.getTaskWithStatisticsModels(teacherTeachingBean.getTeachingId(), type, "active"));
+    }
+
+    public void loadCompletedTasks(String type) {
+        completedTaskWithStatisticsListDataModel = new ListDataModel<>(taskService.getTaskWithStatisticsModels(teacherTeachingBean.getTeachingId(), type, "completed"));
     }
 
     public ListDataModel<TaskWithStatisticsModel> getTaskWithStatisticsListDataModel(String type) {
@@ -137,6 +145,13 @@ public class TeacherTaskBean implements Serializable {
             loadTasks(type);
         }
         return taskWithStatisticsListDataModel;
+    }
+
+    public ListDataModel<TaskWithStatisticsModel> getCompletedTaskWithStatisticsListDataModel(String type) {
+        if (completedTaskWithStatisticsListDataModel == null) {
+            loadCompletedTasks(type);
+        }
+        return completedTaskWithStatisticsListDataModel;
     }
 
     // Getters & Setters
@@ -184,6 +199,10 @@ public class TeacherTaskBean implements Serializable {
 
     public void setTaskWithStatisticsListDataModel(ListDataModel<TaskWithStatisticsModel> taskWithStatisticsListDataModel) {
         this.taskWithStatisticsListDataModel = taskWithStatisticsListDataModel;
+    }
+
+    public void setCompletedTaskWithStatisticsListDataModel(ListDataModel<TaskWithStatisticsModel> completedTaskWithStatisticsListDataModel) {
+        this.completedTaskWithStatisticsListDataModel = completedTaskWithStatisticsListDataModel;
     }
 
     public List<String> getStates() {
