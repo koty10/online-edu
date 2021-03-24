@@ -35,19 +35,27 @@
             </p:column>
 
             <p:column headerText="Úkol">
-                <h:outputText value="#{attempt.task.name}" />
+                <p:link outcome="/teacher/tasks/task" value="#{empty attempt.task.name ? 'Úkol bez názvu' : attempt.task.name}" >
+                    <f:param name="taskId" value="#{attempt.task.id}" />
+                    <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                    <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                </p:link>
             </p:column>
 
             <p:column headerText="Student">
-                <h:outputText value="#{attempt.student.userAccount.firstname} #{attempt.student.userAccount.surname}" />
+                <p:link outcome="/teacher/students/student" value="#{attempt.student.userAccount.firstname} #{attempt.student.userAccount.surname}" >
+                    <f:param name="studentId" value="#{attempt.student.id}" />
+                    <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                    <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                </p:link>
             </p:column>
 
             <p:column headerText="Stav">
                 <h:outputText value="#{attempt.getStateCzechFormated()}" />
             </p:column>
 
-            <p:column style="width:3rem;text-align: center" exportable="false">
-                <p:linkButton outcome="/teacher/tasks/task/attempt" icon="pi pi-search" title="Detail">
+            <p:column style="width:6rem;text-align: center" exportable="false">
+                <p:linkButton outcome="/teacher/tasks/task/attempt" icon="pi pi-search" title="Detail" value="Detail">
                     <f:param name="attemptId" value="#{attempt.id}" />
                     <f:param name="taskId" value="#{attempt.task.id}" />
                     <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />

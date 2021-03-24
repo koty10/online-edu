@@ -58,7 +58,7 @@
                 <h:link outcome="/teacher/classbook" value="Třídní kniha" includeViewParams="true" />
             </li>
             <li class="#{urlHelperBean.isCurrentPage('news') ? 'active' : ''}">
-                <h:link outcome="/teacher/news" value="Novinky" includeViewParams="true" />
+                <h:link outcome="/teacher/news" value="Novinky (#{teacherTeachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(teacherTeachingBean.teaching.id)})" includeViewParams="true" />
             </li>
 
         </ul>

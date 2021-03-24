@@ -57,7 +57,11 @@
                 </p:column>
 
                 <p:column headerText="Jméno a příjmení">
-                    <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
+                    <p:link outcome="/teacher/students/student" value="#{student.userAccount.firstname} #{student.userAccount.surname}" >
+                        <f:param name="studentId" value="#{student.id}" />
+                        <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                        <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                    </p:link>
                 </p:column>
 
                 <p:column headerText="Email">
