@@ -46,10 +46,10 @@
                 <h:link outcome="/teacher/home" value="Třídní chat" includeViewParams="true"/>
             </li>
             <li class="#{urlHelperBean.isCurrentPage('tasks') ? 'active' : ''}">
-                <h:link outcome="/teacher/tasks" value="Úkoly" includeViewParams="true" />
+                <h:link outcome="/teacher/tasks" value="Úkoly (#{teacherTeachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsType('normal')})" includeViewParams="true" />
             </li>
             <li class="#{urlHelperBean.isCurrentPage('extra-tasks') ? 'active' : ''}">
-                <h:link outcome="/teacher/extra-tasks" value="Cvičení za body" includeViewParams="true" />
+                <h:link outcome="/teacher/extra-tasks" value="Cvičení za body (#{teacherTeachingBean.getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsType('extra')})" includeViewParams="true" />
             </li>
             <li class="#{urlHelperBean.isCurrentPage('students') ? 'active' : ''}">
                 <h:link outcome="/teacher/students" value="Seznam žáků" includeViewParams="true" />

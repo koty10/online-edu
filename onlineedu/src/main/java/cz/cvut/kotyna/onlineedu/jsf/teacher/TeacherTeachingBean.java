@@ -86,6 +86,18 @@ public class TeacherTeachingBean implements Serializable {
         Teaching teaching = teachingService.findTeaching(teachingId);
         Collection<Student> students = teaching.getClassroom().getStudentCollection();
         Collection<Task> tasks = teaching.getTaskCollection();
+        return getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedState(students, tasks);
+    }
+
+    public Integer getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsType(String type) {
+        Collection<Student> students = teaching.getClassroom().getStudentCollection();
+        Collection<Task> tasks = teaching.getTaskCollection().stream()
+                .filter(task -> task.getType().equals(type))
+                .collect(Collectors.toList());
+        return getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedState(students, tasks);
+    }
+
+    private Integer getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedState(Collection<Student> students, Collection<Task> tasks) {
         int count = 0;
 
         for (Task task : tasks) {
