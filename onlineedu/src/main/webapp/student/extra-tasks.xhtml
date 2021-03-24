@@ -40,7 +40,10 @@
                             </f:facet>
 
                             <p:column headerText="Název" sortBy="#{task.name}">
-                                <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
+                                <p:link outcome="/student/tasks/task" value="#{empty task.name ? 'Úkol bez názvu' : task.name}" >
+                                    <f:param name="taskId" value="#{task.id}" />
+                                    <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
+                                </p:link>
                             </p:column>
 
                             <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">
@@ -77,7 +80,10 @@
                             </f:facet>
 
                             <p:column headerText="Název" sortBy="#{task.name}">
-                                <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
+                                <p:link outcome="/student/tasks/task" value="#{empty task.name ? 'Úkol bez názvu' : task.name}" >
+                                    <f:param name="taskId" value="#{task.id}" />
+                                    <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
+                                </p:link>
                             </p:column>
 
                             <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">
@@ -114,7 +120,10 @@
                             </f:facet>
 
                             <p:column headerText="Název" sortBy="#{task.name}">
-                                <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
+                                <p:link outcome="/student/tasks/task" value="#{empty task.name ? 'Úkol bez názvu' : task.name}" >
+                                    <f:param name="taskId" value="#{task.id}" />
+                                    <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
+                                </p:link>
                             </p:column>
 
                             <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">

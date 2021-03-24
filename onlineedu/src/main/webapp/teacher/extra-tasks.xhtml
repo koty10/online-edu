@@ -46,8 +46,13 @@
                         </f:facet>
 
                         <p:column headerText="Název" sortBy="#{task.taskName}">
-                            <h:outputText value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" />
+                            <p:link outcome="/teacher/tasks/task" value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                            </p:link>
                         </p:column>
+
                         <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
                             <h:outputText value="#{task.taskDate}" />
                         </p:column>
@@ -121,8 +126,13 @@
                         </f:facet>
 
                         <p:column headerText="Název" sortBy="#{task.taskName}">
-                            <h:outputText value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" />
+                            <p:link outcome="/teacher/tasks/task" value="#{empty task.taskName ? 'Úkol bez názvu' : task.taskName}" >
+                                <f:param name="taskId" value="#{task.taskId}" />
+                                <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
+                                <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
+                            </p:link>
                         </p:column>
+
                         <p:column headerText="Vytvořeno" sortBy="#{task.taskDate}" visible="false">
                             <h:outputText value="#{task.taskDate}" />
                         </p:column>
