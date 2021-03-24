@@ -48,12 +48,12 @@
                                 <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
-                            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">
+                            <p:column headerText="Termín odevzdání" sortBy="#{task.timeToFormatted}" sortOrder="asc">
                                 <h:outputText value="#{task.timeToFormatted}" />
                             </p:column>
 
-                            <p:column style="width:3rem;text-align: center" exportable="false">
-                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail">
+                            <p:column style="width:6rem;text-align: center" exportable="false">
+                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                     <f:param name="taskId" value="#{task.id}" />
                                     <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
                                 </p:linkButton>
@@ -85,12 +85,12 @@
                                 <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
-                            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">
+                            <p:column headerText="Termín odevzdání" sortBy="#{task.timeToFormatted}" sortOrder="asc">
                                 <h:outputText value="#{task.timeToFormatted}" />
                             </p:column>
 
-                            <p:column style="width:3rem;text-align: center" exportable="false">
-                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail">
+                            <p:column style="width:6rem;text-align: center" exportable="false">
+                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                     <f:param name="taskId" value="#{task.id}" />
                                     <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
                                 </p:linkButton>
@@ -122,17 +122,16 @@
                                 <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
-                            <p:column headerText="Deadline" sortBy="#{task.timeToFormatted}" sortOrder="desc">
+                            <p:column headerText="Termín odevzdání" sortBy="#{task.timeToFormatted}" sortOrder="asc">
                                 <h:outputText value="#{task.timeToFormatted}" />
                             </p:column>
 
-                            <p:column style="width:3rem;text-align: center" exportable="false">
-                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail">
+                            <p:column style="width:6rem;text-align: center" exportable="false">
+                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                     <f:param name="taskId" value="#{task.id}" />
                                     <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
                                 </p:linkButton>
                             </p:column>
-
                         </p:dataTable>
 
                     </p:tab>

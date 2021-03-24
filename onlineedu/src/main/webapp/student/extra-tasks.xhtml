@@ -15,12 +15,12 @@
     </ui:define>
 
     <ui:define name="title">
-        Úkoly
+        Cvičení za body
     </ui:define>
 
     <ui:define name="content">
 
-        <h2>Úkoly</h2>
+        <h2>Cvičení za body</h2>
         <h:form id="form">
 
             <div class="card">
@@ -43,16 +43,16 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
-                                <h:outputText value="#{task.points}" />
-                            </p:column>
-
                             <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">
                                 <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
-                            <p:column style="width:3rem;text-align: center" exportable="false">
-                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail">
+                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
+                                <h:outputText value="#{task.points}" />
+                            </p:column>
+
+                            <p:column style="width:6rem;text-align: center" exportable="false">
+                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                     <f:param name="taskId" value="#{task.id}" />
                                     <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
                                 </p:linkButton>
@@ -80,16 +80,16 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
-                                <h:outputText value="#{task.points}" />
-                            </p:column>
-
                             <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">
                                 <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
-                            <p:column style="width:3rem;text-align: center" exportable="false">
-                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail">
+                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
+                                <h:outputText value="#{task.points}" />
+                            </p:column>
+
+                            <p:column style="width:6rem;text-align: center" exportable="false">
+                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                     <f:param name="taskId" value="#{task.id}" />
                                     <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
                                 </p:linkButton>
@@ -117,16 +117,16 @@
                                 <h:outputText value="#{empty task.name ? 'Úkol bez názvu' : task.name}" />
                             </p:column>
 
-                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
-                                <h:outputText value="#{task.points}" />
-                            </p:column>
-
                             <p:column headerText="Stav" sortBy="#{studentTaskBean.getLoggedInStudentsTaskState(task)}">
                                 <h:outputText value="#{studentTaskBean.getLoggedInStudentsTaskState(task)}" />
                             </p:column>
 
-                            <p:column style="width:3rem;text-align: center" exportable="false">
-                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail">
+                            <p:column headerText="Počet bodů" sortBy="#{task.points}" sortOrder="desc">
+                                <h:outputText value="#{task.points}" />
+                            </p:column>
+
+                            <p:column style="width:6rem;text-align: center" exportable="false">
+                                <p:linkButton outcome="/student/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                     <f:param name="taskId" value="#{task.id}" />
                                     <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
                                 </p:linkButton>
