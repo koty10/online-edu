@@ -92,15 +92,12 @@
                         <p:column headerText="Začátek" sortBy="#{task.taskTimeFrom}" visible="false">
                             <h:outputText value="#{task.taskTimeFrom}" />
                         </p:column>
-                        <p:column headerText="Deadline" sortBy="#{task.taskTimeTo}">
+                        <p:column headerText="Termín odevzdání" sortBy="#{task.taskTimeTo}">
                             <h:outputText value="#{task.taskTimeTo}" />
                         </p:column>
-                        <p:column rendered="false" headerText="Typ (počet bodů)" sortBy="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" sortOrder="desc">
-                            <h:outputText value="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" />
-                        </p:column>
 
-                        <p:column style="width:3rem;text-align: center" exportable="false">
-                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail">
+                        <p:column style="width:6rem;text-align: center" exportable="false">
+                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                 <f:param name="taskId" value="#{task.taskId}" />
                                 <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
                                 <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
@@ -173,12 +170,9 @@
                         <p:column headerText="Deadline" sortBy="#{task.taskTimeTo}">
                             <h:outputText value="#{task.taskTimeTo}" />
                         </p:column>
-                        <p:column rendered="false" headerText="Typ (počet bodů)" sortBy="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" sortOrder="desc">
-                            <h:outputText value="#{task.type} #{not empty task.points ? '(' : ''}#{task.points}#{not empty task.points ? ')' : ''}" />
-                        </p:column>
 
-                        <p:column style="width:3rem;text-align: center" exportable="false">
-                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail">
+                        <p:column style="width:6rem;text-align: center" exportable="false">
+                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                 <f:param name="taskId" value="#{task.taskId}" />
                                 <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
                                 <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />

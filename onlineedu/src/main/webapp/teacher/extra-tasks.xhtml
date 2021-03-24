@@ -23,12 +23,12 @@
     </ui:define>
 
     <ui:define name="title">
-        Úkoly
+        Cvičení za body
     </ui:define>
 
     <ui:define name="content">
 
-        <h1>Úkoly</h1>
+        <h1>Cvičení za body</h1>
         <h:form id="table-form">
 
             <p:tabView id="tab-view" dynamic="true" cache="true">
@@ -96,8 +96,8 @@
                             <h:outputText value="#{task.points}" />
                         </p:column>
 
-                        <p:column style="width:3rem;text-align: center" exportable="false">
-                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail">
+                        <p:column style="width:6rem;text-align: center" exportable="false">
+                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                 <f:param name="taskId" value="#{task.taskId}" />
                                 <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
                                 <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
@@ -172,8 +172,8 @@
                             <h:outputText value="#{task.points}" />
                         </p:column>
 
-                        <p:column style="width:3rem;text-align: center" exportable="false">
-                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail">
+                        <p:column style="width:6rem;text-align: center" exportable="false">
+                            <p:linkButton outcome="/teacher/tasks/task" icon="pi pi-search" title="Detail" value="Detail">
                                 <f:param name="taskId" value="#{task.taskId}" />
                                 <f:param name="teachingId" value="#{teacherTeachingBean.teachingId}" />
                                 <f:param name="classroomId" value="#{teacherUserBackingBean.classroomId}" />
