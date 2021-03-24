@@ -29,7 +29,7 @@
         <h1>Novinky</h1>
 
         <h2>Poslední odevzdané pokusy</h2>
-        <p:dataTable var="attempt" value="#{teacherAttemptBean.lastAttemptsListDataModel}">
+        <p:dataTable var="attempt" value="#{teacherAttemptBean.lastAttemptsListDataModel}" emptyMessage="Žádné novinky">
             <p:column headerText="Datum">
                 <h:outputText value="#{attempt.getTimeFormated()}" />
             </p:column>

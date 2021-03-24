@@ -111,7 +111,10 @@ public class TeacherTeachingBean implements Serializable {
 
     public Integer getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsClassroom(Integer classroomId) {
         int count = 0;
-        for (Teaching teaching : classroomService.findClassroom(classroomId).getTeachingCollection()) {
+        Collection<Teaching> myTeachings = classroomService.findClassroom(classroomId).getTeachingCollection().stream()
+                .filter(t -> t.getTeacher().getUserAccount().getId().equals(loginService.getLoggedInUser().getId()))
+                .collect(Collectors.toList());
+        for (Teaching teaching : myTeachings) {
             count += getNumberOfStudentsThatHaveSomeTaskInSubmittedOrResubmittedStateForRhsTeaching(teaching.getId());
         }
         return  count;

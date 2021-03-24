@@ -28,7 +28,7 @@
     <ui:define name="content">
 
         <h2>Třídní kniha</h2>
-        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{teacherUserBackingBean.studentStatisticsListDataModel}" size="small">
+        <p:dataTable widgetVar="data-table-students" id="data-table-students" var="student" value="#{teacherUserBackingBean.studentStatisticsListDataModel}" size="small" emptyMessage="Žádní žáci">
 
             <p:column headerText="Žák" sortBy="#{student.studentFirstname} #{student.studentSurname}" sortOrder="asc">
                 <h:outputText value="#{student.studentFirstname} #{student.studentSurname}" />

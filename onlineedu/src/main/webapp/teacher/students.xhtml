@@ -33,7 +33,7 @@
 
             <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <p:dataTable widgetVar="dt-students" id="dt-students" var="student" value="#{teacherTeachingBean.teaching.classroom.studentCollection}" size="small">
+            <p:dataTable widgetVar="dt-students" id="dt-students" var="student" value="#{teacherTeachingBean.teaching.classroom.studentCollection}" size="small" emptyMessage="Žádní žáci">
 
                 <f:facet name="header">
                     <div class="buttonbar">
