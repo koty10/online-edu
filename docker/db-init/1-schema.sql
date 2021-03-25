@@ -206,7 +206,8 @@ create table task
     "time_to"     timestamp,
     date     timestamp,
     type      varchar(64) default 'normal'::character varying not null,
-	points     integer
+	points     integer,
+	blob     bytea
 );
 
 create table attempt

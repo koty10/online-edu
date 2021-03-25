@@ -8,6 +8,12 @@ import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.task.StudentWithTask
 import cz.cvut.kotyna.onlineedu.model.listDataModel.teacher.tasks.TaskWithStatisticsModel;
 import cz.cvut.kotyna.onlineedu.service.*;
 import org.omnifaces.cdi.Param;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.file.UploadedFile;
+import org.primefaces.model.file.UploadedFiles;
+import org.primefaces.shaded.commons.io.IOUtils;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -16,6 +22,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -209,5 +216,62 @@ public class TeacherTaskBean implements Serializable {
 
     public void setStates(List<String> states) {
         this.states = states;
+    }
+
+
+
+
+
+
+
+
+/*
+    private StreamedContent file;
+
+
+    public StreamedContent getContent() throws IOException {
+        if(file == null){
+            file = pdfDocumentGenerate();
+        }
+        return file;
+    }
+
+
+    public DefaultStreamedContent pdfDocumentGenerate() {
+
+            return DefaultStreamedContent.builder()
+                    .name("test.pdf")
+                    .contentType("application/pdf")
+                    .stream(() ->  new ByteArrayInputStream(task.getBlob()))
+                    .build();
+
+    }
+
+    public StreamedContent getFile() {
+        return file;
+    }
+
+ */
+
+
+
+
+
+
+
+
+    public void handleFileUpload(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+        task.setName(event.getFile().getFileName());
+        task.setBlob(event.getFile().getContent());
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public StreamedContent getStreamedContent() {
+        return DefaultStreamedContent.builder()
+                .name("test.pdf")
+                .contentType("application/pdf")
+                .stream(() ->  new ByteArrayInputStream(task.getBlob()))
+                .build();
     }
 }
