@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "student")
 @NamedQueries({
         @NamedQuery(name = Student.FIND_ALL, query = "SELECT s FROM Student s"),
-        @NamedQuery(name = "Student.findById", query = "SELECT s FROM Student s WHERE s.id = :id"),
+        @NamedQuery(name = "Student.find", query = "SELECT s FROM Student s WHERE s.id = :id"),
         @NamedQuery(name = "Student.findByChatAlert", query = "SELECT s FROM Student s WHERE s.chatAlert = :chatAlert"),
         @NamedQuery(name = Student.FIND_LOGGED_IN_STUDENT, query = "select student from Student student join UserAccount user on student.id = user.student.id where user.username = :username"),
         @NamedQuery(name = Student.FIND_CLASSMATES, query = "select student from Student student where student.classroom.id = :classroomId")})
@@ -61,6 +61,8 @@ public class Student implements Serializable {
     private UserAccount userAccount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Collection<Family> familyCollection;
+    @OneToMany(mappedBy = "student")
+    private Collection<StudentsAvatar> studentsAvatars;
 
     public Student() {
     }
@@ -145,6 +147,14 @@ public class Student implements Serializable {
         this.familyCollection = familyCollection;
     }
 
+    public Collection<StudentsAvatar> getStudentsAvatars() {
+        return studentsAvatars;
+    }
+
+    public void setStudentsAvatars(Collection<StudentsAvatar> studentsAvatars) {
+        this.studentsAvatars = studentsAvatars;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -169,5 +179,4 @@ public class Student implements Serializable {
     public String toString() {
         return "cz.cvut.kotyna.onlineedu.entity.Student[ id=" + id + " ]";
     }
-
 }
