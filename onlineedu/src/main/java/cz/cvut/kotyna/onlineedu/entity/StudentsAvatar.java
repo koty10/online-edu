@@ -16,6 +16,9 @@ public class StudentsAvatar {
     @Basic
     @Column(name = "time_to", nullable = false)
     private LocalDateTime timeTo;
+    @Basic
+    @Column(name = "active", nullable = false)
+    private boolean active;
     @ManyToOne
     @JoinColumn(name = "student", referencedColumnName = "id", nullable = false)
     private Student student;
@@ -45,6 +48,14 @@ public class StudentsAvatar {
 
     public void setTimeTo(LocalDateTime timeTo) {
         this.timeTo = timeTo;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override
