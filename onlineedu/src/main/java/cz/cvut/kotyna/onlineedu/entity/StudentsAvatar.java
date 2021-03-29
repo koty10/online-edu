@@ -7,14 +7,22 @@ import java.util.Objects;
 @Entity
 @Table(name = "students_avatar", schema = "public", catalog = "onlineedu")
 public class StudentsAvatar {
-    private int id;
-    private LocalDateTime timeFrom;
-    private LocalDateTime timeTo;
-    private Student student;
-    private Avatar avatar;
-
     @Id
     @Column(name = "id", nullable = false)
+    private int id;
+    @Basic
+    @Column(name = "time_from", nullable = false)
+    private LocalDateTime timeFrom;
+    @Basic
+    @Column(name = "time_to", nullable = false)
+    private LocalDateTime timeTo;
+    @ManyToOne
+    @JoinColumn(name = "student", referencedColumnName = "id", nullable = false)
+    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "avatar", referencedColumnName = "id", nullable = false)
+    private Avatar avatar;
+
     public int getId() {
         return id;
     }
@@ -23,8 +31,6 @@ public class StudentsAvatar {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "time_from", nullable = false)
     public LocalDateTime getTimeFrom() {
         return timeFrom;
     }
@@ -33,8 +39,6 @@ public class StudentsAvatar {
         this.timeFrom = timeFrom;
     }
 
-    @Basic
-    @Column(name = "time_to", nullable = false)
     public LocalDateTime getTimeTo() {
         return timeTo;
     }
@@ -58,8 +62,6 @@ public class StudentsAvatar {
         return Objects.hash(id, timeFrom, timeTo);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "student", referencedColumnName = "id", nullable = false)
     public Student getStudent() {
         return student;
     }
@@ -68,8 +70,6 @@ public class StudentsAvatar {
         this.student = student;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "avatar", referencedColumnName = "id", nullable = false)
     public Avatar getAvatar() {
         return avatar;
     }

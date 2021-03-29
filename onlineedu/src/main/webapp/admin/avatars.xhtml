@@ -1,0 +1,99 @@
+<ui:composition template="/WEB-INF/templates/admin-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:of="http://omnifaces.org/functions">
+
+    <ui:define name="title">
+        Admin - seznam avatarů
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Avataři</h1>
+
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+            <p:dataTable id="dt-avatars" var="avatar" value="#{adminAvatarBean.allAvatars}" size="small">
+
+                <f:facet name="header">
+                    <div class="buttonbar">
+                        <div>
+                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminAvatarBean.initNewAvatar}"
+                                             update=":form:manage-avatar-content" oncomplete="PF('manageAvatarDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-avatar-content"/>
+                            </p:commandButton>
+                        </div>
+                        <div>
+                            <p:commandButton id="toggler" type="button" value="Vybrat sloupce" icon="pi pi-align-justify" />
+                            <p:columnToggler datasource="dt-avatars" trigger="toggler" />
+                        </div>
+                    </div>
+                </f:facet>
+
+                <p:column sortBy="#{avatar.name}" headerText="Název" >
+                    <h:outputText value="#{avatar.name}" />
+                </p:column>
+
+                <p:column sortBy="#{avatar.pricePerMonth}" headerText="Cena za měsíc" >
+                    <h:outputText value="#{avatar.pricePerMonth}" />
+                </p:column>
+
+                <p:column style="width:3rem;text-align: center" exportable="false">
+
+                    <p:commandButton icon="pi pi-pencil" update=":form:manage-avatar-content"
+                                     oncomplete="PF('manageAvatarDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: 0.25rem;" process="@this">
+                        <f:setPropertyActionListener value="#{avatar}" target="#{adminAvatarBean.avatar}"/>
+                        <p:resetInput target=":form:manage-avatar-content"/>
+                    </p:commandButton>
+
+                </p:column>
+
+            </p:dataTable>
+
+
+            <p:dialog header="Nový avatar" width="450" showEffect="fade" modal="true"
+                      widgetVar="manageAvatarDialog" responsive="true" style="max-height: 90%;overflow-y: auto;">
+                <p:outputPanel id="manage-avatar-content" class="ui-fluid">
+                    <div class="p-field">
+                        <p:outputLabel for="name">Název</p:outputLabel>
+                        <p:inputText id="name" value="#{adminAvatarBean.avatar.name}" required="true"  requiredMessage="Název je povinné pole" />
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="price">Cena za měsíc</p:outputLabel>
+                        <p:inputText id="price" value="#{adminAvatarBean.avatar.pricePerMonth}" required="true"  requiredMessage="Cena je povinné pole" />
+                    </div>
+                    <p:outputPanel id="image-wrapper" class="p-field">
+                        <p:outputLabel for="upload">Obrázek</p:outputLabel>
+                        <div style="width: 100%">
+                            <p:fileUpload id="upload"
+                                          listener="#{adminAvatarBean.handleFileUpload}"
+                                          auto="true"
+                                          update="form:image-wrapper"
+                                          label="Vybrat obrázek"
+                                          skinSimple="true"
+                                          mode="simple"
+                                          multiple="false"/>
+                        </div>
+                        <p:graphicImage id="image" value="#{adminAvatarBean.image}" rendered="#{not empty adminAvatarBean.image}" stream="false" style="max-width: 400px; padding-top: 1rem;"/>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:defaultCommand target="save"/>
+                    <p:commandButton id="save" value="Uložit" icon="pi pi-check" actionListener="#{adminAvatarBean.saveAvatar}"
+                                     update=":form:dt-avatars manage-avatar-content messages" process="manage-avatar-content @this" />
+                    <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageAvatarDialog').hide()"
+                                     class="ui-button-secondary" update="manage-avatar-content" />
+                </f:facet>
+            </p:dialog>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

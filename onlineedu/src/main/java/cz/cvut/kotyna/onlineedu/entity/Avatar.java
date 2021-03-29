@@ -7,27 +7,42 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "avatar")
+@NamedQueries({
+        @NamedQuery(name = Avatar.FIND_ALL, query = "SELECT a FROM Avatar a")
+})
 public class Avatar {
-    private int id;
+
+    public static final String FIND_ALL = "Avatar.findAll";
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic
+    @Column(name = "blob", nullable = false)
     private byte[] blob;
+    @Basic
+    @Column(name = "file_extension", nullable = false, length = 64)
     private String fileExtension;
+    @Basic
+    @Column(name = "name", nullable = false, length = 128)
     private String name;
-    private int pricePerMonth;
+    @Basic
+    @Column(name = "price_per_month", nullable = false)
+    private Integer pricePerMonth;
     @OneToMany(mappedBy = "avatar")
     private Collection<StudentsAvatar> studentsAvatars;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "blob", nullable = false)
     public byte[] getBlob() {
         return blob;
     }
@@ -36,8 +51,6 @@ public class Avatar {
         this.blob = blob;
     }
 
-    @Basic
-    @Column(name = "file_extension", nullable = false, length = 64)
     public String getFileExtension() {
         return fileExtension;
     }
@@ -46,8 +59,6 @@ public class Avatar {
         this.fileExtension = fileExtension;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 128)
     public String getName() {
         return name;
     }
@@ -56,13 +67,11 @@ public class Avatar {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "price_per_month", nullable = false)
-    public int getPricePerMonth() {
+    public Integer getPricePerMonth() {
         return pricePerMonth;
     }
 
-    public void setPricePerMonth(int pricePerMonth) {
+    public void setPricePerMonth(Integer pricePerMonth) {
         this.pricePerMonth = pricePerMonth;
     }
 
