@@ -30,6 +30,9 @@
             <li class="#{urlHelperBean.isCurrentPage('leaderboard') ? 'active' : ''}">
                 <h:link outcome="/student/leaderboard" value="Žebříček" includeViewParams="true"/>
             </li>
+            <li class="#{urlHelperBean.isCurrentPage('avatars') ? 'active' : ''}">
+                <h:link outcome="/student/avatars" value="Avataři" includeViewParams="true"/>
+            </li>
         </ul>
     </ui:define>
 

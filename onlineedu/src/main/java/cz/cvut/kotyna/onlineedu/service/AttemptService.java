@@ -67,6 +67,7 @@ public class AttemptService {
         String state = taskService.getRawStudentsTaskState(attempt.getStudent().getUserAccount().getId(), attempt.getTask());
         if (!state.equals(TaskState.ACCEPTED.toString()) && attempt.getTask().getType().equals("extra")) {
             attempt.getStudent().setPoints(attempt.getStudent().getPoints() + attempt.getTask().getPoints());
+            attempt.getStudent().setTotalPoints(attempt.getStudent().getTotalPoints() + attempt.getTask().getPoints());
             studentService.saveStudent(attempt.getStudent());
         }
 

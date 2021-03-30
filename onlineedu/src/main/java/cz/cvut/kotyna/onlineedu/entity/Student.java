@@ -47,6 +47,9 @@ public class Student implements Serializable {
     @NotNull
     @Column(name = "points")
     private Integer points;
+    @NotNull
+    @Column(name = "total_points")
+    private Integer totalPoints;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Collection<Summary> summaryCollection;
     @JoinColumn(name = "classroom", referencedColumnName = "id")
@@ -93,6 +96,14 @@ public class Student implements Serializable {
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+
+    public Integer getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(Integer totalPoints) {
+        this.totalPoints = totalPoints;
     }
 
     @XmlTransient

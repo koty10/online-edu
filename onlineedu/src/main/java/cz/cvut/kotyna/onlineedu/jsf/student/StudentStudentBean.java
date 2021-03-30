@@ -7,6 +7,7 @@ import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
 import cz.cvut.kotyna.onlineedu.jsf.teacher.TeacherTeachingBean;
 import cz.cvut.kotyna.onlineedu.jsf.teacher.TeacherUserBackingBean;
 import cz.cvut.kotyna.onlineedu.service.AvatarService;
+import cz.cvut.kotyna.onlineedu.service.LoginService;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -29,16 +30,15 @@ public class StudentStudentBean extends StudentBean implements Serializable {
 
     @EJB
     private AvatarService avatarService;
-
-    @Inject
-    private StudentUserBackingBean studentUserBackingBean;
+    @EJB
+    private LoginService loginService;
 
     private StudentsAvatar studentsAvatar;
     private Collection<StudentsAvatar> studentsAvatars;
 
     @Override
     public void initStudent() {
-        student = studentUserBackingBean.getUserAccount().getStudent();
+        student = loginService.getLoggedInUser().getStudent();
         studentsAvatars = student.getStudentsAvatars().stream()
                 .filter(studentsAvatar
                         -> studentsAvatar.getTimeFrom().isBefore(LocalDateTime.now())
