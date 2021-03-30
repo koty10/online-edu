@@ -349,9 +349,26 @@ footer {
     margin: 0px;
 }
 
-.half-width {
-    width: 50%;
+.profile-image-container {
+    position: relative;
+    width: 100%;
 }
+/* Make the image responsive */
+.profile-image-container img {
+    width: 50%;
+    height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.profile-image-container .edit-image-btn {
+    position: absolute;
+    top: 75%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+
 
 .margin-left-25-percent {
     margin-left: 25%;
