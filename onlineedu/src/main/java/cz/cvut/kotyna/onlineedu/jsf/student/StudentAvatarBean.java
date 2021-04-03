@@ -1,8 +1,10 @@
 package cz.cvut.kotyna.onlineedu.jsf.student;
 
 import cz.cvut.kotyna.onlineedu.entity.Avatar;
+import cz.cvut.kotyna.onlineedu.entity.StudentsAvatar;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.student.avatar.StudentAvatarModel;
 import cz.cvut.kotyna.onlineedu.service.AvatarService;
+import cz.cvut.kotyna.onlineedu.service.LoginService;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -16,6 +18,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,8 @@ public class StudentAvatarBean implements Serializable {
 
     @EJB
     AvatarService avatarService;
+    @EJB
+    LoginService loginService;
 
     private List<StudentAvatarModel> allAvatars;
 
@@ -41,7 +46,18 @@ public class StudentAvatarBean implements Serializable {
                     .contentType(a.getFileExtension())
                     .stream(() -> new ByteArrayInputStream(a.getBlob()))
                     .build());
-            //TODO is active
+
+            StudentsAvatar optionalStudentsAvatar = a.getStudentsAvatars().stream()
+                    .filter(studentsAvatar -> studentsAvatar.getStudent().getId().equals(loginService.getLoggedInUser().getStudent().getId()))
+                    .filter(studentsAvatar -> studentsAvatar.getTimeTo().isAfter(LocalDateTime.now()))
+                    .findFirst()
+                    .orElse(null);
+
+            model.setActive(false);
+            if (optionalStudentsAvatar != null) {
+                model.setExpiration(optionalStudentsAvatar.getTimeTo());
+                model.setActive(optionalStudentsAvatar.isActive());
+            }
             allAvatars.add(model);
         }
     }

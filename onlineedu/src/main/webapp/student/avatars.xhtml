@@ -32,21 +32,33 @@
 
                 <p:dataTable widgetVar="data-table-avatars" id="data-table-avatars" var="avatar" value="#{studentAvatarBean.allAvatars}" size="small" emptyMessage="Žádní avataři k dispozici.">
 
-                    <p:column headerText="Název">
-                        <h:outputText value="#{avatar.name}"/>
-                    </p:column>
+                        <p:column headerText="Název">
+                            <h:outputText value="#{avatar.name}"/>
+                        </p:column>
 
-                    <p:column headerText="Cena">
-                        <h:outputText value="#{avatar.price}"/>
-                    </p:column>
+                        <p:column headerText="Obrázek">
+                            <p:graphicImage value="#{avatar.image}" alt="avatar" stream="false" style="max-width:4rem;" styleClass="box-shadow"/>
+                        </p:column>
 
-                    <p:column headerText="Obrázek">
-                        <p:graphicImage value="#{avatar.image}" alt="avatar" stream="false" style="max-width: 4rem" />
-                    </p:column>
+                        <p:column headerText="Cena">
+                            <h:outputText value="#{avatar.price}"/>
+                        </p:column>
 
-                    <p:column style="width:6rem;text-align: center" exportable="false">
-                        <p:commandButton icon="pi pi-dollar" title="Koupit" value="Koupit" />
-                    </p:column>
+                        <p:column headerText="Koupeno do">
+                            <h:outputText value="#{avatar.expiration}"/>
+                        </p:column>
+
+                        <p:column headerText="Aktivní">
+                            <h:outputText value="#{avatar.active}"/>
+                        </p:column>
+
+
+
+
+                        <p:column style="width:6rem;text-align: center" exportable="false">
+                            <p:commandButton icon="pi pi-dollar" title="Koupit" value="Koupit"/>
+                        </p:column>
+
 
                 </p:dataTable>
 
