@@ -6,10 +6,13 @@
 package cz.cvut.kotyna.onlineedu.service;
 
 import cz.cvut.kotyna.onlineedu.entity.Avatar;
+import cz.cvut.kotyna.onlineedu.entity.Student;
+import cz.cvut.kotyna.onlineedu.entity.StudentsAvatar;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Stateless
@@ -33,6 +36,29 @@ public class AvatarService {
         }
         else {
             em.merge(avatar);
+        }
+    }
+
+    public void buyAvatar(Student student, Avatar avatar) {
+        StudentsAvatar newOrExistingStudentsAvatar = student.getStudentsAvatars().stream()
+                .filter(studentsAvatar -> studentsAvatar.getAvatar().equals(avatar))
+                .findFirst()
+                .orElse(new StudentsAvatar());
+
+        if (newOrExistingStudentsAvatar.getId() == null) {
+            newOrExistingStudentsAvatar.setActive(false);
+            newOrExistingStudentsAvatar.setAvatar(avatar);
+            newOrExistingStudentsAvatar.setStudent(student);
+            newOrExistingStudentsAvatar.setTimeFrom(LocalDateTime.now());
+            newOrExistingStudentsAvatar.setTimeTo(LocalDateTime.now().plusMonths(1));
+            student.getStudentsAvatars().add(newOrExistingStudentsAvatar);
+            avatar.getStudentsAvatars().add(newOrExistingStudentsAvatar);
+            em.persist(newOrExistingStudentsAvatar);
+            em.merge(student);
+            em.merge(avatar);
+        } else {
+            newOrExistingStudentsAvatar.setTimeTo(newOrExistingStudentsAvatar.getTimeTo().plusMonths(1));
+            em.merge(newOrExistingStudentsAvatar);
         }
     }
 

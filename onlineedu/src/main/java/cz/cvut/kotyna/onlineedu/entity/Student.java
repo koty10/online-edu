@@ -64,7 +64,7 @@ public class Student implements Serializable {
     private UserAccount userAccount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Collection<Family> familyCollection;
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Collection<StudentsAvatar> studentsAvatars;
 
     public Student() {

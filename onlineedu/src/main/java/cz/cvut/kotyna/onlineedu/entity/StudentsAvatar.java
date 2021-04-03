@@ -7,9 +7,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "students_avatar", schema = "public", catalog = "onlineedu")
 public class StudentsAvatar {
+    private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "id", nullable = false)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic
     @Column(name = "time_from", nullable = false)
     private LocalDateTime timeFrom;
@@ -26,11 +29,11 @@ public class StudentsAvatar {
     @JoinColumn(name = "avatar", referencedColumnName = "id", nullable = false)
     private Avatar avatar;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -34,10 +34,10 @@
                     <h1>Profil žáka</h1>
                     <p:panelGrid columns="2" styleClass="noBorders">
                         <f:facet name="header">
-                            <div class="profile-image-container">
+                            <p:outputPanel id="profile-avatar" class="profile-image-container">
                                 <p:graphicImage value="#{studentStudentBean.image}" alt="logo" stream="false" />
                                 <p:commandButton styleClass="edit-image-btn ui-button-success rounded-button" icon="pi pi-pencil" oncomplete="PF('manageAvatarDialog').show()" process="@this"/>
-                            </div>
+                            </p:outputPanel>
                         </f:facet>
 
                         <h:outputText value="Jméno a příjmení:"/>
@@ -101,7 +101,7 @@
                 <p:outputPanel id="manage-avatar-content" class="ui-fluid">
                     <p:dataTable id="avatar-dt" var="avatar" value="#{studentStudentBean.studentsAvatars}" selectionMode="single"
                                  selection="#{studentStudentBean.studentsAvatar}" rowKey="#{avatar.id}">
-                        <p:ajax event="rowSelect" listener="#{studentStudentBean.changeAvatar}" update=":form:messages"/>
+                        <p:ajax event="rowSelect" listener="#{studentStudentBean.changeAvatar}" update=":form:messages :form:profile-avatar"/>
                         <p:column headerText="Jméno">
                             <h:outputText value="#{avatar.avatar.name}" />
                         </p:column>
@@ -116,15 +116,6 @@
                     </p:dataTable>
                 </p:outputPanel>
 
-                <f:facet name="footer">
-                    <p:defaultCommand target="save"/>
-                    <p:commandButton id="save" value="Uložit" icon="pi pi-check" actionListener="#{studentStudentBean.saveStudent}"
-                                     update="manage-avatar-content messages" process="manage-avatar-content @this"/>
-                    <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageAvatarDialog').hide()"
-                                     class="ui-button-secondary" update="manage-avatar-content" process="@this" >
-                        <p:resetInput target="manage-avatar-content"/>
-                    </p:commandButton>
-                </f:facet>
             </p:dialog>
 
         </h:form>

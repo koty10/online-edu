@@ -62,6 +62,11 @@ public class StudentAvatarBean implements Serializable {
         }
     }
 
+    public void buyAvatar(Integer avatarId) {
+        avatarService.buyAvatar(loginService.getLoggedInUser().getStudent(), avatarService.findAvatar(avatarId));
+        init();
+    }
+
 
     // Getters & Setters
 

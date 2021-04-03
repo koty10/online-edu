@@ -56,7 +56,7 @@
 
 
                         <p:column style="width:6rem;text-align: center" exportable="false">
-                            <p:commandButton icon="pi pi-dollar" title="Koupit" value="Koupit"/>
+                            <p:commandButton icon="pi pi-dollar" title="Koupit" value="Koupit" action="#{studentAvatarBean.buyAvatar(avatar.id)}" update="data-table-avatars"/>
                         </p:column>
 
 

@@ -81,7 +81,7 @@ public class StudentStudentBean extends StudentBean implements Serializable {
             s.setActive(false);
         }
         studentsAvatar.setActive(true);
-        saveStudent();
+        studentService.saveStudent(student);
     }
 
     public StreamedContent getAvatarImage(Integer avatarId) {
