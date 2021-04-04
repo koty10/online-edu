@@ -41,8 +41,7 @@ public class StudentStudentBean extends StudentBean implements Serializable {
         student = loginService.getLoggedInUser().getStudent();
         studentsAvatars = student.getStudentsAvatars().stream()
                 .filter(studentsAvatar
-                        -> studentsAvatar.getTimeFrom().isBefore(LocalDateTime.now())
-                        && studentsAvatar.getTimeTo().isAfter(LocalDateTime.now()))
+                        -> studentsAvatar.getTimeTo().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
 
 

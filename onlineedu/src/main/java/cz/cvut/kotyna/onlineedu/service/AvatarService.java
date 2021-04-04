@@ -49,7 +49,6 @@ public class AvatarService {
             newOrExistingStudentsAvatar.setActive(false);
             newOrExistingStudentsAvatar.setAvatar(avatar);
             newOrExistingStudentsAvatar.setStudent(student);
-            newOrExistingStudentsAvatar.setTimeFrom(LocalDateTime.now());
             newOrExistingStudentsAvatar.setTimeTo(LocalDateTime.now().plusMonths(1));
             student.getStudentsAvatars().add(newOrExistingStudentsAvatar);
             avatar.getStudentsAvatars().add(newOrExistingStudentsAvatar);
@@ -57,6 +56,10 @@ public class AvatarService {
             em.merge(student);
             em.merge(avatar);
         } else {
+            // If it is already expired
+            if (newOrExistingStudentsAvatar.getTimeTo().isBefore(LocalDateTime.now())) {
+                newOrExistingStudentsAvatar.setTimeTo(LocalDateTime.now());
+            }
             newOrExistingStudentsAvatar.setTimeTo(newOrExistingStudentsAvatar.getTimeTo().plusMonths(1));
             em.merge(newOrExistingStudentsAvatar);
         }

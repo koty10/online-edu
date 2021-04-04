@@ -14,9 +14,6 @@ public class StudentsAvatar {
     @Column(name = "id")
     private Integer id;
     @Basic
-    @Column(name = "time_from", nullable = false)
-    private LocalDateTime timeFrom;
-    @Basic
     @Column(name = "time_to", nullable = false)
     private LocalDateTime timeTo;
     @Basic
@@ -35,14 +32,6 @@ public class StudentsAvatar {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public LocalDateTime getTimeFrom() {
-        return timeFrom;
-    }
-
-    public void setTimeFrom(LocalDateTime timeFrom) {
-        this.timeFrom = timeFrom;
     }
 
     public LocalDateTime getTimeTo() {
@@ -66,14 +55,16 @@ public class StudentsAvatar {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentsAvatar that = (StudentsAvatar) o;
-        return id == that.id &&
-                Objects.equals(timeFrom, that.timeFrom) &&
-                Objects.equals(timeTo, that.timeTo);
+        return active == that.active &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(timeTo, that.timeTo) &&
+                Objects.equals(student, that.student) &&
+                Objects.equals(avatar, that.avatar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, timeFrom, timeTo);
+        return Objects.hash(id, timeTo, active, student, avatar);
     }
 
     public Student getStudent() {
