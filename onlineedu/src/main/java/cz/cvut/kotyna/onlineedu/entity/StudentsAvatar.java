@@ -1,7 +1,9 @@
 package cz.cvut.kotyna.onlineedu.entity;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -36,6 +38,12 @@ public class StudentsAvatar {
 
     public LocalDateTime getTimeTo() {
         return timeTo;
+    }
+
+    public String getTimeToFormatted() {
+        if (timeTo == null) return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy HH:mm");
+        return timeTo.format(formatter);
     }
 
     public void setTimeTo(LocalDateTime timeTo) {

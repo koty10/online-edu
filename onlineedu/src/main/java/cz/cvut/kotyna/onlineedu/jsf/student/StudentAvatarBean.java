@@ -55,7 +55,7 @@ public class StudentAvatarBean implements Serializable {
 
             model.setActive(false);
             if (optionalStudentsAvatar != null) {
-                model.setExpiration(optionalStudentsAvatar.getTimeTo());
+                model.setExpiration(optionalStudentsAvatar.getTimeToFormatted());
                 model.setActive(optionalStudentsAvatar.isActive());
             }
             allAvatars.add(model);

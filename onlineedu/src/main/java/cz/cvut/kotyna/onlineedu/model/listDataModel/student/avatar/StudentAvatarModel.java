@@ -2,22 +2,20 @@ package cz.cvut.kotyna.onlineedu.model.listDataModel.student.avatar;
 
 import org.primefaces.model.StreamedContent;
 
-import java.time.LocalDateTime;
-
 public class StudentAvatarModel {
 
     private Integer id;
     private String name;
     private StreamedContent image;
     private Integer price;
-    private LocalDateTime expiration;
+    private String expiration;
     private boolean active;
 
 
     // Constructor
 
 
-    public StudentAvatarModel(Integer id, String name, StreamedContent image, Integer price, LocalDateTime expiration, boolean active) {
+    public StudentAvatarModel(Integer id, String name, StreamedContent image, Integer price, String expiration, boolean active) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -65,11 +63,11 @@ public class StudentAvatarModel {
         this.price = price;
     }
 
-    public LocalDateTime getExpiration() {
+    public String getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(LocalDateTime expiration) {
+    public void setExpiration(String expiration) {
         this.expiration = expiration;
     }
 
