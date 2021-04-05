@@ -12,6 +12,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,12 @@ public class StudentAvatarBean implements Serializable {
 
             model.setActive(false);
             if (optionalUsersAvatar != null) {
-                model.setExpiration(optionalUsersAvatar.getTimeToFormatted());
+                long days = ChronoUnit.DAYS.between(LocalDateTime.now(), optionalUsersAvatar.getTimeTo());
+                long hours = ChronoUnit.HOURS.between(LocalDateTime.now(), optionalUsersAvatar.getTimeTo()) - (24 * days);
+                long minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(), optionalUsersAvatar.getTimeTo()) - (24 * 60 * days) - (60 * hours);
+
+
+                model.setExpiration(days + " dní | " + hours + " hodin | " + minutes + " minut");
                 model.setActive(optionalUsersAvatar.isActive());
             }
             allAvatars.add(model);
