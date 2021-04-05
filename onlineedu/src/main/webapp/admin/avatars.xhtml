@@ -39,6 +39,10 @@
                     <h:outputText value="#{avatar.name}" />
                 </p:column>
 
+                <p:column headerText="Obrázek">
+                    <p:graphicImage value="/avatars/#{avatar.id}" alt="avatar" style="max-width:4rem;" styleClass="box-shadow"/>
+                </p:column>
+
                 <p:column sortBy="#{avatar.pricePerMonth}" headerText="Cena za měsíc" >
                     <h:outputText value="#{avatar.pricePerMonth}" />
                 </p:column>
