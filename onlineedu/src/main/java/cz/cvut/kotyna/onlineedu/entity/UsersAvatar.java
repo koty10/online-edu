@@ -7,7 +7,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users_avatar", schema = "public", catalog = "onlineedu")
+@NamedQueries({
+        @NamedQuery(name = UsersAvatar.FIND_ALL, query = "SELECT a FROM UsersAvatar a")
+})
 public class UsersAvatar {
+
+    public static final String FIND_ALL = "UsersAvatar.findAll";
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

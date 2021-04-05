@@ -25,6 +25,7 @@ public class StudentAvatarBean implements Serializable {
     LoginService loginService;
 
     private List<StudentAvatarModel> allAvatars;
+    private StudentAvatarModel selectedAvatar;
 
     @PostConstruct
     public void init() {
@@ -50,6 +51,7 @@ public class StudentAvatarBean implements Serializable {
             }
             allAvatars.add(model);
         }
+        selectedAvatar = allAvatars.stream().filter(StudentAvatarModel::isActive).findFirst().orElse(null);
     }
 
     public void buyAvatar(Integer avatarId) {
@@ -67,5 +69,13 @@ public class StudentAvatarBean implements Serializable {
 
     public void setAllAvatars(List<StudentAvatarModel> allAvatars) {
         this.allAvatars = allAvatars;
+    }
+
+    public StudentAvatarModel getSelectedAvatar() {
+        return selectedAvatar;
+    }
+
+    public void setSelectedAvatar(StudentAvatarModel selectedAvatar) {
+        this.selectedAvatar = selectedAvatar;
     }
 }

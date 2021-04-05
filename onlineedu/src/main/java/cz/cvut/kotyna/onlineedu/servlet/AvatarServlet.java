@@ -28,7 +28,7 @@ public class AvatarServlet extends HttpServlet {
             return;
         }
 
-        response.setHeader("Content-Type", getServletContext().getMimeType(avatar.getName()));
+        response.setHeader("Content-Type", getServletContext().getMimeType(avatar.getFileExtension()));
         response.setHeader("Content-Disposition", "inline; filename=\"" + avatar.getName() + "\"");
 
         BufferedOutputStream output = null;

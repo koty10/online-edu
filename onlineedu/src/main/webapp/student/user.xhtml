@@ -101,7 +101,8 @@
                 <p:outputPanel id="manage-avatar-content" class="ui-fluid">
                     <p:dataTable id="avatar-dt" var="avatar" value="#{studentStudentBean.usersAvatars}" selectionMode="single"
                                  selection="#{studentStudentBean.usersAvatar}" rowKey="#{avatar.id}" emptyMessage="Žádní avataři k dispozici">
-                        <p:ajax event="rowSelect" listener="#{studentStudentBean.changeAvatar}" update=":form:messages :form:profile-avatar"/>
+                        <p:ajax event="rowSelect" listener="#{studentStudentBean.changeAvatar}" update=":form:messages :form:profile-avatar :login-form:top-nav-user-profile-avatar"/>
+
                         <p:column headerText="Název">
                             <h:outputText value="#{avatar.avatar.name}" />
                         </p:column>

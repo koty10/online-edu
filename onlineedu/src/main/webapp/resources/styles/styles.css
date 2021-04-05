@@ -36,7 +36,7 @@ a img {
     text-decoration: none;
 }
 
-.column-narrow img {
+.column-narrow > a > img {
     width: 100%;
 }
 

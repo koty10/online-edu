@@ -1,15 +1,20 @@
 package cz.cvut.kotyna.onlineedu.jsf.student;
 
+import cz.cvut.kotyna.onlineedu.entity.Avatar;
 import cz.cvut.kotyna.onlineedu.entity.UsersAvatar;
 import cz.cvut.kotyna.onlineedu.jsf.StudentBean;
+import cz.cvut.kotyna.onlineedu.model.listDataModel.student.avatar.StudentAvatarModel;
 import cz.cvut.kotyna.onlineedu.service.AvatarService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
+import cz.cvut.kotyna.onlineedu.service.UsersAvatarService;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.*;
 import java.time.LocalDateTime;
@@ -23,12 +28,18 @@ public class StudentStudentBean extends StudentBean implements Serializable {
     @EJB
     private AvatarService avatarService;
     @EJB
+    private UsersAvatarService usersAvatarService;
+    @EJB
     private LoginService loginService;
+
+    @Inject
+    private StudentAvatarBean studentAvatarBean;
 
     private UsersAvatar usersAvatar;
     private Collection<UsersAvatar> usersAvatars;
 
     @Override
+    @PostConstruct
     public void initStudent() {
         student = loginService.getLoggedInUser().getStudent();
         usersAvatars = student.getUserAccount().getUsersAvatars().stream()
@@ -74,6 +85,13 @@ public class StudentStudentBean extends StudentBean implements Serializable {
         }
         usersAvatar.setActive(true);
         studentService.saveStudent(student);
+    }
+
+    public void changeAvatarFromList() {
+        usersAvatar = student.getUserAccount().getUsersAvatars().stream()
+                .filter(usersAvatar1 -> usersAvatar1.getAvatar().getId().equals(studentAvatarBean.getSelectedAvatar().getId()))
+                .findFirst().orElse(null);
+        changeAvatar();
     }
 
 

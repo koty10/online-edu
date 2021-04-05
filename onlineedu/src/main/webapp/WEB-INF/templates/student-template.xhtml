@@ -49,16 +49,24 @@
     <ui:define name="top-right-menu">
         <div class="column-narrow flex-column">
             <h:form id="login-form">
-                <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
-                    <p:menuitem outcome="/student/user" value="Uživatelský profil" update="messages" icon="pi pi-user">
-                        <f:param name="userAccountId" value="#{userBackingBean.loggedInUser.id}" />
-                        <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
-                    </p:menuitem>
-                    <p:separator />
-                    <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-sign-out"/>
-                </p:menuButton>
-                <p:growl id="messages" showDetail="true"/>
+                <div class="p-grid p-ai-center vertical-container">
+                    <div class="p-col-12 p-lg-8">
+                        <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
+                            <p:menuitem outcome="/student/user" value="Uživatelský profil" update="messages" icon="pi pi-user">
+                                <f:param name="userAccountId" value="#{userBackingBean.loggedInUser.id}" />
+                                <f:param name="teachingId" value="#{studentTeachingBean.teachingId}" />
+                            </p:menuitem>
+                            <p:separator />
+                            <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-sign-out"/>
+                        </p:menuButton>
+                    </div>
+                    <div class="p-col-12 p-lg-4">
+                        <p:graphicImage cache="false" id="top-nav-user-profile-avatar" value="/avatars/user/#{userBackingBean.loggedInUser.id}" style="max-height: 2.5rem;max-width: 2.5rem;"/>
+                    </div>
+                </div>
+              <p:growl id="messages" showDetail="true"/>
             </h:form>
+
         </div>
     </ui:define>
 
