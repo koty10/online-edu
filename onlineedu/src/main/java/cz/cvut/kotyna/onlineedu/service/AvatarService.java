@@ -54,7 +54,6 @@ public class AvatarService {
             userAccount.getUsersAvatars().add(newOrExistingUsersAvatar);
             avatar.getUsersAvatars().add(newOrExistingUsersAvatar);
             em.persist(newOrExistingUsersAvatar);
-            em.merge(userAccount);
             em.merge(avatar);
         } else {
             // If it is already expired
@@ -64,6 +63,10 @@ public class AvatarService {
             newOrExistingUsersAvatar.setTimeTo(newOrExistingUsersAvatar.getTimeTo().plusMonths(1));
             em.merge(newOrExistingUsersAvatar);
         }
+        if (userAccount.getRole().equals("student")) {
+            userAccount.getStudent().setPoints(userAccount.getStudent().getPoints() - avatar.getPricePerMonth());
+        }
+        em.merge(userAccount);
     }
 
 }

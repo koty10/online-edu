@@ -1,14 +1,19 @@
 package cz.cvut.kotyna.onlineedu.jsf.student;
 
 import cz.cvut.kotyna.onlineedu.entity.Avatar;
+import cz.cvut.kotyna.onlineedu.entity.UserAccount;
 import cz.cvut.kotyna.onlineedu.entity.UsersAvatar;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.student.avatar.StudentAvatarModel;
 import cz.cvut.kotyna.onlineedu.service.AvatarService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
+import cz.cvut.kotyna.onlineedu.service.StudentService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,9 +26,12 @@ import java.util.List;
 public class StudentAvatarBean implements Serializable {
 
     @EJB
-    AvatarService avatarService;
+    private AvatarService avatarService;
     @EJB
-    LoginService loginService;
+    private LoginService loginService;
+
+    @Inject
+    private StudentStudentBean studentStudentBean;
 
     private List<StudentAvatarModel> allAvatars;
     private StudentAvatarModel selectedAvatar;
@@ -61,8 +69,16 @@ public class StudentAvatarBean implements Serializable {
     }
 
     public void buyAvatar(Integer avatarId) {
-        avatarService.buyAvatar(loginService.getLoggedInUser(), avatarService.findAvatar(avatarId));
+        UserAccount userAccount = loginService.getLoggedInUser();
+        Avatar avatar = avatarService.findAvatar(avatarId);
+        if (userAccount.getStudent().getPoints() < avatar.getPricePerMonth()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nedostatek bodů", null));
+            return;
+        }
+        avatarService.buyAvatar(userAccount, avatar);
         init();
+        studentStudentBean.initStudent();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Prodlouženo", null));
     }
 
 

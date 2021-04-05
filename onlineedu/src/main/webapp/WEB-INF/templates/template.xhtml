@@ -51,7 +51,7 @@
                                 <p:separator />
                                 <p:menuitem id="logoutbtn" value="Odhlásit" action="#{userLogin.logout}" ajax="false" icon="pi pi-sign-out"/>
                             </p:menuButton>
-                            <p:growl id="messages" showDetail="true"/>
+                            <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true"/>
                         </h:form>
                     </div>
                 </ui:insert>

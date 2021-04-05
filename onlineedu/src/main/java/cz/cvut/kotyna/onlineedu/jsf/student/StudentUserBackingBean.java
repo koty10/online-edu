@@ -55,7 +55,7 @@ public class StudentUserBackingBean implements Serializable {
 
     public List<Student> getClassmatesReverseSortedByPoints() {
         try {
-            return userService.getClassmates(loginService.getLoggedInUser().getStudent().getClassroom().getId()).stream().sorted(Comparator.comparingInt(Student::getPoints).reversed()).collect(Collectors.toList());
+            return userService.getClassmates(loginService.getLoggedInUser().getStudent().getClassroom().getId()).stream().sorted(Comparator.comparingInt(Student::getTotalPoints).reversed()).collect(Collectors.toList());
         } catch (NullPointerException e) {
             return new ArrayList<>();
         }

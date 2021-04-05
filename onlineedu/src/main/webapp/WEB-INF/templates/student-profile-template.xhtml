@@ -53,7 +53,7 @@
                         <p:graphicImage cache="false" id="top-nav-user-profile-avatar" value="/avatars/user/#{userBackingBean.loggedInUser.id}" style="max-height: 2.5rem;max-width: 2.5rem;"/>
                     </div>
                 </div>
-                <p:growl id="messages" showDetail="true"/>
+                <p:growl id="messages" showDetail="true" skipDetailIfEqualsSummary="true"/>
             </h:form>
         </div>
     </ui:define>

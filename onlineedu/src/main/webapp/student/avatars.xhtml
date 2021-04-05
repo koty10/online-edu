@@ -24,7 +24,7 @@
         <h2>Avataři</h2>
 
         <p>
-            Bodů k dispozici: #{studentStudentBean.student.points}
+            <h:outputText id="student-points" value="Bodů k dispozici: #{studentStudentBean.student.points}"/>
         </p>
 
         <h:form id="form">
@@ -59,7 +59,7 @@
                     </p:column>
 
                     <p:column style="width:7rem;text-align: center" exportable="false">
-                        <p:commandButton title="Koupit" value="#{empty avatar.expiration ? 'Koupit' : 'Prodloužit'}" action="#{studentAvatarBean.buyAvatar(avatar.id)}" update="data-table-avatars"/>
+                        <p:commandButton title="Koupit" value="#{empty avatar.expiration ? 'Koupit' : 'Prodloužit'}" action="#{studentAvatarBean.buyAvatar(avatar.id)}" update="data-table-avatars :login-form:messages student-points"/>
                     </p:column>
 
 
