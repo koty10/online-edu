@@ -49,6 +49,7 @@ public class StudentStudentBean extends StudentBean implements Serializable {
                 .findFirst().orElse(null);
     }
 
+    // Get active or default avatar on student profile page
     public StreamedContent getImage() {
         if (studentsAvatar == null || studentsAvatar.getAvatar() == null || studentsAvatar.getAvatar().getBlob() == null) {
             try {
@@ -81,20 +82,6 @@ public class StudentStudentBean extends StudentBean implements Serializable {
         }
         studentsAvatar.setActive(true);
         studentService.saveStudent(student);
-    }
-
-    public StreamedContent getAvatarImage(Integer avatarId) {
-        Avatar a = avatarService.findAvatar(avatarId);
-        if (a == null) return null;
-        try {
-            return DefaultStreamedContent.builder()
-                    .contentType(a.getFileExtension())
-                    .stream(() -> new ByteArrayInputStream(a.getBlob()))
-                    .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
 

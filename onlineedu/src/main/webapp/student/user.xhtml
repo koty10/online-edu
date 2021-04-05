@@ -102,16 +102,16 @@
                     <p:dataTable id="avatar-dt" var="avatar" value="#{studentStudentBean.studentsAvatars}" selectionMode="single"
                                  selection="#{studentStudentBean.studentsAvatar}" rowKey="#{avatar.id}">
                         <p:ajax event="rowSelect" listener="#{studentStudentBean.changeAvatar}" update=":form:messages :form:profile-avatar"/>
-                        <p:column headerText="Jméno">
+                        <p:column headerText="Název">
                             <h:outputText value="#{avatar.avatar.name}" />
                         </p:column>
 
                         <p:column headerText="Konec">
-                            <h:outputText value="#{avatar.timeTo}" />
+                            <h:outputText value="#{avatar.timeToFormatted}" />
                         </p:column>
 
                         <p:column headerText="Obrázek">
-                            <p:graphicImage value="#{studentStudentBean.getAvatarImage(avatar.avatar.id)}" alt="avatar" stream="false" style="max-width: 50px;" />
+                            <p:graphicImage value="/avatars/#{avatar.avatar.id}" alt="avatar" style="max-width: 50px;" />
                         </p:column>
                     </p:dataTable>
                 </p:outputPanel>

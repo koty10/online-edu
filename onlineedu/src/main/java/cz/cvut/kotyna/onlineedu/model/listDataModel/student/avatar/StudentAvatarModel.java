@@ -6,7 +6,7 @@ public class StudentAvatarModel {
 
     private Integer id;
     private String name;
-    private StreamedContent image;
+    private String image;
     private Integer price;
     private String expiration;
     private boolean active;
@@ -15,7 +15,7 @@ public class StudentAvatarModel {
     // Constructor
 
 
-    public StudentAvatarModel(Integer id, String name, StreamedContent image, Integer price, String expiration, boolean active) {
+    public StudentAvatarModel(Integer id, String name, String image, Integer price, String expiration, boolean active) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -47,11 +47,11 @@ public class StudentAvatarModel {
         this.name = name;
     }
 
-    public StreamedContent getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(StreamedContent image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

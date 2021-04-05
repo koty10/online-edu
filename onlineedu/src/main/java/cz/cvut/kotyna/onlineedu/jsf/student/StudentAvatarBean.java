@@ -42,10 +42,7 @@ public class StudentAvatarBean implements Serializable {
             model.setId(a.getId());
             model.setName(a.getName());
             model.setPrice(a.getPricePerMonth());
-            model.setImage(DefaultStreamedContent.builder()
-                    .contentType(a.getFileExtension())
-                    .stream(() -> new ByteArrayInputStream(a.getBlob()))
-                    .build());
+            model.setImage("/avatars/" + a.getId());
 
             StudentsAvatar optionalStudentsAvatar = a.getStudentsAvatars().stream()
                     .filter(studentsAvatar -> studentsAvatar.getStudent().getId().equals(loginService.getLoggedInUser().getStudent().getId()))
