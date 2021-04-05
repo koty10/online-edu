@@ -19,7 +19,7 @@
     <class>cz.cvut.kotyna.onlineedu.entity.Message</class>
     <class>cz.cvut.kotyna.onlineedu.entity.Task</class>
     <class>cz.cvut.kotyna.onlineedu.entity.Avatar</class>
-    <class>cz.cvut.kotyna.onlineedu.entity.StudentsAvatar</class>
+    <class>cz.cvut.kotyna.onlineedu.entity.UsersAvatar</class>
     <properties>
       <!--
       <property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/onlineedu"/>

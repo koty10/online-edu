@@ -33,7 +33,7 @@ public class Avatar {
     @Column(name = "price_per_month", nullable = false)
     private Integer pricePerMonth;
     @OneToMany(mappedBy = "avatar")
-    private Collection<StudentsAvatar> studentsAvatars;
+    private Collection<UsersAvatar> usersAvatars;
 
     public Integer getId() {
         return id;
@@ -94,11 +94,11 @@ public class Avatar {
         return result;
     }
 
-    public Collection<StudentsAvatar> getStudentsAvatars() {
-        return studentsAvatars;
+    public Collection<UsersAvatar> getUsersAvatars() {
+        return usersAvatars;
     }
 
-    public void setStudentsAvatars(Collection<StudentsAvatar> studentsAvatars) {
-        this.studentsAvatars = studentsAvatars;
+    public void setUsersAvatars(Collection<UsersAvatar> usersAvatars) {
+        this.usersAvatars = usersAvatars;
     }
 }

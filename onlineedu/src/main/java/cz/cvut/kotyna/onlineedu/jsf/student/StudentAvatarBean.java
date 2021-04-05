@@ -1,22 +1,15 @@
 package cz.cvut.kotyna.onlineedu.jsf.student;
 
 import cz.cvut.kotyna.onlineedu.entity.Avatar;
-import cz.cvut.kotyna.onlineedu.entity.StudentsAvatar;
+import cz.cvut.kotyna.onlineedu.entity.UsersAvatar;
 import cz.cvut.kotyna.onlineedu.model.listDataModel.student.avatar.StudentAvatarModel;
 import cz.cvut.kotyna.onlineedu.service.AvatarService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
-import org.primefaces.PrimeFaces;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,23 +37,23 @@ public class StudentAvatarBean implements Serializable {
             model.setPrice(a.getPricePerMonth());
             model.setImage("/avatars/" + a.getId());
 
-            StudentsAvatar optionalStudentsAvatar = a.getStudentsAvatars().stream()
-                    .filter(studentsAvatar -> studentsAvatar.getStudent().getId().equals(loginService.getLoggedInUser().getStudent().getId()))
+            UsersAvatar optionalUsersAvatar = a.getUsersAvatars().stream()
+                    .filter(studentsAvatar -> studentsAvatar.getUserAccount().getId().equals(loginService.getLoggedInUser().getId()))
                     .filter(studentsAvatar -> studentsAvatar.getTimeTo().isAfter(LocalDateTime.now()))
                     .findFirst()
                     .orElse(null);
 
             model.setActive(false);
-            if (optionalStudentsAvatar != null) {
-                model.setExpiration(optionalStudentsAvatar.getTimeToFormatted());
-                model.setActive(optionalStudentsAvatar.isActive());
+            if (optionalUsersAvatar != null) {
+                model.setExpiration(optionalUsersAvatar.getTimeToFormatted());
+                model.setActive(optionalUsersAvatar.isActive());
             }
             allAvatars.add(model);
         }
     }
 
     public void buyAvatar(Integer avatarId) {
-        avatarService.buyAvatar(loginService.getLoggedInUser().getStudent(), avatarService.findAvatar(avatarId));
+        avatarService.buyAvatar(loginService.getLoggedInUser(), avatarService.findAvatar(avatarId));
         init();
     }
 

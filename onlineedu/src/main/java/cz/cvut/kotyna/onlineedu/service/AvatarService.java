@@ -7,7 +7,8 @@ package cz.cvut.kotyna.onlineedu.service;
 
 import cz.cvut.kotyna.onlineedu.entity.Avatar;
 import cz.cvut.kotyna.onlineedu.entity.Student;
-import cz.cvut.kotyna.onlineedu.entity.StudentsAvatar;
+import cz.cvut.kotyna.onlineedu.entity.UserAccount;
+import cz.cvut.kotyna.onlineedu.entity.UsersAvatar;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -39,29 +40,29 @@ public class AvatarService {
         }
     }
 
-    public void buyAvatar(Student student, Avatar avatar) {
-        StudentsAvatar newOrExistingStudentsAvatar = student.getStudentsAvatars().stream()
-                .filter(studentsAvatar -> studentsAvatar.getAvatar().equals(avatar))
+    public void buyAvatar(UserAccount userAccount, Avatar avatar) {
+        UsersAvatar newOrExistingUsersAvatar = userAccount.getUsersAvatars().stream()
+                .filter(usersAvatar -> usersAvatar.getAvatar().equals(avatar))
                 .findFirst()
-                .orElse(new StudentsAvatar());
+                .orElse(new UsersAvatar());
 
-        if (newOrExistingStudentsAvatar.getId() == null) {
-            newOrExistingStudentsAvatar.setActive(false);
-            newOrExistingStudentsAvatar.setAvatar(avatar);
-            newOrExistingStudentsAvatar.setStudent(student);
-            newOrExistingStudentsAvatar.setTimeTo(LocalDateTime.now().plusMonths(1));
-            student.getStudentsAvatars().add(newOrExistingStudentsAvatar);
-            avatar.getStudentsAvatars().add(newOrExistingStudentsAvatar);
-            em.persist(newOrExistingStudentsAvatar);
-            em.merge(student);
+        if (newOrExistingUsersAvatar.getId() == null) {
+            newOrExistingUsersAvatar.setActive(false);
+            newOrExistingUsersAvatar.setAvatar(avatar);
+            newOrExistingUsersAvatar.setUserAccount(userAccount);
+            newOrExistingUsersAvatar.setTimeTo(LocalDateTime.now().plusMonths(1));
+            userAccount.getUsersAvatars().add(newOrExistingUsersAvatar);
+            avatar.getUsersAvatars().add(newOrExistingUsersAvatar);
+            em.persist(newOrExistingUsersAvatar);
+            em.merge(userAccount);
             em.merge(avatar);
         } else {
             // If it is already expired
-            if (newOrExistingStudentsAvatar.getTimeTo().isBefore(LocalDateTime.now())) {
-                newOrExistingStudentsAvatar.setTimeTo(LocalDateTime.now());
+            if (newOrExistingUsersAvatar.getTimeTo().isBefore(LocalDateTime.now())) {
+                newOrExistingUsersAvatar.setTimeTo(LocalDateTime.now());
             }
-            newOrExistingStudentsAvatar.setTimeTo(newOrExistingStudentsAvatar.getTimeTo().plusMonths(1));
-            em.merge(newOrExistingStudentsAvatar);
+            newOrExistingUsersAvatar.setTimeTo(newOrExistingUsersAvatar.getTimeTo().plusMonths(1));
+            em.merge(newOrExistingUsersAvatar);
         }
     }
 

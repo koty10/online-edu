@@ -1,25 +1,17 @@
 package cz.cvut.kotyna.onlineedu.jsf.student;
 
-import cz.cvut.kotyna.onlineedu.entity.Avatar;
-import cz.cvut.kotyna.onlineedu.entity.StudentsAvatar;
+import cz.cvut.kotyna.onlineedu.entity.UsersAvatar;
 import cz.cvut.kotyna.onlineedu.jsf.StudentBean;
-import cz.cvut.kotyna.onlineedu.jsf.UrlHelperBean;
-import cz.cvut.kotyna.onlineedu.jsf.teacher.TeacherTeachingBean;
-import cz.cvut.kotyna.onlineedu.jsf.teacher.TeacherUserBackingBean;
 import cz.cvut.kotyna.onlineedu.service.AvatarService;
 import cz.cvut.kotyna.onlineedu.service.LoginService;
-import org.primefaces.PrimeFaces;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -33,25 +25,25 @@ public class StudentStudentBean extends StudentBean implements Serializable {
     @EJB
     private LoginService loginService;
 
-    private StudentsAvatar studentsAvatar;
-    private Collection<StudentsAvatar> studentsAvatars;
+    private UsersAvatar usersAvatar;
+    private Collection<UsersAvatar> usersAvatars;
 
     @Override
     public void initStudent() {
         student = loginService.getLoggedInUser().getStudent();
-        studentsAvatars = student.getStudentsAvatars().stream()
+        usersAvatars = student.getUserAccount().getUsersAvatars().stream()
                 .filter(studentsAvatar
                         -> studentsAvatar.getTimeTo().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
 
 
-        studentsAvatar = studentsAvatars.stream().filter(StudentsAvatar::isActive)
+        usersAvatar = usersAvatars.stream().filter(UsersAvatar::isActive)
                 .findFirst().orElse(null);
     }
 
     // Get active or default avatar on student profile page
     public StreamedContent getImage() {
-        if (studentsAvatar == null || studentsAvatar.getAvatar() == null || studentsAvatar.getAvatar().getBlob() == null) {
+        if (usersAvatar == null || usersAvatar.getAvatar() == null || usersAvatar.getAvatar().getBlob() == null) {
             try {
                 InputStream inputStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/images/avatar-woman.png");
                 return DefaultStreamedContent.builder()
@@ -67,8 +59,8 @@ public class StudentStudentBean extends StudentBean implements Serializable {
 
         try {
             return DefaultStreamedContent.builder()
-                    .contentType(studentsAvatar.getAvatar().getFileExtension())
-                    .stream(() -> new ByteArrayInputStream(studentsAvatar.getAvatar().getBlob()))
+                    .contentType(usersAvatar.getAvatar().getFileExtension())
+                    .stream(() -> new ByteArrayInputStream(usersAvatar.getAvatar().getBlob()))
                     .build();
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,10 +69,10 @@ public class StudentStudentBean extends StudentBean implements Serializable {
     }
 
     public void changeAvatar() {
-        for (StudentsAvatar s : studentsAvatars) {
+        for (UsersAvatar s : usersAvatars) {
             s.setActive(false);
         }
-        studentsAvatar.setActive(true);
+        usersAvatar.setActive(true);
         studentService.saveStudent(student);
     }
 
@@ -88,19 +80,19 @@ public class StudentStudentBean extends StudentBean implements Serializable {
     // Getters & Setters
 
 
-    public StudentsAvatar getStudentsAvatar() {
-        return studentsAvatar;
+    public UsersAvatar getUsersAvatar() {
+        return usersAvatar;
     }
 
-    public void setStudentsAvatar(StudentsAvatar studentsAvatar) {
-        this.studentsAvatar = studentsAvatar;
+    public void setUsersAvatar(UsersAvatar usersAvatar) {
+        this.usersAvatar = usersAvatar;
     }
 
-    public Collection<StudentsAvatar> getStudentsAvatars() {
-        return studentsAvatars;
+    public Collection<UsersAvatar> getUsersAvatars() {
+        return usersAvatars;
     }
 
-    public void setStudentsAvatars(Collection<StudentsAvatar> studentsAvatars) {
-        this.studentsAvatars = studentsAvatars;
+    public void setUsersAvatars(Collection<UsersAvatar> usersAvatars) {
+        this.usersAvatars = usersAvatars;
     }
 }

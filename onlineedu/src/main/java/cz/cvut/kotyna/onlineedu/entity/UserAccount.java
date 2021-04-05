@@ -113,6 +113,8 @@ public class UserAccount implements Serializable {
     private Student student;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "userAccount")
     private Teacher teacher;
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
+    private Collection<UsersAvatar> usersAvatars;
 
     public UserAccount() {
     }
@@ -311,6 +313,14 @@ public class UserAccount implements Serializable {
         else if (street != null && city != null) return street + (!street.isEmpty() && !city.isEmpty() ? ", " : "") + city;
         else if (street != null) return street;
         else return zip;
+    }
+
+    public Collection<UsersAvatar> getUsersAvatars() {
+        return usersAvatars;
+    }
+
+    public void setUsersAvatars(Collection<UsersAvatar> usersAvatars) {
+        this.usersAvatars = usersAvatars;
     }
 
     @Override

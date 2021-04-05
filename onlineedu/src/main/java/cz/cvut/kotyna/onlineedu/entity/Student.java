@@ -13,7 +13,6 @@ import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -64,8 +63,6 @@ public class Student implements Serializable {
     private UserAccount userAccount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Collection<Family> familyCollection;
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private Collection<StudentsAvatar> studentsAvatars;
 
     public Student() {
     }
@@ -156,14 +153,6 @@ public class Student implements Serializable {
 
     public void setFamilyCollection(Collection<Family> familyCollection) {
         this.familyCollection = familyCollection;
-    }
-
-    public Collection<StudentsAvatar> getStudentsAvatars() {
-        return studentsAvatars;
-    }
-
-    public void setStudentsAvatars(Collection<StudentsAvatar> studentsAvatars) {
-        this.studentsAvatars = studentsAvatars;
     }
 
     @Override

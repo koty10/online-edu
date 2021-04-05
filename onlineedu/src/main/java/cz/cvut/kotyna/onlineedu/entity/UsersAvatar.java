@@ -1,14 +1,13 @@
 package cz.cvut.kotyna.onlineedu.entity;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
-@Table(name = "students_avatar", schema = "public", catalog = "onlineedu")
-public class StudentsAvatar {
+@Table(name = "users_avatar", schema = "public", catalog = "onlineedu")
+public class UsersAvatar {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +21,8 @@ public class StudentsAvatar {
     @Column(name = "active", nullable = false)
     private boolean active;
     @ManyToOne
-    @JoinColumn(name = "student", referencedColumnName = "id", nullable = false)
-    private Student student;
+    @JoinColumn(name = "user_account", referencedColumnName = "id", nullable = false)
+    private UserAccount userAccount;
     @ManyToOne
     @JoinColumn(name = "avatar", referencedColumnName = "id", nullable = false)
     private Avatar avatar;
@@ -62,25 +61,25 @@ public class StudentsAvatar {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StudentsAvatar that = (StudentsAvatar) o;
+        UsersAvatar that = (UsersAvatar) o;
         return active == that.active &&
                 Objects.equals(id, that.id) &&
                 Objects.equals(timeTo, that.timeTo) &&
-                Objects.equals(student, that.student) &&
+                Objects.equals(userAccount, that.userAccount) &&
                 Objects.equals(avatar, that.avatar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, timeTo, active, student, avatar);
+        return Objects.hash(id, timeTo, active, userAccount, avatar);
     }
 
-    public Student getStudent() {
-        return student;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     public Avatar getAvatar() {
