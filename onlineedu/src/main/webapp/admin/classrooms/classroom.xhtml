@@ -29,7 +29,7 @@
                 <h2>Třídní učitel</h2>
                 <p:panelGrid columns="2" styleClass="noBorders">
                     <f:facet name="header">
-                        <h:graphicImage name="images/avatar-woman.png" alt="logo" styleClass="half-width" />
+                        <h:graphicImage value="/avatars/user/#{adminClassroomBean.classroom.teacher.userAccount.id}" styleClass="half-width" />
                     </f:facet>
 
                     <h:outputText value="Jméno a příjmení:"/>

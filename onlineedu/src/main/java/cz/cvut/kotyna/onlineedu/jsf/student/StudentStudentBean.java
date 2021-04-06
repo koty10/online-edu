@@ -48,33 +48,6 @@ public class StudentStudentBean extends StudentBean implements Serializable {
                 .findFirst().orElse(null);
     }
 
-    // Get active or default avatar on student profile page
-    public StreamedContent getImage() {
-        if (usersAvatar == null || usersAvatar.getAvatar() == null || usersAvatar.getAvatar().getBlob() == null) {
-            try {
-                InputStream inputStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/images/avatar-woman.png");
-                return DefaultStreamedContent.builder()
-                        .contentType("image/png")
-                        .stream(() -> inputStream)
-                        .build();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        try {
-            return DefaultStreamedContent.builder()
-                    .contentType(usersAvatar.getAvatar().getFileExtension())
-                    .stream(() -> new ByteArrayInputStream(usersAvatar.getAvatar().getBlob()))
-                    .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public void changeAvatar() {
         for (UsersAvatar s : usersAvatars) {
             s.setActive(false);
