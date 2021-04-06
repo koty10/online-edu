@@ -39,7 +39,7 @@
                     <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
                         <div class="chat-message-box #{(message.userAccount.role.equals('teacher')) ? 'message-teacher' : 'message-student'}">
 
-                            <p:graphicImage value="http://www.gravatar.com/avatar/?d=identicon" alt="avatar" rendered="#{(message.userAccount.id != userBackingBean.loggedInUser.id)}"/>
+                            <p:graphicImage value="/avatars/user/#{message.userAccount.id}" rendered="#{(message.userAccount.id != userBackingBean.loggedInUser.id)}"/>
 
                             <div class="chat-message-content">
                                 <div class="chat-message-message">
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
 
-                            <p:graphicImage value="http://www.gravatar.com/avatar/?d=identicon" alt="avatar" rendered="#{(message.userAccount.id == userBackingBean.loggedInUser.id)}"/>
+                            <p:graphicImage value="/avatars/user/#{message.userAccount.id}" rendered="#{(message.userAccount.id == userBackingBean.loggedInUser.id)}"/>
 
                         </div>
                     </div>
@@ -90,9 +90,10 @@
                     let username = clone.getElementById("template-chat-message-username");
 
                     let img = document.createElement('img');
-                    img.src = "http://www.gravatar.com/avatar/?d=identicon";
 
                     const json = JSON.parse(message);
+
+                    img.src = "/avatars/user/" + json.userAccount.id.toString();
 
                     if (userid.innerText === json.userAccount.id.toString()) {
                         container.classList.add("darker");
