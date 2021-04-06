@@ -17,6 +17,8 @@ import org.primefaces.shaded.json.JSONObject;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -60,14 +62,23 @@ public class ChatBean implements Serializable {
         Message message = new Message(messageText, new Date(), chat, userBackingBean.getLoggedInUser());
         messageService.saveMessage(message);
 
-
         String json = "";
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            json = mapper.writeValueAsString(message);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+
+        UserAccount userAccount = userBackingBean.getLoggedInUser();
+        JsonObjectBuilder userAccountJsonObjectBuilder = Json.createObjectBuilder()
+                .add("id", userAccount.getId())
+                .add("username", userAccount.getUsername())
+                .add("role", userAccount.getRole())
+                .add("roleFormated", userAccount.getRoleFormated())
+                .add("firstname", userAccount.getFirstname())
+                .add("surname", userAccount.getSurname());
+
+        json = Json.createObjectBuilder()
+                .add("text", messageText)
+                .add("timeFormated", message.getTimeFormated())
+                .add("userAccount", userAccountJsonObjectBuilder)
+                .build()
+                .toString();
 
         messageText = null;
         push.send(json, teachingId);
