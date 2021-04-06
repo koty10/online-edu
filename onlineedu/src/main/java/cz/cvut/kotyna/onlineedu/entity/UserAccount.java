@@ -87,6 +87,11 @@ public class UserAccount implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "surname")
     private String surname;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 32)
+    @Column(name = "gender")
+    private String gender;
     @Column(name = "birthday")
     private Date birthday;
     @Column(name = "registered")
@@ -294,6 +299,14 @@ public class UserAccount implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getRoleFormated() {

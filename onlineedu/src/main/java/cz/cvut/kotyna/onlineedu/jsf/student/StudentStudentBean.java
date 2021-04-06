@@ -26,10 +26,6 @@ import java.util.stream.Collectors;
 public class StudentStudentBean extends StudentBean implements Serializable {
 
     @EJB
-    private AvatarService avatarService;
-    @EJB
-    private UsersAvatarService usersAvatarService;
-    @EJB
     private LoginService loginService;
 
     @Inject

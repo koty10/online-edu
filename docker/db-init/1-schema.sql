@@ -24,7 +24,8 @@ create table user_account
     street     varchar(128),
     zip        varchar(32),
     phone      varchar(64),
-    city       varchar(128)
+    city       varchar(128),
+	gender     varchar(32) not null
 );
    
 create table teacher
