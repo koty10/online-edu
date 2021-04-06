@@ -67,6 +67,13 @@
 
             </div>
 
+            <br/>
+            <p:commandButton title="Nastavit základního avatara"
+                             value="Nastavit základního avatara"
+                             action="#{studentStudentBean.changeAvatarToDefault}"
+                             update=":login-form:top-nav-user-profile-avatar"
+                             onclick="PF('data-table-avatars').unselectAllRows()"/>
+
         </h:form>
 
     </ui:define>

@@ -90,6 +90,13 @@ public class StudentStudentBean extends StudentBean implements Serializable {
         changeAvatar();
     }
 
+    public void changeAvatarToDefault() {
+        for (UsersAvatar s : usersAvatars) {
+            s.setActive(false);
+        }
+        studentService.saveStudent(student);
+    }
+
 
     // Getters & Setters
 
