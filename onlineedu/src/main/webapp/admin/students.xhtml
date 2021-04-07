@@ -42,6 +42,10 @@
                     <h:outputText value="#{student.userAccount.firstname} #{student.userAccount.surname}" />
                 </p:column>
 
+                <p:column headerText="Pohlaví" visible="false">
+                    <h:outputText value="#{student.userAccount.genderFormatted}" />
+                </p:column>
+
                 <p:column headerText="Email">
                     <h:outputText value="#{student.userAccount.email}" />
                 </p:column>
@@ -99,6 +103,16 @@
                             <p:outputLabel for="surname">Příjmení</p:outputLabel>
                             <p:inputText id="surname" value="#{adminStudentBean.student.userAccount.surname}" required="true" requiredMessage="Příjmení je povinné pole"/>
                         </div>
+
+                        <div class="p-field">
+                            <p:outputLabel for="gender">Pohlaví</p:outputLabel>
+                            <p:selectOneMenu id="gender" value="#{adminStudentBean.student.userAccount.gender}" layout="responsive" required="true" requiredMessage="Pohlaví je povinné pole">
+                                <f:selectItem itemValue="#{null}" itemLabel="-- zvolit --" />
+                                <f:selectItem itemValue="male" itemLabel="Muž" />
+                                <f:selectItem itemValue="female" itemLabel="Žena" />
+                            </p:selectOneMenu>
+                        </div>
+
                         <div class="p-field">
                             <p:outputLabel for="phone">Telefon</p:outputLabel>
                             <p:inputText id="phone" value="#{adminStudentBean.student.userAccount.phone}" required="true" requiredMessage="Telefon je povinné pole"/>

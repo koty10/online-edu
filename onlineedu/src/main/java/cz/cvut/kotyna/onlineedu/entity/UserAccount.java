@@ -305,6 +305,14 @@ public class UserAccount implements Serializable {
         return gender;
     }
 
+    public String getGenderFormatted() {
+        switch (gender) {
+            case "male" : return "Muž";
+            case "female" : return "Žena";
+            default : return "";
+        }
+    }
+
     public void setGender(String gender) {
         this.gender = gender;
     }
