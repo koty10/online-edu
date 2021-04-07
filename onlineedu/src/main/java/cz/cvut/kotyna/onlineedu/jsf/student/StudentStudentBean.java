@@ -49,7 +49,7 @@ public class StudentStudentBean extends StudentBean implements Serializable {
     }
 
     public void changeAvatar() {
-        for (UsersAvatar s : usersAvatars) {
+        for (UsersAvatar s : student.getUserAccount().getUsersAvatars()) {
             s.setActive(false);
         }
         usersAvatar.setActive(true);
