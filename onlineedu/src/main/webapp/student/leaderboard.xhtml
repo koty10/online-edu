@@ -24,6 +24,7 @@
         <h1>Žebříček</h1>
 
         <p:dataTable var="classmate" value="#{studentUserBackingBean.classmatesReverseSortedByPoints}">
+
             <p:column headerText="Body">
                 <h:outputText value="#{classmate.totalPoints}" />
             </p:column>
@@ -31,6 +32,13 @@
             <p:column headerText="Jméno a příjmení">
                 <h:outputText value="#{classmate.userAccount.firstname} #{classmate.userAccount.surname}" />
             </p:column>
+
+            <p:column headerText="Avatar">
+                <div style="width: 4rem;text-align: center;">
+                    <p:graphicImage value="/avatars/user/#{classmate.userAccount.id}" style="max-width:4rem;max-height: 4rem;"/>
+                </div>
+            </p:column>
+
         </p:dataTable>
 
     </ui:define>
