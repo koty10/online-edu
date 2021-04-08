@@ -111,7 +111,11 @@ li a {
     text-decoration: none;
 }
 
-li:hover:not(.active) {
+.top-nav-list li:hover:not(.active) {
+    background-color: #111;
+}
+
+aside li:hover:not(.active) {
     background-color: #111;
 }
 

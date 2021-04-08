@@ -31,7 +31,7 @@
 
             <div id="messageDiv">
                 <div hidden="hidden" id="user-id">#{userBackingBean.loggedInUser.id}</div>
-                <p:repeat value="#{chatBean.getMessages(studentTeachingBean.teachingId)}" var="message">
+                <p:dataScroller value="#{chatBean.getMessages(studentTeachingBean.teachingId)}" var="message" chunkSize="5" id="list">
                     <div class="chat-message-container #{(message.userAccount.id == userBackingBean.loggedInUser.id) ? 'darker' : ''}">
                         <div class="chat-message-box #{(message.userAccount.role.equals('teacher')) ? 'message-teacher' : 'message-student'}">
 
@@ -50,22 +50,25 @@
 
                         </div>
                     </div>
-                </p:repeat>
+                </p:dataScroller>
             </div>
 
 
             <template>
-                <div id="template-chat-message-container" class="chat-message-container">
-                    <div id="template-chat-message-box" class="chat-message-box">
-                        <div id="template-chat-message-content" class="chat-message-content">
-                            <div class="chat-message-message">
-                                <p id="template-chat-message-text"></p>
-                            </div>
-                            <div id="template-chat-message-username">
+                <li id="template-chat-message-container" class="ui-datascroller-item">
+                    <div class="chat-message-container">
+                        <div id="template-chat-message-box" class="chat-message-box">
+                            <div id="template-chat-message-content" class="chat-message-content">
+                                <div class="chat-message-message">
+                                    <p id="template-chat-message-text"></p>
+                                </div>
+                                <div id="template-chat-message-username">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </li>
+
             </template>
 
 
@@ -111,7 +114,7 @@
                     text.innerHTML += json.text;
                     username.innerHTML += json.userAccount.firstname + " " + json.userAccount.surname + " (" + json.userAccount.roleFormated + ") | " + json.timeFormated;
 
-                    let messages = document.getElementById("messageDiv");
+                    let messages = document.getElementById("webSocketForm:list").getElementsByTagName("ul").item(0);
                     messages.insertBefore(clone, messages.firstChild);
 
                     document.getElementById("webSocketForm:websocketMessageText").innerText = null;
