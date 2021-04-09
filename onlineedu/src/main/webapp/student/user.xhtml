@@ -35,7 +35,7 @@
                     <p:panelGrid columns="2" styleClass="noBorders">
                         <f:facet name="header">
                             <p:outputPanel id="profile-avatar" class="profile-image-container">
-                                <p:graphicImage value="/avatars/user/#{studentUserBackingBean.userAccount.id}" />
+                                <p:graphicImage value="/avatars/user/#{studentUserBackingBean.userAccount.id}" cache="false" />
                                 <p:commandButton styleClass="edit-image-btn ui-button-success rounded-button" icon="pi pi-pencil" oncomplete="PF('manageAvatarDialog').show()" process="@this"/>
                             </p:outputPanel>
                         </f:facet>
