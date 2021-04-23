@@ -35,8 +35,8 @@
     <ui:define name="top-right-menu">
         <div class="column-narrow flex-column">
             <h:form id="login-form">
-                <p:menuButton rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
-                    <p:menuitem outcome="/admin/admins/admin" value="Uživatelský profil" update="messages" icon="pi pi-user">
+                <p:menuButton id="menu-btn" rendered="#{userLogin.loggedIn}" value="#{userBackingBean.loggedInUser.firstname} #{userBackingBean.loggedInUser.surname}">
+                    <p:menuitem id="menu-item-profile" outcome="/admin/admins/admin" value="Uživatelský profil" update="messages" icon="pi pi-user">
                         <f:param name="adminId" value="#{userBackingBean.loggedInUser.id}" />
                     </p:menuitem>
                     <p:separator />
