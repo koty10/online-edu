@@ -86,10 +86,10 @@
       "id": "ae3d40d1-de2e-47c1-9953-d555be190930",
       "comment": "",
       "command": "click",
-      "target": "css=#form\\3A dt-classrooms\\3Aj_idt42 > .ui-button-text",
+      "target": "css=#form\\3A dt-classrooms\\3A btn-add-classroom > .ui-button-text",
       "targets": [
-        ["css=#form\\3A dt-classrooms\\3Aj_idt42 > .ui-button-text", "css:finder"],
-        ["xpath=//button[@id='form:dt-classrooms:j_idt42']/span[2]", "xpath:idRelative"],
+        ["css=#form\\3A dt-classrooms\\3A btn-add-classroom > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:dt-classrooms:btn-add-classroom']/span[2]", "xpath:idRelative"],
         ["xpath=//div/button/span[2]", "xpath:position"],
         ["xpath=//span[contains(.,'Přidat')]", "xpath:innerText"]
       ],
@@ -152,10 +152,10 @@
       "id": "a89127a2-027f-4fb5-9223-fec360b28b73",
       "comment": "",
       "command": "click",
-      "target": "css=#form\\3A dt-teachers\\3Aj_idt42 > .ui-button-text",
+      "target": "css=#form\\3A dt-teachers\\3A btn-add-teacher > .ui-button-text",
       "targets": [
-        ["css=#form\\3A dt-teachers\\3Aj_idt42 > .ui-button-text", "css:finder"],
-        ["xpath=//button[@id='form:dt-teachers:j_idt42']/span[2]", "xpath:idRelative"],
+        ["css=#form\\3A dt-teachers\\3A btn-add-teacher > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:dt-teachers:btn-add-teacher']/span[2]", "xpath:idRelative"],
         ["xpath=//div/button/span[2]", "xpath:position"],
         ["xpath=//span[contains(.,'Přidat')]", "xpath:innerText"]
       ],
@@ -419,10 +419,10 @@
       "id": "3209a6a6-8df4-48ef-ad1a-fbb291a6f69e",
       "comment": "",
       "command": "click",
-      "target": "css=#form\\3A dt-teachings\\3Aj_idt71 > .ui-button-text",
+      "target": "css=#form\\3A dt-teachings\\3A btn-add-teaching > .ui-button-text",
       "targets": [
-        ["css=#form\\3A dt-teachings\\3Aj_idt71 > .ui-button-text", "css:finder"],
-        ["xpath=//button[@id='form:dt-teachings:j_idt71']/span[2]", "xpath:idRelative"],
+        ["css=#form\\3A dt-teachings\\3A btn-add-teaching > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:dt-teachings:btn-add-teaching']/span[2]", "xpath:idRelative"],
         ["xpath=//div/button/span[2]", "xpath:position"],
         ["xpath=//span[contains(.,'Přidat')]", "xpath:innerText"]
       ],
@@ -484,13 +484,13 @@
       ],
       "value": ""
     }, {
-      "id": "7dcef3e5-09ff-4614-8e58-38d3283b7f70",
+      "id": "c630c455-c30f-4312-a64e-9035264ab98b",
       "comment": "",
       "command": "click",
-      "target": "css=#form\\3Aj_idt84 > .ui-button-text",
+      "target": "css=#form\\3A btn-save-teaching > .ui-button-text",
       "targets": [
-        ["css=#form\\3Aj_idt84 > .ui-button-text", "css:finder"],
-        ["xpath=//button[@id='form:j_idt84']/span[2]", "xpath:idRelative"],
+        ["css=#form\\3A btn-save-teaching > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:btn-save-teaching']/span[2]", "xpath:idRelative"],
         ["xpath=//div[3]/span/button/span[2]", "xpath:position"]
       ],
       "value": ""
@@ -522,10 +522,10 @@
       "id": "9ae883cb-0b97-4cd3-ab88-37f2e072e6f9",
       "comment": "",
       "command": "click",
-      "target": "css=#form\\3A dt-teachings\\3Aj_idt65 > .ui-button-text",
+      "target": "css=#form\\3A dt-teachings\\3A btn-add-teaching > .ui-button-text",
       "targets": [
-        ["css=#form\\3A dt-teachings\\3Aj_idt65 > .ui-button-text", "css:finder"],
-        ["xpath=//button[@id='form:dt-teachings:j_idt65']/span[2]", "xpath:idRelative"],
+        ["css=#form\\3A dt-teachings\\3A btn-add-teaching > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:dt-teachings:btn-add-teaching']/span[2]", "xpath:idRelative"],
         ["xpath=//div/button/span[2]", "xpath:position"],
         ["xpath=//span[contains(.,'Přidat')]", "xpath:innerText"]
       ],
@@ -590,13 +590,36 @@
       "id": "dfe1c283-1782-47b1-81a3-0a7f264cfd39",
       "comment": "",
       "command": "click",
-      "target": "css=#form\\3Aj_idt84 > .ui-button-text",
+      "target": "css=#form\\3A btn-save-teaching > .ui-button-text",
       "targets": [
-        ["css=#form\\3Aj_idt84 > .ui-button-text", "css:finder"],
-        ["xpath=//button[@id='form:j_idt84']/span[2]", "xpath:idRelative"],
+        ["css=#form\\3A btn-save-teaching > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:btn-save-teaching']/span[2]", "xpath:idRelative"],
         ["xpath=//div[3]/span/button/span[2]", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "24831110-11c1-4c7e-894e-672d2c48f259",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ui-datatable-odd > td:nth-child(1)",
+      "targets": [
+        ["css=.ui-datatable-odd > td:nth-child(1)", "css:finder"],
+        ["xpath=//tbody[@id='form:dt-teachings_data']/tr[2]/td", "xpath:idRelative"],
+        ["xpath=//div[2]/table/tbody/tr[2]/td", "xpath:position"],
+        ["xpath=//td[contains(.,'Matematika')]", "xpath:innerText"]
+      ],
+      "value": "Matematika"
+    }, {
+      "id": "e3f3bb6a-da92-4b52-8cd8-7fab5128e3b8",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ui-datatable-odd > td:nth-child(2)",
+      "targets": [
+        ["css=.ui-datatable-odd > td:nth-child(2)", "css:finder"],
+        ["xpath=//tbody[@id='form:dt-teachings_data']/tr[2]/td[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/table/tbody/tr[2]/td[2]", "xpath:position"]
+      ],
+      "value": "1. A"
     }]
   }],
   "suites": [{
