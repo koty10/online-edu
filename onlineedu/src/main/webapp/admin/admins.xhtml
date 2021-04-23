@@ -21,7 +21,7 @@
                 <f:facet name="header">
                     <div class="buttonbar">
                         <div>
-                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminAdminBean.initNewAdmin}"
+                            <p:commandButton id="btn-add-admin" value="Přidat" icon="pi pi-plus" actionListener="#{adminAdminBean.initNewAdmin}"
                                              update=":form:manage-admin-content" oncomplete="PF('manageAdminDialog').show()"
                                              styleClass="ui-button-success" style="margin-right: .5rem">
                                 <p:resetInput target=":form:manage-admin-content"/>

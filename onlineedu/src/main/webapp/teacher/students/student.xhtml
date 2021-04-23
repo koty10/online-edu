@@ -91,7 +91,7 @@
             <h:form id="form">
                 <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
                 <p:textEditor id="student-summary-feedback-editor" widgetVar="student-summary-feedback-editor" value="#{teacherStudentBean.getStudentSummaryForRhsTeaching(teacherTeachingBean.teachingId).feedback}" height="300" style="margin-bottom:10px" secure="false"/>
-                <p:commandButton value="Uložit" action="#{teacherStudentBean.saveStudent}" update=":form:msgs" />
+                <p:commandButton id="btn-save-summary" value="Uložit" action="#{teacherStudentBean.saveStudent}" update=":form:msgs" />
             </h:form>
 
         </p:panel>

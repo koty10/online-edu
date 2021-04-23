@@ -56,8 +56,8 @@
                 <p:column>
                     <h3>Zpětná vazba</h3>
                     <p:textEditor widgetVar="editor-feedback" value="#{teacherAttemptBean.attempt.feedback}" height="300" style="margin-bottom:10px" secure="false" />
-                    <p:commandButton style="margin-right:0.5rem;" value="Schválit" icon="pi pi-thumbs-up" styleClass="ui-button-success" action="#{teacherAttemptBean.acceptAttempt}" update=":form:msgs state-label"/>
-                    <p:commandButton value="Vrátit k přepracování" icon="pi pi-thumbs-down" styleClass="ui-button-warning" action="#{teacherAttemptBean.returnAttempt}" update=":form:msgs state-label"/>
+                    <p:commandButton id="btn-accept" style="margin-right:0.5rem;" value="Schválit" icon="pi pi-thumbs-up" styleClass="ui-button-success" action="#{teacherAttemptBean.acceptAttempt}" update=":form:msgs state-label"/>
+                    <p:commandButton id="btn-return" value="Vrátit k přepracování" icon="pi pi-thumbs-down" styleClass="ui-button-warning" action="#{teacherAttemptBean.returnAttempt}" update=":form:msgs state-label"/>
                 </p:column>
 
             </p:panelGrid>

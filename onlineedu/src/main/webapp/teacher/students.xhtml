@@ -38,7 +38,7 @@
                 <f:facet name="header">
                     <div class="buttonbar">
                         <div>
-                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{teacherStudentBean.initNewStudent}"
+                            <p:commandButton id="btn-add-student" value="Přidat" icon="pi pi-plus" actionListener="#{teacherStudentBean.initNewStudent}"
                                              update=":form:manage-student-content" oncomplete="PF('manageStudentDialog').show()"
                                              styleClass="ui-button-success" style="margin-right: .5rem">
                                 <p:resetInput target=":form:manage-student-content"/>

@@ -5,7 +5,7 @@
   "url": "http://localhost:8780",
   "tests": [{
     "id": "82d6f15c-265f-4eda-92d4-02054736b1f8",
-    "name": "create classroom",
+    "name": "001 create classroom",
     "commands": [{
       "id": "04b179a2-ea3a-4914-af52-22104db620d0",
       "comment": "",
@@ -133,7 +133,7 @@
     }]
   }, {
     "id": "b31a3732-1dcd-4440-b5ff-3f9cf94cc465",
-    "name": "create teacher",
+    "name": "002 create teacher",
     "commands": [{
       "id": "eb2453f9-75ab-4b01-ab8b-8dc70804b575",
       "comment": "",
@@ -389,7 +389,7 @@
     }]
   }, {
     "id": "56998120-2f7f-40f5-9c86-585f1c933f95",
-    "name": "add teachings to teacher",
+    "name": "003 add teachings to teacher",
     "commands": [{
       "id": "9302bfe2-6291-469f-ab2e-ee26efdaba0a",
       "comment": "",
@@ -419,10 +419,10 @@
       "id": "3209a6a6-8df4-48ef-ad1a-fbb291a6f69e",
       "comment": "",
       "command": "click",
-      "target": "css=#form\\3A dt-teachings\\3Aj_idt65 > .ui-button-text",
+      "target": "css=#form\\3A dt-teachings\\3Aj_idt71 > .ui-button-text",
       "targets": [
-        ["css=#form\\3A dt-teachings\\3Aj_idt65 > .ui-button-text", "css:finder"],
-        ["xpath=//button[@id='form:dt-teachings:j_idt65']/span[2]", "xpath:idRelative"],
+        ["css=#form\\3A dt-teachings\\3Aj_idt71 > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:dt-teachings:j_idt71']/span[2]", "xpath:idRelative"],
         ["xpath=//div/button/span[2]", "xpath:position"],
         ["xpath=//span[contains(.,'Přidat')]", "xpath:innerText"]
       ],

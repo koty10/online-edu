@@ -223,7 +223,7 @@
             </h:panelGroup>
 
             <p:textEditor id="new-task-editor" placeholder="Prázdné zadání..." widgetVar="new-task-editor" value="#{teacherTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Text zadání je povinné pole"/>
-            <p:commandButton value="Vytvořit" action="#{teacherTaskBean.createTask('normal')}" update=":table-form:tab-view:data-table-completed-tasks :table-form:tab-view:data-table-tasks :form-new-task :form-new-task:msgs" />
+            <p:commandButton id="btn-add-task" value="Vytvořit" action="#{teacherTaskBean.createTask('normal')}" update=":table-form:tab-view:data-table-completed-tasks :table-form:tab-view:data-table-tasks :form-new-task :form-new-task:msgs" />
         </h:form>
 
 

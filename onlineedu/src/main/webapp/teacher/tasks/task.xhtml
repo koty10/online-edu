@@ -79,7 +79,7 @@
         <h:form id="form-task-text">
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
             <p:textEditor widgetVar="editor-task" value="#{teacherTaskBean.task.text}" height="300" style="margin-bottom:10px" secure="false" />
-            <p:commandButton value="Uložit" action="#{teacherTaskBean.updateTaskText}" update=":form-task-text:msgs" />
+            <p:commandButton id="btn-save-task" value="Uložit" action="#{teacherTaskBean.updateTaskText}" update=":form-task-text:msgs" />
         </h:form>
 
     </ui:define>

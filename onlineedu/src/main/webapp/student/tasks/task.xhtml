@@ -37,7 +37,7 @@
                     <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
                     <p:textEditor widgetVar="editor-attempt" value="#{studentTaskBean.attemptText}" height="300" style="margin-bottom:10px" secure="false" required="true" requiredMessage="Řešení úkolu je povinné pole"/>
 
-                    <p:commandButton value="Odeslat" action="#{studentTaskBean.createAttempt()}" update=":form-attempt:msgs" />
+                    <p:commandButton id="btn-add-attempt" value="Odeslat" action="#{studentTaskBean.createAttempt()}" update=":form-attempt:msgs" />
 
                 </h:form>
 

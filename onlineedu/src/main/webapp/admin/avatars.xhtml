@@ -22,7 +22,7 @@
                 <f:facet name="header">
                     <div class="buttonbar">
                         <div>
-                            <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminAvatarBean.initNewAvatar}"
+                            <p:commandButton id="btn-add-avatar" value="Přidat" icon="pi pi-plus" actionListener="#{adminAvatarBean.initNewAvatar}"
                                              update=":form:manage-avatar-content" oncomplete="PF('manageAvatarDialog').show()"
                                              styleClass="ui-button-success" style="margin-right: .5rem">
                                 <p:resetInput target=":form:manage-avatar-content"/>
