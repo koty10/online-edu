@@ -621,6 +621,486 @@
       ],
       "value": "1. A"
     }]
+  }, {
+    "id": "b1636a0e-72c9-43a8-ba58-03957f98d656",
+    "name": "004 create students",
+    "commands": [{
+      "id": "c951cc15-6ff9-4f10-9401-c8d6403e9542",
+      "comment": "",
+      "command": "open",
+      "target": "/admin/students",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c011f1bc-fb79-48d6-ac31-925b8a41c05c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "957x919",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c47fb860-173b-456b-bdcb-adf6901ae12f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#form\\3A dt-students\\3A btn-add-student > .ui-button-text",
+      "targets": [
+        ["css=#form\\3A dt-students\\3A btn-add-student > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:dt-students:btn-add-student']/span[2]", "xpath:idRelative"],
+        ["xpath=//div/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Přidat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e7f9e364-5d03-48d3-86af-d3b8faeb3efe",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:firstname",
+      "targets": [
+        ["id=form:firstname", "id"],
+        ["name=form:firstname", "name"],
+        ["css=#form\\3A firstname", "css:finder"],
+        ["xpath=//input[@id='form:firstname']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div/input", "xpath:idRelative"],
+        ["xpath=//div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b1506a9b-3c09-4f55-872a-0c9719d41359",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:firstname",
+      "targets": [
+        ["id=form:firstname", "id"],
+        ["name=form:firstname", "name"],
+        ["css=#form\\3A firstname", "css:finder"],
+        ["xpath=//input[@id='form:firstname']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div/input", "xpath:idRelative"],
+        ["xpath=//div/div/input", "xpath:position"]
+      ],
+      "value": "Jane"
+    }, {
+      "id": "1f340a12-8eff-42ac-b55b-294fc7cd10fc",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:surname",
+      "targets": [
+        ["id=form:surname", "id"],
+        ["name=form:surname", "name"],
+        ["css=#form\\3Asurname", "css:finder"],
+        ["xpath=//input[@id='form:surname']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Roe"
+    }, {
+      "id": "f5fa2f1d-91ad-4200-9671-5169ae5db41c",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:gender_label",
+      "targets": [
+        ["id=form:gender_label", "id"],
+        ["css=#form\\3Agender_label", "css:finder"],
+        ["xpath=//label[@id='form:gender_label']", "xpath:attributes"],
+        ["xpath=//div[@id='form:gender']/label", "xpath:idRelative"],
+        ["xpath=//div[3]/div/label", "xpath:position"],
+        ["xpath=//label[contains(.,'-- zvolit --')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "53ace082-1833-4492-ba95-16f000aede68",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:gender_2",
+      "targets": [
+        ["id=form:gender_2", "id"],
+        ["css=#form\\3Agender_2", "css:finder"],
+        ["xpath=//li[@id='form:gender_2']", "xpath:attributes"],
+        ["xpath=//ul[@id='form:gender_items']/li[3]", "xpath:idRelative"],
+        ["xpath=//div[8]/div/ul/li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'Žena')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "54803f0d-78df-4d92-abc0-e40f52f55032",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:phone",
+      "targets": [
+        ["id=form:phone", "id"],
+        ["name=form:phone", "name"],
+        ["css=#form\\3Aphone", "css:finder"],
+        ["xpath=//input[@id='form:phone']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[4]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f2bb0cb-b4b4-4c22-8d6a-c33993bf7565",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:phone",
+      "targets": [
+        ["id=form:phone", "id"],
+        ["name=form:phone", "name"],
+        ["css=#form\\3Aphone", "css:finder"],
+        ["xpath=//input[@id='form:phone']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[4]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "111111111"
+    }, {
+      "id": "03515d0b-c78f-4eb3-8a5a-7175b952b2fd",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:email",
+      "targets": [
+        ["id=form:email", "id"],
+        ["name=form:email", "name"],
+        ["css=#form\\3A email", "css:finder"],
+        ["xpath=//input[@id='form:email']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[5]/input", "xpath:idRelative"],
+        ["xpath=//div[5]/input", "xpath:position"]
+      ],
+      "value": "jane@example.com"
+    }, {
+      "id": "560f5d0a-3009-40a5-9ddf-e40b7358b440",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:street",
+      "targets": [
+        ["id=form:street", "id"],
+        ["name=form:street", "name"],
+        ["css=#form\\3Astreet", "css:finder"],
+        ["xpath=//input[@id='form:street']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[6]/input", "xpath:idRelative"],
+        ["xpath=//div[6]/input", "xpath:position"]
+      ],
+      "value": "Technická 1902/2"
+    }, {
+      "id": "e2bacb2b-d763-4f7b-bbf6-919abcaba59c",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:zip",
+      "targets": [
+        ["id=form:zip", "id"],
+        ["name=form:zip", "name"],
+        ["css=#form\\3Azip", "css:finder"],
+        ["xpath=//input[@id='form:zip']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[7]/input", "xpath:idRelative"],
+        ["xpath=//div[7]/input", "xpath:position"]
+      ],
+      "value": "166 27"
+    }, {
+      "id": "bd4c8e9e-64cf-4e4d-abba-a6ff304ed1ae",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:city",
+      "targets": [
+        ["id=form:city", "id"],
+        ["name=form:city", "name"],
+        ["css=#form\\3A city", "css:finder"],
+        ["xpath=//input[@id='form:city']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[8]/input", "xpath:idRelative"],
+        ["xpath=//div[8]/input", "xpath:position"]
+      ],
+      "value": "Praha 6 - Dejvice-Praha 6"
+    }, {
+      "id": "3bf063ab-156f-4dc0-a78e-c63f8a0fb39e",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:birthday_input",
+      "targets": [
+        ["id=form:birthday_input", "id"],
+        ["name=form:birthday_input", "name"],
+        ["css=#form\\3A birthday_input", "css:finder"],
+        ["xpath=//input[@id='form:birthday_input']", "xpath:attributes"],
+        ["xpath=//span[@id='form:birthday']/input", "xpath:idRelative"],
+        ["xpath=//span/input", "xpath:position"]
+      ],
+      "value": "11.11.2005"
+    }, {
+      "id": "e475ab99-7317-450e-aa68-084102978278",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:classroom_label",
+      "targets": [
+        ["id=form:classroom_label", "id"],
+        ["css=#form\\3A classroom_label", "css:finder"],
+        ["xpath=//label[@id='form:classroom_label']", "xpath:attributes"],
+        ["xpath=//div[@id='form:classroom']/label", "xpath:idRelative"],
+        ["xpath=//div[10]/div/label", "xpath:position"],
+        ["xpath=//label[contains(.,'-- zvolit --')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c2e6c7f-9187-4bf5-86cc-ace4e2ca1e6e",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:classroom_1",
+      "targets": [
+        ["id=form:classroom_1", "id"],
+        ["css=#form\\3A classroom_1", "css:finder"],
+        ["xpath=//li[@id='form:classroom_1']", "xpath:attributes"],
+        ["xpath=//ul[@id='form:classroom_items']/li[2]", "xpath:idRelative"],
+        ["xpath=//div[10]/div/ul/li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'1. A')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aefa83cc-474d-4113-b1ec-06bffc486d41",
+      "comment": "",
+      "command": "click",
+      "target": "css=#form\\3Asave-command-button > .ui-button-text",
+      "targets": [
+        ["css=#form\\3Asave-command-button > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:save-command-button']/span[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/span/button/span[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f2edd848-1e07-465b-aff1-a887f5ebc1ca",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ui-widget-content > td:nth-child(1)",
+      "targets": [
+        ["css=.ui-widget-content > td:nth-child(1)", "css:finder"],
+        ["xpath=//tbody[@id='form:dt-students_data']/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'jane.roe')]", "xpath:innerText"]
+      ],
+      "value": "jane.roe"
+    }, {
+      "id": "bd091512-1af2-47ba-b7bd-eae72ce28046",
+      "comment": "",
+      "command": "click",
+      "target": "css=#form\\3A dt-students\\3A btn-add-student > .ui-button-text",
+      "targets": [
+        ["css=#form\\3A dt-students\\3A btn-add-student > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:dt-students:btn-add-student']/span[2]", "xpath:idRelative"],
+        ["xpath=//div/button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Přidat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "42d37e1b-38e1-40ca-a734-bbb48591af8f",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:firstname",
+      "targets": [
+        ["id=form:firstname", "id"],
+        ["name=form:firstname", "name"],
+        ["css=#form\\3A firstname", "css:finder"],
+        ["xpath=//input[@id='form:firstname']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div/input", "xpath:idRelative"],
+        ["xpath=//div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "92ed2e98-6a88-49ba-aa5a-e04a1e33c7bd",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:firstname",
+      "targets": [
+        ["id=form:firstname", "id"],
+        ["name=form:firstname", "name"],
+        ["css=#form\\3A firstname", "css:finder"],
+        ["xpath=//input[@id='form:firstname']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div/input", "xpath:idRelative"],
+        ["xpath=//div/div/input", "xpath:position"]
+      ],
+      "value": "Richard"
+    }, {
+      "id": "75fd7d45-b065-444c-9c4e-b5cfdc3e9fda",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:surname",
+      "targets": [
+        ["id=form:surname", "id"],
+        ["name=form:surname", "name"],
+        ["css=#form\\3Asurname", "css:finder"],
+        ["xpath=//input[@id='form:surname']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Moe"
+    }, {
+      "id": "30e188a5-6c92-43b1-a4f0-4912b00fa68c",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:gender_label",
+      "targets": [
+        ["id=form:gender_label", "id"],
+        ["css=#form\\3Agender_label", "css:finder"],
+        ["xpath=//label[@id='form:gender_label']", "xpath:attributes"],
+        ["xpath=//div[@id='form:gender']/label", "xpath:idRelative"],
+        ["xpath=//div[3]/div/label", "xpath:position"],
+        ["xpath=//label[contains(.,'-- zvolit --')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3c56329e-1199-4a0b-93d3-320503cd7f08",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:gender_1",
+      "targets": [
+        ["id=form:gender_1", "id"],
+        ["css=#form\\3Agender_1", "css:finder"],
+        ["xpath=//li[@id='form:gender_1']", "xpath:attributes"],
+        ["xpath=//ul[@id='form:gender_items']/li[2]", "xpath:idRelative"],
+        ["xpath=//div[9]/div/ul/li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'Muž')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c06f108b-e83e-470c-88ce-9b16b0917d58",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:phone",
+      "targets": [
+        ["id=form:phone", "id"],
+        ["name=form:phone", "name"],
+        ["css=#form\\3Aphone", "css:finder"],
+        ["xpath=//input[@id='form:phone']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[4]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b3d9e796-42fa-4407-830a-47905d60f404",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:phone",
+      "targets": [
+        ["id=form:phone", "id"],
+        ["name=form:phone", "name"],
+        ["css=#form\\3Aphone", "css:finder"],
+        ["xpath=//input[@id='form:phone']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[4]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "222222222"
+    }, {
+      "id": "3a330049-ba8f-4a92-a71c-11b3a248e35f",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:email",
+      "targets": [
+        ["id=form:email", "id"],
+        ["name=form:email", "name"],
+        ["css=#form\\3A email", "css:finder"],
+        ["xpath=//input[@id='form:email']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[5]/input", "xpath:idRelative"],
+        ["xpath=//div[5]/input", "xpath:position"]
+      ],
+      "value": "moe@example.com"
+    }, {
+      "id": "486c9dc9-be45-4cbe-a5b3-88a3b5a421ee",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:street",
+      "targets": [
+        ["id=form:street", "id"],
+        ["name=form:street", "name"],
+        ["css=#form\\3Astreet", "css:finder"],
+        ["xpath=//input[@id='form:street']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[6]/input", "xpath:idRelative"],
+        ["xpath=//div[6]/input", "xpath:position"]
+      ],
+      "value": "Karlovo náměstí 13"
+    }, {
+      "id": "157c99c2-d976-40ff-9ed7-bd1d5b0c14ea",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:zip",
+      "targets": [
+        ["id=form:zip", "id"],
+        ["name=form:zip", "name"],
+        ["css=#form\\3Azip", "css:finder"],
+        ["xpath=//input[@id='form:zip']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[7]/input", "xpath:idRelative"],
+        ["xpath=//div[7]/input", "xpath:position"]
+      ],
+      "value": "121 35"
+    }, {
+      "id": "6543751d-2f18-4dbc-8882-fa3914cc3488",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:city",
+      "targets": [
+        ["id=form:city", "id"],
+        ["name=form:city", "name"],
+        ["css=#form\\3A city", "css:finder"],
+        ["xpath=//input[@id='form:city']", "xpath:attributes"],
+        ["xpath=//div[@id='form:j_idt70']/div[8]/input", "xpath:idRelative"],
+        ["xpath=//div[8]/input", "xpath:position"]
+      ],
+      "value": "Praha 2 - Nové Město"
+    }, {
+      "id": "cf0b2516-c5cd-498d-94b3-fe7ac3c426a8",
+      "comment": "",
+      "command": "type",
+      "target": "id=form:birthday_input",
+      "targets": [
+        ["id=form:birthday_input", "id"],
+        ["name=form:birthday_input", "name"],
+        ["css=#form\\3A birthday_input", "css:finder"],
+        ["xpath=//input[@id='form:birthday_input']", "xpath:attributes"],
+        ["xpath=//span[@id='form:birthday']/input", "xpath:idRelative"],
+        ["xpath=//span/input", "xpath:position"]
+      ],
+      "value": "10.10.2004"
+    }, {
+      "id": "3c4259bd-94c8-4376-acbf-77a75957456f",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:classroom_label",
+      "targets": [
+        ["id=form:classroom_label", "id"],
+        ["css=#form\\3A classroom_label", "css:finder"],
+        ["xpath=//label[@id='form:classroom_label']", "xpath:attributes"],
+        ["xpath=//div[@id='form:classroom']/label", "xpath:idRelative"],
+        ["xpath=//div[10]/div/label", "xpath:position"],
+        ["xpath=//label[contains(.,'-- zvolit --')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cd756739-0a7f-4d7c-9216-bdfb462dd975",
+      "comment": "",
+      "command": "click",
+      "target": "id=form:classroom_1",
+      "targets": [
+        ["id=form:classroom_1", "id"],
+        ["css=#form\\3A classroom_1", "css:finder"],
+        ["xpath=//li[@id='form:classroom_1']", "xpath:attributes"],
+        ["xpath=//ul[@id='form:classroom_items']/li[2]", "xpath:idRelative"],
+        ["xpath=//div[11]/div/ul/li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'1. A')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8ada6278-7358-4a0b-bb99-9fedac4d162a",
+      "comment": "",
+      "command": "click",
+      "target": "css=#form\\3Asave-command-button > .ui-button-text",
+      "targets": [
+        ["css=#form\\3Asave-command-button > .ui-button-text", "css:finder"],
+        ["xpath=//button[@id='form:save-command-button']/span[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/span/button/span[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "47e98a9a-1474-429a-b69f-c69c9fbf5ee6",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ui-datatable-odd > td:nth-child(1)",
+      "targets": [
+        ["css=.ui-datatable-odd > td:nth-child(1)", "css:finder"],
+        ["xpath=//tbody[@id='form:dt-students_data']/tr[2]/td", "xpath:idRelative"],
+        ["xpath=//tr[2]/td", "xpath:position"],
+        ["xpath=//td[contains(.,'richard.moe')]", "xpath:innerText"]
+      ],
+      "value": "richard.moe"
+    }]
   }],
   "suites": [{
     "id": "bc93e1a7-cf95-4281-a06c-9a6bf36a0826",
