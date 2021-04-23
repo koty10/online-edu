@@ -126,9 +126,9 @@
                 </p:outputPanel>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Uložit" icon="pi pi-check" actionListener="#{adminTeachingBean.saveTeaching(adminTeacherBean.teacher)}"
+                    <p:commandButton id="btn-save-teaching" value="Uložit" icon="pi pi-check" actionListener="#{adminTeachingBean.saveTeaching(adminTeacherBean.teacher)}"
                                      update="manage-teaching-content messages" process="manage-teaching-content @this"/>
-                    <p:commandButton value="Zrušit" icon="pi pi-times" onclick="PF('manageTeachingDialog').hide()"
+                    <p:commandButton id="btn-close" value="Zrušit" icon="pi pi-times" onclick="PF('manageTeachingDialog').hide()"
                                      class="ui-button-secondary"/>
                 </f:facet>
             </p:dialog>
