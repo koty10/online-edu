@@ -36,7 +36,7 @@
                         <h:outputText value="#{adminTeacherBean.teacher.userAccount.firstname} #{adminTeacherBean.teacher.userAccount.surname}"/>
 
                         <h:outputText value="Pohlaví:"/>
-                        <h:outputText value="#{adminTeacherBean.teacher.genderFormatted}"/>
+                        <h:outputText value="#{adminTeacherBean.teacher.userAccount.genderFormatted}"/>
 
                         <h:outputText value="Email:"/>
                         <h:outputText value="#{adminTeacherBean.teacher.userAccount.email}"/>
@@ -80,7 +80,7 @@
                                 <div>
                                     <p:commandButton value="Přidat" icon="pi pi-plus" actionListener="#{adminTeachingBean.initNewTeaching}"
                                                      update=":form:manage-teaching-content" oncomplete="PF('manageTeachingDialog').show()"
-                                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                                                     styleClass="ui-button-success" style="margin-right: .5rem" process="@this">
                                         <p:resetInput target=":form:manage-teaching-content"/>
                                     </p:commandButton>
                                 </div>
