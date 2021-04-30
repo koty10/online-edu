@@ -1,5 +1,6 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>Přihlášení</title>
@@ -27,7 +28,9 @@
                         <input class="input" type="password" name="j_password" />
                     </div>
                 </div>
-                <a href="#">Zapomenuté heslo?</a>
+                <ui:fragment rendered="false">
+                    <a href="#">Zapomenuté heslo?</a>
+                </ui:fragment>
                 <input type="submit" class="btn" value="Přihlásit" />
             </form>
         </div>
