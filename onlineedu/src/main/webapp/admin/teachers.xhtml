@@ -72,14 +72,14 @@
 
                 <p:column style="width:5rem;text-align: center" exportable="false">
 
-                    <p:commandButton icon="pi pi-pencil" update=":form:manage-teacher-content"
+                    <p:commandButton id="btn-teacher-edit-#{teacher.id}" icon="pi pi-pencil" update=":form:manage-teacher-content"
                                      oncomplete="PF('manageTeacherDialog').show()"
                                      styleClass="ui-button-success" style="margin-right: 0.25rem;" process="@this">
                         <f:setPropertyActionListener value="#{teacher}" target="#{adminTeacherBean.teacher}"/>
                         <p:resetInput target=":form:manage-teacher-content"/>
                     </p:commandButton>
 
-                    <p:linkButton outcome="/admin/teachers/teacher" icon="pi pi-search" title="Detail">
+                    <p:linkButton id="btn-teacher-detail-#{teacher.id}" outcome="/admin/teachers/teacher" icon="pi pi-search" title="Detail">
                         <f:param name="teacherId" value="#{teacher.id}" />
                     </p:linkButton>
 

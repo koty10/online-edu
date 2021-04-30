@@ -49,14 +49,14 @@
 
                 <p:column style="width:5rem;text-align: center" exportable="false">
 
-                    <p:commandButton icon="pi pi-pencil" update=":form:manage-classroom-content"
+                    <p:commandButton id="btn-classroom-edit-#{classroom.id}" icon="pi pi-pencil" update=":form:manage-classroom-content"
                                      oncomplete="PF('manageClassroomDialog').show()"
                                      styleClass="ui-button-success" style="margin-right: 0.25rem;" process="@this">
                         <f:setPropertyActionListener value="#{classroom}" target="#{adminClassroomBean.classroom}"/>
                         <p:resetInput target=":form:manage-classroom-content"/>
                     </p:commandButton>
 
-                    <p:linkButton outcome="/admin/classrooms/classroom" icon="pi pi-search" title="Detail">
+                    <p:linkButton id="btn-classroom-detail-#{classroom.id}" outcome="/admin/classrooms/classroom" icon="pi pi-search" title="Detail">
                         <f:param name="classroomId" value="#{classroom.id}" />
                     </p:linkButton>
 
