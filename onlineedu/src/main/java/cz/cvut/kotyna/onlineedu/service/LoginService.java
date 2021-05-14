@@ -24,7 +24,6 @@ public class LoginService {
     @PersistenceContext
     EntityManager em;
 
-    //TODO?
     public UserAccount getLoggedInUser() {
         try {
             Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
@@ -37,21 +36,5 @@ public class LoginService {
         catch(NoResultException e) {
             return null;
         }
-    }
-
-    //FIXME smazat
-    public List<String> getPasswordsHashed() {
-        List<String> strings = new ArrayList<>();
-        for (UserAccount userAccount : em.createNamedQuery(UserAccount.FIND_ALL, UserAccount.class).getResultList()) {
-            try {
-                userAccount.setPassword(AuthService.encodeSHA256(userAccount.getUsername(), ""));
-                em.persist(userAccount);
-                strings.add("SHA256 for '" + userAccount.getUsername() + "' = '" + AuthService.encodeSHA256(userAccount.getUsername(), "") + "'");
-            }
-            catch (Exception e) {
-                return new ArrayList<>();
-            }
-        }
-        return strings;
     }
 }

@@ -20,7 +20,6 @@ public class UsersAvatarServlet extends HttpServlet {
     @EJB
     private UserService userService;
 
-    // TODO if teacher and gender
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {

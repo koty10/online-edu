@@ -89,11 +89,6 @@ public class UserBackingBean implements Serializable {
         }
     }
 
-    //FIXME smazat - jen pro testovani
-    public List<String> getPasswordsHashed() {
-        return loginService.getPasswordsHashed();
-    }
-
 
     // Getters & Setters
 
