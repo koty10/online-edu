@@ -6,6 +6,17 @@ create table classroom
     name varchar(64) not null
 );
 
+create table avatar
+(
+    id              serial            not null
+        constraint avatar_pk
+            primary key,
+    blob            bytea             not null,
+    file_extension  varchar(64)       not null,
+    name            varchar(128)      not null,
+    price_per_month integer default 0 not null
+);
+
 create table user_account
 (
     id       serial       not null
@@ -24,9 +35,27 @@ create table user_account
     street     varchar(128),
     zip        varchar(32),
     phone      varchar(64),
-    city       varchar(128)
+    city       varchar(128),
+	gender     varchar(32) not null
 );
-   
+
+create table users_avatar
+(
+    id           serial                not null
+        constraint users_avatar_pk
+            primary key,
+    user_account integer               not null
+        constraint users_avatar_fk_user_account
+            references user_account
+            on update cascade on delete cascade,
+    avatar       integer               not null
+        constraint users_avatar_fk_avatar
+            references avatar
+            on update cascade on delete cascade,
+    time_to      timestamp             not null,
+    active       boolean default false not null
+);
+
 create table teacher
 (
     id         serial       not null
@@ -56,7 +85,8 @@ create table student
         constraint user_account_fk
             references user_account
             on update cascade on delete cascade,
-    points       integer default 0 not null
+    points       integer default 0 not null,
+    total_points integer default 0 not null
 );
 
 create table parent
